@@ -5,6 +5,8 @@ const dataDelUsuario_ls="dataDelUsuario_"+nombreDelSitio;
 const minSillasPorMesa=2;
 const maxSillasPorMesa=6;
 
+const caminoBackEnd = "../../Resto/API/"
+//       url = "../../server/admin/informes/mesas/facturacion"; 
 
 function formatDate(date) {
     var d = new Date(date),

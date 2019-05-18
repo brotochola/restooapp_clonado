@@ -10,6 +10,20 @@
                     </div>
                 </div>
                 <div class="row">
+                        <div class="col-12">
+                            <div class="info">
+                                <input id="email" placeholder="E-mail">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-12">
+                                <div class="info">
+                                    <input id="usuario" placeholder="Usuario Resto App">
+                                </div>
+                            </div>
+                        </div>
+                <div class="row">
                     <div class="col-6 inf-add">
                         <div class="info"> DNI</div>
                     </div>
@@ -62,12 +76,12 @@
                             <!--     var rolesEmpleados=[null, "Bartender", "Cervecerx", "Cocinerx", "Camarerx", "Admin", "Candybar"];-->
                             <select id="rol">
                                 <option value="0">-</option>
-                                <option value="1">Bartender</option>
-                                <option value="2">Cervecerx</option>
-                                <option value="3">Cocinerx</option>
-                                <option value="4">Camarerx</option>
-                                <option value="5">Admin</option>
-                                <option value="6">Candybar</option>
+                                <option value="1">Socio</option>
+                                <option value="2">Camarerx</option>
+                                <option value="3">Bartender</option>
+                                <option value="4">Cervecerx</option>
+                                <option value="5">Cocinerx</option>
+                                <option value="6">Candybar</option>                                
                             </select>
                         </div>
                     </div>
@@ -101,13 +115,17 @@
     </div>
 </div>
 <script>
+
+    idEmpleadoActual = -1;
+
 function mostrarAgregarVerEmpleado(id) {
-    emp = id2i(id, empleados)
-    empleado = empleados[emp]
-    console.log(empleado)
-    if (emp == -1) {
+
+    empleado = traerEmpleadoPorId(id);
+    idEmpleadoActual = id;
+
+    if (empleado == -1){
         console.log("agregar empleado")
-        //agregar
+
         $("#botonAgregarEmpleado").html("Agregar")
         $("#nombre").val("")
         $("#dni").val("")
@@ -117,9 +135,11 @@ function mostrarAgregarVerEmpleado(id) {
 
     } else {
         console.log("modificar empleado")
-        //ver/modificar
+
         $("#botonAgregarEmpleado").html("Modificar")
         $("#nombre").val(empleado.nombre_completo)
+        $("#usuario").val(empleado.usuario)
+        $("#email").val(empleado.email)
         $("#dni").val(empleado.dni)
         $("#fechaNac").val(formatDate(empleado.fecha_nac))
         $("#fechaContratacion").val(formatDate(empleado.fecha_ingreso))
@@ -141,16 +161,20 @@ function mostrarAgregarVerEmpleado(id) {
 function modificarEmpleado(){
     console.log("modificar empleado")
      empleado={};
-    empleado.nombre= $("#nombre").val();
+     empleado.id_empleado = idEmpleadoActual;
+    empleado.nombre_completo= $("#nombre").val();
     empleado.dni=$("#dni").val();
+    empleado.usuario=$("#usuario").val();
+    empleado.email=$("#email").val();
     empleado.sueldo=$("#sueldo").val();
-    empleado.rol=$("#rol").val();
+    empleado.id_rol=$("#rol").val();
     empleado.habilitado=$("#habilitado").val();
-    empleado.fechaNac=$("#fechaNac").val();
-    empleado.fechaContratacion=$("#fechaContratacion").val();
+    empleado.fecha_nac=$("#fechaNac").val();
+    empleado.fecha_ingreso=$("#fechaContratacion").val();
      console.log(empleado)
       $.ajax({
-        url:"../../server/admin/empleados/modificar",
+       // url:"../../server/admin/empleados/modificar",
+       url: caminoBackEnd + "empleados/modificar",
         headers:{
             token: localStorage[usuarioLogueado_ls]
         },
@@ -173,17 +197,23 @@ function modificarEmpleado(){
 
 function agregarEmpleado(){
     console.log("agregar empleado")
+
     empleado={};
-    empleado.nombre= $("#nombre").val();
+    empleado.nombre_completo= $("#nombre").val();
+    empleado.usuario= $("#usuario").val();
+    empleado.email= $("#email").val();
     empleado.dni=$("#dni").val();
     empleado.sueldo=$("#sueldo").val();
-    empleado.rol=$("#rol").val();
+    empleado.id_rol=$("#rol").val();
     empleado.habilitado=$("#habilitado").val();
-    empleado.fechaNac=$("#fechaNac").val();
-    empleado.fechaContratacion=$("#fechaContratacion").val();
+    empleado.fecha_nac=$("#fechaNac").val();
+    empleado.fecha_ingreso=$("#fechaContratacion").val();
      console.log(empleado)
-    $.ajax({
-        url:"../../server/admin/empleados/agregar",
+   
+     $.ajax({
+
+        url: caminoBackEnd + "empleados/alta",
+        //url:"../../server/admin/empleados/agregar",
         headers:{
             token: localStorage[usuarioLogueado_ls]
         },

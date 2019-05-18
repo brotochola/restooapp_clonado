@@ -1,0 +1,92 @@
+[
+  {
+    "id": 0,
+    "sillas": 5,
+    "cant_usos": 20,
+    "cant_comensales": 75
+  },
+  {
+    "id": 1,
+    "sillas": 6,
+    "cant_usos": 20,
+    "cant_comensales": 21
+  },
+  {
+    "id": 2,
+    "sillas": 3,
+    "cant_usos": 18,
+    "cant_comensales": 64
+  },
+  {
+    "id": 3,
+    "sillas": 3,
+    "cant_usos": 7,
+    "cant_comensales": 49
+  },
+  {
+    "id": 4,
+    "sillas": 4,
+    "cant_usos": 10,
+    "cant_comensales": 56
+  },
+  {
+    "id": 5,
+    "sillas": 2,
+    "cant_usos": 6,
+    "cant_comensales": 72
+  },
+  {
+    "id": 6,
+    "sillas": 5,
+    "cant_usos": 9,
+    "cant_comensales": 42
+  },
+  {
+    "id": 7,
+    "sillas": 2,
+    "cant_usos": 14,
+    "cant_comensales": 21
+  },
+  {
+    "id": 8,
+    "sillas": 6,
+    "cant_usos": 4,
+    "cant_comensales": 42
+  },
+  {
+    "id": 9,
+    "sillas": 5,
+    "cant_usos": 9,
+    "cant_comensales": 79
+  },
+  {
+    "id": 10,
+    "sillas": 4,
+    "cant_usos": 15,
+    "cant_comensales": 35
+  },
+  {
+    "id": 11,
+    "sillas": 4,
+    "cant_usos": 13,
+    "cant_comensales": 77
+  },
+  {
+    "id": 12,
+    "sillas": 4,
+    "cant_usos": 4,
+    "cant_comensales": 52
+  },
+  {
+    "id": 13,
+    "sillas": 6,
+    "cant_usos": 12,
+    "cant_comensales": 79
+  },
+  {
+    "id": 14,
+    "sillas": 5,
+    "cant_usos": 11,
+    "cant_comensales": 41
+  }
+]

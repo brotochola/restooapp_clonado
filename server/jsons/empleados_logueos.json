@@ -1,0 +1,410 @@
+[
+    {
+        "id": "1",
+        "id_empleado": "1",
+        "fecha": "2018-07-22 00:00:00",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "2",
+        "id_empleado": "1",
+        "fecha": "2018-07-22 00:00:00",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "3",
+        "id_empleado": "1",
+        "fecha": "2018-07-22 00:00:00",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "4",
+        "id_empleado": "1",
+        "fecha": "2018-07-22 00:00:00",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "9",
+        "id_empleado": "2",
+        "fecha": "2018-07-22 00:54:54",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "10",
+        "id_empleado": "1",
+        "fecha": "2018-07-22 00:58:39",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "12",
+        "id_empleado": "2",
+        "fecha": "2018-07-22 01:06:55",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "14",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 20:50:57",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "15",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 20:51:07",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "16",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 20:59:51",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "17",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:00:45",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "18",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:01:19",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "19",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:01:58",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "20",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:02:31",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "21",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:02:48",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "25",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:19:26",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "26",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:19:30",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "27",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:40:08",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "28",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:40:25",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "29",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 21:40:53",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "30",
+        "id_empleado": "1",
+        "fecha": "2018-07-23 23:13:38",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "31",
+        "id_empleado": "2",
+        "fecha": "2018-07-23 23:13:52",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "36",
+        "id_empleado": "2",
+        "fecha": "2018-07-24 20:31:05",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "38",
+        "id_empleado": "2",
+        "fecha": "2018-07-24 20:52:45",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "41",
+        "id_empleado": "2",
+        "fecha": "2018-07-24 22:03:52",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "58",
+        "id_empleado": "2",
+        "fecha": "2018-07-24 22:21:31",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "76",
+        "id_empleado": "2",
+        "fecha": "2018-07-24 23:23:58",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "80",
+        "id_empleado": "1",
+        "fecha": "2018-07-24 23:27:52",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "81",
+        "id_empleado": "1",
+        "fecha": "2018-07-25 20:30:54",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "84",
+        "id_empleado": "2",
+        "fecha": "2018-07-25 20:38:27",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "86",
+        "id_empleado": "1",
+        "fecha": "2018-07-25 20:39:53",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "87",
+        "id_empleado": "2",
+        "fecha": "2018-07-25 23:19:32",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "89",
+        "id_empleado": "1",
+        "fecha": "2018-07-25 23:20:05",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "98",
+        "id_empleado": "1",
+        "fecha": "2018-07-26 22:24:51",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "100",
+        "id_empleado": "3",
+        "fecha": "2018-07-26 23:17:14",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "101",
+        "id_empleado": "3",
+        "fecha": "2018-07-26 23:20:00",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "122",
+        "id_empleado": "3",
+        "fecha": "2018-07-27 20:14:48",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "123",
+        "id_empleado": "3",
+        "fecha": "2018-07-27 20:33:59",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "134",
+        "id_empleado": "1",
+        "fecha": "2018-07-28 13:49:07",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "135",
+        "id_empleado": "3",
+        "fecha": "2018-07-28 14:50:29",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "148",
+        "id_empleado": "5",
+        "fecha": "2018-07-28 15:27:38",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "149",
+        "id_empleado": "5",
+        "fecha": "2018-07-28 15:41:19",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "155",
+        "id_empleado": "1",
+        "fecha": "2018-07-28 16:56:42",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "156",
+        "id_empleado": "5",
+        "fecha": "2018-07-28 16:56:51",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "157",
+        "id_empleado": "1",
+        "fecha": "2018-07-28 16:58:48",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "164",
+        "id_empleado": "2",
+        "fecha": "2018-07-28 17:05:40",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "168",
+        "id_empleado": "1",
+        "fecha": "2018-07-31 14:57:12",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "169",
+        "id_empleado": "1",
+        "fecha": "2018-07-31 15:01:00",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "171",
+        "id_empleado": "2",
+        "fecha": "2018-07-31 15:09:25",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "175",
+        "id_empleado": "1",
+        "fecha": "2018-07-31 15:14:34",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "178",
+        "id_empleado": "1",
+        "fecha": "2018-07-31 17:02:28",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "179",
+        "id_empleado": "1",
+        "fecha": "2018-07-31 18:54:44",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "180",
+        "id_empleado": "3",
+        "fecha": "2018-07-31 19:04:13",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "182",
+        "id_empleado": "6",
+        "fecha": "2018-07-31 19:39:19",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "183",
+        "id_empleado": "6",
+        "fecha": "2018-07-31 19:42:47",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "185",
+        "id_empleado": "2",
+        "fecha": "2018-07-31 19:53:26",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "186",
+        "id_empleado": "2",
+        "fecha": "2018-07-31 19:53:35",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "187",
+        "id_empleado": "2",
+        "fecha": "2018-07-31 19:53:55",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "189",
+        "id_empleado": "6",
+        "fecha": "2018-07-31 20:02:01",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "192",
+        "id_empleado": "7",
+        "fecha": "2018-07-31 20:06:27",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "194",
+        "id_empleado": "2",
+        "fecha": "2018-07-31 20:12:01",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "196",
+        "id_empleado": "1",
+        "fecha": "2018-07-31 20:14:43",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "197",
+        "id_empleado": "2",
+        "fecha": "2018-07-31 20:16:56",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "198",
+        "id_empleado": "2",
+        "fecha": "2018-07-31 20:17:49",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "200",
+        "id_empleado": "1",
+        "fecha": "2018-07-31 20:18:25",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "201",
+        "id_empleado": "1",
+        "fecha": "2018-08-07 20:01:02",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "202",
+        "id_empleado": "1",
+        "fecha": "2018-08-07 20:01:11",
+        "tarea": "Logueo Usuario"
+    },
+    {
+        "id": "203",
+        "id_empleado": "1",
+        "fecha": "2018-08-07 20:15:57",
+        "tarea": "Logueo Usuario"
+    }
+]
