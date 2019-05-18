@@ -1,0 +1,180 @@
+<div class="fondo-modal" id="agregarVerProducto"  style="display:none">
+        <div class="contenedor-modal">
+            <div class="cuerpo-modal modal-select-producto">
+                <div class="row">
+                    <div class="col-4 nume-producto"><span id="idProducto"></span></div>
+                    
+                    <div class="col-8 select-name">
+                        <div class="row">
+                            <div class="col-12"><input id="nombre" placeholder="Nombre"></div>
+                            
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="number" id="precio" placeholder="precio">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <select id="rol">
+                                <option value="0">-</option>
+                                <option value="1">Bar</option>
+                                <option value="2">Cervezas</option>
+                                <option value="3">Cocina</option>                
+                                <option value="6">Candybar</option>
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr>
+                
+<div class="container-fluid">
+                <div class="row">
+                    <div class="col-6 inf-add">
+                        <div class="info"> Habilitado</div>
+                    </div>
+                    <div class="col-6 select-add">
+                        <div class="info">
+                            <select id="habilitado">
+                                <option value="1">Si</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <hr>
+                
+                    <div class="container-fluid">
+                        <div><h5>DESCRIPCION</h5></div>
+                      
+                            
+                            <textarea class="form-control" id="descripcionProducto" placeholder="Descripcion del Producto"></textarea>
+            
+                        
+                    </div>
+                <hr>
+
+                <div class="text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6"><button class="boton-modal" id="botonAgregarProducto">Agregar</button></div>
+                            <div class="col-6"><button class="boton-modal cancelar" onclick="$('#agregarVerProducto').fadeOut()">Cancelar</button></div>
+                        </div>
+                    </div>
+                
+                </div>  
+            </div>
+            
+        </div>
+    </div>
+
+
+<script>
+function mostrarAgregarVerProducto(id) {
+    console.log(id)
+    prod = id2i(id, productos)
+    producto = productos[prod]
+ 
+    if (prod == -1) {
+        console.log("agregar producto")
+        //agregar
+        $("#idProducto").html("")
+        $("#botonAgregarProducto").html("Agregar")
+        $("#nombre, #precio, #descripcionProducto").val("")
+     
+  
+        $("#botonAgregarProducto").off().click(agregarProducto)
+
+
+    } else {
+        console.log("modificar producto")
+        //ver/modificar
+        $("#idProducto").html("#"+id)
+        $("#botonAgregarProducto").html("Modificar")
+        $("#nombre").val(producto.nombre_producto)
+        $("#precio").val(producto.precio)
+     
+        $("#descripcionProducto").val(producto.descripcion)
+
+        $("#rol option").each(function(k, v) {
+            if (v.value == producto.id_rol_empleado) v.selected = true;
+        })
+        $("#habilitado option").each(function(k, v) {
+            if (v.value == producto.habilitado) v.selected = true;
+        })
+        $("#botonAgregarProducto").off().click(modificarProducto)
+
+    }
+
+    $("#agregarVerProducto").fadeIn();
+}
+
+function modificarProducto(){
+    console.log("modificar producto")
+     producto={};
+    producto.nombre= $("#nombre").val();  
+    producto.precio=$("#precio").val();
+    producto.descripcion=$("#descripcionProducto").val();
+    producto.rol=$("#rol").val();
+    producto.habilitado=$("#habilitado").val();
+
+     console.log(producto)
+      $.ajax({
+        url:"../../server/admin/productos/modificar",
+        headers:{
+            token: localStorage[usuarioLogueado_ls]
+        },
+        data:producto,
+        success:function(e){
+            console.log(e)
+            if(e!=-1) {
+                   try { productos = JSON.parse(e) } catch (e) { productos = e }
+                    localStorage["productos_" + nombreDelSitio] = e;
+                    armarTablaProductos();
+
+            }else{
+                mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
+            
+            }
+             $("#agregarVerProducto").fadeOut();
+        }
+    })
+}
+
+function agregarProducto(){
+    console.log("agregar producto")
+    producto={};
+    producto.nombre= $("#nombre").val();  
+    producto.precio=$("#precio").val();
+    producto.descripcion=$("#descripcionProducto").val();
+    producto.rol=$("#rol").val();
+    producto.habilitado=$("#habilitado").val();
+    
+     console.log(producto)
+    $.ajax({
+        url:"../../server/admin/productos/agregar",
+        headers:{
+            token: localStorage[usuarioLogueado_ls]
+        },
+        data:producto,
+        success:function(e){
+            console.log(e)
+            if(e!=-1) {
+                   try { productos = JSON.parse(e) } catch (e) { productos = e }
+                    localStorage["productos_" + nombreDelSitio] = e;
+                    armarTablaProductos();
+
+            }else{
+                mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
+            
+            }
+             $("#agregarVerProducto").fadeOut();
+        }
+    })
+   
+}
+</script>

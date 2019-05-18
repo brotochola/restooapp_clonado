@@ -1,0 +1,79 @@
+<html lang="en">
+
+<head>
+    <title>Factuación</title>
+    <!-- SEO Configuration -->
+    <!-- META -->
+    <meta charset="utf-8">
+    <!-- META RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="title" content="Página principal">
+    <meta name="Keywords" content="aplication">
+    <meta name="description" content="login">
+    <meta name="robots" content="index, follow">
+    <!-- END SEO Configuration -->
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="../media/css/bootstrap.min.css">
+    <!-- Font-awesome Core CSS -->
+    <link rel="stylesheet" href="../media/fontawesome-5.0.2/web-fonts-with-css/css/fontawesome-all.min.css">
+    <!-- Fonts Google CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
+    <!-- General CSS -->
+    <link rel="stylesheet" href="../media/css/style.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="../media/css/animate.css">
+    <script src="../media/js/jquery-3.1.0.js"></script>
+    <!-- JQuery Core JS -->
+    <script src="../media/js/popper.min.js"></script>
+    <!-- Ajax Core JS -->
+    <script src="../media/js/tether.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="../media/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="admin.css">
+    <script src="constantes.js"></script>
+    <!-- DATATABLES -->
+  <!-- data tables, en vez de mi propia funcion array2tabla -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script async src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+<body class="body-color">
+    <div class="col-12 bar-top">
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-8">Facturación</div>
+            <div class="col-2">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid cuerpo-add">
+        <div class="container-cuerpo-add">
+            <br>
+            <br>
+   
+            <div class="row">
+                <div class="col-6">
+                    <div class="info">
+                        <input type="date" id="desde">
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="info">
+                        <input type="date" id="hasta">
+                    </div>
+                </div>
+            </div>
+      
+        </div>
+    </div>
+        <div id="contTablaEstadisticas" class="row contenedor-listados-pedidos listaDeEstadisticas">
+            <table class="contenedor-listados-pedidos" id="ulStats">
+               
+            </table>
+        </div>
+    <script src="facturacion.js"></script>
+</body>
+
+</html>

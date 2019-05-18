@@ -1,0 +1,60 @@
+
+
+    <!--modal    -->
+    <div class="fondo-modal confirmacion ventanaModal">
+        <div class="contenedor-modal">
+            <div class="cuerpo-modal">
+               <span id="contenidoModalConfirmacion"></span>
+                <hr>
+                <div class="text-center">
+                    <div class="container">
+                        <div class="row">
+                        
+                            <div class="col-6" id="divBotonSi"><button class="boton-modal si" id="botonSi">Si</button></div>
+
+
+                                <div class="col-6" id="divBotonNo"><button class="boton-modal cancelar" id="botonNo">No</button></div>
+                        </div>
+                    </div>
+                
+                </div>  
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        
+        function mostrarModalConfirmacion(texto, botSi, botNo, cbSi, cbNo){
+   m=$($(".fondo-modal.confirmacion.ventanaModal")[0])   
+          if(cbNo==null)  m.find("#botonNo").click(ocultarModalConfirmacion)
+            
+              
+            if(botNo==null){
+                $("#divBotonSi").removeClass("col-6").addClass("col-12");
+                $("#divBotonNo").hide();
+            }else{
+                  $("#divBotonSi").addClass("col-6").removeClass("col-12");
+                   m.find("#botonNo").html(botNo);
+                    m.find("#botonNo").click(cbNo)
+            }
+             
+            m.find("#botonSi").html(botSi);
+            m.find("#contenidoModalConfirmacion").html(texto);
+           if(cbSi==null){
+                m.find("#botonSi").click(ocultarModalConfirmacion)
+             }else{
+                 m.find("#botonSi").click(cbSi)      
+             }
+             
+            m.fadeIn();
+        }
+        function ocultarModalConfirmacion(){
+              m=$($(".fondo-modal.confirmacion.ventanaModal")[0])   
+              m.fadeOut(500,function(){
+                  $("#divBotonNo").delay(2000).show();
+        
+              });  
+          }
+          
+    </script>

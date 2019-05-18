@@ -1,0 +1,46 @@
+  <!-- Menu botton -->
+    <div class="container-fluid menu-botton-selec" id="footer">
+        <div class="col-12">
+            <div class="row">
+                   <div class="columna-medio-16  botonFooterAdmin" onclick="cambiarSeccion('estado.html')">
+                    <img src="../media/Img/calendario.png" />
+                    <h6>Estado Actual</h6>
+                </div>
+
+
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('empleados.html')">
+                    <img src="../media/Img/Empleados.png" />
+                    <h6>Empleados</h6>
+                </div>
+             
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('mesas.html')">
+                    <img src="../media/Img/mesas.png" />
+                    <h6>Mesas</h6>
+                </div>
+                
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('facturacion.html')">
+                    <img src="../media/Img/facturacion.png" />
+                    <h6>Facturacion</h6>
+                </div>
+                
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('productos.html')">
+                    <img src="../media/Img/productos.png" />
+                    <h6>productos</h6>
+                </div>
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('estadisticas.html')">
+                    <img src="../media/Img/estadisticas.png" />
+                    <h6>Estadisticas</h6>
+                </div>
+            </div>    
+        </div>    
+    </div>
+    <!-- end Menu botton -->
+
+    <script>
+
+        function cambiarSeccion(url){
+            $(".botonFooterAdmin").removeClass("active")
+            actual=document.location.pathname.match(/[^\/]+$/)[0];
+            if(actual!=url)  window.location.href=url;
+        }
+    </script>
