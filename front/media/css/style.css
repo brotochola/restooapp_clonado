@@ -1,0 +1,3113 @@
+*{
+    font-family: 'Dosis', sans-serif;
+}
+.body-color{
+    background-color: #200200; 
+}
+
+.paddingr{
+    padding-right: 0px;
+}
+
+.paddingl{
+    padding-left: 0px;
+}
+
+.body-color-login{
+    background-color: #fed322; 
+}
+
+.body-color-registro{
+    background-color: #fed322; 
+}
+
+.bar-top{
+    background-color: #fed322;
+    padding: 8px 15px;
+    box-shadow: 0px 0px 1px 1px #eea002;
+    position: absolute;
+    z-index: 5;
+}
+
+.bar-top .row .col-8{
+    text-align: center;
+    font-size: 23px;
+}
+
+.bar-top .row i {
+    font-size: 25px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.container-logg {
+    padding: 15px;
+    color: #200200;
+    margin-top: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-left: 17px;
+    margin-right: 17px;
+}
+
+.container-logg i {
+    font-size: 20px;
+    margin-top: 3px;
+    margin-left: 5px;
+    color: #ddd;
+}
+
+.container-logg input{
+    width: 100%;
+    background: none;
+    border: 1px solid #0000;
+    padding: 0px;
+}
+
+.container-logg input::placeholder{
+    color: #4950575c;
+}
+
+.container-logg input:focus{
+    color: #200200;
+    background-color: #fff0;
+    border-color: #80bdff00;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 123, 255, 0);    
+}
+
+.container-logg hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-color: #ddd;
+}
+
+.section-button{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.section-button button{
+    background: #ee534f;
+    border: 0;
+    font-size: 20px;
+    padding: 5px 30px;
+    border-radius: 9px;
+    color: #200200;
+    outline: none;
+    box-shadow: 0px 4px 0px 0px #b63a3a;
+    cursor: pointer;
+}
+
+.section-button button:hover{
+    box-shadow: 0px 2px 15px 1px #541319;
+}
+
+.section-button button:focus, :active{
+   box-shadow: 0px 2px 15px 1px #541319;
+}
+
+.section-button-inicio {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.section-button-inicio button {
+    background: #f8f9fa;
+    border: 0;
+    font-size: 20px;
+    padding: 5px 30px;
+    border-radius: 9px;
+    color: #200200;
+    outline: none;
+    box-shadow: 0px 4px 0px 0px #868e96;
+    cursor: pointer;
+}
+
+.section-button h5 a {
+    color: #111;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.section-button h5{
+   margin-top: 15px;
+}
+
+.section-logo{
+    text-align: center;
+}
+
+.section-logo img{
+    width: 70%;
+    margin: 10%;
+}
+
+/*Empleados*/
+.back-header-listing{
+    background: #fed322;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: fixed;
+    z-index: 4;
+}
+
+.back-header-listing-adm{
+    background: #fed322;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    z-index: 5;
+    position: absolute;
+}
+
+.back-header-listing-adm img{
+    width: 75%;
+}
+
+.name-perfil-adm{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 85px;
+    white-space: nowrap;
+    font-size: 14px;
+}
+
+.back-header-listing-adm h6 {
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.back-header-listing-adm h5 {
+    font-size: 12px;
+    background-color: beige;
+    padding: 0px 13px;
+}
+
+.precio-pedido{
+    font-size: 10px;
+    margin-top: 13px;
+
+}
+
+.precio-pedido span{
+    background: #ddd;
+    padding: 3px 4px;
+    font-weight: bold;
+}
+
+.hora-pedido{
+    font-size: 10px;
+    margin-top: 15px;
+}
+
+.hora-pedido span{
+    background: #ddd;
+    padding: 3px 4px;
+    font-weight: bold;
+}
+
+.precio-pedido img {
+    width: 20%;
+    background: white;
+    padding: 2px;
+    margin-bottom: 3px;
+}
+
+.hora-pedido img {
+    width: 20%;
+    background: white;
+    padding: 2px;
+    margin-bottom: 3px;
+}
+
+.title-listing{
+    background: #ee534f;
+    padding: 15px;
+    border-bottom: 2px solid #b63a3a;
+}
+
+.title-listing .col-10{
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.title-listing .col-2{
+    text-align: center;
+}
+
+.title-listing .col-2 i{
+    font-size: 21px;
+    background: #50e089;
+    padding: 5px 6px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #297547;
+}
+
+.menu-botton-selec{
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+    background: #F6F6F6;
+}
+
+.menu-botton-selec .col-menu-20{
+    width: 20%;
+    padding: 5px;
+    text-align: center;
+}
+
+.menu-botton-selec .col-menu-20 img{
+    width: 60%;
+}
+
+.menu-botton-selec .col-menu-20 h6{
+    font-size: 11px;
+    margin-top: 3px;
+    margin-bottom: 0px;
+}
+
+.menu-botton-selec{
+    text-align: center;
+    padding: 0;
+    position:fixed; 
+    bottom: 0px;
+    top:auto;
+    right: 0px;
+}
+
+.menu-botton-selec img{
+    text-align: center;
+    width: 50%;
+}
+
+.columna-medio-16{
+    padding: 5px
+}
+
+.columna-medio-16:focus{
+    background: #E84C3D;
+    box-shadow: 0px -5px 0px 0px #E84C3D;
+}
+
+.columna-medio-16:hover{
+    background: #E84C3D; 
+    box-shadow: 0px -5px 0px 0px #E84C3D;
+}
+
+.menu-botton-selec h6{
+    font-size: 10px;
+    text-align: center;
+    margin: 0;
+}
+
+.jobs hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.jobs ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jobs ul li{
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.jobs ul li .row .col-2{
+    text-align: center;
+}
+
+.jobs ul li .row .col-2 i{
+    font-size: 17px;
+    padding: 9px;
+    background: #ef5450;
+    border-radius: 23px;
+    color: white;
+    box-shadow: 0px 0px 6px 0px #7b7b7b;
+    cursor: pointer;
+}
+
+.jobs ul li .row .col-4{
+    text-align: center;
+}
+
+.jobs ul li .row .col-3{
+    text-align: center;
+}
+
+.jobs ul li .row .col-7{
+    padding-left: 0;
+    font-size: 14px;
+    padding: 10px;
+    margin-left: -15px;
+    margin-right: 12px;
+}
+
+.jobs ul li .row .col-7 span{
+    font-weight: bold;
+}
+
+.jobs ul li .row .col-3 img{
+    width: 80%;
+}
+
+/*columnas*/
+.columna-10{
+    width: 10%;
+}
+
+.columna-20{
+    width: 20%;
+}
+
+.columna-30{
+    width: 30%;
+}
+
+.columna-40{
+    width: 40%;
+}
+
+.columna-50{
+    width: 50%;
+}
+
+.columna-60{
+    width: 60%;
+}
+
+.columna-70{
+    width: 70%;
+}
+
+.columna-80{
+    width: 80%;
+}
+
+.columna-90{
+    width: 90%;
+}
+
+.columna-100{
+    width: 100%;
+}
+
+.columna-medio-16{
+    width: 16.666%;
+}
+
+/**/
+.boton_mas{
+    font-size: 21px !important;
+    background: #50e089;
+    padding: 5px 6px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #297547;
+}
+
+.contenedor-pedidos{
+    background: #EBEBEB;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.contenedor-pedidos .icono-notificacion{
+    width: 100%;
+    background: #ee5350;
+    padding: 13px;
+    border-radius: 20px;
+    border: 3px solid #cc4644;
+}
+
+.contenedor-opciones{
+    background: white;
+    border-radius: 5px;
+    margin-bottom: 3px;
+}
+
+.contenedor-opciones .columna-30{
+    background: #CCCCCC;
+    border-right: 1px solid #9a9a9a;
+    padding: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.contenedor-opciones .columna-30 img{
+    width: 63%;
+}
+
+.contenedor-opciones .columna-70{
+    text-align: left;
+}
+
+.contenedor-opciones .columna-70 span{
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.boton-check{
+    font-size: 31px !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #50e089;
+    padding: 5px 6px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #297547;
+}
+
+.contenedor-mesas{
+    padding: 5px 30px;
+    padding-top: 55px
+}
+
+.contenedor-mesas .filas-mesas img{
+    width: 100%;
+}
+
+.contenedor-mesas .filas-mesas{
+    padding: 13px 2px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-usuario{
+    position: absolute;
+    width: 28px;
+    left: 11px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-usuario-centrado{
+    position: absolute;
+    width: 28px;
+    left: 48px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-usuario-izquierda{
+    position: absolute;
+    width: 28px;
+    left: 30px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-pedido{
+    position: absolute;
+    width: 28px;
+    left: 48px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-listo{
+    position: absolute;
+    width: 28px;
+    right: 11px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-tiempo-derecha{
+    position: absolute;
+    width: 28px;
+    right: 30px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-limpiar-centrado{
+    position: absolute;
+    width: 28px;
+    left: 48px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-usuario-mesa-6{
+    position: absolute;
+    width: 28px;
+    left: 30px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-pedido-mesa-6{
+    position: absolute;
+    width: 28px;
+    left: 62px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-cerrar-mesa-6{
+    position: absolute;
+    width: 28px;
+    right: 35px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-usuarios-mesa-5{
+    position: absolute;
+    width: 28px;
+    left: 60px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-usuario-mesa-6-roja{
+    position: absolute;
+    width: 28px;
+    left: 48px;
+    top: 15px;
+}
+
+.contenedor-mesas .filas-mesas img.icono-otros-pedido-mesa-6-roja{
+    position: absolute;
+    width: 28px;
+    right: 48px;
+    top: 15px;
+}
+
+/**/
+.fondo-modal{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffffc4;
+    z-index: 1;
+}
+
+.contenedor-modal{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s ease;
+}
+
+.cuerpo-modal{
+    padding: 15px;
+    background: #F0F0F7;
+    width: 90%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 9px 0px #9c9c9c;
+}
+
+.cuerpo-modal .info{
+    padding: 5px;
+    background: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.cuerpo-modal .info input{
+    width: 100%;
+    border: 0;
+}
+
+.cuerpo-modal .info input:focus{
+   outline: none;
+}
+
+.cuerpo-modal .info select{
+    width: 100%;
+    border: 0;
+    outline: none;
+}
+
+.cuerpo-modal .info select:focus{
+   outline: none;
+}
+
+.cuerpo-modal .info select option{
+    width: 100%;
+    border: 0;
+    outline: none;
+}
+
+.container-cuerpo{
+    padding: 3px 33px;
+    margin-top: 9px;
+}
+
+.cuerpo-modal .info img{
+    width: 17px;
+    margin-top: -5px;
+    margin-right: 12px;
+}
+
+.boton-modal{
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: #50e089;
+    padding: 7px 31px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #297547;
+    border: 0;
+    font-weight: bold;
+    outline: none;
+}
+
+.boton-modal.cancelar{
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: #E84C3D;
+    padding: 7px 31px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #B53A3A;
+    border: 0;
+    font-weight: bold;
+    outline: none;
+}
+
+/**/
+.pp-n-left{
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+.pp-n-right{
+    padding-right: 0;
+    padding-left: 5px;
+}
+
+.contenedor-listados-pedidos{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 1000px;
+    list-style: none;
+    background: white;
+}
+
+.contenedor-listados-pedidos ul{
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.contenedor-listados-pedidos ul li{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dae0e5;
+    padding: 5px 0px;
+}
+
+.contenedor-listados-pedidos ul li:last-child{
+    margin-bottom: 0px !important;
+    border-bottom: none;
+    padding: 0px 0px;
+}
+
+.numero-pedido{
+    padding: 3px 5px;
+    background: #F0F0F7;
+    font-weight: bold;
+}
+
+.contenedor-listados-pedidos .boton-borrar{
+    width: 100%;
+}
+
+.contenedor-boton-borrar{
+    padding: 1px 9px !important;
+}
+
+.pp-none{
+    padding: 0 !important;
+}
+
+.contenedor-icono-listado{
+    padding: 0px 7px;
+}
+
+.contenedor-icono-listado h5{
+    padding: 2px;
+    background: #f0f0f7;
+}
+
+.contenedor-listados-pedidos .container .row .col-8{
+        font-size: 20px;
+    font-weight: bold;
+}
+
+.contenedor-listados-pedidos .container .row .col-8 span{
+    font-size: 14px;
+    margin-left: 20px;
+    color: red;
+    font-weight: bold;
+}
+
+.anuncuio-pedidos{
+    text-align: justify;
+    font-size: 15px;
+    width: 100%;
+    height: 137px;
+    overflow-y: scroll;
+    font-weight: bold;
+}
+
+/**/
+
+.section-button-registro {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.section-button-registro button {
+    background: #ee534f;
+    border: 0;
+    font-size: 20px;
+    padding: 5px 30px;
+    border-radius: 9px;
+    color: #200200;
+    outline: none;
+    box-shadow: 0px 4px 0px 0px #b63a3a;
+    cursor: pointer;
+}
+
+.section-button-registro h5 {
+    margin-top: 20px;
+    padding: 5px 92px;
+}
+
+.section-button-registro h5 a {
+    color: #111;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.section-logo-registro{
+    text-align: center;
+}
+
+.section-logo-registro img{
+    width: 70%;
+    margin-top: 5%;
+}
+
+/**/
+
+.entregado {
+    color: #50e089;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.preparacion {
+    color: #ef5350;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.estado-pedido{
+    margin-top: 3px;
+}
+
+.encabezado-lista-pedidos{
+    background: #EF5350;
+    padding: 5px 0px;
+    border-bottom: 3px solid #721c24;
+}
+
+.encabezado-lista-pedidos img{
+    width: 65%;
+    margin-top: 5px;
+}
+
+.text-lista{
+    font-size: 21px;
+    font-weight: bold;
+    color: black;
+}
+/**/
+
+.back-header-listing img{
+    width: 55%;
+    padding-top: 20px;
+}
+
+.back-header-listing h6{
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0;
+}
+
+.back-header-listing h5{
+    font-size: 13px;
+}
+
+/**/
+.boton-check-add{
+    font-size: 24px !important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: #50e089;
+    padding: 5px 5px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #297547;
+}
+
+.boton-times-add {
+    font-size: 24px !important;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: #dc3545;
+    padding: 5px 8px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px 0px #721c24;
+}
+
+.titulo-cabezera{
+    margin-top: 10px;   
+}
+
+.fondo-add{
+    background: url(../Img/fondo-add-user.png) center center no-repeat;
+    background-size: auto auto;
+    background-size: auto auto;
+    background-size: cover;
+    height: 0;
+    padding-bottom: 100%;   
+}
+
+.cuerpo-add .info {
+    padding: 5px;
+    background: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin: 10px 0px;
+}
+
+.cuerpo-add .info input{
+    width: 100%;
+    border: 0;
+}
+
+.cuerpo-add .info input:focus{
+   outline: none;
+}
+
+.cuerpo-add .info select{
+    width: 100%;
+    border: 0;
+    outline: none;
+}
+
+.cuerpo-add .info select:focus{
+   outline: none;
+}
+
+.cuerpo-add .info select option{
+    width: 100%;
+    border: 0;
+    outline: none;
+}
+
+.container-cuerpo-add{
+    padding: 3px 5px;
+    margin-top: 0px;
+}
+
+.cuerpo-add .info img{
+    width: 17px;
+    margin-top: -5px;
+    margin-right: 5px;
+}
+
+.foto-add{
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 60px;
+}
+
+.foto-add img{
+    width: 60%;
+}
+
+.inf-add{
+    padding-right: 2px;
+}
+
+.select-add{
+    padding-left: 2px;
+}
+
+.select-add-fecha{
+    padding-left: 18px;
+    padding-right: 29px;
+}
+
+.info select option{
+    background-color: #CCCCCC;
+}
+
+/**/
+
+.emcabezado-pedido {
+    padding-top: 80px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.emcabezado-pedido img{
+    background: #E84C3D;
+    border-radius: 15px;
+    padding: 5px;
+    width: 100%;
+}
+
+.img-v img{
+    background: #4FE08A;
+    border-radius: 15px;
+    padding: 5px;
+    width: 100%; 
+}
+
+.emcabezado-pedido .row{
+    margin-left: 0px;
+    margin-right:  0px;
+}
+
+.img-select{
+    background: url(../Img/margarita.png) center center no-repeat;
+    background-size: auto auto;
+    background-size: auto auto;
+    background-size: cover;
+    height: 0; 
+}
+
+.lista-pedidos {
+    background: #ddd;
+    padding: 5px 0px;
+}
+
+.lista-pedidos img {
+    width: 50%;
+    margin-top: 5px;
+}
+
+.boton-inf img{
+    width: 80%;
+}
+
+.cantidad-inf {
+    color: #e84c3d;
+    font-weight: bold;
+}
+
+.cantidad{
+    margin-top: 3px;
+}
+
+.text-listado {
+    font-size: 16px;
+}
+
+.estadisticas{
+    position: absolute;
+    bottom: 44px;
+}
+
+/**/
+.silla-select {
+    width: 100%;
+}
+
+.modal-select-silla span{
+     background: #e84c3d;
+    font-size: 26px;
+    color: black;
+    border-radius: 15px;
+    padding: 8px;
+}
+
+.angle-left{
+    background: #f8f9fa;
+    padding: 5px 10px;
+    border-radius: 45px;
+    margin-right: 15px;
+}
+
+.angle-right{
+    background: #f8f9fa;
+    padding: 5px 10px;
+    border-radius: 45px;
+    margin-left: 15px;
+}
+
+.nume-silla{
+    padding: 5px 20px;
+}
+
+/**/
+.lista-producto img{
+    width: 45% !important;
+}
+
+.lista-producto{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 750px !important;
+}
+/**/
+
+.silla-select textarea{
+    height: 15%;
+}
+
+.select-name input{
+    border: 0;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.select-name select{
+    border: 0;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    width: 75%;
+}
+
+.modal-select-producto span {
+    background: #e84c3d;
+    font-size: 37px;
+    color: black;
+    border-radius: 15px;
+    padding: 13px;
+}
+
+.nume-producto {
+    padding: 35px 30px;
+}
+
+/**/
+.estadisticas-personal{
+    background: #ee534f;
+    padding: 15px;
+    border-bottom: 2px solid #b63a3a;
+    font-size: 40px;
+}
+
+.lista-de-empleados{
+    background: white; 
+}
+
+.lista-de-empleados ul li .row .col-2 img {
+    width: 90%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.lista-de-empleados ul li .row .col-9 {
+    font-size: 45px;
+    margin-top: 10px;
+    padding-left: 0;
+    padding: 10px;
+    margin-right: 12px;
+}
+
+.lista-de-empleados ul li .row .col-2 {
+    text-align: center;
+}
+
+.lista-de-empleados ul {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 1000px;
+    list-style: none;
+}
+
+.lista-de-empleados ul li {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.lista-de-empleados ul li .row .col-2 {
+    text-align: center;
+}
+
+.lista-de-empleados ul li .row .col-9 span {
+    font-weight: bold;
+}
+
+/**/
+
+.titulo-cabezera-cocinero{
+    margin: 3px 0px;
+    font-size: 20px;
+}
+
+.flecha-atras{
+    font-size: 24px;
+    margin-top: 6px;
+}
+
+.pedidos-cocineros{
+    padding-top: 55px;
+}
+
+.campana-roja img{
+    width: 100%
+}
+
+.check-verde img{
+    right: 40px;
+    width: 75%;
+    position: absolute;
+    top: 20px;
+}
+
+.img-pedido {
+    width: 15% !important;
+    margin-top: 5px;
+    background: #868e96a6;
+    padding: 5px;
+}
+
+.img-mesa {
+    width: 15% !important;
+    margin-top: 5px;
+    background: #868e96a6;
+    padding: 5px;
+}
+
+.mesa-numero{
+    background: #f8f9fa;
+    padding: 0px 4px;
+    font-weight: bold;
+    position: absolute;
+    margin-top: 6px;
+    font-size: 18px;
+}
+
+.numero-mesa{
+    margin-top: 1px;
+}
+
+.numero-pedido{
+    margin-top: -3px;
+}
+
+.pedidos-cocinero{
+    margin-top: 8px;
+    background: white;
+    padding: 15px;
+    margin-bottom: 5px;
+}
+
+.numero-de-pedido-cocinero{
+    background: #ddd;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.PedidosPendientes{
+    background: #EF5350;
+    padding: 5px 0px;
+    border-bottom: 3px solid #721c24;
+    margin-top: 10px;
+    font-weight: bold;
+    color: black;
+}
+
+.mesa-pendiente{
+    width: 40px;
+    background: white;
+    padding: 5px;
+}
+
+.pedido-pendiente{
+    padding: 5px;
+    background: white;
+    width: 33px;
+}
+
+.n-pedido-p{
+    margin: 5px;
+    font-size: 18px;
+}
+
+.n-mesa-p{
+    margin: 5px;
+    font-size: 18px;
+}
+
+.listaPedidosPendientes{
+    background: #ddd;
+    padding: 10px;
+}
+
+.check-verde-pedidos img{
+    width: 80%;
+}
+
+.list-pedidos-p{
+    background: white;
+    padding: 10px 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 196px;
+}
+
+.list-pedidos-p hr{
+    margin: 15px !important;
+}
+
+/**/
+
+.cabezeraPedidosPendientes{
+    background: #EF5350;
+    padding: 10px 0px;
+    border-bottom: 3px solid #721c24;
+    font-weight: bold;
+    color: black;
+}
+
+.list-pedidos-pendientes {
+    background: white;
+    padding: 25px 5px;
+}
+
+.list-pedidos-pendientes hr{
+    margin-bottom: 8px;
+    margin-top: 3px;
+}
+
+/**/
+
+.horaPedidos {
+    background: #EF5350;
+    padding: 10px 0px;
+    font-weight: bold;
+    color: black;
+}
+
+.img-reloj img{
+    width: 90%;
+    padding: 3px;
+    background: #ddd;
+}
+
+.horaPedidos .col-4{
+   font-size: 15px;
+   margin-top: 2px;
+}
+
+.contenedor-lista-pedidos{
+    list-style: none;
+    background: white;
+}
+
+.contenedor-lista-pedidos ul{
+     padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.contenedor-lista-pedidos ul li {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dae0e5;
+    padding: 5px 0px;
+    margin-top: 5px;
+}
+
+.contenedor-lista-pedidos .boton-borrar {
+    width: 70%;
+}
+
+/**/
+
+.back-header-lista-empleado{
+    background: #fed322;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.back-header-lista-empleado img {
+    width: 55%;
+    padding-top: 20px;
+}
+
+.back-header-lista-empleado h6 {
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0;
+}
+
+.back-header-lista-empleado h5 {
+    font-size: 13px;
+}
+
+/**/
+
+.list-productos-modal ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-productos-modal ul li .row .col-7 {
+    padding-left: 0;
+    font-size: 14px;
+    padding: 10px;
+    margin-left: -15px;
+    margin-right: 12px;
+}
+
+.list-productos-modal ul li .row .col-3 {
+    text-align: center;
+}
+
+.list-productos-modal ul li {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.list-productos-modal ul li .row .col-2 i {
+    font-size: 17px;
+    padding: 9px;
+    background: #ef5450;
+    border-radius: 100px;
+    color: white;
+    box-shadow: 0px 0px 6px 0px #7b7b7b;
+    cursor: pointer;
+}
+
+.list-productos-modal img {
+    width: 45% !important;
+}
+
+.mozo-lista-pedidos .row{
+    padding: 0px 28px;
+}
+
+.listo{
+    color: #17a2b8;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/**/
+@media only screen and (min-width: 200px) and (max-width: 320px){
+    
+    .boton_mas {
+        font-size: 9px !important;
+        padding: 3px 4px;
+    }
+    
+    .contenedor-mesas {
+        padding-top: 60px;
+    }
+    
+    .contenedor-lista-pedidos .boton-borrar {
+        width: 100%;
+    }
+    
+    .pedidos-cocinero {
+        margin-bottom: 10px;
+    }
+    .contenedor-listados-pedidos {
+        height: 533px;
+    }
+    
+    .listaPedidosPendientes {
+        background: #ddd;
+        padding: 7px;
+    }
+    
+    .flecha-atras {
+        font-size: 18px;
+        margin-top: 3px;
+    }
+    
+    .titulo-cabezera-cocinero {
+        margin: 0px 0px;
+        font-size: 15px;
+    }
+    
+    .cabezeraPedidosPendientes {
+        padding: 0px 0px;
+    }
+    
+    .list-pedidos-pendientes {
+        padding: 15px 5px;
+    }
+    
+    .check-verde-pedidos img {
+        width: 100%;
+    }
+    
+    .numero-de-pedido-cocinero {
+        font-size: 13px;
+    }
+    
+    .n-pedido-p {
+        margin: 5px;
+        font-size: 12px;
+    }
+    
+    .n-mesa-p {
+        margin: 5px;
+        font-size: 12px;
+    }
+    
+    .pedido-pendiente {
+        width: 25px;
+    }
+    
+    .mesa-pendiente {
+        width: 32px;
+    }
+    
+    .pedidos-cocinero .col-8 {
+        font-size: 12px;
+    }
+    
+    .mesa-numero {
+        font-size: 13px;
+    }
+    
+    .list-pedidos-p {
+        height: 100px;
+    }
+    
+     .lista-de-empleados ul {
+        padding: 0;
+         height: 500px;
+    }
+    
+    .lista-de-empleados ul li .row .col-2 img {
+        width: 50px;
+    }
+    
+    .estadisticas-personal {
+        font-size: 12px;
+    }
+    
+     .lista-de-empleados ul li .row .col-9 {
+        font-size: 15px;
+    }
+    
+    .nume-producto {
+        padding: 44px 30px;
+    }
+    
+    .silla-select textarea{
+        font-size: 11px;
+    }
+    
+    .modal-select-producto h5 {
+        font-size: 15px;
+        margin-left: 16px;
+    }
+    
+    .select-name{
+        font-size: 15px;
+    }
+    
+    .select-name select {
+        width: 87%;
+    }
+    
+    .modal-select-producto span {
+        font-size: 25px;
+    }
+    
+    .jobs ul li .row .col-2 i {
+        font-size: 14px;
+    }
+    
+    .lista-producto {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 472px !important;
+    }
+    .nume-silla {
+        padding: 11px 25px;
+    }
+    
+    .modal-select-silla span {
+        font-size: 20px;
+    }
+    
+    .angle-left {
+        margin-right: 5px;
+    }
+    
+    .angle-right {
+        margin-left: 5px;
+    }
+    
+    .text-listado {
+        font-size: 10px;
+    }
+    
+    .cantidad {
+        font-size: 10px;
+    }
+    
+    
+    /**/
+    
+    .boton-times-add {
+        font-size: 15px !important;
+    }
+    .boton-check-add {
+        font-size: 15px !important;
+    }
+    
+   .cuerpo-add .info {
+        font-size: 10px;
+    }
+    
+    /**/
+    
+    .jobs ul li .row .col-7 {
+        margin-right: -9px;
+    }
+    
+    .title-listing {
+        padding: 10px 20px;
+    }
+    
+    .title-listing .col-2 i {
+        font-size: 17px;
+    }
+    
+     .section-button h5 {
+        margin-top: 20px;
+    }
+    
+    .hora-pedido {
+        font-size: 7px;
+    }
+    
+    .precio-pedido {
+        font-size: 7px;
+    }
+    
+    .menu-botton-selec h6 {
+        font-size: 8px;
+    }
+    
+    .back-header-listing-adm h6 {
+        font-size: 12px;
+    }
+    
+    .back-header-listing-adm h5 {
+        font-size: 9px;
+    }
+    
+    .cuerpo-modal .info {
+        font-size: 9px;
+    }
+    
+    .cuerpo-modal .info img {
+        width: 13px;
+    }
+    
+    .text-lista {
+        font-size: 14px;
+    }
+    
+    .contenedor-icono-listado h5 {
+        font-size: 13px;
+    }
+    
+    .hora-listado{
+        font-size: 9px;
+    }
+    
+    .entregado {
+        font-size: 8px;
+    }
+    
+    .preparacion {
+        font-size: 8px;
+    }
+    
+     .listo {
+        font-size: 8px;
+    }
+    
+    .boton-modal.cancelar {
+        font-size: 10px;
+        padding: 4px 20px;
+    
+    }
+    .boton-modal {
+        font-size: 10px;
+        padding: 4px 20px;
+    
+    }
+    
+    .title-listing .col-10 {
+        margin-left: 5px;
+        margin-right: -22px;
+    }
+    
+    .boton_mas {
+        font-size: 14px !important;
+    }
+    
+}
+
+@media only screen and (min-width: 321px) and (max-width: 360px){
+ 
+    .boton_mas {
+        font-size: 14px !important;
+    }
+    
+    .list-pedidos-pendientes {
+        padding: 21px 5px;
+    }
+    
+     .contenedor-mesas {
+        padding: 5px 30px;
+        padding-top: 60px;
+    }
+    
+    .contenedor-lista-pedidos .boton-borrar {
+        width: 100%;
+    }
+    
+    .pedidos-cocinero {
+        margin-bottom: 15px;
+    }
+    
+    .contenedor-listados-pedidos {
+        height: 600px;
+    }
+    
+    .titulo-cabezera-cocinero {
+        margin: 0px 0px;
+        font-size: 18px;
+    }
+    
+    .flecha-atras {
+        font-size: 20px;
+        margin-top: 4px;
+    }
+    
+    .cabezeraPedidosPendientes {
+        padding: 4px 0px;
+    }
+    
+    .listaPedidosPendientes {
+        background: #ddd;
+        padding: 4px;
+    }
+    
+    .list-pedidos-pendientes hr{
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+    
+    .check-verde-pedidos img {
+        width: 95%;
+    }
+     .n-pedido-p {
+        margin: 5px;
+        font-size: 15px;
+    }
+    
+    .n-mesa-p {
+        margin: 5px;
+        font-size: 15px;
+    }
+    
+    .pedido-pendiente {
+        width: 28px;
+    }
+    
+    .mesa-pendiente {
+        width: 34px;
+    }
+    
+    .pedidos-cocinero .col-8 {
+        font-size: 14px;
+    }
+    
+    .mesa-numero {
+        font-size: 16px;
+    }
+    
+    .list-pedidos-p {
+        height: 123px;
+    }
+    
+    .lista-de-empleados ul {
+        padding: 0;
+        height: 575px;
+    }
+    
+    .lista-de-empleados ul li .row .col-2 img {
+        width: 50px;
+    }
+    
+    .estadisticas-personal {
+        font-size: 12px;
+    }
+    
+     .lista-de-empleados ul li .row .col-9 {
+        font-size: 15px;
+    }
+    
+    
+    .nume-producto {
+        padding: 39px 39px;
+    }
+    
+    .modal-select-producto h5 {
+        font-size: 17px;
+        margin-left: 16px;
+    }
+    
+    .select-name select {
+        width: 87%;
+    }
+    
+    .modal-select-producto span {
+        font-size: 29px;
+        padding: 10px;
+    }
+    
+    
+    .text-listado {
+        font-size: 13px;
+    }
+    
+    .cantidad {
+        font-size: 12px;
+    }
+    
+  
+    
+    /**/
+    .foto-add img {
+        width: 50%;
+    }
+    
+    .boton-times-add {
+        font-size: 17px !important;
+    }
+    .boton-check-add {
+        font-size: 17px !important;
+    }
+    
+    .cuerpo-add .info {
+        font-size: 11px;
+ 
+    }
+    
+    /**/
+    
+    .jobs ul li .row .col-7 {
+        margin-right: -1px;
+    }
+    
+    .title-listing .col-10 {
+        margin-left: 5px;
+        margin-right: -18px;
+    }
+    
+    .menu-botton-selec h6 {
+        font-size: 9px;
+    }
+    
+    .precio-pedido{
+        font-size: 8px;
+    }
+    
+    .hora-pedido {
+        font-size: 8px;
+    }
+    
+    .section-button h5 {
+        margin-top: 20px;
+    }
+    
+    .section-button-registro h5 {
+        padding: 5px 112px;
+    }
+    
+    .cuerpo-modal .info {
+        padding: 5px;
+        font-size: 11px;
+    }
+    
+    .boton-modal.cancelar {
+        font-size: 11px;
+    }
+    
+    .boton-modal{
+        font-size: 11px;
+    }
+    
+    .text-lista {
+        font-size: 17px;
+    }
+    
+    .contenedor-icono-listado h5 {
+        font-size: 15px;
+    }
+    
+    .hora-listado{
+        font-size: 13px;
+    }
+    
+    .entregado {
+        font-size: 11px;
+    }
+    
+    .preparacion {
+        font-size: 11px;
+    }
+    
+}
+
+@media only screen and (min-width: 361px) and (max-width: 375px){
+    
+    .boton_mas {
+        font-size: 15px !important;
+    }
+    
+    .foto-add {
+        margin-top: 105px;
+    }
+    
+    .contenedor-mesas {
+        padding-top: 65px;
+    }
+    
+    .list-productos-modal ul {
+        padding-top: 65px;
+    }
+    
+    .contenedor-lista-pedidos .boton-borrar {
+        width: 90%;
+    }
+    
+    .contenedor-listados-pedidos {
+        height: 771px;
+    }
+    
+    .lista-de-empleados ul {
+        padding: 0;
+        height: 745px;
+    }
+    
+    .list-pedidos-pendientes hr {
+        margin-bottom: 7px;
+        margin-top: 7px;
+    }
+    
+    .listaPedidosPendientes {
+        background: #ddd;
+        padding: 4px;
+    }
+    
+    .pedidos-cocinero .col-8{
+        font-size: 15px;
+    }
+    
+    .n-pedido-p {
+        font-size: 15px;
+    }
+    .n-mesa-p {
+        font-size: 15px;
+    }
+    
+    .lista-de-empleados ul li .row .col-2 img {
+        width: 59px;
+    }
+    
+    .estadisticas-personal {
+        font-size: 15px;
+    }
+    
+     .lista-de-empleados ul li .row .col-9 {
+        font-size: 18px;
+    }
+    
+    
+   .modal-select-producto h5 {
+        font-size: 17px;
+        margin-left: 16px;
+    }
+    
+    .select-name select {
+        width: 83%;
+    }
+    
+    .modal-select-producto span {
+        font-size: 30px;
+    }
+    
+    .lista-producto {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 691px !important;
+    }
+  
+    
+    .cantidad {
+        font-size: 12px;
+    }
+    
+    .text-listado {
+        font-size: 14px;
+    }
+    
+    .foto-add img {
+        width: 50%;
+    }
+    
+    .cuerpo-add .info {
+        font-size: 13px;
+    }
+    /**/
+    
+    .jobs ul {
+        height: 520px;
+    }
+    
+    .cuerpo-modal .info {
+        font-size: 13px;
+    }
+    
+    
+    .text-lista {
+        font-size: 17px;
+    }
+    
+    .boton-modal.cancelar {
+        font-size: 13px;
+        padding: 5px 29px;
+    }
+    .boton-modal {
+        font-size: 13px;
+        padding: 5px 29px;
+    }
+    
+    .contenedor-icono-listado h5 {
+        font-size: 16px;
+    }
+    
+    .entregado {
+        font-size: 12px;
+    }
+    
+    .preparacion {
+        font-size: 12px;
+    }
+    
+    .listo {
+        font-size: 12px;
+    }
+    
+    .hora-listado{
+        font-size: 14px;
+    }
+    
+    .section-button h5 {
+        margin-top: 25px;
+    }
+    
+    .section-button-registro h5 {
+        padding: 5px 118px;
+    }
+    
+    .hora-pedido {
+        font-size: 8px;
+    }
+}
+
+@media only screen and (min-width: 411px) and (max-width: 575px){
+
+    .boton_mas {
+        font-size: 15px !important;
+    }
+    
+    .list-pedidos-pendientes {
+        background: white;
+        padding: 24px 5px;
+    }
+    
+    .foto-add {
+        margin-top: 100px;
+    }
+    
+    .list-productos-modal ul {
+        padding-top: 75px;
+    }
+    
+    .contenedor-lista-pedidos .boton-borrar {
+        width: 90%;
+    }
+    
+     .horaPedidos select{
+        font-size: 20px;
+    }
+    
+    .horaPedidos .col-4 {
+        font-size: 18px;
+        margin-top: 3px;
+    }
+    
+    .contenedor-listados-pedidos {
+        height: 778px;
+    }
+    
+    .list-pedidos-pendientes hr {
+        margin-bottom: 9px;
+        margin-top: 10px;
+    }
+    
+    .list-pedidos-p {
+        height: 198px;
+    }
+    
+   .lista-de-empleados ul {
+        padding: 0;
+        height: 760px;
+    }
+    .lista-de-empleados ul li .row .col-2 img {
+        width: 50px;
+    }
+    
+    .estadisticas-personal {
+        font-size: 12px;
+    }
+    
+     .lista-de-empleados ul li .row .col-9 {
+        font-size: 15px;
+    }
+    
+    
+    .lista-producto {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 677px !important;
+    }
+    
+    .foto-add img {
+        width: 50%;
+    }
+    
+    .jobs ul {
+        height: 510px;
+    }
+    
+    .cuerpo-modal .info{
+        font-size: 15px;
+
+    }
+    
+    .section-button-registro h5 {
+        padding: 5px 137px;
+    }
+    
+   .menu-botton-selec h6 {
+        font-size: 11px;
+    }
+    
+    .hora-pedido {
+        font-size: 9px;
+        margin-top: 15px;
+    }
+    
+    .contenedor-mesas {
+        padding-top: 65px;
+    }
+    
+}
+
+@media only screen and (min-width: 576px) and (max-width: 775px){
+    
+    .pedidos-cocineros {
+        padding-top: 85px;
+    }
+    
+    .foto-add {
+        margin-top: 145px;
+    }
+    
+    .list-productos-modal ul {
+        padding-top: 75px;
+    }
+    
+    .list-productos-modal ul li .row .col-7 {
+        font-size: 35px;
+        padding: 10px;
+
+    }
+    
+    .list-productos-modal ul li .row .col-2 i {
+        font-size: 30px;
+        padding: 15px;
+        border-radius: 100px;
+    }
+    
+    .horaPedidos .col-4 {
+        font-size: 30px;
+        margin-top: 2px;
+    }
+    
+    .horaPedidos select{
+        font-size: 30px;
+    }
+    
+    .img-reloj img {
+        width: 45%;
+        padding: 5px;
+        background: #ddd;
+    }
+    
+    
+    .contenedor-listados-pedidos {
+        height: 960px;
+    }
+    
+    .lista-de-empleados ul {
+        height: 935px;
+    }
+    
+    .listaPedidosPendientes {
+        padding: 8px;
+    }
+    
+    .list-pedidos-pendientes {
+        font-size: 30px;
+    }
+    
+    .cabezeraPedidosPendientes {
+        padding: 10px 0px;
+        font-size: 25px;
+    }
+    
+    .titulo-cabezera-cocinero {
+        font-size: 36px;
+    }
+    
+    .flecha-atras {
+        font-size: 38px;
+        margin-top: 12px;
+    }
+    
+    .numero-mesa {
+        margin-top: 17px;
+    }
+   
+    .numero-pedido {
+        margin-top: 5px;
+    }
+    
+    .mesa-numero {
+        font-size: 34px;
+    }
+    
+   .numero-de-pedido-cocinero {
+        padding: 3px;
+        font-size: 30px;
+    }
+    
+    .pedidos-cocinero .col-8{
+        font-size: 30px;
+    }
+    
+    .pedidos-cocinero {
+        padding: 5px;
+    }
+    
+    .check-verde img {
+        width: 85%;
+    }
+    
+    .campana-roja img {
+        width: 85%;
+    }
+    
+    .pedido-pendiente {
+        width: 60px;
+    }
+    
+    .mesa-pendiente {
+        width: 76px;
+        padding: 10px;
+    }
+    
+    .n-pedido-p {
+        font-size: 30px;
+    }
+    
+    .n-mesa-p {
+        font-size: 30px;
+    }
+    
+    .check-verde-pedidos img {
+        width: 60%;
+    }
+    
+    .PedidosPendientes {
+        font-size: 35px;
+    }
+    
+    .list-pedidos-p {
+        font-size: 35px;
+        height: 168px;
+    }
+    
+   
+    .lista-de-empleados ul li .row .col-9 {
+        font-size: 35px;
+        margin-top: 1px;
+    }
+    
+    .estadisticas-personal {
+        font-size: 32px;
+    }
+    
+    .nume-producto {
+        padding: 58px 70px;
+    }
+    
+    .select-name {
+        font-size: 30px;
+    }
+    
+    .select-name select {;
+        width: 64%;
+    }
+    
+    .modal-select-producto span {
+        font-size: 54px;
+        padding: 22px;
+    }
+    
+    .modal-select-producto h5{
+        font-size: 30px;
+        margin-left: 20px;
+    }
+    
+    .silla-select textarea{
+        font-size: 30px;
+    }
+    
+    /**/
+   .boton_mas {
+        font-size: 30px !important;
+        margin-top: 10px;
+    }
+    .silla-zona{
+        font-size: 35px;
+    }
+    
+    .modal-select-silla span {
+        font-size: 51px;
+        border-radius: 15px;
+        padding: 10px;
+    }
+    
+    .lista-pedidos img {
+        width: 40%;
+    }
+    
+    .emcabezado-pedido img {
+        width: 80%;
+    }
+    
+    .container-cuerpo-add {
+        padding: 30px 75px;
+        margin-top: 9px;
+    }
+    
+    .boton-inf img {
+        width: 55%;
+    }
+    
+    .cantidad {
+        font-size: 25px;
+    }
+    
+    .text-listado {
+        font-size: 27px;
+    }
+    
+    .cuerpo-add .info img {
+        width: 30px;
+    }
+    
+    .cuerpo-add .info {
+        font-size: 24px;
+    }
+    
+     .foto-add img {
+        width: 40%;
+    }
+    
+    .titulo-cabezera {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+    
+    .boton-times-add {
+        font-size: 40px !important;
+    }
+    
+    .boton-check-add {
+        font-size: 40px !important;
+    }
+    
+    /**/
+    .back-header-listing h6 {
+        font-size: 35px;
+    }
+    
+    .back-header-listing h5 {
+        font-size: 24px;
+    }
+    
+    .title-listing .col-10 {
+        font-size: 35px;
+    }
+    
+    .title-listing .col-2 i {
+        margin-top: 3px;
+        font-size: 40px;
+    }
+    
+    .jobs ul li .row .col-7 {
+        font-size: 33px;
+        margin-top: 5px;
+    }
+    
+    .jobs ul li .row .col-2 i {
+        font-size: 27px;
+        padding: 17px;
+        margin-top: 7px;
+        border-radius: 50px;
+    }
+    
+    .jobs ul {
+        height: 475px;
+    }
+    
+    .section-button-registro {
+        text-align: center;
+        margin-top: 45px;
+    }
+    
+    .section-logo-registro img {
+        width: 55%;
+    }
+    
+    .container-logg {
+        padding: 35px;
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+    
+    .container-logg input {
+        font-size: 35px;
+    }
+    
+    .container-logg i {
+        font-size: 46px;
+        margin-top: 8px;
+        margin-left: 5px;
+        color: #ddd;
+    }
+    
+    .section-button button {
+        font-size: 42px;
+    }
+    
+    .section-button h5 a {
+        font-size: 25px;
+    }
+    
+    .section-button h5 {
+        margin: 40px;
+    }
+    
+    .bar-top .row .col-8 {
+        font-size: 35px;
+    }
+    
+    .bar-top .row i {
+        font-size: 34px;
+        margin-top: 10px;
+    }
+    
+    .section-button {
+        margin-top: 80px;
+    }
+    
+    .section-logo img {
+        margin: 5%;
+    }
+    
+    .section-button-registro button {
+        font-size: 40px;
+    }
+    
+    .section-button-registro h5 a {
+        font-size: 26px;
+    }
+    
+    .section-button-registro h5 {
+        margin-top: 20px;
+        padding: 0px 260px;
+    }   
+    
+    .section-button-inicio button{
+        font-size: 40px;
+    }
+    
+    .back-header-listing-adm h6 {
+        font-size: 25px;
+    }
+    
+    .back-header-listing-adm h5 {
+        font-size: 27px;
+    }
+    
+    .precio-pedido {
+        font-size: 21px;
+        margin-top: 25px;
+    }
+    
+    .hora-pedido {
+        font-size: 21px;
+        margin-top: 25px;
+    }
+    
+   .contenedor-mesas {
+        padding: 0px 125px;
+        padding-top: 115px;
+    }
+    
+    .menu-botton-selec h6 {
+        font-size: 20px;
+    }
+    /**/
+    
+     .cuerpo-modal .info {
+        font-size: 33px;
+    }
+    
+    .cuerpo-modal .info img {
+        width: 40px;
+    }
+    
+    .text-lista {
+        font-size: 40px;
+    }
+    .encabezado-lista-pedidos img {
+        width: 55%;
+    }
+    
+    .contenedor-icono-listado h5 {
+        font-size: 40px;
+    }
+    
+    .hora-listado{
+        font-size: 35px;
+    }
+    
+    .entregado {
+        font-size: 30px;
+    }
+    
+    .preparacion {
+        font-size: 30px;
+    }
+    
+    .listo {
+        font-size: 30px;
+    }
+    
+    .estado-pedido {
+        margin-top: 9px;
+    }
+    
+    .contenedor-listados-pedidos .boton-borrar {
+        width: 75%;
+    }
+    
+    .boton-modal.cancelar {
+        font-size: 30px;
+        padding: 6px 32px;
+    }
+    
+    .boton-modal {
+        font-size: 30px;
+        padding: 6px 32px;
+    }
+    
+    .jobs ul li .row .col-3 img {
+        width: 60%;
+    }
+    
+    .inf-add {
+        padding-right: 15px;
+    }
+    
+    .select-add {
+        padding-left: 15px;
+    }
+    
+    .select-add-fecha {
+        padding-left: 32px;
+        padding-right: 30px;
+    }
+    
+    .lista-producto {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 875px !important;
+    }
+    
+}
+
+@media only screen and (min-width: 776px) and (max-width: 875px){
+    
+    .container-cuerpo-add {
+        padding: 30px 75px;
+        margin-top: 9px;
+    }
+    
+   .inf-add {
+        padding-right: 15px;
+    }
+    
+    .select-add {
+        padding-left: 15px;
+    }
+    
+    .select-add-fecha {
+        padding-left: 32px;
+        padding-right: 30px;
+    }
+    
+    
+     .container-logg {
+        padding: 35px;
+    }
+    
+    .container-logg input {
+        font-size: 35px;
+    }
+    
+    .container-logg i {
+        font-size: 46px;
+        margin-top: 8px;
+        margin-left: 5px;
+        color: #ddd;
+    }
+    
+    .section-button button {
+        font-size: 42px;
+    }
+    
+    .section-button h5 a {
+        font-size: 25px;
+    }
+    
+    .section-button h5 {
+        margin-top: 45px;
+    }
+    
+    .bar-top .row .col-8 {
+        font-size: 40px;
+    }
+    
+    .bar-top .row i {
+        font-size: 50px;
+        margin-top: 10px;
+    }
+    
+    .bar-top .row i {
+        font-size: 34px;
+        margin-top: 10px;
+    }
+    
+    .jobs ul li .row .col-3 img {
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 876px) and (max-width: 1075px){
+    
+    .pedidos-cocineros {
+        padding-top: 110px;
+    }
+    
+    .foto-add {
+        margin-top: 170px;
+    }
+    
+    .contenedor-lista-pedidos .boton-borrar {
+        width: 60%;
+    }
+    
+    .list-productos-modal ul {
+        padding-top: 115px;
+    }
+    
+    .list-productos-modal ul li .row .col-7 {
+        font-size: 50px;
+    }
+    
+    .list-productos-modal ul li .row .col-2 i {
+        font-size: 40px;
+        padding: 20px;
+    }
+    
+    .horaPedidos .col-4 {
+        font-size: 37px;
+        margin-top: 2px;
+    }
+    
+    .horaPedidos select{
+        font-size: 45px;
+    }
+    
+    .img-reloj img {
+        width: 45%;
+        padding: 5px;
+        background: #ddd;
+    }
+    
+    .contenedor-listados-pedidos {
+        height: 1270px;
+    }
+    
+    .lista-de-empleados ul {
+        height: 1260px;
+    }
+    
+    .list-pedidos-pendientes hr {
+        margin-bottom: 10px;
+        margin-top: 9px;
+    }
+    
+    .list-pedidos-pendientes {
+        font-size: 40px;
+        padding: 36px 5px;
+    }
+    
+    .cabezeraPedidosPendientes {
+        font-size: 35px;
+    }
+    
+    .img-mesa {
+        padding: 10px;
+    }
+    
+    
+    .flecha-atras {
+        font-size: 55px;
+        margin-top: 10px;
+    }
+    
+    .titulo-cabezera-cocinero {
+        font-size: 50px;
+    }
+    
+     .numero-mesa {
+        margin-top: 30px;
+    }
+   
+    .numero-pedido {
+        margin-top: 5px;
+    }
+    
+    .mesa-numero {
+        font-size: 46px;
+    }
+    
+    .numero-de-pedido-cocinero {
+        padding: 5px;
+        font-size: 40px;
+    }
+    
+    .pedidos-cocinero .col-8{
+        font-size: 40px;
+    }
+    
+    .pedidos-cocinero {
+        padding: 45px;
+        margin-bottom: 20px;
+    }
+    
+    .pedido-pendiente {
+        width: 80px;
+    }
+    
+    .mesa-pendiente {
+        width: 100px;
+        padding: 10px;
+    }
+    
+    .n-pedido-p {
+        font-size: 42px;
+    }
+    
+    .n-mesa-p {
+        font-size: 42px;
+    }
+    
+    .check-verde-pedidos img {
+        width: 55%;
+    }
+    
+    .listaPedidosPendientes {
+        padding: 5px;
+    }
+    
+    .PedidosPendientes {
+        font-size: 45px;
+    }
+    
+    .list-pedidos-p {
+        font-size: 40px;
+    }
+    
+    .check-verde img {
+        width: 75%;
+    }
+    
+    .campana-roja img {
+        width: 75%;
+    }
+    
+    .modal-select-producto span {
+        font-size: 75px;
+        padding: 20px;
+    }
+    
+    .nume-producto {
+        padding: 73px 80px;
+    }
+    
+    .select-name{
+        font-size: 48px;
+    }
+    .modal-select-producto h5{
+        font-size: 40px;
+        margin-left: 20px;
+    }
+    
+    .silla-select textarea{
+        font-size: 30px;
+    }
+    
+    /**/
+    
+    
+    .lista-producto {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 1175px !important;
+    }
+    
+    .boton_mas {
+        font-size: 42px !important;
+        padding: 8px 10px;
+        border-radius: 17px;
+        margin-top: 20px;
+    }
+    
+    .nume-silla {
+        padding: 36px 55px;
+    }
+    
+    .silla-zona{
+        font-size: 55px;
+    }
+    
+    .modal-select-silla span {
+        font-size: 66px;
+        border-radius: 15px;
+        padding: 18px;
+    }
+    
+    .lista-pedidos img {
+        width: 42%;
+    }
+    
+    .emcabezado-pedido {
+        padding-top: 160px;
+        padding-bottom: 25px;
+    }
+    
+    .container-cuerpo-add {
+        padding: 30px 75px;
+        margin-top: 9px;
+    }   
+    
+    .emcabezado-pedido img {
+        width: 75%;
+    }
+    
+    .img-v img {
+        width: 75%;
+    }
+    
+    .boton-inf img {
+        width: 50%;
+    }
+    
+    .cantidad {
+        font-size: 36px;
+    }
+    
+    .text-listado {
+        font-size: 40px;
+    }
+    
+    
+    .inf-add {
+        padding-right: 15px;
+    }
+    
+    .select-add {
+        padding-left: 15px;
+    }
+    
+    .select-add-fecha {
+        padding-left: 32px;
+        padding-right: 30px;
+    }
+    
+    .cuerpo-add .info img {
+        width: 30px;
+    }
+    
+    .cuerpo-add .info {
+        font-size: 40px;
+    }
+    
+     .foto-add img {
+        width: 40%;
+    }
+    
+    .titulo-cabezera {
+        font-size: 45px;
+        margin-bottom: 10px;
+    }
+    
+    .boton-times-add {
+        font-size: 55px !important;
+        margin-top: 10px;
+    }
+    
+    .boton-check-add {
+        font-size: 55px !important;
+        margin-top: 10px;
+    }
+    
+    .back-header-listing h6 {
+        font-size: 35px;
+    }
+    
+    .back-header-listing h5 {
+        font-size: 24px;
+    }
+    
+    .title-listing .col-10 {
+        font-size: 35px;
+    }
+    
+    .title-listing .col-2 i {
+        margin-top: 3px;
+        font-size: 40px;
+    }
+    
+    .jobs ul li .row .col-7 {
+        font-size: 33px;
+        margin-top: 20px;
+    }
+    
+    .jobs ul li .row .col-2 i {
+        font-size: 35px;
+        padding: 17px;
+        margin-top: 21px;
+        border-radius: 50px;
+    }
+    
+    .jobs ul {
+        height: 680px;
+    }
+    
+    .jobs ul li .row .col-3 img {
+        width: 60%;
+    }
+    
+    .cuerpo-modal .info {
+        font-size: 45px;
+        padding: 15px;
+    }
+    
+    .cuerpo-modal .info img {
+        width: 50px;
+    }
+    
+    .text-lista {
+        font-size: 60px;
+    }
+    
+    .encabezado-lista-pedidos img {
+        width: 50%;
+        margin-top: 11px;
+    }
+    
+    .contenedor-icono-listado h5 {
+        font-size: 55px;
+    }
+    
+    .hora-listado {
+        font-size: 47px;
+    }
+    
+    .entregado {
+        font-size: 39px;
+    }
+    
+    .preparacion {
+        font-size: 39px;
+    }
+    
+    .listo {
+        font-size: 39px;
+    }
+    
+    .estado-pedido {
+        margin-top: 9px;
+    }
+    
+    .contenedor-listados-pedidos .boton-borrar {
+        width: 75%;
+    }
+    
+    .boton-modal.cancelar {
+        font-size: 50px;
+        padding: 6px 32px;
+    }
+    
+    .boton-modal {
+        font-size: 50px;
+        padding: 6px 32px;
+    }
+    
+    .menu-botton-selec h6 {
+        font-size: 30px;
+        text-align: center;
+        margin: 0;
+    }
+    
+    .back-header-listing-adm h6 {
+        font-size: 35px;
+    }
+    
+    .back-header-listing-adm h5 {
+        font-size: 27px;
+    }
+    
+    .precio-pedido {
+        font-size: 29px;
+        margin-top: 35px;
+    }
+    
+    .hora-pedido {
+        font-size: 29px;
+        margin-top: 35px;
+    }
+    
+   .contenedor-mesas {
+        padding: 0px 173px;
+        padding-top: 170px;
+    }
+    
+    .section-logo-registro img {
+        width: 55%;
+    }
+    
+     .container-logg {
+        padding: 35px;
+        margin-left: 70px;
+        margin-right: 70px;
+    }
+    
+    .container-logg input {
+        font-size: 50px;
+    }
+    
+    .container-logg i {
+        font-size: 60px;
+        margin-top: 8px;
+        margin-left: 5px;
+        color: #ddd;
+    }
+    
+   .section-button button {
+        font-size: 59px;
+    }
+    
+    .section-button {
+        margin-top: 120px;
+    }
+    
+    .section-button h5 a {
+        font-size: 34px;
+    }
+    
+    .section-button h5 {
+        margin: 45px;
+    }
+    
+    .bar-top .row .col-8 {
+        font-size: 50px;
+    }
+    
+    .bar-top .row i {
+        font-size: 50px;
+        margin-top: 10px;
+    }
+    
+    .section-logo img {
+        margin: 5%;
+    }
+    
+    .section-button-registro{
+        margin-top: 55px;
+    }
+    
+    .section-button-registro button {
+        font-size: 50px;
+    }
+    
+    .section-button-registro h5 a {
+        font-size: 30px;
+    }
+    
+    .section-button-registro h5 {
+        margin-top: 20px;
+        padding: 0px 371px;
+        margin: 25px 0px;
+    }
+    
+    .section-button-inicio button{
+        font-size: 50px;
+    }
+    
+}

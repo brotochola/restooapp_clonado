@@ -1,0 +1,99 @@
+<div class="fondo-modal" id="nuevoCliente">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal">
+            <div class="container-cuerpo">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="info">Nombre:
+                                <input placeholder="Nombre" id="nombre">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="info">Apellido:
+                                <input placeholder="Apellido" id="apellido">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info"><img src="../media/Img/usuario-seleccionado.png"> Usuario:
+                                <input id="user" placeholder="usuario"> </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="info"><img src="../media/Img/usuarios-gris.png"> Nº de Personas</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="info">
+                                <select id="selectCantSillas">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="boton-modal" id="agregar" onclick="agregarCliente()">Agregar Cliente</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="boton-modal cancelar" onclick="$('#nuevoCliente').fadeOut();">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+var mesaID;
+
+function mostrarModalNuevoCliente(m_id) {
+    mesaID = m_id
+    console.log(" nuevo cliente en mesa " + m_id)
+    $("#agregar").html("Agregar Cliente a Mesa #" + m_id)
+    $("#nuevoCliente").fadeIn();
+
+    $("#selectCantSillas").html("")
+    for (var i = 1; i <= mesas[id2i(m_id, mesas)].sillas; i++) {
+        $("#selectCantSillas").append("<option value='" + i + "'>" + i + "</option>")
+    }
+
+
+}
+
+function agregarCliente() {
+
+    nombre=$("#nombre").val();
+    apellido=$("#apellido").val()
+    user=$("#user").val()
+
+    if(user=="" || apellido=="" || nombre==""){
+        mostrarModalConfirmacion("Complete todos los campos", "ok");
+        return;
+    }
+
+    $.ajax({
+        url: "../../server/mozo/mesas/habilitar",
+        headers: {
+            token: localStorage[usuarioLogueado_ls]
+        },
+        data: {
+            "idMesa": mesaID,
+            "nombre": $("#nombre").val(),
+            "apellido": $("#apellido").val(),
+            "user": $("#user").val(),
+            "cantComensales": $("#selectCantSillas").val()
+        },
+        success: function(e) {
+            console.log(e)
+            $("#nuevoCliente").fadeOut();
+        }
+    })
+}
+</script>

@@ -1,0 +1,72 @@
+.container.contenedor-mesas.conNotif{
+	padding-top: 0px;
+}
+
+#notificacionesMozo{
+	display:none;
+	z-index: 2;
+	position: fixed;
+	margin-top: 12%;
+	border-radius: 0px;
+	border-bottom-left-radius: 16px;
+	border-bottom-right-radius: 16px;
+}
+
+#contenedorMesas{
+	margin-top:0px;
+	padding-top: 110px;
+}
+
+.container.contenedor-mesas{
+	transition: all 300ms;
+}
+
+
+#modalMesaMozo{
+	display:none;
+}
+
+strong#nombreCliente{text-transform: capitalize;}
+
+#verPedidoMozo .cuerpo-modal{
+	    height: 80%;
+	    min-width: 0px;
+	    overflow: hidden;
+}
+
+#verPedidoMozo .contenedor-listados-pedidos{
+	height:auto !important;
+}
+
+#verPedidoMozo {
+	z-index:9;
+}
+
+#listaProductosMozo{
+	height:60%;
+}
+
+#agregarProductos{
+	display:none;
+	z-index: 10;
+}
+
+
+
+ span.cantProds {
+   /* float: right; */
+}
+
+#agregarProductos #containerListaProductos{
+	padding:3px 15px;
+}
+
+.botonesAgregarBorrarProducto *{
+	width:30% !important;
+	display:inline-block;
+	text-align: center;
+}
+
+#nuevoCliente{
+	display:none;
+}

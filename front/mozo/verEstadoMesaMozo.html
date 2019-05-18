@@ -1,0 +1,178 @@
+<div class="fondo-modal" id="modalMesaMozo">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal ">
+            <div class="container mozo-lista-pedidos">
+                <div class="row"> <span id="idMesa" class="idMesa">#5</span></div>
+                <div class="row">
+                    <div class="col-12 pp-n-left">
+                        <div class="info"><img src="../media/Img/usuario-seleccionado.png">Cliente: <strong id="nombreCliente">fulanito de tal</strong></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 pp-n-left">
+                        <div class="info"><img src="../media/Img/mesa.png"> Estado: <strong id="estadoMesa"></strong> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-cuerpo">
+                <div class="row encabezado-lista-pedidos">
+                    <div class="col-2 paddingr">
+                        <img src="../media/Img/pedido.png">
+                    </div>
+                    <div class="col-8 pp-none text-lista">LISTA DE PEDIDOS </div>
+                    <div class="col-2">
+                        <i class="fas fa-plus boton_mas" onclick="verPedido('agregar')"></i>
+                    </div>
+                </div>
+                <div class="row contenedor-lista-pedidos">
+                    <ul id="listadoDePedidosMesa">
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2 text-center contenedor-icono-listado">
+                                        <h5>#1</h5></div>
+                                    <div class="col-4 hora-listado">23:14 hr.</div>
+                                    <div class="col-4 estado-pedido"><span class="entregado">ENTREGADO</span></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2 text-center contenedor-icono-listado">
+                                        <h5>#2</h5></div>
+                                    <div class="col-4 hora-listado">10:59 hr.</div>
+                                    <div class="col-4 estado-pedido"><span class="preparacion">PREPARACION</span></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2 text-center contenedor-icono-listado">
+                                        <h5>#2</h5></div>
+                                    <div class="col-4 hora-listado">10:59 hr.</div>
+                                    <div class="col-4 estado-pedido"><span class="listo">LISTO</span></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2 text-center contenedor-icono-listado">
+                                        <h5>#3</h5></div>
+                                    <div class="col-4 hora-listado">19:00 hr.</div>
+                                    <div class="col-4 estado-pedido"><span class="preparacion">PREPARACION</span></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="boton-modal " id="botonOKVerEstadoMesa" onclick='ocultarEstadoMesaMozo()'>OK</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="boton-modal cancelar">Pedir cuenta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+var mesaId
+
+
+
+function mostrarEstadoMesaMozo(id) {
+    // $("#botonOKVerEstadoMesa").html("OK")
+    // $("#botonOKVerEstadoMesa").off().click(ocultarEstadoMesaMozo)
+
+
+    //a esta funcion le podria entrar un id, y lo busca en la db, o bien un objeto mesa
+    if (id.id != undefined && Array.isArray(id.pedidos)) {
+        mesa=id; //le llamo id pero si le entro una mesa es una mesa
+        console.log("es objeto")
+        $("#listadoDePedidosMesa").html("")
+        //arma pedidos
+        for (var i = 0; i < mesa.pedidos.length; i++) {
+            pe = mesa.pedidos[i]
+            $("#listadoDePedidosMesa").append(armarPedido(pe))
+        }
+
+        //datos
+        $("#idMesa").html("#" + id)
+        $("#nombreCliente").html(mesa.cliente.nombre)
+        $("#estadoMesa").html(estadosMesas[mesa.estado])
+        $("#modalMesaMozo").fadeIn();
+
+    } else {
+
+        mesaId = id
+        $.ajax({
+            url: "../../server/mozo/mesas/id",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            data: {
+                "id": id
+            },
+            success: function(e) {
+                console.log(e)
+                try { mesa = JSON.parse(e) } catch (e) { mesa = e }
+                $("#listadoDePedidosMesa").html("")
+                //arma pedidos
+                for (var i = 0; i < mesa.pedidos.length; i++) {
+                    pe = mesa.pedidos[i]
+                    $("#listadoDePedidosMesa").append(armarPedido(pe))
+                }
+
+                //datos
+                $("#idMesa").html("#" + id)
+                $("#nombreCliente").html(mesa.cliente.nombre)
+
+                $("#estadoMesa").html(estadosMesas[mesa.estado])
+
+
+
+                $("#modalMesaMozo").fadeIn();
+            }
+        })
+    }
+
+
+
+
+}
+
+
+
+function armarPedido(pedido) {
+   // console.log(pedido)
+    html = ' <li>'
+    html += '<div class="container">'
+    html += '<div class="row" onclick="verPedido(' + pedido.id + ')">'
+    html += '<div class="col-2 text-center contenedor-icono-listado"><h5>#' + pedido.id + '</h5></div>'
+    html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + pedido.horaPedido + ' hr.</div>'
+    html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado].toUpperCase() + '</span></div>'
+    html += '<div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="../media/Img/inf.png"></div>'
+    html += '</div>  '
+    html += '</div>  '
+    html += '</li>'
+    return html;
+
+}
+
+function ocultarEstadoMesaMozo() {
+
+    $("#modalMesaMozo").fadeOut();
+}
+</script>
