@@ -16,7 +16,7 @@ class productoApi extends producto
         $miProducto->descripcion = $ArrayDeParametros['descripcion']; 
         $miProducto->id_cocina = $ArrayDeParametros['id_cocina']; 
         $miProducto->precio = $ArrayDeParametros['precio']; 
-        $miProducto->imagen = $ArrayDeParametros['imagen']; 
+        //$miProducto->imagen = $ArrayDeParametros['imagen']; 
 
    
         $var = producto::TraerUno($miProducto->nombre_producto);             
@@ -49,22 +49,19 @@ class productoApi extends producto
     {
         $vProducto = new producto();
 
-        $vector  = $request->getParams('id_producto','nombre_producto','descripcion','id_cocina','precio','imagen');
+        $vector  = $request->getParams('id_producto','nombre_producto','descripcion','id_cocina','precio');
         
         $vProducto->id_producto = $vector['id_producto'];
         $vProducto->nombre_producto = $vector['nombre_producto'];
         $vProducto->descripcion = $vector['descripcion'];
         $vProducto->id_cocina = $vector['id_cocina'];
         $vProducto->precio = $vector['precio'];
-	$vProducto->imagen = str_replace(" ", "", $vector['imagen']);
 
-	//return var_dump($vector);
-     
-	$resultado =$vProducto->Modificar();
-	$responseObj= new stdclass();
-	$responseObj->resultado=$resultado;
+    	$resultado =$vProducto->Modificar();
+	    $responseObj= new stdclass();
+	    $responseObj->resultado=$resultado;
         $responseObj->tarea="modificar";
-	return $response->withJson($responseObj, 200);	
+	    return $response->withJson($responseObj, 200);	
     }
    
     public function BorrarProducto($request, $response, $args) 

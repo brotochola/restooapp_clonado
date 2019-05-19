@@ -481,11 +481,18 @@ $app->group('/mozo', function () {
 
 
    $this->get('/mesas/lista[/]', function(){
-    return '[{"id":1,"sillas":4, "zona":1},{"id":2,"sillas":3, "zona":2},{"id":3,"sillas":4, "zona":2},{"id":5,"sillas":6, "zona":1},{"id":6,"sillas":4, "zona":1},{"id":7,"sillas":4, "zona":1},{"id":8,"sillas":4, "zona":1},{"id":9,"sillas":2, "zona":2}
-    ,{"id":10,"sillas":2, "zona":1}
-    ,{"id":11,"sillas":6, "zona":1}
-    ,{"id":12,"sillas":6, "zona":2}
-    ,{"id":13,"sillas":5, "zona":2}
+    return '[{"id":1,"sillas":4, "zona":1},
+    {"id":2,"sillas":3, "zona":2},
+    {"id":3,"sillas":4, "zona":2},
+    {"id":5,"sillas":6, "zona":1},
+    {"id":6,"sillas":4, "zona":1},
+    {"id":7,"sillas":2, "zona":1},
+    {"id":8,"sillas":4, "zona":1},
+    {"id":9,"sillas":2, "zona":2},
+    {"id":10,"sillas":2, "zona":1},
+    {"id":11,"sillas":6, "zona":1},
+    {"id":12,"sillas":6, "zona":2},
+    {"id":13,"sillas":5, "zona":2}
   ]';
    });
 
@@ -494,6 +501,13 @@ $app->group('/mozo', function () {
   $this->get('/mesas/id[/]', function(){
   // $num=floor(rand(0,2));        
     //  if($num==0){
+      
+// lo tengo q reemplazar con un super pedido que traiga, 
+//id mesa
+//id cliente
+//pedidos
+
+
   return '{
     "id": 1,
     "estado": 2,
@@ -507,15 +521,16 @@ $app->group('/mozo', function () {
       "horaServido": "22:20",
       "horaEstimada": "22:15",
       "productos":[{"id":1,"nombre_producto":"Omelette", "cantidad":2},{"id":2,"nombre_producto":"Hamburguesa Completa", "cantidad":1}]
-    }, {
-      "id": 8,
-      "estado": 3,
-      "horaPedido": "22:05",
-      "horaServido": null,
-      "horaEstimada": "22:25",
-       "productos":[{"id":4,"nombre_producto":"Ensalada Mixta Grande", "cantidad":2},{"id":12,"nombre_producto":"Hamburguesa Simple", "cantidad":1},{"id":43,"nombre_producto":"Birri", "cantidad":30}]
-    }]
-  }';
+    }]}';
+    //  {
+    //   "id": 8,
+    //   "estado": 3,
+    //   "horaPedido": "22:05",
+    //   "horaServido": null,
+    //   "horaEstimada": "22:25",
+    //    "productos":[{"id":4,"nombre_producto":"Ensalada Mixta Grande", "cantidad":2},{"id":12,"nombre_producto":"Hamburguesa Simple", "cantidad":1},{"id":43,"nombre_producto":"Birri", "cantidad":30}]
+    // }]
+  
 
  });
 

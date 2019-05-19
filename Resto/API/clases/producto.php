@@ -17,18 +17,18 @@ class producto
         public function Insertar()
         {
            
-
-		
-
- $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into productos     		 (id_producto,nombre_producto,descripcion,id_cocina,precio,imagen)                
-            values(:id_producto,:nombre_producto,:descripcion,:id_cocina,:precio,:imagen)");
+            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+            $consulta =$objetoAccesoDato->RetornarConsulta(
+            "INSERT into productos 
+            (id_producto,nombre_producto,descripcion,id_cocina,precio)                
+            values
+            (:id_producto,:nombre_producto,:descripcion,:id_cocina,:precio)");
+            
             $consulta->bindValue(':id_producto', $this->id_producto, PDO::PARAM_STR);
             $consulta->bindValue(':nombre_producto', $this->nombre_producto, PDO::PARAM_STR);
             $consulta->bindValue(':descripcion', $this->descripcion, PDO::PARAM_STR);
             $consulta->bindValue(':id_cocina', $this->id_cocina, PDO::PARAM_STR);
-            $consulta->bindValue(':precio', $this->precio,PDO::PARAM_STR);
-            $consulta->bindValue(':imagen', $this->imagen,PDO::PARAM_STR);
+            $consulta->bindValue(':precio', $this->precio,PDO::PARAM_STR);           
             $consulta->execute();		
             
             return $objetoAccesoDato->RetornarUltimoIdInsertado();
