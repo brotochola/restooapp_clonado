@@ -7,11 +7,59 @@ require_once 'AccesoDatos.php';
 class mesa
 {
     public $id_mesa;
-    public $id_sector;
-    public $id_estado_mesa;
+    public $zona;
+    public $estado_mesa;
 
     public function __construct() {}
 
+        //=============AGREGADOS APP RESTO2
+        public static function HabilitarLaMesa($vIdMesa, $vIdCliente, $vFecha, $vComensales)
+        {                      
+            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into cliente_visita (id_mesa, id_cliente, fecha, comensales)
+            values(:id_mesa,:id_cliente,:fecha,:comensales)");
+            $consulta->bindValue(':id_mesa', $vIdMesa, PDO::PARAM_STR);
+            $consulta->bindValue(':id_cliente',$vIdCliente,PDO::PARAM_STR);
+            $consulta->bindValue(':fecha',$vFecha,PDO::PARAM_STR);
+            $consulta->bindValue(':comensales',$vComensales,PDO::PARAM_STR);
+            $consulta->execute();		
+
+            return $objetoAccesoDato->RetornarUltimoIdInsertado();
+        }
+
+        public static function ModificarEstadoDeLaMesa($idMesa, $vEstado)
+        {
+            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+            $consulta =$objetoAccesoDato->RetornarConsulta("
+                update mesas
+                set 
+                estado_mesa ='$vEstado'
+                WHERE id_mesa ='$idMesa'");
+            return $consulta->execute();
+    
+        }
+
+        public static function TraerLaMesa($vId)
+        {
+            $consulta = "SELECT * FROM `mesas`  WHERE  `id_mesa` = '$vId'";
+            return AccesoDatos::ConsultaDatosAsociados($consulta);
+        }
+
+        public static function TraerClienteVisita($vId)
+        {
+            $consulta = "SELECT cliente_visita.id_cliente FROM `cliente_visita`  WHERE  `id_mesa` = '$vId' LIMIT 1";
+            return AccesoDatos::ConsultaDatosAsociados($consulta);
+        }
+
+
+        public static function TraerTodas()
+        {
+            $consulta = "SELECT * FROM `mesas`";
+            return AccesoDatos::ConsultaClase($consulta, "mesa");
+        }
+
+        //=============FIN AGREGADOS APP RESTO2
+        
         public function Insertar()
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 

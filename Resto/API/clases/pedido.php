@@ -12,7 +12,128 @@ class pedido
     public $hora_estimada;
     public $hora_listo;
 
-        public function __construct() {}            
+
+    public $id;
+    public $id_mesa;
+    public $id_pedido;
+    public $fecha_alta;
+
+        public function __construct() {}    
+            
+            
+            // codigo appResto2
+            public function InsertarPedidoPrincipal()
+            {
+                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+                $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos(id_mesa, id_cliente, fecha_alta, hora_estimada) 
+                values (:id_mesa,:id_cliente,:fecha_alta,:hora_estimada)");
+    
+                $consulta->bindValue(':id_mesa', $this->id_mesa, PDO::PARAM_STR);
+                $consulta->bindValue(':id_cliente', $this->id_cliente, PDO::PARAM_STR);
+                $consulta->bindValue(':fecha_alta', $this->fecha_alta, PDO::PARAM_STR);                            
+                $consulta->bindValue(':hora_estimada', $this->hora_estimada, PDO::PARAM_STR);                            
+                                
+                $consulta->execute();		
+
+                return $objetoAccesoDato->RetornarUltimoIdInsertado();
+           
+            }
+
+
+
+            public function CargarPedidosDetalle($pPedidos,$pCantidades,$pId_pedido)
+            {
+                $obj = new stdclass();
+                $obj->respuesta="Pedidos cargados";
+                $obj->itsOk = True; 
+    
+                try
+                {                  
+                    
+                    foreach (array_combine($pPedidos, $pCantidades) as $pedido => $cantidad) {
+                                          
+                        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+                        $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos_detalles 
+                        (id, id_producto, cantidad) values (:id,:id_producto,:cantidad)");
+    
+                        $consulta->bindValue(':id', $pId_pedido, PDO::PARAM_STR);
+                        $consulta->bindValue(':id_producto', $pedido, PDO::PARAM_STR);
+                        $consulta->bindValue(':cantidad', $cantidad, PDO::PARAM_STR);
+                
+                        $consulta->execute();	  
+                    }                              
+                    
+                }
+                catch(Exception $e) 
+                {               
+                    $obj->respuesta= $e->getMessage();
+                    $obj->itsOk = False;        
+    
+                }     
+                return $obj;                    
+            }
+
+            public static function TraerPedidosPorId($pId)
+            {             
+                $consulta = "SELECT * FROM `pedidos` WHERE `id`= '$pId'";
+                return AccesoDatos::ConsultaDatosAsociados($consulta);
+            }
+
+            public static function TraerPedidosProductosPorPedido($pId)
+            {             
+                $consulta = "SELECT pedidos_detalles.id_producto FROM `pedidos_detalles` WHERE `id`= '$pId'";
+                return AccesoDatos::ConsultaDatosAsociados($consulta);
+            }
+
+            public function EntregarElPedido($vId, $vHora)
+            {
+                $vEstado = '3';
+                
+                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+                $consulta =$objetoAccesoDato->RetornarConsulta("
+                    update pedidos
+                    set                 
+                    estado_pedido = '$vEstado',                   
+                    hora_listo ='$vHora'
+                    WHERE id = '$vId'");
+
+               return $consulta->execute();
+            }
+
+
+            public function CancelarElPedido($vId)
+            {
+                $vEstado = '5';
+                
+                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+                $consulta =$objetoAccesoDato->RetornarConsulta("
+                    update pedidos
+                    set                 
+                    estado_pedido = '$vEstado'                    
+                    WHERE id = '$vId'");
+
+               return $consulta->execute();
+            }
+
+            public static function TraerIdPedidoPorCliente($vId)
+            {
+                $consulta = "SELECT * FROM `pedidos`  WHERE  `id_cliente` = '$vId' LIMIT 1";
+                return AccesoDatos::ConsultaDatosAsociados($consulta);
+            }
+
+            // public static function TraerPedidosPorComandaNombres($pComanda)
+            // {  
+            //     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+            //     $consulta = "SELECT  comanda_detalles.id_comanda,
+            //     comanda_detalles.id_producto, comanda_detalles.cantidad_producto, productos.nombre_producto 
+            //     FROM comanda_detalles,productos 
+            //     WHERE comanda_detalles.id_producto = productos.id_producto 
+            //     AND comanda_detalles.id_comanda = '$pComanda'";            
+                
+            //     return AccesoDatos::ConsultaDatosAsociados($consulta);
+            // }
+            // // 
+        ##===========================fin appResto2
             
         ##=========================== REGION ABM
 

@@ -34,6 +34,7 @@ class producto
             return $objetoAccesoDato->RetornarUltimoIdInsertado();
         }
         
+        
         public static function TraerUno($vId)
         {
             $consulta = "SELECT * FROM `productos` WHERE  `id_producto` = '$vId'";            
@@ -44,6 +45,14 @@ class producto
         {            
             $consulta = "SELECT * FROM `productos`";
             return AccesoDatos::ConsultaClase($consulta, "producto");
+        }
+
+        public static function TraerTiempoPorProducto($pId)
+        {              
+            $consulta = "SELECT  productos.minutos_preparacion
+            FROM productos WHERE productos.id = '$pId'";            
+            
+            return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
 
         public function Modificar()

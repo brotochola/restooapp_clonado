@@ -40,7 +40,35 @@ $config['addContentLengthHeader'] = false;
 
 $app = new \Slim\App(["settings" => $config]);
 
+// Agregados appResto2
 
+$app->group('/pedidos', function () {
+   
+    $this->post('/agregar',\pedidoApi::class . ':CargarUnPedido');     
+
+    $this->get('/id/{id}',\pedidoApi::class . ':TraerPedido'); 
+
+    $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
+
+    $this->get('/cancelar/{id}',\pedidoApi::class . ':CancelarPedido');     
+         
+})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+
+$app->group('/mesas', function () {
+   
+    $this->post('/habilitar',\mesaApi::class . ':HabilitarMesa');     
+
+    $this->get('/lista',\mesaApi::class . ':TraerMesas'); 
+    
+    $this->get('/id/{id}',\mesaApi::class . ':TraerUnaMesa'); 
+
+    // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
+    
+         
+})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+
+
+//============================== FIN AGREGADOS APP RESTO2
 
 $app->group('/login', function () {
    

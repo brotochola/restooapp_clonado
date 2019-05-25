@@ -5,6 +5,156 @@ require_once 'pedido.php';
 
 class pedidoApi extends pedido
 {
+// appResto2
+
+public function CargarUnPedido($request, $response,$args){
+
+        $obj = new stdclass();
+        $obj->respuesta="";
+        $obj->itsOk = false;
+
+        $vPedido = new pedido();
+        $vHora = new DateTime();    
+        $vector = $request->getParsedBody(); 
+                     
+        $vPedido->id_mesa = $vector['id_mesa'];
+        $vPedido->id_cliente = $vector['id_cliente'];             
+        
+        $pedidos = explode(',',$vector['pedidos']);  
+        $cantidades = explode(',', $vector['cantidades']);        
+        
+        if(count($pedidos) != count($cantidades))
+        {
+            $obj->respuesta="Las cantidades y pedidos deben coincidir";
+        }
+        else
+        {                  
+                try{
+                    
+                    $var = mesa::TraerUno($vPedido->id_mesa); 
+                    if($var != null)
+                    {
+
+                        try
+                        {    
+
+                            $vPedido->fecha_alta = date_format($vHora,"Y/m/d H:i:s");                            
+                            $vPedido->hora_estimada = self::TraerMayorTiempo($pedidos);
+                            
+                            $vPedido->id = $vPedido->InsertarPedidoPrincipal();
+
+                            $vPedido->CargarPedidosDetalle($pedidos,$cantidades,$vPedido->id);
+                            $obj->respuesta = "Se cargo el pedido: ".$vPedido->id;    
+                            $obj->itsOk = true;                            
+
+                        }
+                        catch(Exception $e) 
+                        {
+                            return $e->getMessage();        
+                        }
+                    }                   
+                    else
+                    {
+                        return $obj->respuesta="La mesa con ese id no existe";
+
+                    }//cierra verifica mesa
+            } //cierra try mesa         
+            catch(Exception $e) 
+            {            
+                return $e->getMessage();
+            }
+        }    
+        $newResponse = $response->withJson($obj, 200);        
+        return $newResponse;
+   
+}//Cierra cargar comanda
+
+public function EntregarPedido($request, $response, $args) {
+
+    $vHora = new DateTime(); 
+    $vId = $args['id']; 
+
+    $laHora = date_format($vHora,"Y/m/d H:i:s");                             
+    pedido::EntregarElPedido($vId, $laHora);
+    
+    $respuesta = pedido::TraerPedidosPorId($vId);        
+    $newResponse = $response->withJson($respuesta, 200);
+    return $newResponse;
+}
+
+
+public function CancelarPedido($request, $response, $args) {
+
+    $vId = $args['id']; 
+    pedido::CancelarElPedido($vId);
+    $respuesta = pedido::TraerPedidosPorId($vId);        
+    $newResponse = $response->withJson($respuesta, 200);
+    return $newResponse;
+}
+
+
+public function TraerPedido($request, $response, $args) {
+    
+    $vId = $args['id'];        
+    $Pedidos = self::TraerMiPedido($vId);
+    $newResponse = $response->withJson($Pedidos, 200);
+    return $newResponse;
+}
+
+
+public static function TraerMiPedido($pId) {
+
+    $elPedido = pedido::TraerPedidosPorId($pId);
+   
+    $idsproductos = pedido::TraerPedidosProductosPorPedido($pId);
+    $elProducto = new producto();
+
+    $pedidosArray = array();
+    $respuestaArray = array();
+
+        for ($x = 0; $x <= count($idsproductos)-1; $x++) 
+        {
+            $elProducto = producto::TraerUno($idsproductos[$x]["id_producto"]);
+            //return $elProducto;
+            array_push($pedidosArray, $elProducto);
+        }
+
+
+
+    array_push($respuestaArray,$elPedido);
+    array_push($respuestaArray,$pedidosArray);
+
+
+    return $respuestaArray;
+
+}
+
+public static function TraerMayorTiempo($Pedidos){
+
+    $tiempo = 0;
+    $minutosAgregar = null;
+      
+    foreach($Pedidos as $mydata)
+    {
+        $resultado = producto::TraerTiempoPorProducto($mydata);
+
+        if($tiempo <= $resultado){
+         $tiempo = $resultado;
+        }       
+    }
+
+    $horaLocal = new DateTime();
+    $minutosAgregar = '+'.$tiempo[0]['minutos_preparacion'].' minutes';  
+    $horaLocal->modify($minutosAgregar); 
+    $horaDevuleta = date_format($horaLocal,"Y/m/d H:i:s");
+
+    return $horaDevuleta;
+    
+}
+
+
+// fin appResto2
+
 
     public function CargarPedido($request, $response,$args)
     {
@@ -410,5 +560,3 @@ class pedidoApi extends pedido
         }
     }
 }
-
-?>

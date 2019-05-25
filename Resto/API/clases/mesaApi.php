@@ -5,6 +5,65 @@ require_once 'mesa.php';
 
 class mesaApi extends mesa
 {   
+
+
+        //=============AGREGADOS APP RESTO2
+
+    public function HabilitarMesa($request,$response,$args)
+    {    
+        $miMesa = new mesa();
+
+        $ArrayDeParametros = $request->getParsedBody(); 
+        
+        $vHora = new DateTime(); 
+        $laHora = date_format($vHora,"Y/m/d H:i:s"); 
+
+        $vIdMesa = $ArrayDeParametros['id_mesa'];
+        $vIdCliente = $ArrayDeParametros['id_cliente'];
+        $vComensales = $ArrayDeParametros['comensales'];
+        
+
+        mesa::HabilitarLaMesa($vIdMesa, $vIdCliente, $laHora, $vComensales);
+        mesa::ModificarEstadoDeLaMesa($vIdMesa, 2);
+        
+        $respuesta = mesa::TraerLaMesa($vIdMesa);
+        
+        return $response->withJson($respuesta, 200);            
+        
+    }
+
+    public function TraerMesas($request, $response, $args) 
+    {   
+        $Mesas = mesa::TraerTodas();        
+        $newResponse = $response->withJson($Mesas, 200);  
+        return $newResponse;
+    }  
+
+
+    
+    public function TraerUnaMesa($request, $response, $args) {
+
+        $respuestaArray = array();
+
+        $vId = $args['id'];        
+        $mesa = mesa::TraerLaMesa($vId);
+        $vIdCliente = mesa::TraerClienteVisita($vId);
+        $cliente = cliente::TraerUno($vIdCliente[0]['id_cliente']);
+        $pedido = pedido::TraerIdPedidoPorCliente($vIdCliente[0]['id_cliente']);
+        $pedidoCompleto = pedidoApi::TraerMiPedido($pedido[0]['id']);
+
+        array_push($respuestaArray, $mesa);
+        array_push($respuestaArray, $cliente);
+        array_push($respuestaArray, $pedidoCompleto);
+
+        $newResponse = $response->withJson($respuestaArray, 200);
+        return $newResponse;
+    }
+
+
+    //=============FIN AGREGADOS APP RESTO2
+        
+
     public function CargarMesa($request,$response,$args)
     {    
         $miMesa = new mesa();
@@ -41,12 +100,12 @@ class mesaApi extends mesa
         return $newResponse;
     }
 
-    public function TraerMesas($request, $response, $args) 
-    {   
-        $Empleados = mesa::TraerTodos();        
-        $newResponse = $response->withJson($Empleados, 200);  
-        return $newResponse;
-    }  
+    // public function TraerMesas($request, $response, $args) 
+    // {   
+    //     $Empleados = mesa::TraerTodos();        
+    //     $newResponse = $response->withJson($Empleados, 200);  
+    //     return $newResponse;
+    // }  
 
     public function ModificarEstadoMesa($request, $response,$args)
     {

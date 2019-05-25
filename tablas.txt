@@ -1,0 +1,5 @@
+
+
+pedidos(id_pedido, id_mesa, id_cliente)
+
+pedidos_detalle(id_pedido, id_producto, cantidad)
