@@ -13,6 +13,9 @@
     padding-left: 0px;
 }
 
+#contenedorMesas{
+padding-bottom:100px;
+}
 .body-color-login{
     background-color: #fed322; 
 }

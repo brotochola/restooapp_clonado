@@ -19,7 +19,7 @@ function armarGraficoMesas(){
 
 	for(var i=0; i<m.length;i++){		
 		//aca solo las deja en verde	
-		$("div.zonaMesas."+m[i].zona).append("<div class='mesa "+m[i].id+"' onclick='verMesa("+m[i].id+")' ><img   class='mesaImg' src='../mesas/"+m[i].sillas+"/verdeClaro.png'><br> #"+m[i].id+"</div>");
+		$("div.zonaMesas."+m[i].zona).append("<div class='mesa "+m[i].id_mesa+"' onclick='verMesa("+m[i].id_mesa+")' ><img   class='mesaImg' src='../mesas/"+m[i].sillas+"/verdeClaro.png'><br> #"+m[i].id_mesa+"</div>");
 	}
 	
 	

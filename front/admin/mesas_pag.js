@@ -7,15 +7,17 @@ var mesasCargadas=0;
 var docReady=0;
 
 $.ajax({
-	url:caminoBackend+"admin/mesas/lista",
-	type:"get",//esto es solo porq estoy no usando un backend de verdad
+	url:caminoBackend+"mesas/lista",
+	dataType:"json",
+	type:"post",//esto es solo porq estoy no usando un backend de verdad
 	headers:{
 		token:localStorage[usuarioLogueado_ls]
 	},
 	success:function(e){
-	//	console.log(e)
-		try{mesas=JSON.parse(e)}catch(e){mesas=e}
-		localStorage["mesas_"+nombreDelSitio]=e;
+		console.log(e)
+		mesas=e
+	
+		localStorage["mesas_"+nombreDelSitio]=JSON.stringify(e)
 		mesasCargadas=1;
 		if(docReady==1) armarGraficoMesas();
 	}

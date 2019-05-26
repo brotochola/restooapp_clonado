@@ -58,7 +58,7 @@ $app->group('/mesas', function () {
    
     $this->post('/habilitar',\mesaApi::class . ':HabilitarMesa');     
 
-    $this->get('/lista',\mesaApi::class . ':TraerMesas'); 
+    $this->post('/lista',\mesaApi::class . ':TraerMesas'); 
     
     $this->get('/id/{id}',\mesaApi::class . ':TraerUnaMesa'); 
 
