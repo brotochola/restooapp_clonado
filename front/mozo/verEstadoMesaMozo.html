@@ -118,7 +118,7 @@ function mostrarEstadoMesaMozo(id) {
 
         mesaId = id
         $.ajax({
-            url: "../../server/mozo/mesas/id",
+            url: caminoBackend+"mozo/mesas/id",
             headers: {
                 token: localStorage[usuarioLogueado_ls]
             },

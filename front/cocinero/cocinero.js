@@ -13,7 +13,7 @@ function cargarEstado() {
     console.log("cargar estado")
 
     $.ajax({
-        url: "../../server/cocinero/estado",
+        url: caminoBackend+"cocinero/estado",
         headers: {
             token: localStorage[usuarioLogueado_ls]
         },
@@ -76,7 +76,7 @@ function armarProdNotif(id, prod) {
 function aceptarPedido(id) {
     $("#notifCocinero").fadeOut()
     $.ajax({
-        url: "../../server/cocinero/aceptarPedido",
+        url: caminoBackend+"cocinero/aceptarPedido",
         headers: {
             token: localStorage[usuarioLogueado_ls]
         },

@@ -14,7 +14,7 @@ var notificacionesPendientes = [];
 //cada 5 segundos
 
 $.ajax({
-    url: "../../server/mozo/mesas/lista",
+    url: caminoBackend+"mozo/mesas/lista",
     type: "get", //esto es solo porq estoy no usando un backend de verdad
     headers: {
         token: localStorage[usuarioLogueado_ls]
@@ -102,7 +102,7 @@ function cargarEstadoMozo() {
     if (mesas == undefined || mesas.length == 0 || isNaN(mesas[0].id) || mesas[0].id == undefined) return; //si no estan cargadas las mesas, el grafico, esta funcion no anda
 
     $.ajax({
-        url: "../../server/mozo/estado",
+        url: caminoBackend+"mozo/estado",
         success: function(e) {
             try { estadoActual = JSON.parse(e) } catch (e) { estadoActual = e }
             console.log(estadoActual)

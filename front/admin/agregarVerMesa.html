@@ -98,7 +98,7 @@ function mostrarAgregarVerMesa(id, sillas, zona) {
 
 function modificarMesa(m){
   $.ajax({
-        url:"../../server/admin/mesas/modificar",
+        url:caminoBackend+"admin/mesas/modificar",
         type:"get",//por ahora
         data:{
             "mesa":JSON.stringify(mesa)
@@ -118,7 +118,7 @@ function modificarMesa(m){
 
 function agregarMesa(m){
     $.ajax({
-        url:"../../server/admin/mesas/agregar",
+        url:caminoBackend+"admin/mesas/agregar",
         type:"get",//por ahora
         data:{
             "mesa":JSON.stringify(mesa)

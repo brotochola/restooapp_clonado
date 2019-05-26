@@ -86,7 +86,7 @@ var mesa = {};
 function cerrarMesa() {
     mostrarModalConfirmacion("Seguro que quiere cerrar la facturación de este mesa?", "Si", "No", function() {
         $.ajax({
-            url:"../../server/admin/mesas/cerrar/id",
+            url:caminoBackend+"admin/mesas/cerrar/id",
             headers:{
                 token: localStorage[usuarioLogueado_ls]
             },
@@ -113,7 +113,7 @@ function mostrarEstadoMesaAdmin(id) {
     })
 
     $.ajax({
-        url: "../../server/admin/mesas/id/",
+        url: caminoBackend+"admin/mesas/id/",
         headers: {
             token: localStorage[usuarioLogueado_ls]
         },

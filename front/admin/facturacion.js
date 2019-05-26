@@ -30,7 +30,7 @@ function actualizarTabla() {
 
 
     $.ajax({
-        url: "../../server/admin/informes/facturacion",
+        url: caminoBackend+"admin/informes/facturacion",
         datatype: "json",
         data: {
             "desde": $("#desde")[0].value,

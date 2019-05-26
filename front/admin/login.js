@@ -22,6 +22,7 @@ function login(){
 	$.ajax({
 		url: caminoBackEnd + "login/",
 		type:"post",
+		dataType:"json",
 		data:{
 			"email":$("#email").val(),
 			"clave":$("#pass").val()
@@ -38,10 +39,10 @@ function login(){
 			}
 			else{
 
-				console.log(r.elEmpleado.usuario)
+			
 
-				localStorage[usuarioLogueado_ls]=r.elEmpleado.usuario
-			 	console.log(localStorage[usuarioLogueado_ls]);
+				localStorage[usuarioLogueado_ls]=r.token
+			
 			 	window.location.href="estado.html"; //home del admin
 
 			}

@@ -56,7 +56,7 @@ function mandarPedido() {
         return ;
     }
     $.ajax({
-        url:"../../server/mozo/pedidos/agregar",
+        url:caminoBackend+"mozo/pedidos/agregar",
         headers:{
             token:localStorage[usuarioLogueado_ls]
         },
@@ -83,7 +83,7 @@ function mostrarModalAgregarProductos(id) {
     pedido.productos=new Array();
     console.log("nuevo pedido para mesa " + id)
     $.ajax({
-        url: "../../server/mozo/productos/lista",
+        url: caminoBackend+"mozo/productos/lista",
         headers: {
             token: localStorage[usuarioLogueado_ls]
         },

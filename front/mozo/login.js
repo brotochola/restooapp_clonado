@@ -17,7 +17,7 @@ function login(){
 		 return;
 	}
 	$.ajax({
-		url:"../../server/mozo/login?Asd=4",
+		url:caminoBackend+"mozo/login?Asd=4",
 		type:"get",
 		data:{
 			"user":$("#email").val(),

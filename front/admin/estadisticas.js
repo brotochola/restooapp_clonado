@@ -86,32 +86,32 @@ function actualizarTabla() {
     //segun la combinacion de los 2 select mando a diferentes urls de apis
     if (catInfo == 1) {
         if (informe == 1) {
-            url = "../../server/admin/informes/empleados/logueos";
+            url = caminoBackend+"admin/informes/empleados/logueos";
             cb = armarTabla;
         } else if (informe == 2) {
-            url = "../../server/admin/informes/empleados/cantOperacPorSector";
+            url = caminoBackend+"admin/informes/empleados/cantOperacPorSector";
             cb = armarTablitaCantOperacPorSector;
         }else if (informe == 3) {
-        	 url = "../../server/admin/informes/empleados/operaciones";
+        	 url = caminoBackend+"admin/informes/empleados/operaciones";
             cb = armarTabla;
         }
     }else if(catInfo==2){
     	 cb = armarTabla;
     	 if (informe == 1) {
-            url = "../../server/admin/informes/productos/cantVentas";           
+            url = caminoBackend+"admin/informes/productos/cantVentas";           
         } else if (informe == 2) {
-            url = "../../server/admin/informes/productos/tiempoEspera";          
+            url = caminoBackend+"admin/informes/productos/tiempoEspera";          
         }else if (informe == 3) {
-        	 url = "../../server/admin/informes/productos/cancelaciones";           
+        	 url = caminoBackend+"admin/informes/productos/cancelaciones";           
         }
     }else if(catInfo==3){
     	 cb = armarTabla;
     	 if (informe == 1) {
-            url = "../../server/admin/informes/mesas/cantUsos";           
+            url = caminoBackend+"admin/informes/mesas/cantUsos";           
         } else if (informe == 2) {
-            url = "../../server/admin/informes/mesas/facturacion";          
+            url = caminoBackend+"admin/informes/mesas/facturacion";          
         }else if (informe == 3) {
-        	 url = "../../server/admin/informes/mesas/facturaMayor";           
+        	 url = caminoBackend+"admin/informes/mesas/facturaMayor";           
         }
     }
 

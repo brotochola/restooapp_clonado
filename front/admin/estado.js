@@ -7,7 +7,7 @@ var mesasCargadas = 0;
 var docReady = 0;
 
 $.ajax({
-    url: "../../server/admin/mesas/lista",
+    url: caminoBackend+"admin/mesas/lista",
     type: "get", //esto es solo porq estoy no usando un backend de verdad
     headers: {
         token: localStorage[usuarioLogueado_ls]
@@ -32,19 +32,16 @@ $(document).ready(function() {
         $($(".botonFooterAdmin")[0]).addClass("active") //en la pantalla de estado, empieza activo el boton de estado
     })
 
+  
+
     //populo cosas:
-    try {
-        console.log(localStorage[usuarioLogueado_ls])
-        obj = JSON.parse(localStorage[usuarioLogueado_ls])
-        $("h6#nombreAdmin").html(obj.nombre)
 
-    } catch (e) {
-        console.log(e)
-        $("h6#nombreAdmin").html(localStorage[usuarioLogueado_ls].nombre)
-    }
+       
+    
+    $("h6#nombreAdmin").html(dataUsuario().nombre)
 
-
-    //listeners
+  
+  
 
 
     //agrego cachos:
@@ -67,7 +64,10 @@ function cargarEstadoAdmin() {
     if (mesas==undefined || mesas.length == 0 || isNaN(mesas[0].id) || mesas[0].id == undefined) return; //si no estan cargadas las mesas, el grafico, esta funcion no anda
 
     $.ajax({
-        url: "../../server/admin/estado",
+        url: caminoBackend+"admin/estado",
+        headers:{
+            token:localStorage[dataDelUsuario_ls]
+        },
         success: function(e) {
             try { estadoActual = JSON.parse(e) } catch (e) { estadoActual = e }
             console.log(estadoActual)

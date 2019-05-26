@@ -7,7 +7,7 @@ var mesasCargadas=0;
 var docReady=0;
 
 $.ajax({
-	url:"../../server/admin/mesas/lista",
+	url:caminoBackend+"admin/mesas/lista",
 	type:"get",//esto es solo porq estoy no usando un backend de verdad
 	headers:{
 		token:localStorage[usuarioLogueado_ls]

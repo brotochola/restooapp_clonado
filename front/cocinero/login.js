@@ -17,7 +17,7 @@ function login(){
 		 return;
 	}
 	$.ajax({
-		url:"../../server/cocinero/login?Asd=4",
+		url:caminoBackend+"cocinero/login?Asd=4",
 		type:"get",
 		data:{
 			"user":$("#email").val(),

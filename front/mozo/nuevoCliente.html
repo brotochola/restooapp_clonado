@@ -79,7 +79,7 @@ function agregarCliente() {
     }
 
     $.ajax({
-        url: "../../server/mozo/mesas/habilitar",
+        url: caminoBackend+"mozo/mesas/habilitar",
         headers: {
             token: localStorage[usuarioLogueado_ls]
         },
