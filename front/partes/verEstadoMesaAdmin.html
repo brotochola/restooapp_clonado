@@ -6,27 +6,27 @@
                     <div class="row"> <span id="idMesa" class="idMesa">#5</span></div>
                     <div class="row">
                         <div class="col-6 pp-n-left">
-                            <div class="info"><img src="../media/Img/usuario-seleccionado.png"> <span id="nombreCliente">fulanito de tal</span></div>
+                            <div class="info"><img src="media/Img/usuario-seleccionado.png"> <span id="nombreCliente">fulanito de tal</span></div>
                         </div>
                         <div class="col-6 pp-n-right">
-                            <div class="info"><img src="../media/Img/visitas.png"> Visitas: <strong id="cantVisitas">#8</strong> </div>
+                            <div class="info"><img src="media/Img/visitas.png"> Visitas: <strong id="cantVisitas">#8</strong> </div>
                         </div>
                         <div class="col-12 pp-n-right">
-                            <div class="info"><img src="../media/Img/calendario-seleccionado.png"><span id="ultimaVisita"> Ultima Visita: 25 - JULIO - 2018</span></div>
+                            <div class="info"><img src="media/Img/calendario-seleccionado.png"><span id="ultimaVisita"> Ultima Visita: 25 - JULIO - 2018</span></div>
                         </div>
                         <div class="col-12 pp-n-right">
-                            <div class="info"><img src="../media/Img/usuarios-gris.png"> Total De Comenzales: <strong id="cantComensales">#8</strong> </div>
+                            <div class="info"><img src="media/Img/usuarios-gris.png"> Total De Comenzales: <strong id="cantComensales">#8</strong> </div>
                         </div>
                         <div class="col-6 pp-n-left">
-                            <div class="info"><img src="../media/Img/mozo.png"><span id="mozoAsignado"> Mozo Asignado</span></div>
+                            <div class="info"><img src="media/Img/mozo.png"><span id="mozoAsignado"> Mozo Asignado</span></div>
                         </div>
                         <div class="col-6 pp-n-right">
-                            <div class="info"><img src="../media/Img/bolsa-dinero.png"> Total: <strong id="total">$400</strong> </div>
+                            <div class="info"><img src="media/Img/bolsa-dinero.png"> Total: <strong id="total">$400</strong> </div>
                         </div>
                     </div>
                     <div class="row encabezado-lista-pedidos">
                         <div class="col-2 paddingr">
-                            <img src="../media/Img/pedido.png" class="pedidosIMG">
+                            <img src="media/Img/pedido.png" class="pedidosIMG">
                         </div>
                         <div class="col-10 pp-none text-lista">LISTA DE PEDIDOS </div>
                     </div>
@@ -39,7 +39,7 @@
                                             <h5>#1</h5></div>
                                         <div class="col-4 hora-listado">23:14 hr.</div>
                                         <div class="col-4 estado-pedido"><span class="entregado">ENTREGADO</span></div>
-                                        <div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="../media/Img/inf.png"></div>
+                                        <div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>
                                     </div>
                                 </div>
                             </li>
@@ -163,7 +163,7 @@ function armarPedido(pedido) {
     html += '<div class="col-2 text-center contenedor-icono-listado"><h5>#' + pedido.id + '</h5></div>'
     html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + pedido.horaPedido + ' hr.</div>'
     html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado].toUpperCase() + '</span></div>'
-    html += '<div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="../media/Img/inf.png"></div>'
+    html += '<div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
     html += '</div>  '
     html += '</div>  '
     html += '</li>'

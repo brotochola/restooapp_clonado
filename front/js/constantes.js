@@ -67,16 +67,7 @@ function checkStr(str){
   else return false;
 }
 
-function agregarCachoABody(url,cb){
- // console.log(cb)
-    $.ajax({
-    url:url,
-    success:function(e){
-      $("body").append(e);
-      if(isFunction(cb)) cb();
-    }
-  })
-}
+
 
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
