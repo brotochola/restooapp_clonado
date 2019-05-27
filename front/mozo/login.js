@@ -17,13 +17,14 @@ function login(){
 		 return;
 	}
 	$.ajax({
-		url:caminoBackend+"mozo/login?Asd=4",
-		type:"get",
+		url:caminoBackend+"login/",
+		type:"post",
 		data:{
-			"user":$("#email").val(),
-			"pass":$("#pass").val()
+			"email":$("#email").val(),
+			"clave":$("#pass").val()
 		},
 		success:function(r){
+			
 			if(r==-1){	
 				bootbox.alert("usuario/contraseña incorrecto/s", function(){});
 			}else if(r==-2){
@@ -31,11 +32,13 @@ function login(){
 			}else if(r==-3){
 				bootbox.alert("complete usuario y/ contraseña", function(){});
 			}else if(r!=-1 && r!=-2){
-					localStorage[usuarioLogueado_ls]=r;
-				console.log(localStorage[usuarioLogueado_ls]);
+					localStorage[usuarioLogueado_ls]=r.token;
+			
 				window.location.href="estado.html"; //home del admin
 				
 			}			
+		}, error:(e)=>{
+			console.log(e)
 		}
 	})
 }

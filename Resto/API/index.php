@@ -42,6 +42,30 @@ $app = new \Slim\App(["settings" => $config]);
 
 // Agregados appResto2
 
+
+
+$app->group('/mozo', function () {
+   
+    $this->post('/estado',\mesaApi::class . ':estadoMozo'); 
+   
+
+    // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
+    
+         
+})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+
+$app->group('/admin', function () {
+   
+    $this->post('/estado',\mesaApi::class . ':estadoAdmin');     
+
+   
+
+    // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
+    
+         
+})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+
+
 $app->group('/pedidos', function () {
    
     $this->post('/agregar',\pedidoApi::class . ':CargarUnPedido');     

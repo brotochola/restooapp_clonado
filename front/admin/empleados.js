@@ -48,7 +48,7 @@ $(document).ready(function() {
 	})
 	 agregarCachoABody("agregarVerEmpleado.html")
 
-	$("h6#nombreAdmin").html(JSON.parse(localStorage[usuarioLogueado_ls]).nombre)
+	$("h6#nombreAdmin").html(dataUsuario().nombre)
 
 
 

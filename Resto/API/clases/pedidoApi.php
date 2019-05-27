@@ -20,12 +20,12 @@ public function CargarUnPedido($request, $response,$args){
         $vPedido->id_mesa = $vector['id_mesa'];
         $vPedido->id_cliente = $vector['id_cliente'];             
         
-        $pedidos = explode(',',$vector['pedidos']);  
+        $productos = explode(',',$vector['productos']);  
         $cantidades = explode(',', $vector['cantidades']);        
         
-        if(count($pedidos) != count($cantidades))
+        if(count($productos) != count($cantidades))
         {
-            $obj->respuesta="Las cantidades y pedidos deben coincidir";
+            $obj->respuesta="Las cantidades y productos deben coincidir";
         }
         else
         {                  
@@ -39,11 +39,11 @@ public function CargarUnPedido($request, $response,$args){
                         {    
 
                             $vPedido->fecha_alta = date_format($vHora,"Y/m/d H:i:s");                            
-                            $vPedido->hora_estimada = self::TraerMayorTiempo($pedidos);
+                            $vPedido->hora_estimada = self::TraerMayorTiempo($productos);
                             
                             $vPedido->id = $vPedido->InsertarPedidoPrincipal();
 
-                            $vPedido->CargarPedidosDetalle($pedidos,$cantidades,$vPedido->id);
+                            $vPedido->CargarPedidosDetalle($productos,$cantidades,$vPedido->id);
                             $obj->respuesta = "Se cargo el pedido: ".$vPedido->id;    
                             $obj->itsOk = true;                            
 

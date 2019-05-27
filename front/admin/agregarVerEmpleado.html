@@ -15,11 +15,16 @@
                                 <input id="email" placeholder="E-mail">
                             </div>
                         </div>
+                        <div class="col-12">
+                            <div class="info">
+                                <input id="usuario" placeholder="usuario">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                             <div class="col-12">
                                 <div class="info">
-                                    <input id="usuario" placeholder="Usuario Resto App">
+                                    <input id="clave" placeholder="clave">
                                 </div>
                             </div>
                         </div>
@@ -166,6 +171,7 @@ function modificarEmpleado(){
     empleado.dni=$("#dni").val();
     empleado.usuario=$("#usuario").val();
     empleado.email=$("#email").val();
+    empleado.clave=$("#clave").val();
     empleado.sueldo=$("#sueldo").val();
     empleado.id_rol=$("#rol").val();
     empleado.habilitado=$("#habilitado").val();
@@ -191,6 +197,9 @@ function modificarEmpleado(){
             
             }
              $("#agregarVerEmpleado").fadeOut();
+        },
+        error:(e)=>{
+            console.log(e)
         }
     })
 }

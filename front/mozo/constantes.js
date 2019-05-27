@@ -5,6 +5,7 @@ const dataDelUsuario_ls="dataDelUsuario_"+nombreDelSitio;
 const minSillasPorMesa=2;
 const maxSillasPorMesa=6;
 const caminoBackEnd = "../../Resto/API/"
+const caminoBackend = "../../Resto/API/"
 
 
 const rolesEmpleados = [null, "../media/Img/roles/tragos.png", "../media/Img/roles/cerveza.png", "../media/Img/roles/cocina.png", "Camarerx", "Admin", "../media/Img/roles/candy.png"];
@@ -43,6 +44,33 @@ function formatDate(date) {
 function isFunction(functionToCheck) {
  return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
 }
+
+
+function parseJwt(token) {
+  var objRta = {}
+
+
+  try {
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      objRta = JSON.parse(window.atob(base64));
+  } catch (e) {
+      console.log(e)
+      
+  }
+  return objRta;
+}
+
+
+function dataUsuario(){
+  return parseJwt(localStorage[usuarioLogueado_ls]).data
+}
+
+function checkStr(str){
+  if(str!=undefined && str!=null && str!="" && str!="undefined" && str!= "null") return true;
+  else return false;
+}
+
 
 function agregarCachoABody(url,cb){
  // console.log(cb)

@@ -9,20 +9,19 @@ var docReady = 0;
 var notificacionesPendientes = [];
 
 
-//ni bien empieza cargo las mesas,
-//dps me manejo solo con el array q trae el servicio de la API: /mozo/estado
-//cada 5 segundos
+
 
 $.ajax({
-    url: caminoBackend+"mozo/mesas/lista",
-    type: "get", //esto es solo porq estoy no usando un backend de verdad
+    url: caminoBackend+"mozo/estado",
+    type: "post",
+    dataType:"json",
     headers: {
         token: localStorage[usuarioLogueado_ls]
     },
     success: function(e) {
         //  console.log(e)
         try { mesas = JSON.parse(e) } catch (e) { mesas = e }
-        localStorage["mesas_" + nombreDelSitio] = e;
+        localStorage["mesas_" + nombreDelSitio] = JSON.stringify(mesas);
         mesasCargadas = 1;
         if (docReady == 1) setup()
     }
@@ -48,15 +47,10 @@ $(document).ready(function() {
 
 
     //populo cosas:
-    try {
-        console.log(localStorage[usuarioLogueado_ls])
-        obj = JSON.parse(localStorage[usuarioLogueado_ls])
-        $("#nombreMozo").html(obj.nombre)
 
-    } catch (e) {
-        console.log(e)
-        $("#nombreMozo").html(localStorage[usuarioLogueado_ls].nombre)
-    }
+  
+        $("#nombreMozo").html(dataUsuario().nombre_completo)
+   
 
 
     //listeners
@@ -99,10 +93,12 @@ function verMesa(id) {
 function cargarEstadoMozo() {
     console.log("cargar estado mozo!")
     //esta funcion se ejecuta cada 5 segundos
-    if (mesas == undefined || mesas.length == 0 || isNaN(mesas[0].id) || mesas[0].id == undefined) return; //si no estan cargadas las mesas, el grafico, esta funcion no anda
+   // if (mesas == undefined || mesas.length == 0 || isNaN(mesas[0].id) || mesas[0].id == undefined) return; //si no estan cargadas las mesas, el grafico, esta funcion no anda
 
     $.ajax({
         url: caminoBackend+"mozo/estado",
+        type:"post",
+        dataType:"json",
         success: function(e) {
             try { estadoActual = JSON.parse(e) } catch (e) { estadoActual = e }
             console.log(estadoActual)
