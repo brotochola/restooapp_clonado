@@ -27,6 +27,8 @@ class mesaApi extends mesa
         mesa::ModificarEstadoDeLaMesa($vIdMesa, 2);
         
         $respuesta = mesa::TraerLaMesa($vIdMesa);
+
+        //select* from clientes_visitar where id_cliente=X order by fecha limit 1
         
         return $response->withJson($respuesta, 200);            
         

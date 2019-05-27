@@ -24,17 +24,27 @@ class mesa
             $consulta->bindValue(':comensales',$vComensales,PDO::PARAM_STR);
             $consulta->execute();		
 
+
+
+        
+
             return $objetoAccesoDato->RetornarUltimoIdInsertado();
         }
 
         public static function ModificarEstadoDeLaMesa($idMesa, $vEstado)
         {
+
+       
+
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("
-                update mesas
-                set 
-                estado_mesa ='$vEstado'
-                WHERE id_mesa ='$idMesa'");
+            $sql="
+            update mesas
+            set 
+            estado_mesa ='$vEstado'
+            WHERE id_mesa ='$idMesa'";
+
+      
+            $consulta =$objetoAccesoDato->RetornarConsulta($sql);
             return $consulta->execute();
     
         }

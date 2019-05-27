@@ -8,7 +8,7 @@ class pedidoApi extends pedido
 // appResto2
 
 public function CargarUnPedido($request, $response,$args){
-
+//esta es la func q se usa en el index.php
         $obj = new stdclass();
         $obj->respuesta="";
         $obj->itsOk = false;
@@ -18,7 +18,8 @@ public function CargarUnPedido($request, $response,$args){
         $vector = $request->getParsedBody(); 
                      
         $vPedido->id_mesa = $vector['id_mesa'];
-        $vPedido->id_cliente = $vector['id_cliente'];             
+        $vPedido->id_cliente = $vector['id_cliente'];  
+        //esto tiene q ser el id_cliente_visita           
         
         $productos = explode(',',$vector['productos']);  
         $cantidades = explode(',', $vector['cantidades']);        
@@ -45,7 +46,10 @@ public function CargarUnPedido($request, $response,$args){
 
                             $vPedido->CargarPedidosDetalle($productos,$cantidades,$vPedido->id);
                             $obj->respuesta = "Se cargo el pedido: ".$vPedido->id;    
-                            $obj->itsOk = true;                            
+                            $obj->itsOk = true;   
+                            
+                            $estado_de_la_mesa=3;
+                            mesa::ModificarEstadoDeLaMesa($vPedido->id_mesa,$estado_de_la_mesa);
 
                         }
                         catch(Exception $e) 
@@ -76,6 +80,12 @@ public function EntregarPedido($request, $response, $args) {
 
     $laHora = date_format($vHora,"Y/m/d H:i:s");                             
     pedido::EntregarElPedido($vId, $laHora);
+    $var=pedido::TraerPedidosPorId($vId);
+ 
+    $id_mesa= $var[0]["id_mesa"]; 
+
+    mesa::ModificarEstadoDeLaMesa($id_mesa,5);
+
     
     $respuesta = pedido::TraerPedidosPorId($vId);        
     $newResponse = $response->withJson($respuesta, 200);
