@@ -115,9 +115,9 @@ class pedido
                return $consulta->execute();
             }
 
-            public static function TraerIdPedidoPorCliente($vId)
+            public static function TraerIdPedidoPorIdClienteVisita($vId)
             {
-                $consulta = "SELECT * FROM `pedidos`  WHERE  `id_cliente_visita` = '$vId' LIMIT 1";
+                $consulta = "SELECT * FROM `pedidos`  WHERE  `id_cliente_visita` = '$vId' /*LIMIT 1*/";
                 return AccesoDatos::ConsultaDatosAsociados($consulta);
             }
 

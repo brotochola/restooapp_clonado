@@ -15,9 +15,13 @@ class API{
                 token: localStorage[usuarioLogueado_ls]
             },
             success: function(e) {
+                console.log(e)
                 let mesa;
                 try { mesa = JSON.parse(e) } catch (e) { mesa = e }
+                console.log(mesa)
                 if(cb instanceof Function) cb(mesa);
+            },error:(e)=>{
+                console.log(e)
             }
              }); //ajax
     }

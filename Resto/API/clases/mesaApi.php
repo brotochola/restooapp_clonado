@@ -64,19 +64,36 @@ class mesaApi extends mesa
     
     public function TraerUnaMesa($request, $response, $args) {
 
-        $respuestaArray = array();
+        $respuestaArray = new stdClass();
 
         $vId = $args['id'];        
-        $mesa = mesa::TraerLaMesa($vId);
+        $mesa = mesa::TraerLaMesa($vId)[0];
         
-        $vIdCliente = mesa::TraerClienteVisita($vId);
-        $cliente = cliente::TraerUno($vIdCliente[0]['id_cliente']);
-        $pedido = pedido::TraerIdPedidoPorCliente($vIdCliente[0]['id_cliente']);
-        $pedidoCompleto = pedidoApi::TraerMiPedido($pedido[0]['id']);
+        $cliente_visita = mesa::TraerClienteVisita($vId);
+        $id_cliente_visita= $cliente_visita[0]["id_cliente_visita"];
+        $id_cliente=$cliente_visita[0]["id_cliente"];
 
-        array_push($respuestaArray, $mesa);
-        array_push($respuestaArray, $cliente);
-        array_push($respuestaArray, $pedidoCompleto);
+      
+
+        
+        $cliente = cliente::TraerUno($id_cliente);
+        $pedidos = pedido::TraerIdPedidoPorIdClienteVisita($id_cliente_visita);
+       
+
+        $respuestaArray=json_decode(json_encode( $mesa));
+        $respuestaArray->cliente=$cliente[0];
+        $respuestaArray->pedidos=$pedidos;
+        print_r($respuestaArray);
+        die();
+
+/*
+        for($i=0;$i<count($pedidos);$i++){
+            $pedido=  pedidoApi::TraerMiPedido($pedido[0]['id']
+            array_push(  $respuestaArray->pedidos,$pedidos[$i]);
+
+        }*/
+
+      
 
         $newResponse = $response->withJson($respuestaArray, 200);
         return $newResponse;

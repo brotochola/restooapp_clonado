@@ -57,7 +57,7 @@ class mesa
 
         public static function TraerClienteVisita($vId)
         {
-            $consulta = "SELECT cliente_visita.id_cliente FROM `cliente_visita`  WHERE  `id_mesa` = '$vId' LIMIT 1";
+            $consulta = "SELECT * FROM `cliente_visita`  WHERE  `id_mesa` = '".$vId."' order by date_created desc limit 1";
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
 
