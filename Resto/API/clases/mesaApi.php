@@ -83,15 +83,15 @@ class mesaApi extends mesa
         $respuestaArray=json_decode(json_encode( $mesa));
         $respuestaArray->cliente=$cliente[0];
         $respuestaArray->pedidos=$pedidos;
-        print_r($respuestaArray);
-        die();
+        
 
-/*
+
         for($i=0;$i<count($pedidos);$i++){
-            $pedido=  pedidoApi::TraerMiPedido($pedido[0]['id']
-            array_push(  $respuestaArray->pedidos,$pedidos[$i]);
+            $respuestaArray->pedidos[$i]["productos"]=[];
+            $pedido=  pedidoApi::TraerMiPedido($pedidos[$i]['id']); //con productos
+            array_push(   $respuestaArray->pedidos[$i]["productos"],$pedido);
 
-        }*/
+        }
 
       
 
