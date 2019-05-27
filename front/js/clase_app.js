@@ -11,23 +11,23 @@ class App {
  
     
     }
-    loginAutomatico() {
-
-        console.log("login automatico");
-        console.log(parseJwt(localStorage['token']))
-        app.esconderHeaderInicio();
-        app.mostrarHeader()
-      //  app.traerHTML("partes/mapa.html", false, false, "mapa", true)
-        
+    quePasaDespuesDeLogin() {
+        if(usuario.dataUsuario().id_rol==1){            
+            this.traerHTML("partes/admin_estado.html", false, true, "admin_estado", false)
+            this.mostrarFooterAdmin()
+        }else{
+           
+        }
       
-        app.mostrarFooter();
      
 
     }
+
+  
     init() {
         
 
-       
+       console.log("APP INIT")
         
         this.traerHTML("partes/modalConfirmacion.html", true, true, "modalConfirm", false)
   
@@ -43,10 +43,8 @@ class App {
 
       
 
-
-
         if (usuario.tokenValido()) {
-            this.loginAutomatico();
+           setTimeout(()=>{this.quePasaDespuesDeLogin()},600);
         }
 
   

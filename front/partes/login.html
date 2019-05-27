@@ -50,22 +50,18 @@
 
 
     $(document).ready(function () {
-        console.log("doc ready login ");
-
-        //listeners
+        console.log("doc ready login ");    
         $("#botonLogin").click(clickLogin)
+    });//doc ready
 
-        //agrego cachos:
 
-    });
     let callbackLogin = function (r) {
         console.log(r);
         if (r.itsOK == false) {
             mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
         } else {
             usuario.meterleToken(r.token)
-            app.traerHTML("partes/admin_estado.html", false, true, "admin_estado", false)
-            app.mostrarFooterAdmin()
+           app.quePasaDespuesDeLogin()
 
         }
     }//cblogin

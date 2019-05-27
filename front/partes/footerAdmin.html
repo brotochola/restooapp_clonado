@@ -2,32 +2,32 @@
     <div class="container-fluid menu-botton-selec" id="footer">
         <div class="col-12">
             <div class="row">
-                   <div class="columna-medio-16  botonFooterAdmin" onclick="cambiarSeccion('estado.html')">
+                   <div class="columna-medio-16  botonFooterAdmin" onclick="cambiarSeccion('admin_estado.html', this)">
                     <img src="media/Img/calendario.png" />
                     <h6>Estado Actual</h6>
                 </div>
 
 
-                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('empleados.html')">
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('admin_empleados.html', this)">
                     <img src="media/Img/Empleados.png" />
                     <h6>Empleados</h6>
                 </div>
              
-                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('mesas.html')">
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('admin_mesas.html', this)">
                     <img src="media/Img/mesas.png" />
                     <h6>Mesas</h6>
                 </div>
                 
-                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('facturacion.html')">
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('admin_facturacion.html', this)">
                     <img src="media/Img/facturacion.png" />
                     <h6>Facturacion</h6>
                 </div>
                 
-                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('productos.html')">
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('admin_productos.html', this)">
                     <img src="media/Img/productos.png" />
                     <h6>productos</h6>
                 </div>
-                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('estadisticas.html')">
+                <div class="columna-medio-16 botonFooterAdmin" onclick="cambiarSeccion('admin_estadisticas.html', this)">
                     <img src="media/Img/estadisticas.png" />
                     <h6>Estadisticas</h6>
                 </div>
@@ -38,9 +38,9 @@
 
     <script>
 
-        function cambiarSeccion(url){
+        function cambiarSeccion(url,quien){
             $(".botonFooterAdmin").removeClass("active")
-            actual=document.location.pathname.match(/[^\/]+$/)[0];            
-            if(actual!=url)  window.location.href=url;
+            $(quien).addClass("active")
+            app.traerHTML("partes/"+url);
         }
     </script>

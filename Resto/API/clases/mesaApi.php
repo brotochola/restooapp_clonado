@@ -68,6 +68,7 @@ class mesaApi extends mesa
 
         $vId = $args['id'];        
         $mesa = mesa::TraerLaMesa($vId);
+        
         $vIdCliente = mesa::TraerClienteVisita($vId);
         $cliente = cliente::TraerUno($vIdCliente[0]['id_cliente']);
         $pedido = pedido::TraerIdPedidoPorCliente($vIdCliente[0]['id_cliente']);

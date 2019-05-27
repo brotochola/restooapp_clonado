@@ -45,37 +45,28 @@
         console.log("admin estado.html")
 
         var delayTraerEstado = 5000;
-        var estadoActual = {};
-        var mesas;
-        var mesasCargadas = 0;
+     
+
         var docReady = 0;
 
 
 
-        let cbMesas = function (e) {
-            //	console.log(e)
-            mesas = e
-            localStorage["mesas_" + nombreDelSitio] = JSON.stringify(e);
-            mesasCargadas = 1;
-            if (docReady == 1) Mesa.armarGraficoMesas();
-        }
+   
 
-        api.traerMesas(cbMesas)
+        api.traerMesas((e) =>{if (docReady == 1) Mesa.armarGraficoMesas()})
 
 
         $(document).ready(function () {
             docReady = 1;
-            if (mesasCargadas == 1) Mesa.armarGraficoMesas();
             console.log("doc ready estado admin");
-          
+            //if (api.mesas.length>0) Mesa.armarGraficoMesas();
+        
+            $($(".botonFooterAdmin")[0]).addClass("active")
          
 
 
 
             //populo cosas:
-
-
-
             $("h6#nombreAdmin").html(usuario.data.nombre_completo)
 
 
@@ -87,10 +78,11 @@
         
 
 
-            cargarEstadoAdmin()
+           setTimeout(()=>{ cargarEstadoAdmin()},delayTraerEstado/2)
         });
 
         function verMesa(id) {
+          
             //aca la funcion ver mesa es esta
             //en la pantalla de mesas la funcion es otra
             mostrarEstadoMesaAdmin(id)
@@ -112,22 +104,18 @@
 
                     }
 
-                    setTimeout(cargarEstadoAdmin, delayTraerEstado)
+                    setTimeout(()=>{cargarEstadoAdmin()}, delayTraerEstado)
         }
 
         function cargarEstadoAdmin() {
             console.log("estado admin")
             //esta funcion se ejecuta cada 5 segundos
-            if (mesas == undefined || mesas.length == 0 || isNaN(mesas[0].id_mesa) || mesas[0].id_mesa == undefined) {
-                console.log("error..")
-                //  return; //si no estan cargadas las mesas, el grafico, esta funcion no anda
-
-            }
+        
 
            api.estadoAdmin(cbEstadoAdmin)
         }
 
-        cargarEstadoAdmin();
+      
     </script>
 
 </body>

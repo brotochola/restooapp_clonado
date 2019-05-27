@@ -7,6 +7,21 @@ class API{
 
     }
 
+    traerUnaMesa(id,cb){
+
+        $.ajax({
+            url: this.urlServer+"mesas/id/"+id,
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: function(e) {
+                let mesa;
+                try { mesa = JSON.parse(e) } catch (e) { mesa = e }
+                if(cb instanceof Function) cb(mesa);
+            }
+             }); //ajax
+    }
+
     traerMesas(cb){
         $.ajax({
             url: this.urlServer+"/mesas/lista",
@@ -15,7 +30,11 @@ class API{
             headers: {
                 token: localStorage[usuarioLogueado_ls]
             },
-            success: cb
+            success: (e)=>{
+                this.mesas=e;
+                localStorage["mesas_" + nombreDelSitio] = JSON.stringify(e);
+                if(cb instanceof Function) cb(e);
+            }
         })
     }
 
@@ -26,7 +45,10 @@ class API{
             headers: {
                 token: localStorage[dataDelUsuario_ls]
             },
-            success: cb,
+            success: (e)=>{
+                this.estadoAdmin=e;
+                if(cb instanceof Function) cb(e);
+            },
             error: (e) => {
                 console.log(e)
             }
@@ -42,7 +64,9 @@ class API{
                 "email":mail,
                 "clave":clave
             },
-            success:cb
+            success:(e)=>{
+                if(cb instanceof Function) cb(e);
+            }
         })
     }
 
