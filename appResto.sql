@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2019 a las 01:57:34
+-- Tiempo de generación: 28-05-2019 a las 03:55:22
 -- Versión del servidor: 10.1.40-MariaDB
 -- Versión de PHP: 7.3.5
 
@@ -52,6 +52,7 @@ INSERT INTO `clientes` (`id_cliente`, `nombre_completo`, `dni`) VALUES
 --
 
 CREATE TABLE `cliente_visita` (
+  `id` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
   `id_mesa` int(11) NOT NULL,
   `fecha` date NOT NULL,
@@ -62,8 +63,9 @@ CREATE TABLE `cliente_visita` (
 -- Volcado de datos para la tabla `cliente_visita`
 --
 
-INSERT INTO `cliente_visita` (`id_cliente`, `id_mesa`, `fecha`, `comensales`) VALUES
-(3, 1, '2019-05-25', 1);
+INSERT INTO `cliente_visita` (`id`, `id_cliente`, `id_mesa`, `fecha`, `comensales`) VALUES
+(1, 3, 1, '2019-05-25', 1),
+(2, 3, 1, '2019-05-27', 5);
 
 -- --------------------------------------------------------
 
@@ -85,44 +87,6 @@ INSERT INTO `cocina` (`id_cocina`, `nombre_cocina`) VALUES
 (2, 'barra_choppera'),
 (3, 'cocina'),
 (4, 'candy_bar');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `comandas`
---
-
-CREATE TABLE `comandas` (
-  `id_comanda` varchar(5) NOT NULL,
-  `id_mesa` int(11) NOT NULL,
-  `id_mozo` int(11) NOT NULL,
-  `id_estado_pedido` int(11) NOT NULL,
-  `fecha_alta` datetime NOT NULL,
-  `fecha_estipulada` datetime NOT NULL,
-  `fecha_entrega` datetime DEFAULT NULL,
-  `foto_mesa` varchar(100) DEFAULT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
-  `total` decimal(10,0) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `comanda_detalles`
---
-
-CREATE TABLE `comanda_detalles` (
-  `id` int(11) NOT NULL,
-  `id_comanda` varchar(5) NOT NULL,
-  `id_producto` int(11) NOT NULL,
-  `cantidad_producto` int(11) NOT NULL,
-  `estado_pedido` int(11) NOT NULL,
-  `comienzo_preparacion` datetime DEFAULT NULL,
-  `hora_estimada` datetime DEFAULT NULL,
-  `hora_listo` datetime DEFAULT NULL,
-  `id_empleado` int(11) DEFAULT NULL,
-  `hora_alta` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -273,6 +237,7 @@ CREATE TABLE `pedidos` (
   `id` int(11) NOT NULL,
   `id_mesa` int(11) NOT NULL,
   `id_cliente` int(11) NOT NULL,
+  `id_cliente_visita` int(11) NOT NULL,
   `fecha_alta` datetime NOT NULL,
   `estado_pedido` int(11) NOT NULL DEFAULT '1',
   `hora_estimada` datetime NOT NULL,
@@ -283,9 +248,9 @@ CREATE TABLE `pedidos` (
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`id`, `id_mesa`, `id_cliente`, `fecha_alta`, `estado_pedido`, `hora_estimada`, `hora_listo`) VALUES
-(10, 1, 3, '2019-05-25 12:06:00', 1, '2019-05-25 12:11:00', '0000-00-00 00:00:00'),
-(11, 3, 8, '2019-05-25 12:10:28', 5, '2019-05-25 12:15:28', '2019-05-25 13:32:23');
+INSERT INTO `pedidos` (`id`, `id_mesa`, `id_cliente`, `id_cliente_visita`, `fecha_alta`, `estado_pedido`, `hora_estimada`, `hora_listo`) VALUES
+(10, 1, 3, 0, '2019-05-25 12:06:00', 1, '2019-05-25 12:11:00', '0000-00-00 00:00:00'),
+(11, 3, 8, 0, '2019-05-25 12:10:28', 5, '2019-05-25 12:15:28', '2019-05-25 13:32:23');
 
 -- --------------------------------------------------------
 
@@ -361,6 +326,30 @@ INSERT INTO `productos` (`id`, `id_producto`, `nombre_producto`, `descripcion`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `reservas`
+--
+
+CREATE TABLE `reservas` (
+  `id` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_mesa` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `fecha_alta` datetime NOT NULL,
+  `confirmada` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `reservas`
+--
+
+INSERT INTO `reservas` (`id`, `id_cliente`, `id_mesa`, `fecha`, `fecha_alta`, `confirmada`) VALUES
+(1, 2, 2, '2019-09-01 00:00:00', '2019-05-27 22:47:27', 0),
+(2, 2, 2, '2019-09-01 00:00:00', '2019-05-27 22:50:19', 0),
+(3, 2, 2, '2019-09-01 00:00:00', '2019-05-27 22:51:20', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `rol`
 --
 
@@ -413,26 +402,16 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
+-- Indices de la tabla `cliente_visita`
+--
+ALTER TABLE `cliente_visita`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `cocina`
 --
 ALTER TABLE `cocina`
   ADD PRIMARY KEY (`id_cocina`);
-
---
--- Indices de la tabla `comandas`
---
-ALTER TABLE `comandas`
-  ADD PRIMARY KEY (`id_comanda`),
-  ADD KEY `id_mesa` (`id_mesa`),
-  ADD KEY `id_mozo` (`id_mozo`),
-  ADD KEY `id_estado_pedido` (`id_estado_pedido`);
-
---
--- Indices de la tabla `comanda_detalles`
---
-ALTER TABLE `comanda_detalles`
-  ADD PRIMARY KEY (`id_comanda`,`id_producto`),
-  ADD KEY `id` (`id`);
 
 --
 -- Indices de la tabla `empleados`
@@ -487,6 +466,12 @@ ALTER TABLE `productos`
   ADD KEY `id_cocina` (`id_cocina`);
 
 --
+-- Indices de la tabla `reservas`
+--
+ALTER TABLE `reservas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
@@ -503,10 +488,10 @@ ALTER TABLE `sector`
 --
 
 --
--- AUTO_INCREMENT de la tabla `comanda_detalles`
+-- AUTO_INCREMENT de la tabla `cliente_visita`
 --
-ALTER TABLE `comanda_detalles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `cliente_visita`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `encuestas`
@@ -533,16 +518,10 @@ ALTER TABLE `productos`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- Restricciones para tablas volcadas
+-- AUTO_INCREMENT de la tabla `reservas`
 --
-
---
--- Filtros para la tabla `comandas`
---
-ALTER TABLE `comandas`
-  ADD CONSTRAINT `comandas_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id_mesa`),
-  ADD CONSTRAINT `comandas_ibfk_2` FOREIGN KEY (`id_mozo`) REFERENCES `empleados` (`id_empleado`),
-  ADD CONSTRAINT `comandas_ibfk_3` FOREIGN KEY (`id_estado_pedido`) REFERENCES `estado_pedidos` (`id_estado_pedido`);
+ALTER TABLE `reservas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
