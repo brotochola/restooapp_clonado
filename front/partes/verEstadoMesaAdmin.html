@@ -57,7 +57,7 @@
             </div>
             <div class="text-center">
                 <div class="container botonesVerEstadoMesaAdmin">
-                    <div class="row">
+                    <div class="row" id="botonCerrarMesa">
                         <div class="col-1"></div>
                         <div class="col-10">
                             <button class="boton-modal cancelar" onclick="cerrarMesa()">Cerrar Mesa</button>
@@ -118,7 +118,13 @@
 
 
     function cbMostrarEstadoMesa(mesa) {
+     
+        app.ocultarLoading();
+
+
+
         console.log(mesa)
+        mesaActiva=mesa;
         $("#listadoDePedidosMesa").html("")
         //arma pedidos
         for (var i = 0; i < mesa.pedidos.length; i++) {
@@ -128,18 +134,30 @@
 
         //datos
         $("#idMesa").html("#" + mesa.id_mesa)
-        $("#nombreCliente").html(mesa.cliente.nombre_completo)
-      //  $("#cantVisitas").html(mesa.cliente.cantVisitas)
-      //  if (mesa.cliente.ultimaVisita == "null") $("#ultimaVisita").html("Hoy")
-      //  else $("#ultimaVisita").html(mesa.cliete.ultimaVisita)
+        if(checkStr(mesa.cliente.nombre_completo)){
+            $("#botonCerrarMesa").show();
+            $("#nombreCliente").html(mesa.cliente.nombre_completo)
+            $("#cantVisitas").html(mesa.cliente.cant_visitas)
+            $("#cantComensales").html("<b> "+mesa.clienteVisita.comensales+"</b>")
+           $("#mozoAsignado").html(mesa.mozo.nombre_completo)
+            $("#total").html("$" + mesa.total_mesa)
+        }else{
+            $("#botonCerrarMesa").hide();
+            $("#nombreCliente").html("")
+            $("#cantVisitas").html("")
+            $("#cantComensales").html("")
+           $("#mozoAsignado").html("")
+            $("#total").html("")
+        }
 
-        $("#cantComensales").html("<b> "+mesa.clienteVisita.comensales+"</b>")
-        $("#mozoAsignado").html(mesa.mozo.nombre_completo)
-        $("#total").html("$" + mesa.total_mesa)
+ 
     }
 
     function mostrarEstadoMesaAdmin(id) {
        // console.log(id)
+
+       app.mostrarLoading()
+
         idMesa = id;
         $("#botonEstadisticas").off().click(function () {
             window.location.href = "estadisticas.html?mesaId=" + id
@@ -165,7 +183,7 @@
         
         let horaPedidoAgregado=hora(pedido.fecha_alta)
         
-        html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hr.</div>'
+        html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
         html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
         html += '<div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
         html += '</div>  '

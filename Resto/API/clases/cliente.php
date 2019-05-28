@@ -56,6 +56,17 @@ class cliente
             $consulta->execute();
             return $consulta->rowCount();
         }
+
+        public static function cantVisitasCliente($id) 
+        {
+            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+            $consulta =$objetoAccesoDato->RetornarConsulta("select * from cliente_visita where id_cliente =".$id);	
+           
+            $consulta->execute();   
+            
+          
+            return   $consulta->rowCount();
+        }
 }
 
 ?>

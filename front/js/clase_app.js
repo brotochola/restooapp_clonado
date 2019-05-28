@@ -36,7 +36,7 @@ class App {
         })
 
         this.traerHTML("partes/verEstadoMesaAdmin.html", true, true, "estadoMesa", true)
-
+        this.traerHTML("partes/verAgregarPedido.html", true, true, "modalVerPedido", true)
         //LOGIN LO TRAE NO COMO APPEND Y NO OCULTO
         this.traerHTML("partes/login.html", false, true, "login", false)
 

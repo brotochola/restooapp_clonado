@@ -35,6 +35,8 @@ class clienteApi extends cliente
         return $newResponse;
     }
 
+
+
     public function TraerClientes($request, $response, $args) 
     {
         $Clientes = cliente::TraerTodos();        

@@ -47,7 +47,7 @@
 
 
 var pedido={};
-
+var mesaActiva;
 
 
 function agregarProducto(){
@@ -55,7 +55,7 @@ function agregarProducto(){
 }
 function verPedido(id) {
 
-
+    app.traerHTML("partes/verAgregarPedido.html", true);
     if (id == "agregar") {
         console.log("agregar pedido!")
        /* $("#listaProductos").html("")
@@ -70,7 +70,7 @@ function verPedido(id) {
     } else {
         $("#botonAgregarProductoAPedido").hide();
 
-        pe = mesa.pedidos[id2i(id, mesa.pedidos)]
+        pe = mesaActiva.pedidos[id2i(id, mesaActiva.pedidos)]
 
 
         console.log("el pedido " + id + " tiene " + pe.productos.length + " productos")
@@ -86,7 +86,7 @@ function verPedido(id) {
             $("#listaProductos").append(armarProducto(prod))
         }
 
-        $("#mesaIdVerPedido").html(mesa.id)
+        $("#mesaIdVerPedido").html(mesa.id_mesa)
         $("#pedidoIDVerPedido").html(id)
            $("#verPedidoMozo").fadeIn()
 

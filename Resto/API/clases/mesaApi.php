@@ -87,10 +87,16 @@ class mesaApi extends mesa
             $pedidos = pedido::traerPedidosDeClienteVisita($id_cliente_visita);
            
             $respuestaArray->cliente=$cliente[0];
+
+            $respuestaArray->cliente->cant_visitas= cliente::cantVisitasCliente(  $id_cliente);
+
+
             $respuestaArray->pedidos=$pedidos;
             $respuestaArray->clienteVisita=$cliente_visita[0];
             $respuestaArray->mozo=empleado::TraerUnoId($cliente_visita[0]["mozo"])[0];
             $respuestaArray->total_mesa=0;
+
+
             for($i=0;$i<count($pedidos);$i++){    
                 $respuestaArray->pedidos[$i]["total_pedido"]=0; 
                 $respuestaArray->pedidos[$i]["productos"]= pedidoApi::TraerMiPedido($pedidos[$i]['id']); //con productos
@@ -100,7 +106,15 @@ class mesaApi extends mesa
                 }
                 $respuestaArray->total_mesa+= $respuestaArray->pedidos[$i]["total_pedido"];
             }//for
-        }//if
+        }else{
+            //SI LA MESA NO ESTA OCUPADA POR NADIE
+            $respuestaArray->pedidos=[];
+            $respuestaArray->clienteVisita=new stdClass();
+            $respuestaArray->cliente=new stdClass();
+            $respuestaArray->mozo=new stdClass();
+            $respuestaArray->total_mesa=0;
+
+        }
 
 
 
