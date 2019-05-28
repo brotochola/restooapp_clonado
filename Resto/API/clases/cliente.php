@@ -6,15 +6,18 @@ class cliente
 {
     public $id_cliente;
     public $nombre_completo;
+    public $dni;
     
     public function __construct() {}
 
         public function Insertar()
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into clientes(id_cliente, nombre_completo)values(:id_cliente,:nombre_completo)");
+            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into clientes(id_cliente, nombre_completo, dni)
+            values(:id_cliente,:nombre_completo, dni)");
             $consulta->bindValue(':id_cliente', $this->id_cliente, PDO::PARAM_STR);
             $consulta->bindValue(':nombre_completo', $this->nombre_completo, PDO::PARAM_STR);
+            $consulta->bindValue(':dni', $this->dni, PDO::PARAM_STR);
             $consulta->execute();		
 
             return $objetoAccesoDato->RetornarUltimoIdInsertado();

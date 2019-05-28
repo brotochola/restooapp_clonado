@@ -20,6 +20,8 @@ require_once './clases/pedido.php';
 require_once './clases/encuestaApi.php';
 require_once './clases/encuesta.php';
 require_once './clases/informesApi.php';
+require_once './clases/reserva.php';
+require_once './clases/reservaApi.php';
 
 require_once './clases/AutentificadorMW.php';
 require_once './clases/AutentificadorJWT.php';
@@ -90,6 +92,19 @@ $app->group('/mesas', function () {
     
          
 })->add(\MWparaCORS::class . ':HabilitarCORS4200');
+
+
+$app->group('/reservas', function () {   
+
+    $this->post('/agregar',\reservaApi::class . ':CargarReserva'); 
+
+    $this->post('/confirmar/{id}',\reservaApi::class . ':ConfirmarReserva');
+
+    $this->get('/listado',\reservaApi::class . ':TraerReservas'); 
+    
+    // $this->delete('/borrar/{id}',\clienteApi::class . ':BorrarCliente');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
+        
+})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 
 //============================== FIN AGREGADOS APP RESTO2

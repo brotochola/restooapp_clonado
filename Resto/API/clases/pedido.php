@@ -20,7 +20,6 @@ class pedido
 
         public function __construct() {}    
             
-            
             // codigo appResto2
             public function InsertarPedidoPrincipal()
             {
@@ -38,8 +37,6 @@ class pedido
                 return $objetoAccesoDato->RetornarUltimoIdInsertado();
            
             }
-
-
 
             public function CargarPedidosDetalle($pPedidos,$pCantidades,$pId_pedido)
             {
@@ -117,7 +114,9 @@ class pedido
 
             public static function TraerIdPedidoPorIdClienteVisita($vId)
             {
-                $consulta = "SELECT * FROM `pedidos`  WHERE  `id_cliente_visita` = '$vId' /*LIMIT 1*/";
+                //$consulta = "SELECT * FROM `pedidos`  WHERE  `id_cliente_visita` = '$vId' /*LIMIT 1*/";
+
+                $consulta = "SELECT * FROM `pedidos`  WHERE  `id_cliente_visita` = '$vId'";
                 return AccesoDatos::ConsultaDatosAsociados($consulta);
             }
 

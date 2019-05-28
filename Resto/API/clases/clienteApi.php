@@ -11,6 +11,7 @@ class clienteApi extends cliente
         $ArrayDeParametros = $request->getParsedBody();                     
         $miCliente->id_cliente = $ArrayDeParametros['id_cliente'];
         $miCliente->nombre_completo = $ArrayDeParametros['nombre_completo'];
+        $miCliente->dni = $ArrayDeParametros['dni'];
                 
         $var = cliente::TraerUno($miCliente->id_cliente);             
         

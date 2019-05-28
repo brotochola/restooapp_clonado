@@ -13,7 +13,8 @@ class mesa
     public function __construct() {}
 
         //=============AGREGADOS APP RESTO2
-        public static function HabilitarLaMesa($vIdMesa, $vIdCliente, $vFecha, $vComensales)
+
+        public static function CargarClienteVisita($vIdMesa, $vIdCliente, $vFecha, $vComensales)
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
             $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into cliente_visita (id_mesa, id_cliente, fecha, comensales)
@@ -24,29 +25,21 @@ class mesa
             $consulta->bindValue(':comensales',$vComensales,PDO::PARAM_STR);
             $consulta->execute();		
 
-
-
-        
-
             return $objetoAccesoDato->RetornarUltimoIdInsertado();
         }
 
         public static function ModificarEstadoDeLaMesa($idMesa, $vEstado)
         {
-
-       
-
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $sql="
+
+            $consulta="
             update mesas
             set 
             estado_mesa ='$vEstado'
             WHERE id_mesa ='$idMesa'";
-
       
-            $consulta =$objetoAccesoDato->RetornarConsulta($sql);
-            return $consulta->execute();
-    
+            $consulta =$objetoAccesoDato->RetornarConsulta($consulta);
+            return $consulta->execute();    
         }
 
         public static function TraerLaMesa($vId)
@@ -60,7 +53,6 @@ class mesa
             $consulta = "SELECT * FROM `cliente_visita`  WHERE  `id_mesa` = '".$vId."' order by date_created desc limit 1";
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
-
 
         public static function TraerTodas()
         {

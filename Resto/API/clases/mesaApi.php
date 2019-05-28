@@ -23,11 +23,13 @@ class mesaApi extends mesa
         $vComensales = $ArrayDeParametros['comensales'];
         
 
-        mesa::HabilitarLaMesa($vIdMesa, $vIdCliente, $laHora, $vComensales);
+        $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, $vComensales);
+
         mesa::ModificarEstadoDeLaMesa($vIdMesa, 2);
         
         $respuesta = mesa::TraerLaMesa($vIdMesa);
 
+        //el dato ya está en $id_cliente_visita
         //select* from clientes_visitar where id_cliente=X order by fecha limit 1
         
         return $response->withJson($respuesta, 200);            
@@ -48,17 +50,15 @@ class mesaApi extends mesa
          
         $newResponse = $response->withJson($rta, 200);  
         return $newResponse;
-        
-
     }
+
+
     public static function estadoMozo($request, $response) {
         $rta=new stdClass();
         $rta->mesas = mesa::TraerTodas();    
          
         $newResponse = $response->withJson($rta, 200);  
         return $newResponse;
-        
-
     }
     
     
@@ -73,9 +73,6 @@ class mesaApi extends mesa
         $id_cliente_visita= $cliente_visita[0]["id_cliente_visita"];
         $id_cliente=$cliente_visita[0]["id_cliente"];
 
-      
-
-        
         $cliente = cliente::TraerUno($id_cliente);
         $pedidos = pedido::TraerIdPedidoPorIdClienteVisita($id_cliente_visita);
        
@@ -84,17 +81,12 @@ class mesaApi extends mesa
         $respuestaArray->cliente=$cliente[0];
         $respuestaArray->pedidos=$pedidos;
         
-
-
         for($i=0;$i<count($pedidos);$i++){
             $respuestaArray->pedidos[$i]["productos"]=[];
             $pedido=  pedidoApi::TraerMiPedido($pedidos[$i]['id']); //con productos
-            array_push(   $respuestaArray->pedidos[$i]["productos"],$pedido);
-
+            array_push($respuestaArray->pedidos[$i]["productos"],$pedido);
         }
-
       
-
         $newResponse = $response->withJson($respuestaArray, 200);
         return $newResponse;
     }
