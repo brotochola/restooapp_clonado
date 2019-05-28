@@ -1,4 +1,4 @@
-<div class="fondo-modal" id="verEstadoMesaAdmin" style="display:none">
+<div class="fondo-modal" id="verEstadoMesaAdmin" >
     <div class="contenedor-modal">
         <div class="cuerpo-modal">
             <div class="container-cuerpo">
@@ -9,14 +9,14 @@
                             <div class="info"><img src="media/Img/usuario-seleccionado.png"> <span
                                     id="nombreCliente">fulanito de tal</span></div>
                         </div>
-                        <div class="col-6 pp-n-right">
+                        <div class="col-6 pp-n-left">
                             <div class="info"><img src="media/Img/visitas.png"> Visitas: <strong
-                                    id="cantVisitas">#8</strong> </div>
+                                    id="cantVisitas">XX</strong> </div>
                         </div>
-                        <div class="col-12 pp-n-right">
+                        <!--<div class="col-12 pp-n-right">
                             <div class="info"><img src="media/Img/calendario-seleccionado.png"><span id="ultimaVisita">
                                     Ultima Visita: 25 - JULIO - 2018</span></div>
-                        </div>
+                        </div>-->
                         <div class="col-12 pp-n-right">
                             <div class="info"><img src="media/Img/usuarios-gris.png"> Total De Comenzales: <strong
                                     id="cantComensales">#8</strong> </div>
@@ -74,7 +74,7 @@
                     <div class="row">
                         <div class="col-1"></div>
                         <div class="col-10">
-                            <button class="boton-modal " onclick="$('#verEstadoMesaAdmin').fadeOut()">OK</button>
+                            <button class="boton-modal " onclick="ocultarEstadoMesa()">OK</button>
                         </div>
                         <div class="col-1"></div>
                     </div>
@@ -84,12 +84,14 @@
     </div>
 </div>
 <script>
-    var estadosPedidos = [null, "Pendiente", "En Preparación", "Listo", "Servido", "Cancelado"]
-
-    var estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada"];
+ 
 
     var idMesa = -1;
     var mesa = {};
+
+    function ocultarEstadoMesa(){
+        app.esconderUnaParte("partes/verEstadoMesaAdmin.html")
+    }
 
     function cerrarMesa() {
         mostrarModalConfirmacion("Seguro que quiere cerrar la facturación de este mesa?", "Si", "No", function () {
@@ -106,7 +108,7 @@
                     //una vez cerrada la mesa
                     console.log(e)
                     ocultarModalConfirmacion();
-                    $("#verEstadoMesaAdmin").fadeOut();
+                    ocultarEstadoMesa()
 
                 }
             })
@@ -125,19 +127,19 @@
         }
 
         //datos
-        $("#idMesa").html("#" + id)
-        $("#nombreCliente").html(mesa.cliente.nombre)
-        $("#cantVisitas").html(mesa.cliente.cantVisitas)
-        if (mesa.cliente.ultimaVisita == "null") $("#ultimaVisita").html("Hoy")
-        else $("#ultimaVisita").html(mesa.cliete.ultimaVisita)
+        $("#idMesa").html("#" + mesa.id_mesa)
+        $("#nombreCliente").html(mesa.cliente.nombre_completo)
+      //  $("#cantVisitas").html(mesa.cliente.cantVisitas)
+      //  if (mesa.cliente.ultimaVisita == "null") $("#ultimaVisita").html("Hoy")
+      //  else $("#ultimaVisita").html(mesa.cliete.ultimaVisita)
 
-        $("#cantComensales").html(mesa.cliente.cantComensales)
-        $("#mozoAsignado").html(mesa.nombreMozo)
-        $("#total").html("$" + mesa.total)
+        $("#cantComensales").html("<b> "+mesa.clienteVisita.comensales+"</b>")
+        $("#mozoAsignado").html(mesa.mozo.nombre_completo)
+        $("#total").html("$" + mesa.total_mesa)
     }
 
     function mostrarEstadoMesaAdmin(id) {
-        console.log(id)
+       // console.log(id)
         idMesa = id;
         $("#botonEstadisticas").off().click(function () {
             window.location.href = "estadisticas.html?mesaId=" + id
@@ -146,20 +148,25 @@
         api.traerUnaMesa(id,cbMostrarEstadoMesa);
 
 
-        $("#verEstadoMesaAdmin").fadeIn();
+        app.traerHTML("partes/verEstadoMesaAdmin.html",true);
+        
     }
 
 
 
 
     function armarPedido(pedido) {
+        console.log("pedido:");
         console.log(pedido)
         html = ' <li>'
         html += '<div class="container">'
         html += '<div class="row" onclick="verPedido(' + pedido.id + ')">'
         html += '<div class="col-2 text-center contenedor-icono-listado"><h5>#' + pedido.id + '</h5></div>'
-        html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + pedido.horaPedido + ' hr.</div>'
-        html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado].toUpperCase() + '</span></div>'
+        
+        let horaPedidoAgregado=hora(pedido.fecha_alta)
+        
+        html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hr.</div>'
+        html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
         html += '<div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
         html += '</div>  '
         html += '</div>  '

@@ -35,7 +35,7 @@ class App {
             setTimeout(()=>{this.$footerAdmin=$("#footerAdmin");},500);          
         })
 
-        this.traerHTML("partes/verEstadoMesaAdmin.html", true, true, "verEstadoMesaAdmin", true)
+        this.traerHTML("partes/verEstadoMesaAdmin.html", true, true, "estadoMesa", true)
 
         //LOGIN LO TRAE NO COMO APPEND Y NO OCULTO
         this.traerHTML("partes/login.html", false, true, "login", false)

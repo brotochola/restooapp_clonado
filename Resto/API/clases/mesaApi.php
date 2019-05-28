@@ -22,8 +22,12 @@ class mesaApi extends mesa
         $vIdCliente = $ArrayDeParametros['id_cliente'];
         $vComensales = $ArrayDeParametros['comensales'];
         
+        $token= $request->getHeader('token')[0];      
+        $payload=AutentificadorJWT::ObtenerData($token);
+        $idmozo=$payload->id_empleado; 
 
-        $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, $vComensales);
+        
+        $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, $vComensales, $idmozo);
 
         mesa::ModificarEstadoDeLaMesa($vIdMesa, 2);
         
@@ -70,22 +74,40 @@ class mesaApi extends mesa
         $mesa = mesa::TraerLaMesa($vId)[0];
         
         $cliente_visita = mesa::TraerClienteVisita($vId);
-        $id_cliente_visita= $cliente_visita[0]["id_cliente_visita"];
-        $id_cliente=$cliente_visita[0]["id_cliente"];
+      
+        $respuestaArray=json_decode(json_encode( $mesa)); //copia, por las dudas
+        
+        
+  
 
-        $cliente = cliente::TraerUno($id_cliente);
-        $pedidos = pedido::TraerIdPedidoPorIdClienteVisita($id_cliente_visita);
+        if(count($cliente_visita)>0){
+             $id_cliente_visita= $cliente_visita[0]["id_cliente_visita"];
+            $id_cliente=$cliente_visita[0]["id_cliente"];
+            $cliente = cliente::TraerUno($id_cliente);
+            $pedidos = pedido::traerPedidosDeClienteVisita($id_cliente_visita);
+           
+            $respuestaArray->cliente=$cliente[0];
+            $respuestaArray->pedidos=$pedidos;
+            $respuestaArray->clienteVisita=$cliente_visita[0];
+            $respuestaArray->mozo=empleado::TraerUnoId($cliente_visita[0]["mozo"])[0];
+            $respuestaArray->total_mesa=0;
+            for($i=0;$i<count($pedidos);$i++){    
+                $respuestaArray->pedidos[$i]["total_pedido"]=0; 
+                $respuestaArray->pedidos[$i]["productos"]= pedidoApi::TraerMiPedido($pedidos[$i]['id']); //con productos
+                $cantProds=count($respuestaArray->pedidos[$i]["productos"]);
+                for($k=0;$k<$cantProds;$k++){
+                    $respuestaArray->pedidos[$i]["total_pedido"]+=floatval($respuestaArray->pedidos[$i]["productos"][$k]->precio)*$respuestaArray->pedidos[$i]["productos"][$k]->cantidad;
+                }
+                $respuestaArray->total_mesa+= $respuestaArray->pedidos[$i]["total_pedido"];
+            }//for
+        }//if
+
+
+
+       
        
 
-        $respuestaArray=json_decode(json_encode( $mesa));
-        $respuestaArray->cliente=$cliente[0];
-        $respuestaArray->pedidos=$pedidos;
-        
-        for($i=0;$i<count($pedidos);$i++){
-            $respuestaArray->pedidos[$i]["productos"]=[];
-            $pedido=  pedidoApi::TraerMiPedido($pedidos[$i]['id']); //con productos
-            array_push($respuestaArray->pedidos[$i]["productos"],$pedido);
-        }
+    
       
         $newResponse = $response->withJson($respuestaArray, 200);
         return $newResponse;

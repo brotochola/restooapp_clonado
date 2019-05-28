@@ -78,7 +78,7 @@ class pedido
 
             public static function TraerPedidosProductosPorPedido($pId)
             {             
-                $consulta = "SELECT pedidos_detalles.id_producto FROM `pedidos_detalles` WHERE `id`= '$pId'";
+                $consulta = "SELECT pedidos_detalles.* FROM `pedidos_detalles` WHERE `id`= '$pId'";
                 return AccesoDatos::ConsultaDatosAsociados($consulta);
             }
 
@@ -112,7 +112,7 @@ class pedido
                return $consulta->execute();
             }
 
-            public static function TraerIdPedidoPorIdClienteVisita($vId)
+            public static function traerPedidosDeClienteVisita($vId)
             {
                 //$consulta = "SELECT * FROM `pedidos`  WHERE  `id_cliente_visita` = '$vId' /*LIMIT 1*/";
 

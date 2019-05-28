@@ -17,12 +17,15 @@ class mesa
         public static function CargarClienteVisita($vIdMesa, $vIdCliente, $vFecha, $vComensales)
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into cliente_visita (id_mesa, id_cliente, fecha, comensales)
-            values(:id_mesa,:id_cliente,:fecha,:comensales)");
+            
+            
+            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into cliente_visita (id_mesa, id_cliente, fecha, comensales, mozo)
+            values(:id_mesa,:id_cliente,:fecha,:comensales, :mozo)");
             $consulta->bindValue(':id_mesa', $vIdMesa, PDO::PARAM_STR);
             $consulta->bindValue(':id_cliente',$vIdCliente,PDO::PARAM_STR);
             $consulta->bindValue(':fecha',$vFecha,PDO::PARAM_STR);
             $consulta->bindValue(':comensales',$vComensales,PDO::PARAM_STR);
+            $consulta->bindValue(':mozo',$idMozo,PDO::PARAM_STR);
             $consulta->execute();		
 
             return $objetoAccesoDato->RetornarUltimoIdInsertado();

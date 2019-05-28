@@ -78,7 +78,7 @@
         
 
 
-           setTimeout(()=>{ cargarEstadoAdmin()},delayTraerEstado/2)
+           setTimeout(()=>{ api.cargarEstadoAdmin(cbEstadoAdmin)},delayTraerEstado/2)
         });
 
         function verMesa(id) {
@@ -104,16 +104,10 @@
 
                     }
 
-                    setTimeout(()=>{cargarEstadoAdmin()}, delayTraerEstado)
+                    setTimeout(()=>{  api.cargarEstadoAdmin(cbEstadoAdmin)}, delayTraerEstado)
         }
 
-        function cargarEstadoAdmin() {
-            console.log("estado admin")
-            //esta funcion se ejecuta cada 5 segundos
-        
-
-           api.estadoAdmin(cbEstadoAdmin)
-        }
+    
 
       
     </script>

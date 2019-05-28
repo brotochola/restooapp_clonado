@@ -14,11 +14,11 @@ class API{
             headers: {
                 token: localStorage[usuarioLogueado_ls]
             },
+            dataType:"json",
             success: function(e) {
-                console.log(e)
-                let mesa;
-                try { mesa = JSON.parse(e) } catch (e) { mesa = e }
-                console.log(mesa)
+               // console.log(e)
+                let mesa=e
+               // console.log(mesa)
                 if(cb instanceof Function) cb(mesa);
             },error:(e)=>{
                 console.log(e)
@@ -42,7 +42,7 @@ class API{
         })
     }
 
-    estadoAdmin(cb){
+    cargarEstadoAdmin(cb){
         $.ajax({
             url: this.urlServer + "admin/estado",
             type: "post",

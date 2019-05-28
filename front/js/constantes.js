@@ -2,10 +2,17 @@ console.log("constantes.js")
 
 const minSillasPorMesa=2;
 const maxSillasPorMesa=6;
+const estadosPedidos = [null, "Pendiente", "En Preparación", "Listo", "Servido", "Cancelado"]
+const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada"];
 
-const caminoBackEnd = "../../Resto/API/"
-const caminoBackend= "../../Resto/API/"
-//       url = "../../server/admin/informes/mesas/facturacion"; 
+
+function hora(data){
+
+  let a=new Date(data);
+  let minutos=a.getMinutes();
+  if (minutos<10) minutos="0"+minutos.toString();
+  return a.getHours()+":"+minutos;
+}
 
 function formatDate(date) {
     var d = new Date(date),
@@ -34,9 +41,7 @@ function formatDate(date) {
 
     return str;
 }
-function isFunction(functionToCheck) {
- return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
-}
+
 
 
 
@@ -56,9 +61,7 @@ function parseJwt(token) {
 }
 
 
-function dataUsuario(){
-  return parseJwt(localStorage[usuarioLogueado_ls]).data
-}
+
 
 function checkStr(str){
   if(str!=undefined && str!=null && str!="" && str!="undefined" && str!= "null") return true;

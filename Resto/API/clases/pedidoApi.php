@@ -114,28 +114,33 @@ public function TraerPedido($request, $response, $args) {
 
 public static function TraerMiPedido($pId) {
 
-    $elPedido = pedido::TraerPedidosPorId($pId);
+  //  $elPedido = pedido::TraerPedidosPorId($pId);
    
     $idsproductos = pedido::TraerPedidosProductosPorPedido($pId);
+
+   
     $elProducto = new producto();
 
-    $pedidosArray = array();
-    $respuestaArray = array();
+    $arrProductos = array();
+
+
 
         for ($x = 0; $x <= count($idsproductos)-1; $x++) 
         {
+
             $elProducto = producto::TraerUno($idsproductos[$x]["id_producto"]);
+            $elProducto=$elProducto[0];
+            $elProducto->cantidad=$idsproductos[$x]["cantidad"];
             //return $elProducto;
-            array_push($pedidosArray, $elProducto);
+             array_push($arrProductos,$elProducto );
         }
 
 
+      
+  
 
-    array_push($respuestaArray,$elPedido);
-    array_push($respuestaArray,$pedidosArray);
 
-
-    return $respuestaArray;
+    return $arrProductos;
 
 }
 
