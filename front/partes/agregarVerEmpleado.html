@@ -1,4 +1,4 @@
-<div class="fondo-modal" id="agregarVerEmpleado" style="display:none">
+<div class="fondo-modal" id="agregarVerEmpleado" >
     <div class="contenedor-modal">
         <div class="cuerpo-modal agregarVerEmpleado">
             <div class="container">
@@ -12,7 +12,7 @@
                 <div class="row">
                         <div class="col-12">
                             <div class="info">
-                                <input id="email" placeholder="E-mail">
+                                <input id="mailEmpleado" placeholder="E-mail">
                             </div>
                         </div>
                         <div class="col-12">
@@ -40,7 +40,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6 inf-add">
-                        <div class="info"><img src="../media/Img/calendario-gris.png"> Nacimiento</div>
+                        <div class="info"><img src="media/Img/calendario-gris.png"> Nacimiento</div>
                     </div>
                     <div class="col-6 select-add-fecha">
                         <div class="row">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6 inf-add">
-                        <div class="info"><img src="../media/Img/calendario-seleccionado.png"> Contratación</div>
+                        <div class="info"><img src="media/Img/calendario-seleccionado.png"> Contratación</div>
                     </div>
                     <div class="col-6 select-add-fecha">
                         <div class="row">
@@ -64,7 +64,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6 inf-add">
-                        <div class="info"><img src="../media/Img/bolsa-dinero.png"> Salario</div>
+                        <div class="info"><img src="media/Img/bolsa-dinero.png"> Salario</div>
                     </div>
                     <div class="col-6 select-add">
                         <div class="info">
@@ -74,12 +74,12 @@
                 </div>
                 <div class="row">
                     <div class="col-6 inf-add">
-                        <div class="info"><img src="../media/Img/Grado.png"> Rol</div>
+                        <div class="info"><img src="media/Img/Grado.png"> Rol</div>
                     </div>
                     <div class="col-6 select-add">
-                        <div class="info">
+                        <div class="info" id="contenedorSelectRol">
                             <!--     var rolesEmpleados=[null, "Bartender", "Cervecerx", "Cocinerx", "Camarerx", "Admin", "Candybar"];-->
-                            <select id="rol">
+                          <!--  <select id="rol">
                                 <option value="0">-</option>
                                 <option value="1">Socio</option>
                                 <option value="2">Camarerx</option>
@@ -87,13 +87,13 @@
                                 <option value="4">Cervecerx</option>
                                 <option value="5">Cocinerx</option>
                                 <option value="6">Candybar</option>                                
-                            </select>
+                            </select>-->
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6 inf-add">
-                        <div class="info"><img src="../media/Img/Grado.png"> Habilitado</div>
+                        <div class="info"><img src="media/Img/Grado.png"> Habilitado</div>
                     </div>
                     <div class="col-6 select-add">
                         <div class="info">
@@ -104,15 +104,19 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <br>
-                <br>
+
+                <div class="row " id="contBotonBorrar" >
+                        <div class="col-12 text-center">
+                        <button class="boton-modal cancelar" onclick="clickBorrarEmpleado()" id="botonBorrarEmpleado">Borrar Empleado</button>
+                   </div>
+
+                </div>
                 <div class="row">
                     <div class="col-6">
                         <button class="boton-modal" id="botonAgregarEmpleado">Guardar</button>
                     </div>
                     <div class="col-6">
-                        <button onclick='$("#agregarVerEmpleado").fadeOut();' class="boton-modal cancelar">Cancelar</button>
+                        <button onclick='sacarModalVerEmpleado()' class="boton-modal cancelar">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -123,28 +127,45 @@
 
     idEmpleadoActual = -1;
 
-function mostrarAgregarVerEmpleado(id) {
+    $("#contenedorSelectRol").html(array2Select(rolesEmpleados,"rol"))
 
+function clickBorrarEmpleado(){
+    //mostrarModalConfirmacion(texto, botSi, botNo, cbSi, cbNo)
+    mostrarModalConfirmacion("Seguro querés borrar al empleado?","si","no",()=>{api.borrarEmpleado(1);ocultarModalConfirmacion()},()=>{ocultarModalConfirmacion()})
+}
+
+
+function sacarModalVerEmpleado(){
+    app.esconderUnaParte(null,"verEmpleado");
+
+}
+function mostrarAgregarVerEmpleado(id) {
+  
     empleado = traerEmpleadoPorId(id);
     idEmpleadoActual = id;
 
-    if (empleado == -1){
+    if (id == undefined){
         console.log("agregar empleado")
 
         $("#botonAgregarEmpleado").html("Agregar")
         $("#nombre").val("")
+        $("#usuario").val("")
+        $("#clave").val("")
         $("#dni").val("")
+        $("#rol").val("")
+
+        $("#fechaContratacion").val(formatDate(Date.now()))
         $("#sueldo").val(0)
         $("#botonAgregarEmpleado").off().click(agregarEmpleado)
-
+        $("#contBotonBorrar").hide()
 
     } else {
         console.log("modificar empleado")
-
+        $("#contBotonBorrar").show()
         $("#botonAgregarEmpleado").html("Modificar")
         $("#nombre").val(empleado.nombre_completo)
         $("#usuario").val(empleado.usuario)
-        $("#email").val(empleado.email)
+        $("#mailEmpleado").val(empleado.email)
         $("#dni").val(empleado.dni)
         $("#fechaNac").val(formatDate(empleado.fecha_nac))
         $("#fechaContratacion").val(formatDate(empleado.fecha_ingreso))
@@ -159,8 +180,8 @@ function mostrarAgregarVerEmpleado(id) {
         $("#botonAgregarEmpleado").off().click(modificarEmpleado)
 
     }
-
-    $("#agregarVerEmpleado").fadeIn();
+    app.traerHTML("partes/agregarVerEmpleado.html", true);
+   // $("#agregarVerEmpleado").fadeIn();
 }
 
 function modificarEmpleado(){
@@ -170,7 +191,7 @@ function modificarEmpleado(){
     empleado.nombre_completo= $("#nombre").val();
     empleado.dni=$("#dni").val();
     empleado.usuario=$("#usuario").val();
-    empleado.email=$("#email").val();
+    empleado.email=$("#mailEmpleado").val();
     empleado.clave=$("#clave").val();
     empleado.sueldo=$("#sueldo").val();
     empleado.id_rol=$("#rol").val();
@@ -178,30 +199,18 @@ function modificarEmpleado(){
     empleado.fecha_nac=$("#fechaNac").val();
     empleado.fecha_ingreso=$("#fechaContratacion").val();
      console.log(empleado)
-      $.ajax({
-       // url:"../../server/admin/empleados/modificar",
-       url: caminoBackEnd + "empleados/modificar",
-        headers:{
-            token: localStorage[usuarioLogueado_ls]
-        },
-        data:empleado,
-        success:function(e){
-            console.log(e)
-            if(e!=-1) {
-                   try { empleados = JSON.parse(e) } catch (e) { empleados = e }
-                    localStorage["empleados_" + nombreDelSitio] = e;
-                    armarTablaEmpleados();
+    api.modificarEmpleado(cbModificarEmpleado,empleado)
+}
 
-            }else{
-                mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
-            
-            }
-             $("#agregarVerEmpleado").fadeOut();
-        },
-        error:(e)=>{
-            console.log(e)
-        }
-    })
+function cbModificarEmpleado(e){
+    sacarModalVerEmpleado()
+    armarTablaEmpleados()
+}
+
+function cbAgregarEmpleado(){
+    console.log(" cb agregar Empleado api")
+    armarTablaEmpleados();
+    sacarModalVerEmpleado()
 }
 
 function agregarEmpleado(){
@@ -210,7 +219,8 @@ function agregarEmpleado(){
     empleado={};
     empleado.nombre_completo= $("#nombre").val();
     empleado.usuario= $("#usuario").val();
-    empleado.email= $("#email").val();
+    empleado.email= $("#mailEmpleado").val();
+    empleado.clave= $("#clave").val()
     empleado.dni=$("#dni").val();
     empleado.sueldo=$("#sueldo").val();
     empleado.id_rol=$("#rol").val();
@@ -219,28 +229,7 @@ function agregarEmpleado(){
     empleado.fecha_ingreso=$("#fechaContratacion").val();
      console.log(empleado)
    
-     $.ajax({
-
-        url: caminoBackEnd + "empleados/alta",
-        //url:"../../server/admin/empleados/agregar",
-        headers:{
-            token: localStorage[usuarioLogueado_ls]
-        },
-        data:empleado,
-        success:function(e){
-            console.log(e)
-            if(e!=-1) {
-                   try { empleados = JSON.parse(e) } catch (e) { empleados = e }
-                    localStorage["empleados_" + nombreDelSitio] = e;
-                    armarTablaEmpleados();
-
-            }else{
-                mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
-            
-            }
-             $("#agregarVerEmpleado").fadeOut();
-        }
-    })
+    api.agregarEmpleado(cbAgregarEmpleado,empleado)
    
 }
 </script>

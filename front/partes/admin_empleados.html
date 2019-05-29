@@ -2,7 +2,7 @@
    
     <div class="container-fluid back-header-listing">
         <div class="col-12">
-            <img src="../media/Img/logo-amarillo.png" />
+            <img src="media/Img/logo-amarillo.png" />
             <h6 id="nombreAdmin"></h6>
             <h5>PROPIETARIO</h5>
         </div>    
@@ -37,51 +37,23 @@
     var docReady = 0;
     var empleados = [];
 
-    var rolesEmpleados=[null, "Bartender", "Cervecerx", "Cocinerx", "Camarerx", "Admin", "Candybar"];
 
 
 
-    $.ajax({
-        //url: "../../server/admin/empleados/lista",
-        url: caminoBackEnd + "empleados/listar",
-        type: "get", //esto es solo porq estoy no usando un backend de verdad
-        headers: {
-            token: localStorage[usuarioLogueado_ls]
-        },
-        success: function(e) {
-
-                
-            try 
-            { 
-                empleados = e;  
-                //empleados = JSON.parse(e);  
-        
-            }
-            catch (e) { 
-                empleados = e
-            }
-
-
-            localStorage["empleados_" + nombreDelSitio] = e;
-            empleadosCargados = 1;
-            if (docReady == 1) armarTablaEmpleados();
-        }
-    })
-
+   api.traerEmpleados((e)=>{
+       console.log(e)
+      if (docReady == 1) armarTablaEmpleados();
+   });
 
 
     $(document).ready(function() {
         docReady = 1;
-        if (empleadosCargados == 1) armarTablaEmpleados();
+        if (api.empleados!=null) armarTablaEmpleados();
         console.log("doc ready empleados admin");
 
-        agregarCachoABody("modalConfirmacion.html");
-        agregarCachoABody("footerAdmin.html",function(){
-            $($(".botonFooterAdmin")[1]).addClass("active") //en la pantalla de estado, empieza activo el boton de estado
-        })
-        agregarCachoABody("agregarVerEmpleado.html")
+      
 
-        $("h6#nombreAdmin").html(dataUsuario().nombre)
+        $("h6#nombreAdmin").html(usuario.data.nombre_completo)
 
 
 
@@ -91,9 +63,9 @@
     function armarTablaEmpleados() {
 
         html = "";
-        for (var i = 0; i < empleados.length; i++) {
-            if (empleados[i] != undefined && empleados[i] != -1) {
-                html += armarEmpleado(empleados[i]);
+        for (var i = 0; i < api.empleados.length; i++) {
+            if (api.empleados[i] != undefined && api.empleados[i] != -1) {
+                html += armarEmpleado(api.empleados[i]);
                 
             }
         }
@@ -114,10 +86,10 @@
     function traerEmpleadoPorId(id) {
 
     
-        for (var i = 0; i < empleados.length; i++) {
+        for (var i = 0; i < api.empleados.length; i++) {
 
-            if (empleados[i].id_empleado == id) {
-                return empleados[i];
+            if (api.empleados[i].id_empleado == id) {
+                return api.empleados[i];
             }
         }
         return -1;

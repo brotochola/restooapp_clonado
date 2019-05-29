@@ -41,6 +41,6 @@
         function cambiarSeccion(url,quien){
             $(".botonFooterAdmin").removeClass("active")
             $(quien).addClass("active")
-            app.traerHTML("partes/"+url);
+            app.traerHTML("partes/"+url, false, false, url);
         }
     </script>

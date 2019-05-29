@@ -14,7 +14,7 @@ class App {
     quePasaDespuesDeLogin() {
         if(usuario.dataUsuario().id_rol==1){            
             this.traerHTML("partes/admin_estado.html", false, true, "admin_estado", false)
-            this.mostrarFooterAdmin()
+           setTimeout(()=>{ this.mostrarFooterAdmin()},500)//lo atamo con alambre
         }else{
            
         }
@@ -28,15 +28,19 @@ class App {
         
 
        console.log("APP INIT")
-        
+       //MODALES:
+       this.traerHTML("partes/verEstadoMesaAdmin.html", true, true, "estadoMesa", true)
+       this.traerHTML("partes/agregarVerEmpleado.html", true, true, "verEmpleado", true)
+       this.traerHTML("partes/verAgregarPedido.html", true, true, "modalVerPedido", true)
+
         this.traerHTML("partes/modalConfirmacion.html", true, true, "modalConfirm", false)
   
+        //FOOTER
         this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true,"fija",()=>{
             setTimeout(()=>{this.$footerAdmin=$("#footerAdmin");},500);          
         })
 
-        this.traerHTML("partes/verEstadoMesaAdmin.html", true, true, "estadoMesa", true)
-        this.traerHTML("partes/verAgregarPedido.html", true, true, "modalVerPedido", true)
+      
         //LOGIN LO TRAE NO COMO APPEND Y NO OCULTO
         this.traerHTML("partes/login.html", false, true, "login", false)
 
@@ -156,7 +160,7 @@ class App {
                     this.esconderTodasLasPartes();
                 }
                 this.partes.push({ url: url, id: id, $el: $(span) })
-                if (traerloOculto) span.style.display = "none"
+                if (traerloOculto==true) span.style.display = "none"
              
                 if(cb instanceof Function) cb();
                 if(checkStr(clase)) $(span).addClass("fija")

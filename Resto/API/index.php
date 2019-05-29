@@ -183,9 +183,9 @@ $app->group('/empleados', function () {
        
    // $this->post('/traerUno',\empleadoApi::class . ':TraerUnEmpleadoId'); 
    
-    $this->get('/alta',\empleadoApi::class . ':CargarEmpleado');   
+    $this->post('/alta',\empleadoApi::class . ':CargarEmpleado');   
     
-    $this->get('/listar',\empleadoApi::class . ':TraerEmpleados'); 
+    $this->post('/listar',\empleadoApi::class . ':TraerEmpleados'); 
 
     $this->get('/listar/Excel',\empleadoApi::class . ':TraerDatosParaExportarExcel');
     
@@ -193,7 +193,7 @@ $app->group('/empleados', function () {
 
     $this->put('/activar',\empleadoApi::class . ':ActivarUnEmpleado');
     
-    $this->get('/modificar',\empleadoApi::class . ':ModificarEmpleado'); 
+    $this->post('/modificar',\empleadoApi::class . ':ModificarEmpleado'); 
     
     $this->get('/borrar',\empleadoApi::class . ':BorrarEmpleado');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
      

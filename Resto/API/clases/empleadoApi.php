@@ -51,8 +51,8 @@ class empleadoApi extends empleado
         $aux = date_format($Hora,"Y/m/d H:i:s");
 
         $emp = new empleado();
-        $vector = $request->getParams('usuario','nombre_completo','id_rol','fecha_ingreso','fecha_egreso','clave','sueldo','fecha_nac','dni','habilitado');
-                
+       // $vector = $request->getParams('usuario','nombre_completo','id_rol','fecha_ingreso','fecha_egreso','clave','sueldo','fecha_nac','dni','habilitado');
+        $vector = $request->getParsedBody();        
 
 	    $var = $emp::TraerUltimoIdEmpleado();
 
@@ -75,13 +75,9 @@ class empleadoApi extends empleado
         else{
             $emp->fecha_ingreso = $vector['fecha_ingreso'];
         } 
-        
-        if($vector['fecha_egreso'] == ""){
-            $emp->fecha_egreso = '0000-00-00';
-        }            
-        else{
-            $emp->fecha_egreso = $vector['fecha_egreso'];
-        }       
+  
+        $emp->fecha_egreso = '0000-00-00';
+      
         $resultado = $emp->Insertar();    
         
         $objDelaRespuesta= new stdclass();
@@ -95,8 +91,8 @@ class empleadoApi extends empleado
 	}        
         elseif($resultado < 1) $objDelaRespuesta->mensaje = "No se pudo hacer el alta!";
                         
-        $newResponse = $response->withJson($objDelaRespuesta, 200);  
-        return $newResponse; 
+	    return $response->withJson(empleado::TraerTodoLosEmpleados(), 200);	
+     
     }
 
     public function TraerEmpleados($request, $response, $args) 
@@ -110,7 +106,9 @@ class empleadoApi extends empleado
     {
         $emp = new empleado();
         
-        $vector = $request->getParams('id_empleado','usuario','nombre_completo','id_rol','fecha_ingreso','fecha_egreso','clave','sueldo','fecha_nac','dni','habilitado');
+        $vector = $request->getParsedBody(); //ahora viene por post
+       // print_r( $vector );die();
+        //$vector = $request->getParams('id_empleado','usuario','nombre_completo','id_rol','fecha_ingreso','fecha_egreso','clave','sueldo','fecha_nac','dni','habilitado');
 
         $emp->id_empleado = $vector['id_empleado'];
         $emp->usuario = $vector['usuario'];
@@ -126,11 +124,12 @@ class empleadoApi extends empleado
 
 //        return $response->withJson($emp, 200);	
 
-	   	$resultado = $emp->ModificarUno();
-	  	$responseObj= new stdclass();
-	    $responseObj->resultado=$resultado;
-        $responseObj->tarea="modificar";
-	    return $response->withJson($responseObj, 200);	
+           $resultado = $emp->ModificarUno();
+
+           $empleados=empleado::TraerTodoLosEmpleados();
+         
+           
+	    return $response->withJson(empleado::TraerTodoLosEmpleados(), 200);	
     }
 
     public function DesactivarUnEmpleado($request, $response,$args)

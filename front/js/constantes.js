@@ -4,7 +4,28 @@ const minSillasPorMesa=2;
 const maxSillasPorMesa=6;
 const estadosPedidos = [null, "Pendiente", "En Preparación", "Listo", "Servido", "Cancelado"]
 const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada"];
+const rolesEmpleados=["-", "Socix","Camarerx", "Bartender", "Cervecerx", "Cocinerx",  "Pastelerx", "Admin"];
 
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+function array2Select(arr,id){
+  let str="<select id='"+id+"'>"
+  for(let i=0;i<arr.length;i++){
+    str+="<option value='"+i+"'>"+arr[i]+"</option>";
+  }
+  str+="</select>";
+  return str
+}
 
 function hora(data){
 
