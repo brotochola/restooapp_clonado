@@ -73,9 +73,13 @@
     }
 
     function armarEmpleado(emp) {
+        let color
+        if(emp.habilitado==0){
+            color=" style= 'color:#E84C3D' "
+        }
 
-
-        html = ' <li> <div class="row filaEmpleado">  <div class="col-10">' + emp.nombre_completo + ' - <span>'+rolesEmpleados[emp.id_rol]+'</span></div>';
+        html = ' <li> <div class="row filaEmpleado">  <div class="col-10"'+color+ '>'
+        html+= emp.nombre_completo + ' - <span>'+rolesEmpleados[emp.id_rol]+'</span></div>';
         html += '<div class="col-2">'
         html += '<i class="fa fa-pencil-alt" onclick="mostrarAgregarVerEmpleado('+emp.id_empleado+')"></i>    </div>                </div>                </li>            <hr>';
         

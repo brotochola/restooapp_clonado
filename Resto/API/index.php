@@ -195,7 +195,7 @@ $app->group('/empleados', function () {
     
     $this->post('/modificar',\empleadoApi::class . ':ModificarEmpleado'); 
     
-    $this->get('/borrar',\empleadoApi::class . ':BorrarEmpleado');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
+    $this->post('/borrar',\empleadoApi::class . ':BorrarEmpleado');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
      
          
 })->add(\MWparaCORS::class . ':HabilitarCORSTodos');

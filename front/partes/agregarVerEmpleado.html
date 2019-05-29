@@ -131,7 +131,10 @@
 
 function clickBorrarEmpleado(){
     //mostrarModalConfirmacion(texto, botSi, botNo, cbSi, cbNo)
-    mostrarModalConfirmacion("Seguro querés borrar al empleado?","si","no",()=>{api.borrarEmpleado(1);ocultarModalConfirmacion()},()=>{ocultarModalConfirmacion()})
+    mostrarModalConfirmacion("Seguro querés borrar al empleado?","si","no",()=>{
+        console.log("si");
+        api.borrarEmpleado(cbModificarEmpleado,idEmpleadoActual);
+    })
 }
 
 
@@ -207,11 +210,6 @@ function cbModificarEmpleado(e){
     armarTablaEmpleados()
 }
 
-function cbAgregarEmpleado(){
-    console.log(" cb agregar Empleado api")
-    armarTablaEmpleados();
-    sacarModalVerEmpleado()
-}
 
 function agregarEmpleado(){
     console.log("agregar empleado")
@@ -229,7 +227,7 @@ function agregarEmpleado(){
     empleado.fecha_ingreso=$("#fechaContratacion").val();
      console.log(empleado)
    
-    api.agregarEmpleado(cbAgregarEmpleado,empleado)
+    api.agregarEmpleado(cbModificarEmpleado,empleado)
    
 }
 </script>

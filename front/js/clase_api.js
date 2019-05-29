@@ -99,6 +99,26 @@ class API{
         })
     }
 
+    borrarEmpleado(cb,id){
+        $.ajax({
+            // url:"../../server/admin/empleados/modificar",
+            url: this.urlServer + "empleados/borrar",
+            headers:{
+                token: localStorage[usuarioLogueado_ls]
+            },
+            type:"post",
+            dataType:"json",
+            data:{id:id},
+            success:(e)=>{
+                console.log(e)
+                this.empleados=e
+                if(cb instanceof Function) cb(e);
+            },error:(e)=>{
+                console.log(e)
+            }
+        });
+    }
+
     modificarEmpleado(cb,emple){
         $.ajax({
             // url:"../../server/admin/empleados/modificar",

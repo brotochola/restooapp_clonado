@@ -142,10 +142,21 @@ class empleadoApi extends empleado
         return self::ModificarEstadoEmpleado($request, $response,"Activar"); 
     }
 
-    public function BorrarEmpleado($request, $response, $args) 
+    public static function BorrarEmpleado($request, $response) 
     {
+        $id = $request->getParsedBody()["id"];
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+        $sql="delete from empleados where id_empleado=".$id;
 
-        return self::ModificarEstadoEmpleado($request, $response,"Borrar"); 
+      //  echo $sql;die();
+        $consulta =$objetoAccesoDato->RetornarConsulta($sql);
+        $consulta->execute();
+
+
+
+        return $response->withJson(empleado::TraerTodoLosEmpleados(), 200);	
+
+      //  return self::ModificarEstadoEmpleado($request, $response,"Borrar"); 
     }
             
     public function ModificarEstadoEmpleado($request, $response, $tarea)

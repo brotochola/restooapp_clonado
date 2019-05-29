@@ -26,7 +26,10 @@
 
     function mostrarModalConfirmacion(texto, botSi, botNo, cbSi, cbNo) {
       
-            let m = $($(".fondo-modal.confirmacion.ventanaModal")[0])   
+        let m = $($(".fondo-modal.confirmacion.ventanaModal")[0])   
+        m.find("#botonNo").off()
+        m.find("#botonSi").off()
+        
           if (cbNo == null) m.find("#botonNo").click(ocultarModalConfirmacion)
 
 
@@ -36,7 +39,10 @@
         } else {
             $("#divBotonSi").addClass("col-6").removeClass("col-12");
             m.find("#botonNo").html(botNo);
-            m.find("#botonNo").click(cbNo)
+            m.find("#botonNo").click(()=>{
+                ocultarModalConfirmacion();
+                if(cbNo instanceof Function) cbNo()
+            })
         }
 
         m.find("#botonSi").html(botSi);
@@ -44,7 +50,10 @@
         if (cbSi == null) {
             m.find("#botonSi").click(ocultarModalConfirmacion)
         } else {
-            m.find("#botonSi").click(cbSi)
+            m.find("#botonSi").click(()=>{
+                ocultarModalConfirmacion(); 
+                if(cbSi instanceof Function) cbSi()
+            })
         }
         app.traerHTML("partes/modalConfirmacion.html",true);
         m.fadeIn();
