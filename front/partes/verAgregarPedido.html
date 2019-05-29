@@ -5,10 +5,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-6 pp-n-left">
-                        <div class="info"><img src="../media/Img/pedido-gris.png"> PEDIDO #<span id="pedidoIDVerPedido"></span></div>
+                        <div class="info"><img src="media/Img/pedido-gris.png"> PEDIDO #<span id="pedidoIDVerPedido"></span></div>
                     </div>
                     <div class="col-6 pp-n-right">
-                        <div class="info"><img src="../media/Img/mesa-gris.png"> MESA #<span id="mesaIdVerPedido"></span></div>
+                        <div class="info"><img src="media/Img/mesa-gris.png"> MESA #<span id="mesaIdVerPedido"></span></div>
                     </div>
                 </div>
 
@@ -75,9 +75,9 @@ function verPedido(id) {
 
         console.log("el pedido " + id + " tiene " + pe.productos.length + " productos")
 
-        $("#horaPedido").html(pe.horaPedido)
-        $("#horaEstimada").html(pe.horaEstimada)
-        $("#horaServido").html(pe.horaServido)
+        $("#horaPedido").html(hora(pe.fecha_alta))
+        $("#horaEstimada").html(hora(pe.hora_estimada))
+        $("#horaServido").html(hora(pe.hora_listo))
 
         $("#listaProductos").html("")
 
@@ -86,7 +86,7 @@ function verPedido(id) {
             $("#listaProductos").append(armarProducto(prod))
         }
 
-        $("#mesaIdVerPedido").html(mesa.id_mesa)
+        $("#mesaIdVerPedido").html(mesaActiva.id_mesa)
         $("#pedidoIDVerPedido").html(id)
            $("#verPedidoMozo").fadeIn()
 
