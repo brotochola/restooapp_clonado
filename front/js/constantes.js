@@ -6,6 +6,9 @@ const estadosPedidos = [null, "Pendiente", "En Preparación", "Listo", "Servido"
 const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada"];
 const rolesEmpleados=["-", "Socix","Camarerx", "Bartender", "Cervecerx", "Cocinerx",  "Pastelerx", "Admin"];
 
+const coloresMesas=["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
+
+
 function formatDate(date) {
   var d = new Date(date),
       month = '' + (d.getMonth() + 1),

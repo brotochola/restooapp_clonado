@@ -1,4 +1,4 @@
-<div class="fondo-modal" id="agregarVerMesa" style="display:none">
+<div class="fondo-modal" id="agregarVerMesa" >
     <div class="contenedor-modal">
         <div class="cuerpo-modal modal-select-silla">
             <div class="row">
@@ -68,6 +68,7 @@ function cantZona(c) {
 
 
 function mostrarAgregarVerMesa(id, sillas, zona) {
+    app.traerHTML("partes/agregarVerMesa.html", true, false)
     console.log(id, sillas, zona)
     if (isNaN(id) || isNaN(sillas) || isNaN(zona)) {
         console.log("agregar mesa")
@@ -137,6 +138,7 @@ function agregarMesa(m){
 }
 
 function ocultarAgregarVerMesa() {
-    $("#agregarVerMesa").fadeOut();
+    
+   app.esconderUnaParte("partes/agregarVerMesa.html")
 }
 </script>

@@ -5,9 +5,9 @@ class Mesa {
 	static urlPNGsMesas="images/mesas/";
 
 
-	static armarGraficoMesas() {
+	static armarGraficoMesas($div,cbOnClick) {
 		
-		$("#contenedorMesas").html("")
+		$div.html("")
 
 		console.log("armar grafico de mesas!")
 
@@ -17,19 +17,19 @@ class Mesa {
 		}
 		console.log("hay " + zonaMax + " zonas en el resto ")
 		for (var q = 1; q <= zonaMax; q++) {
-			$("#contenedorMesas").append("<div class='zonaMesas " + q + "' ><p class='nombreZonaMesas'>Zona " + q + "</p></div>")
+			$div.append("<div class='zonaMesas " + q + "' ><p class='nombreZonaMesas'>Zona " + q + "</p></div>")
 		}
 
 		for (var i = 0; i < api.mesas.length; i++) {
 			//aca solo las deja en verde	
-			$("div.zonaMesas." + api.mesas[i].zona).append("<div class='mesa " + api.mesas[i].id_mesa + "' onclick='verMesa(" + api.mesas[i].id_mesa + ")' ><img   class='mesaImg' src='"+Mesa.urlPNGsMesas + api.mesas[i].sillas + "/verdeClaro.png'><br> #" + api.mesas[i].id_mesa + "</div>");
+			$div.find("div.zonaMesas." + api.mesas[i].zona).append("<div class='mesa " + api.mesas[i].id_mesa + "' onclick='"+cbOnClick+"(" + api.mesas[i].id_mesa + ")' ><img   class='mesaImg' src='"+Mesa.urlPNGsMesas + api.mesas[i].sillas + "/verdeClaro.png'><br> #" + api.mesas[i].id_mesa + "</div>");
 		}
 
 
 	}
 
 
-	mesaId2i(id) {
+	static mesaId2i(id) {
 	
 		for (var i = 0; i < api.mesas.length; i++) {
 			if (api.mesas[i].id_mesa == id) return i

@@ -53,7 +53,7 @@
 
    
 
-        api.traerMesas((e) =>{if (docReady == 1) Mesa.armarGraficoMesas()})
+        api.traerMesas((e) =>{if (docReady == 1) Mesa.armarGraficoMesas($("#contenedorMesas"),"mostrarEstadoMesaAdmin")})
 
 
         $(document).ready(function () {
@@ -81,13 +81,7 @@
            setTimeout(()=>{ api.cargarEstadoAdmin(cbEstadoAdmin)},delayTraerEstado/2)
         });
 
-        function verMesa(id) {
-          
-            //aca la funcion ver mesa es esta
-            //en la pantalla de mesas la funcion es otra
-            mostrarEstadoMesaAdmin(id)
-
-        }
+      
 
         function cbEstadoAdmin(e){
             
