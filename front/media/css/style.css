@@ -35,7 +35,8 @@
 }
 
 #contenido{
-/* background: white; */
+
+/* background: white; */
 }
 
 #contenedorMesas{
@@ -504,6 +505,10 @@ padding-bottom:100px;
 
 .contenedor-mesas .filas-mesas{
     padding: 13px 2px;
+}
+
+#contMesasAdmin{
+        padding-bottom: 50px;
 }
 
 .contenedor-mesas .filas-mesas img.icono-usuario{

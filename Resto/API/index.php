@@ -296,7 +296,7 @@ $app->group('/mesa', function () {
 
         $this->get('/listado',\mesaApi::class . ':TraerMesas'); 
 
-        $this->get('/modificar',\mesaApi::class . ':ModificarMesa'); 
+        $this->post('/modificar',\mesaApi::class . ':ModificarMesa'); 
 
         $this->delete('/borrar/{id_mesa}',\mesaApi::class . ':BorraMesa')->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
 

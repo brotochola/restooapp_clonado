@@ -68,10 +68,11 @@ class mesa
         public function Insertar()
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into mesas (id_mesa,id_sector,id_estado_mesa)values(:id_mesa,:id_sector,:id_estado_mesa)");
-            $consulta->bindValue(':id_mesa', $this->id_mesa, PDO::PARAM_STR);
-            $consulta->bindValue(':id_sector', $this->id_sector, PDO::PARAM_STR);
-            $consulta->bindValue(':id_estado_mesa', $this->id_estado_mesa, PDO::PARAM_STR);
+            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into mesas (zona, sillas, habilitada)values(:zona,:sillas, 1)");
+          
+            $consulta->bindValue(':zona', $this->zona, PDO::PARAM_STR);
+            $consulta->bindValue(':sillas', $this->sillas, PDO::PARAM_STR);
+            
             $consulta->execute();		
 
             return $objetoAccesoDato->RetornarUltimoIdInsertado();

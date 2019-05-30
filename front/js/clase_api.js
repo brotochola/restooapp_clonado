@@ -184,4 +184,46 @@ class API{
         })
     }
 
+
+    
+ modificarMesa(m,cb){
+    $.ajax({
+         url:this.urlServer+"mesa/modificar",
+          type:"post",
+          data:{
+              "mesa":JSON.stringify(m)
+          },
+          dataType:"json",
+          headers:{
+            token:localStorage[usuarioLogueado_ls]
+          },
+          success:(e)=>{
+            if(cb instanceof Function) cb(e)   
+          }
+        })
+  
+     
+  }
+  
+   agregarMesa(m, cb){
+      $.ajax({
+          url:this.urlServer+"mesa/alta",
+          type:"post",
+          data:{
+              "mesa":JSON.stringify(m)
+          },
+          dataType:"json",
+          headers:{
+            token:localStorage[usuarioLogueado_ls]
+          },
+          success:function(e){
+              this.mesas=e
+              localStorage["mesas_"+nombreDelSitio]=e;
+              Mesa.armarGraficoMesas($("#contMesasAdmin"),"verMesaAdmin")
+              ocultarAgregarVerMesa();
+          }
+  
+      })
+  }
+
 }
