@@ -1,4 +1,4 @@
-<div class="fondo-modal" id="agregarVerProducto"  style="display:none">
+<div class="fondo-modal" id="agregarVerProducto" >
         <div class="contenedor-modal">
             <div class="cuerpo-modal modal-select-producto">
                 <div class="row">
@@ -6,7 +6,7 @@
 
                     <div class="col-8 select-name">
                         <div class="row">
-                            <div class="col-12"><input id="nombre" placeholder="Nombre"></div>
+                            <div class="col-12"><input id="nombre_producto" placeholder="Nombre"></div>
 
                         </div>
 
@@ -62,7 +62,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-6"><button class="boton-modal" id="botonAgregarProducto">Agregar</button></div>
-                            <div class="col-6"><button class="boton-modal cancelar" onclick="$('#agregarVerProducto').fadeOut()">Cancelar</button></div>
+                            <div class="col-6"><button class="boton-modal cancelar" onclick="ocultarAgregarVerProducto()">Cancelar</button></div>
                         </div>
                     </div>
 
@@ -76,6 +76,10 @@
 <script>
 
 idProductoActual = -1;
+
+function ocultarAgregarVerProducto(){
+    app.esconderUnaParte("partes/agregarVerProducto.html");
+}
 
 function mostrarAgregarVerProducto(id) {
 
@@ -93,7 +97,7 @@ function mostrarAgregarVerProducto(id) {
         console.log("agregar producto")
         $("#idProducto").html("")
         $("#botonAgregarProducto").html("Agregar")
-        $("#nombre, #precio, #descripcionProducto").val("")
+        $("#nombre_producto, #precio, #descripcionProducto").val("")
         $("#botonAgregarProducto").off().click(agregarProducto)
 
     } else {
@@ -101,7 +105,7 @@ function mostrarAgregarVerProducto(id) {
         console.log("modificar producto")
         $("#idProducto").html("#"+producto.id_producto)
         $("#botonAgregarProducto").html("Modificar")
-        $("#nombre").val(producto.nombre_producto)
+        $("#nombre_producto").val(producto.nombre_producto)
         $("#precio").val(producto.precio)
 
         $("#descripcionProducto").val(producto.descripcion)
@@ -116,15 +120,17 @@ function mostrarAgregarVerProducto(id) {
 
     }
 
-    $("#agregarVerProducto").fadeIn();
+    app.traerHTML("partes/agregarVerProducto.html", true, false);
+
 }
 
 function modificarProducto(){
+
     console.log("modificar producto")
      producto={};
     
      producto.id_producto = idProductoActual;
-    producto.nombre_producto= $("#nombre").val();
+    producto.nombre_producto= $("#nombre_producto").val();
     producto.precio=$("#precio").val();
     producto.descripcion=$("#descripcionProducto").val();
     producto.id_cocina=$("#rol").val();
@@ -155,7 +161,7 @@ function modificarProducto(){
                 mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
 
             }
-             $("#agregarVerProducto").fadeOut();
+            ocultarAgregarVerProducto()
         }
     })
 }
@@ -163,7 +169,7 @@ function modificarProducto(){
 function agregarProducto(){
     console.log("agregar producto")
     producto={};
-    producto.nombre_producto= $("#nombre").val();
+    producto.nombre_producto= $("#nombre_producto").val();
     producto.precio=$("#precio").val();
     producto.descripcion=$("#descripcionProducto").val();
     producto.id_cocina=$("#rol").val();
@@ -188,7 +194,7 @@ function agregarProducto(){
                 mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
 
             }
-             $("#agregarVerProducto").fadeOut();
+             
         }
     })
 
