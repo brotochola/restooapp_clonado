@@ -259,7 +259,7 @@ $app->group('/producto', function () {
    
     $this->post('/cargar',\productoApi::class . ':CargarProducto');     
 
-    $this->get('/listado',\productoApi::class . ':TraerProductos'); 
+    $this->post('/listado',\productoApi::class . ':TraerProductos'); 
 
     $this->get('/consulta',\productoApi::class . ':TraerUnProducto'); 
 

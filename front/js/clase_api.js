@@ -8,7 +8,29 @@ class API{
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
         this.empleados=null;
         this.mesas=null;
+        this.productos=null;
 
+    }
+
+    traerProductos(cb){
+
+        $.ajax({
+            //url: "../../server/admin/productos/lista",
+            url: this.urlServer + "producto/listado",
+            type: "post", //esto es solo porq estoy no usando un backend de verdad
+            dataType:"json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e)=> {
+                console.log(e)
+                    this.productos = e
+               
+                localStorage["productos_" + nombreDelSitio] = e;
+               
+                if(cb instanceof Function) cb();
+            },error:e=>console.log(e)
+        })
     }
 
     traerUnaMesa(id,cb){
