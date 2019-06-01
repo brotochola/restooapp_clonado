@@ -32,7 +32,8 @@ class App {
        this.traerHTML("partes/verEstadoMesaAdmin.html", true, true, "estadoMesa", true)
        this.traerHTML("partes/agregarVerEmpleado.html", true, true, "verEmpleado", true)
        this.traerHTML("partes/verAgregarPedido.html", true, true, "modalVerPedido", true)
-
+       this.traerHTML("partes/agregarVerProducto.html", true, true, "modalVerAgregarProducto", true)
+       this.traerHTML("partes/agregarVerMesa.html", true, true, "agregarVerMesa", true)
         this.traerHTML("partes/modalConfirmacion.html", true, true, "modalConfirm", false)
   
         //FOOTER

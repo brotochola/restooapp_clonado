@@ -259,7 +259,7 @@ $app->group('/producto', function () {
    
     $this->post('/cargar',\productoApi::class . ':CargarProducto');     
 
-    $this->get('/listado',\productoApi::class . ':TraerProductos'); 
+    $this->post('/listado',\productoApi::class . ':TraerProductos'); 
 
     $this->get('/consulta',\productoApi::class . ':TraerUnProducto'); 
 
@@ -296,7 +296,7 @@ $app->group('/mesa', function () {
 
         $this->get('/listado',\mesaApi::class . ':TraerMesas'); 
 
-        $this->get('/modificar',\mesaApi::class . ':ModificarMesa'); 
+        $this->post('/modificar',\mesaApi::class . ':ModificarMesa'); 
 
         $this->delete('/borrar/{id_mesa}',\mesaApi::class . ':BorraMesa')->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
 

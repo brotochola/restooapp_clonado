@@ -110,6 +110,7 @@ html, body{
 .bar-top {
     background-color: #fed322;
     padding: 8px 15px;
+    top:0px;
     box-shadow: 0px 0px 1px 1px #eea002;
     position: fixed;
     z-index: 5;

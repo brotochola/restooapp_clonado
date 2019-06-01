@@ -130,31 +130,24 @@ class mesaApi extends mesa
 
     //=============FIN AGREGADOS APP RESTO2
         
-
+    //admin agrega una mesa
     public function CargarMesa($request,$response,$args)
     {    
         $miMesa = new mesa();
-        $ArrayDeParametros = $request->getParsedBody();                     
-        $miMesa->id_mesa = $ArrayDeParametros['id_mesa'];
-        $miMesa->id_sector = $ArrayDeParametros['id_sector'];
-        $miMesa->id_estado_mesa = $ArrayDeParametros['id_estado_mesa']; 
+        $ArrayDeParametros = $request->getParsedBody();       
+        $mesaQViene=json_decode($ArrayDeParametros["mesa"]);
+              
+        $miMesa->sillas =  $mesaQViene->sillas;
+        $miMesa->zona =  $mesaQViene->zona;
+        $miMesa->id_estado_mesa =  1;
         
-        try
-        {
-            $var = mesa::TraerUno($miMesa->id_mesa);             
-        }    
-        catch(Exception $e)
-        {
-            return $e->getMessage();
-        }        
-        if($var == null)
-        {
-            return $miMesa->Insertar();
-        }
-        else
-        {
-            return $response->withJson(false, 200);            
-        } 
+      
+
+       
+             $miMesa->Insertar();
+     
+            return $response->withJson(mesa::TraerTodas(), 200);            
+        
     }
     
     public function TraerMesa($request, $response, $args) 

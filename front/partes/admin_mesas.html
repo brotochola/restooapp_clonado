@@ -1,77 +1,70 @@
-<html lang="en">
-
-<head>
-<title>Mesas</title>     
-<!-- SEO Configuration -->
-<!-- META -->
-<meta charset="utf-8">
-<!-- META RESPONSIVE -->
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="title" content="Página principal">
-<meta name="Keywords" content="application">
-<meta name="description" content="login">
-<meta name="robots" content="index, follow">
-<!-- END SEO Configuration -->
-
-<!-- Bootstrap Core CSS -->
-<link rel="stylesheet" href="../media/css/bootstrap.min.css">
-<!-- Font-awesome Core CSS -->
-<link rel="stylesheet" href="../media/fontawesome-5.0.2/web-fonts-with-css/css/fontawesome-all.min.css">
-<!-- Fonts Google CSS -->
-<link href="https:/fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
-<!-- General CSS -->
-<link rel="stylesheet" href="../media/css/style.css">
-<!-- Animate CSS -->
-<link rel="stylesheet" href="../media/css/animate.css">
-<!-- JQuery Core JS -->
-
-<!-- JQUERY 3.1 -->
-<script src="../media/js/jquery-3.1.0.js"></script>
-<!-- JQuery Core JS -->
-<script src="../media/js/popper.min.js"></script>
-<!-- Ajax Core JS -->
-<script src="../media/js/tether.min.js"></script> 
-<!-- Bootstrap Core JS -->
-<script src="../media/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="admin.css">
-    <script src="constantes.js"></script>
-        <script src="mesas.js"></script>
-</head>
-    
-<body class="body-color">
-        
- <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 bar-top">
-                <div class="row">
-                    <div class="col-2">
-                        <i class="fas fa-angle-left"></i>
-                    </div>
-                    <div class="col-8">Mesas</div>
-                    <div class="col-2">
-                        <i class="fas fa-plus boton_mas"  onclick="mostrarAgregarVerMesa()"></i>
-                    </div>
-                </div>    
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 bar-top">
+            <div class="row">
+                <div class="col-2">
+                    <i class="fas fa-angle-left"></i>
+                </div>
+                <div class="col-8">Mesas</div>
+                <div class="col-2">
+                    <i class="fas fa-plus boton_mas" onclick="mostrarAgregarVerMesa()"></i>
+                </div>
             </div>
         </div>
-    
     </div>
 
+</div>
 
 
-    <div class="container contenedor-mesas">
-            <!-- primera fila de mesas -->
-            <div class="row filas-mesas" id="contenedorMesas">
-              
-            </div>
+
+<div class="container contenedor-mesas">
+    <!-- primera fila de mesas -->
+    <div class="row filas-mesas" id="contMesasAdmin">
+
+    </div>
+
+</div>
+
+
+<script>
+
+    console.log("mesas_pag.js")
+
+
+
+
+
+
+
+
+
+    $(document).ready(function () {
+
+        console.log("doc ready mesas admin");
+
+        Mesa.armarGraficoMesas($("#contMesasAdmin"), "verMesaAdmin")
+
+        Mesa.posicionarMesas($("#contMesasAdmin")[0])
+        Mesa.setearDragNDrop($("#contMesasAdmin")[0])
         
-        </div>
+
+    });
+
+    function verMesaAdmin(id) {
+        let i = Mesa.mesaId2i(id);
+
+        mostrarAgregarVerMesa(id, api.mesas[i].sillas, api.mesas[i].zona)
+    }
    
-  
-    <script src="mesas_pag.js"></script>
+
+
+
+
+
+
+
+</script>
 
 </body>
 
 </html>
-    

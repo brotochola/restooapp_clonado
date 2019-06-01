@@ -1,4 +1,4 @@
-<div class="fondo-modal" id="agregarVerMesa" style="display:none">
+<div class="fondo-modal" id="agregarVerMesa" >
     <div class="contenedor-modal">
         <div class="cuerpo-modal modal-select-silla">
             <div class="row">
@@ -53,7 +53,7 @@ function cantSillas(c) {
     //     console.log(mesa.sillas)
     $("#cantSillasMesa").html(mesa.sillas)
 
-    $("img#mesaMuestra")[0].src = "../mesas/" + mesa.sillas + "/amarillo.png";
+    $("img#mesaMuestra")[0].src = "images/mesas/" + mesa.sillas + "/amarillo.png";
 }
 
 function cantZona(c) {
@@ -68,6 +68,7 @@ function cantZona(c) {
 
 
 function mostrarAgregarVerMesa(id, sillas, zona) {
+    app.traerHTML("partes/agregarVerMesa.html", true, false)
     console.log(id, sillas, zona)
     if (isNaN(id) || isNaN(sillas) || isNaN(zona)) {
         console.log("agregar mesa")
@@ -79,7 +80,7 @@ function mostrarAgregarVerMesa(id, sillas, zona) {
         mesa.zona = 1
         $("#cantSillasMesa").html(2);
         $("#zonaMesa").html(1)
-        $("#botonAgregarMesa").off().click(function(){agregarMesa(mesa)})
+        $("#botonAgregarMesa").off().click(function(){api.agregarMesa(mesa,cbApi)})
     } else {
         console.log("ver mesa")
         //ver
@@ -89,54 +90,24 @@ function mostrarAgregarVerMesa(id, sillas, zona) {
         $("#idMesa").html("#" + id);
         $("#cantSillasMesa").html(mesa.sillas);
         $("#zonaMesa").html(zona)
-        $("#botonAgregarMesa").off().click(function(){modificarMesa(mesa)})
+        $("#botonAgregarMesa").off().click(function(){api.modificarMesa(mesa,cbApi)})
 
     }
-    $("img#mesaMuestra")[0].src = "../mesas/" + mesa.sillas + "/amarillo.png";
+    $("img#mesaMuestra")[0].src = "images/mesas/" + mesa.sillas + "/amarillo.png";
     $("#agregarVerMesa").fadeIn();
 }
 
-function modificarMesa(m){
-  $.ajax({
-        url:caminoBackend+"admin/mesas/modificar",
-        type:"get",//por ahora
-        data:{
-            "mesa":JSON.stringify(mesa)
-        },
-        headers:{
-          token:localStorage[usuarioLogueado_ls]
-        },
-        success:function(e){
-            try{mesas=JSON.parse(e)}catch(e){mesas=e}
-            localStorage["mesas_"+nombreDelSitio]=e;
-            armarGraficoMesas();
-            ocultarAgregarVerMesa();
-        }
-
-    })
-}
-
-function agregarMesa(m){
-    $.ajax({
-        url:caminoBackend+"admin/mesas/agregar",
-        type:"get",//por ahora
-        data:{
-            "mesa":JSON.stringify(mesa)
-        },
-        headers:{
-          token:localStorage[usuarioLogueado_ls]
-        },
-        success:function(e){
-            try{mesas=JSON.parse(e)}catch(e){mesas=e}
-            localStorage["mesas_"+nombreDelSitio]=e;
-            armarGraficoMesas();
-            ocultarAgregarVerMesa();
-        }
-
-    })
-}
 
 function ocultarAgregarVerMesa() {
-    $("#agregarVerMesa").fadeOut();
+    
+   app.esconderUnaParte("partes/agregarVerMesa.html")
+}
+
+
+function cbApi(e){
+    api.mesas=e
+    localStorage["mesas_"+nombreDelSitio]=e;
+    Mesa.armarGraficoMesas($("#contMesasAdmin"),"verMesaAdmin")
+    ocultarAgregarVerMesa();
 }
 </script>
