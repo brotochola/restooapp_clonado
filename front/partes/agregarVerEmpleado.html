@@ -113,6 +113,12 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
+                        <button onclick='leerDNIEmpleado()' class="boton-modal centro" id="botonLeerDNIEmpleado">Leer DNI</button>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-6">
                         <button class="boton-modal" id="botonAgregarEmpleado">Guardar</button>
                     </div>
                     <div class="col-6">
@@ -135,6 +141,41 @@ function clickBorrarEmpleado(){
         console.log("si");
         api.borrarEmpleado(cbModificarEmpleado,idEmpleadoActual);
     })
+}
+
+
+function leerDNIEmpleado(){
+    try {
+        cordova.plugins.barcodeScanner.scan(QRok, QRmal, {
+          /*preferFrontCamera : false, // iOS and Android
+          showFlipCameraButton : true, // iOS and Android
+          showTorchButton : false, // iOS and Android, linterna
+          torchOn: false,*/ // Android, launch with the torch switched on (if available)
+          prompt: "escaneá el qr del DNI", // Android
+          resultDisplayDuration: 1500
+          /*, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                  orientation : "landscape",*/ // Android only (portrait|landscape), default unset so it rotates with the device
+          /* disableAnimations : true, // iOS
+           disableSuccessBeep: false // iOS*/
+        });
+      } catch (e) {
+        console.log("#NO HAY CORDOVA, SIMULANDO..")
+        cambiarCredito(evaluarQR("8c95def646b6127282ed50454b73240300dccabc"));
+        //actualizarDatos();      
+
+      }
+}
+
+
+function QRok(data) { 
+        
+    alert(data)
+}
+    
+  
+function QRmal(error) {
+alert("Error: "+error)
 }
 
 
