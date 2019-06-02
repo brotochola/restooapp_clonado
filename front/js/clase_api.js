@@ -3,8 +3,15 @@ console.log("clase_api.js")
 class API{
 
     constructor(){
-        this.urlServer="../Resto/API/";
+        
+        //local
+        //this.urlServer="../Resto/API/";
+        //web
 
+        //http://darodarioli.tech/restoapp2/Resto/API/
+        this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
+
+      
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
         this.empleados=null;
         this.mesas=null;
@@ -19,9 +26,9 @@ class API{
             url: this.urlServer + "producto/listado",
             type: "post", //esto es solo porq estoy no usando un backend de verdad
             dataType:"json",
-            headers: {
-                token: localStorage[usuarioLogueado_ls]
-            },
+            // headers: {
+            //     token: localStorage[usuarioLogueado_ls]
+            // },
             success: (e)=> {
                 console.log(e)
                     this.productos = e
@@ -37,9 +44,9 @@ class API{
 
         $.ajax({
             url: this.urlServer+"mesas/id/"+id,
-            headers: {
-                token: localStorage[usuarioLogueado_ls]
-            },
+            // headers: {
+            //     token: localStorage[usuarioLogueado_ls]
+            // },
             dataType:"json",
             success: function(e) {
                // console.log(e)
@@ -54,12 +61,12 @@ class API{
 
     traerMesas(cb){
         $.ajax({
-            url: this.urlServer+"/mesas/lista",
+            url: this.urlServer+"mesas/lista",
             type: "post", 
             dataType:"json",
-            headers: {
-                token: localStorage[usuarioLogueado_ls]
-            },
+            // headers: {
+            //     token: localStorage[usuarioLogueado_ls]
+            // },
             success: (e)=>{
                 this.mesas=e;
                 localStorage["mesas_" + nombreDelSitio] = JSON.stringify(e);
@@ -75,9 +82,9 @@ class API{
             url: this.urlServer + "empleados/listar",
             type: "post",
             dataType:"json",
-            headers: {
-                token: localStorage[usuarioLogueado_ls]
-            },
+            // headers: {
+            //     token: localStorage[usuarioLogueado_ls]
+            // },
             success: (e) =>{
                 this.empleados = e  
                  
@@ -99,9 +106,9 @@ class API{
             dataType:"json",
             url: api.urlServer + "empleados/alta",
             //url:"../../server/admin/empleados/agregar",
-            headers:{
-                token: localStorage[usuarioLogueado_ls]
-            },
+            // headers:{
+            //     token: localStorage[usuarioLogueado_ls]
+            // },
             data:emple,
             success:(e)=>{
                 console.log(e)
@@ -125,9 +132,9 @@ class API{
         $.ajax({
             // url:"../../server/admin/empleados/modificar",
             url: this.urlServer + "empleados/borrar",
-            headers:{
-                token: localStorage[usuarioLogueado_ls]
-            },
+            // headers:{
+            //     token: localStorage[usuarioLogueado_ls]
+            // },
             type:"post",
             dataType:"json",
             data:{id:id},
@@ -145,9 +152,9 @@ class API{
         $.ajax({
             // url:"../../server/admin/empleados/modificar",
             url: this.urlServer + "empleados/modificar",
-             headers:{
-                 token: localStorage[usuarioLogueado_ls]
-             },
+            //  headers:{
+            //      token: localStorage[usuarioLogueado_ls]
+            //  },
              type:"post",
              dataType:"json",
              data:emple,
@@ -175,9 +182,9 @@ class API{
         $.ajax({
             url: this.urlServer + "admin/estado",
             type: "post",
-            headers: {
-                token: localStorage[dataDelUsuario_ls]
-            },
+            // headers: {
+            //     token: localStorage[dataDelUsuario_ls]
+            // },
             success: (e)=>{
                 this.estadoAdmin=e;
                 if(cb instanceof Function) cb(e);
@@ -191,9 +198,9 @@ class API{
 
 
     logueo(mail, clave,cb){
-        console.log(mail,clave)
+        console.log("Clase api: "+mail,clave, "server: "+ this.urlServer)
         $.ajax({
-            url: this.urlServer + "login/",
+            url: this.urlServer+ "/login/",
             type:"post",
             dataType:"json",
             data:{
@@ -216,9 +223,9 @@ class API{
               "mesa":JSON.stringify(m)
           },
           dataType:"json",
-          headers:{
-            token:localStorage[usuarioLogueado_ls]
-          },
+        //   headers:{
+        //     token:localStorage[usuarioLogueado_ls]
+        //   },
           success:(e)=>{
             if(cb instanceof Function) cb(e)   
           }
@@ -235,9 +242,9 @@ class API{
               "mesa":JSON.stringify(m)
           },
           dataType:"json",
-          headers:{
-            token:localStorage[usuarioLogueado_ls]
-          },
+        //   headers:{
+        //     token:localStorage[usuarioLogueado_ls]
+        //   },
           success:function(e){
               this.mesas=e
               localStorage["mesas_"+nombreDelSitio]=e;

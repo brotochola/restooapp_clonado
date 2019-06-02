@@ -17,17 +17,12 @@ class AccesoDatos
 
             //local
             //$this->objetoPDO = new PDO('mysql:host=localhost;dbname=db_angular;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-            //$this->objetoPDO = new PDO('mysql:host=localhost;dbname=appResto;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            $this->objetoPDO = new PDO('mysql:host=localhost;dbname=appResto;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
            
             //web
-
-            $this->objetoPDO = new PDO("mysql:host=mysql.hostinger.com.ar;dbname=u579678119_rest2", $username, $password);
+            //$this->objetoPDO = new PDO("mysql:host=mysql.hostinger.com.ar;dbname=u579678119_rest2", $username, $password);
             
             $this->objetoPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            $this->objetoPDO->exec("SET CHARACTER SET utf8");
-           
-           
             $this->objetoPDO->exec("SET CHARACTER SET utf8");
             } 
         catch (PDOException $e) { 

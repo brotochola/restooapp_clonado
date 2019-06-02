@@ -4,7 +4,12 @@ const usuarioLogueado_ls="token"+nombreDelSitio;
 const dataDelUsuario_ls="dataDelUsuario_"+nombreDelSitio;
 const minSillasPorMesa=2;
 const maxSillasPorMesa=6;
+
+//local
 const caminoBackEnd = "../../Resto/API/"
+
+//web
+//const caminoBackEnd = "darodarioli.tech/restoapp2/Resto/API/";
 
 
 const rolesEmpleados = [null, "../media/Img/roles/tragos.png", "../media/Img/roles/cerveza.png", "../media/Img/roles/cocina.png", "Camarerx", "Admin", "../media/Img/roles/candy.png"];

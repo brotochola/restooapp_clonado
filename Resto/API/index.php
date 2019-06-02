@@ -91,7 +91,7 @@ $app->group('/mesas', function () {
     // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
     
          
-})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+})->add(\MWparaCORS::class . ':HabilitarCORSTodos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
 
 
 $app->group('/reservas', function () {   
