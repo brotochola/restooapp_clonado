@@ -833,6 +833,12 @@ padding-bottom:100px;
     font-weight: bold;
 }
 
+parte#login{
+    background: #fed322;
+    height: 100vh;
+    display: block;
+}
+
 .preparacion {
     color: #ef5350;
     font-size: 14px;

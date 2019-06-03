@@ -5,11 +5,11 @@ class API{
     constructor(){
         
         //local
-        //this.urlServer="../Resto/API/";
+        this.urlServer="../Resto/API/";
         //web
 
         //http://darodarioli.tech/restoapp2/Resto/API/
-        this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
+       // this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
 
       
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
@@ -18,6 +18,7 @@ class API{
         this.productos=null;
 
     }
+
 
     traerProductos(cb){
 

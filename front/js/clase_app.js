@@ -14,9 +14,10 @@ class App {
     quePasaDespuesDeLogin() {
         if(usuario.dataUsuario().id_rol==1){            
             this.traerHTML("partes/admin_estado.html", false, true, "admin_estado", false)
-           setTimeout(()=>{ this.mostrarFooterAdmin()},500)//lo atamo con alambre
-        }else{
-           
+           setTimeout(()=>{ this.mostrarFooterAdmin()},200)//lo atamo con alambre
+        }else if(usuario.dataUsuario().id_rol==2){      
+            this.traerHTML("partes/mozo_estado.html", false, true, "admin_estado", false)
+          //  setTimeout(()=>{ this.mostrarFooterAdmin()},500)//lo atamo con alambre
         }
       
      
