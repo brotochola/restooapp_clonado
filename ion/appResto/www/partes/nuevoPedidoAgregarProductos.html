@@ -1,0 +1,166 @@
+<div class="fondo-modal" id="agregarProductos">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal">
+            <div class="container-cuerpo" id="containerListaProductos">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 pp-n-left">
+                            <div class="info"><img src="media/Img/pedido-gris.png"> NUEVO PEDIDO</div>
+                        </div>
+                        <div class="col-6 pp-n-right">
+                            <div class="info"><img src="media/Img/mesa-gris.png"> MESA #<span id="idMesaAgregarProductos"></div>
+                        </div>
+                    </div>
+                    <div class="row contenedor-listados-pedidos" style="    height: auto !important;
+}">
+                        <ul id="listaProductosMozo">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr>  
+
+
+
+<div class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                               <button class="boton-modal cancelar " onclick="$('#agregarProductos').fadeOut()">Cancelar</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="boton-modal" onclick="mandarPedido()">Enviar Pedido!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+
+var listaProds = []; //lista de productos del restoran
+var pedido={}; //si estas aca es pq estas haciendo un pedido nuevo
+pedido.estado=1;
+
+
+
+function mandarPedido() {
+    //al momento de ocultar este modal, estas agregando los productos al pedido actual
+   
+    if(pedido.productos==undefined || pedido.productos.length==0){
+        mostrarModalConfirmacion("Este pedido no tiene productos", "ok")
+        return ;
+    }
+    $.ajax({
+        url:caminoBackend+"mozo/pedidos/agregar",
+        headers:{
+            token:localStorage[usuarioLogueado_ls]
+        },
+        data:{
+            idMesa:mesaId,
+            productos:JSON.stringify(pedido.productos)
+        },
+        success:function(e){
+             try { mesa = JSON.parse(e) } catch (e) { mesa = e }
+           // console.log(e)
+            $("#agregarProductos, #verPedidoMozo").fadeOut();
+            mostrarEstadoMesaMozo(mesa)
+        }
+    })
+
+    
+}
+
+
+function mostrarModalAgregarProductos(id) {
+    //cada vez que abre esto carga los productos, porq el admin puede haber cambiado algo
+    //quiza un producto no hay mas, o quiza se rompió algo y no se puede producir.
+    //o quiza estan sin barra de tragos
+    pedido.productos=new Array();
+    console.log("nuevo pedido para mesa " + id)
+    $.ajax({
+        url: caminoBackend+"mozo/productos/lista",
+        headers: {
+            token: localStorage[usuarioLogueado_ls]
+        },
+        success: function(e) {
+           // console.log(e)
+            $("ul#listaProductosMozo").html("")
+            try { listaProds = JSON.parse(e) } catch (e) { listaProds = e }
+            for (var i = 0; i<listaProds.length; i++) {
+                $("ul#listaProductosMozo").append(armarUnProd(listaProds[i]))
+            }
+
+            $("#idMesaAgregarProductos").html(mesaId)
+            $("#agregarProductos").fadeIn();
+        }
+    })
+}
+
+function agregarEsteProducto(id, cant){
+    console.log(id, cant)
+    if(pedido.productos==undefined) pedido.productos=new Array();
+    prodsFiltrados=pedido.productos.filter(function(k){if(k.id==id)return k})
+    if(prodsFiltrados.length>0){
+        //si el producto ya lo tenias en el pedido
+       p= pedido.productos[id2i(id,pedido.productos)]
+        p.cantidad+=cant
+        //si dps de restar quedan en 0, o menos (?), lo quito
+        if(p.cantidad<1) pedido.productos.splice(id2i(p.id,pedido.productos), 1)
+    }else{
+        //si no lo tenias
+        if(cant==1){
+            //y si estabas sumando este producto
+            nombre=listaProds[id2i(id,listaProds)].nombre_producto
+            nuevoProducto=new Object();
+            nuevoProducto.id=id;
+            nuevoProducto.cantidad=cant
+            nuevoProducto.nombre_producto=nombre
+            pedido.productos.push(nuevoProducto)
+        }else{
+            //si no lo tenes y estas restando...
+            //no pasa na
+        }
+    }
+    //como la lista es de todos los productos del resto, recorro ese array
+    for(var i=0;i<listaProds.length;i++){
+        donde=".cantProds."+listaProds[i].id
+        //console.log(donde)
+      
+            //si lo tengo en mi pedido, saco la cant de ahi
+        idx=id2i(listaProds[i].id,pedido.productos)
+        if(idx==-1){
+            cant=0;
+        } else{
+            cant=pedido.productos[idx].cantidad
+        }
+       
+        $(donde).html(cant)
+    }
+
+}
+
+function armarUnProd(prod) {
+ //   console.log(prod)
+    cant=0;
+    html = '';
+    html += '<li>'
+    html += '<div class="container">'
+    html += '<div class="row">'
+    html += '<div class="col-2 text-center contenedor-icono-listado"><img src="'+rolesEmpleados[prod.id_rol_empleado]+'"></div>'
+    html += '<div class="col-5">'+prod.nombre_producto+"</div>"
+     html += '<div class="col-5 botonesAgregarBorrarProducto" >'
+     html+='<img class="boton-borrar" onclick="agregarEsteProducto('+prod.id+', -1)" src="media/Img/botton-borrar.png">'
+    html+=' <span class="cantProds '+prod.id+'">' + cant + '</span>'
+    html += '<img class="boton-borrar" onclick="agregarEsteProducto('+prod.id+',1)" src="media/Img/boton-mas.png">'
+    html += '</div> </div> '
+
+    html += '</li>'
+ //   console.log(html)
+    return html
+}
+</script>
