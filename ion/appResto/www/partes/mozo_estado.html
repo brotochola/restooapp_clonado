@@ -149,6 +149,30 @@
 
         }
 
+        function compararEstadoAnteriorYActual(){
+            for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
+                let m=api.estadoMozo.mesas[i]
+                let mesaAnterior
+              
+              try{ 
+                 
+                mesaAnterior=buscarEnArray(m.id_mesa, "id_mesa", api.estadoAnteriorMozo.mesas);
+              
+                if(mesaAnterior.estado_mesa==2 && m.estado_mesa==3){
+                    //si la mesa antes estaba esperando pedido y ahora la mesa tiene un pedido q esta listo...
+                    let notif={
+                        "mesa":m.id_mesa,
+                        "pedido":1,
+                        "donde":"cocina"
+                        }
+                    cargarNotificacion(notif)
+                }
+                
+                }catch(e){}
+              
+            }
+        }
+
         function cbEstadoMozo() {
             console.log("cargar estado mozo!")
             //esta funcion se ejecuta cada 5 segundos
@@ -158,19 +182,18 @@
             //console.log(m)
             for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
 
-                $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.estadoMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
+              try{  $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.estadoMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
+              }catch(e){}
 
             }
 
+            compararEstadoAnteriorYActual()
 
-            //veo si hay notificaciones:
-            /*   if (api.estadoMozo.notif.length > 0) {
-                   for (var i = 0; i < api.estadoMozo.notif.length; i++) {
-                       n = api.estadoMozo.estadoActual.notif[i];
-                       cargarNotificacion(n)
-                   }
-               }
-               mostrarSiguienteNotificacion()*/
+
+
+            
+               
+               mostrarSiguienteNotificacion()
 
 
             //espera y pide el estado al server de nuevo
@@ -214,7 +237,7 @@
         }
 
         function cargarNotificacion(n) {
-
+            //{mesa,pedido, donde}
             for (var i = 0; i < notificacionesPendientes.length; i++) {
                 // console.log(notificacionesPendientes[i].mesa, n.mesa, notificacionesPendientes[i].pedido, n.pedido, notificacionesPendientes[i].donde, n.donde)
                 if (notificacionesPendientes[i].mesa == n.mesa && notificacionesPendientes[i].pedido == n.pedido && notificacionesPendientes[i].donde == n.donde) {

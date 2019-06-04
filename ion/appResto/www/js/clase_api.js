@@ -16,6 +16,8 @@ class API{
         this.empleados=null;
         this.mesas=null;
         this.productos=null;
+        this.estadoAnteriorMozo=null;
+        this.estadoMozo=null;
 
     }
 
@@ -44,22 +46,33 @@ class API{
 
 
     mozoMandaPedido(ped,cb){
+        let pedidoParaMandar={}
+        pedidoParaMandar.id_mesa=mesaActiva.id_mesa;
+        pedidoParaMandar.id_cliente=mesaActiva.cliente.id_cliente
+        pedidoParaMandar.id_cliente_visita=mesaActiva.clienteVisita.id_cliente_visita;
+        pedidoParaMandar.productos=[]
+        pedidoParaMandar.cantidades=[]
+        //los paso al formato q requiere el backend:
+        for(let i=0;i<ped.productos.length;i++){
+            pedidoParaMandar.productos.push(ped.productos[i].id_producto)
+            pedidoParaMandar.cantidades.push(ped.productos[i].cantidad)
+        }
 
         $.ajax({
-            url: this.urlServer + "comanda/alta",
+            url: this.urlServer + "mozo/agregarPedido",
             type:"post",
             dataType:"json",
             headers: {
                 token: localStorage[usuarioLogueado_ls]
             },
-            data: ped,
+            data: pedidoParaMandar,
             success: function (e) {
                
-                // console.log(e)
+                 console.log(e)
        
                 if(cb instanceof Function) cb(e);
              
-            }
+            },error:e=>console.log(e)
         })
     }
 
@@ -248,6 +261,7 @@ class API{
             //     token: localStorage[dataDelUsuario_ls]
             // },
             success: (e)=>{
+                this.estadoAnteriorMozo=this.estadoMozo;
                 this.estadoMozo=e;
                 if(cb instanceof Function) cb(e);
             },

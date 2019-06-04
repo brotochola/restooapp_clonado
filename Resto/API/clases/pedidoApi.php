@@ -16,23 +16,27 @@ public function CargarUnPedido($request, $response,$args){
         $vPedido = new pedido();
         $vHora = new DateTime();    
         $vector = $request->getParsedBody(); 
+
+      
                      
         $vPedido->id_mesa = $vector['id_mesa'];
         $vPedido->id_cliente = $vector['id_cliente'];  
-        //esto tiene q ser el id_cliente_visita           
+        $vPedido->id_cliente_visita = $vector['id_cliente_visita'];            
         
-        $productos = explode(',',$vector['productos']);  
-        $cantidades = explode(',', $vector['cantidades']);        
-        
+     
+
+        $productos = $vector['productos'];
+        $cantidades = $vector['cantidades'];    
+       
         if(count($productos) != count($cantidades))
         {
             $obj->respuesta="Las cantidades y productos deben coincidir";
-        }
-        else
-        {                  
+        }else{                  
                 try{
                     
                     $var = mesa::TraerUno($vPedido->id_mesa); 
+
+                   
                     if($var != null)
                     {
 
@@ -41,9 +45,10 @@ public function CargarUnPedido($request, $response,$args){
 
                             $vPedido->fecha_alta = date_format($vHora,"Y/m/d H:i:s");                            
                             $vPedido->hora_estimada = self::TraerMayorTiempo($productos);
-                            
+                            $vPedido->id_cliente_visita=$vector['id_cliente_visita'];
+                         
                             $vPedido->id = $vPedido->InsertarPedidoPrincipal();
-
+                           
                             $vPedido->CargarPedidosDetalle($productos,$cantidades,$vPedido->id);
                             $obj->respuesta = "Se cargo el pedido: ".$vPedido->id;    
                             $obj->itsOk = true;   

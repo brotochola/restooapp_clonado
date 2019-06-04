@@ -117,6 +117,13 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+function buscarEnArray(val,propiedad,array){
+  
+  for(var i=0;i<array.length;i++){
+    if(array[i][propiedad]==val) return array[i]
+  }
+  return -1;
+}
 
 function id2i(id,array){
   

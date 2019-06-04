@@ -49,7 +49,9 @@ $app = new \Slim\App(["settings" => $config]);
 $app->group('/mozo', function () {
    
     $this->post('/estado',\mesaApi::class . ':estadoMozo'); 
-   
+    $this->post('/agregarPedido',\pedidoApi::class . ':CargarUnPedido');    
+    $this->post('/traerMisPedidos[/]',\pedido::class . ':traerMisPedidos');  
+    
 
     // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
     
@@ -59,7 +61,6 @@ $app->group('/mozo', function () {
 $app->group('/admin', function () {
    
     $this->post('/estado',\mesaApi::class . ':estadoAdmin');     
-
    
 
     // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
@@ -70,7 +71,7 @@ $app->group('/admin', function () {
 
 $app->group('/pedidos', function () {
    
-    $this->post('/agregar',\pedidoApi::class . ':CargarUnPedido');     
+ 
 
     $this->get('/id/{id}',\pedidoApi::class . ':TraerPedido'); 
 

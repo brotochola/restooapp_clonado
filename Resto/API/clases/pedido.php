@@ -24,11 +24,11 @@ class pedido
             public function InsertarPedidoPrincipal()
             {
                 $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-                $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos(id_mesa, id_cliente, fecha_alta, hora_estimada) 
-                values (:id_mesa,:id_cliente,:fecha_alta,:hora_estimada)");
+                $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos(id_mesa, id_cliente_visita, fecha_alta, hora_estimada) 
+                values (:id_mesa,:id_cliente_visita,:fecha_alta,:hora_estimada)");
     
                 $consulta->bindValue(':id_mesa', $this->id_mesa, PDO::PARAM_STR);
-                $consulta->bindValue(':id_cliente', $this->id_cliente, PDO::PARAM_STR);
+                $consulta->bindValue(':id_cliente_visita', $this->id_cliente_visita, PDO::PARAM_STR);
                 $consulta->bindValue(':fecha_alta', $this->fecha_alta, PDO::PARAM_STR);                            
                 $consulta->bindValue(':hora_estimada', $this->hora_estimada, PDO::PARAM_STR);                            
                                 
@@ -382,7 +382,7 @@ class pedido
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
 
-                
+               
         public static function TraerPedidosDemorados()
         {             
             $consulta = "SELECT * FROM `comanda_detalles` WHERE hora_estimada < hora_listo";
@@ -413,6 +413,40 @@ class pedido
         }
 
         
+
+        public static function traerMisPedidos($request,$response){
+
+
+            $tk= $request->getHeader('token')[0];
+            $id_user_token="";
+            try{
+                $payload=AutentificadorJWT::ObtenerData($tk);
+                $id_user_token= $payload->id_empleado;
+            }catch(exception $e){
+                echo "token invalido";
+                die();
+            }
+
+
+           $sql=" SELECT pedidos.id as id_pedido, pedidos.estado_pedido ,  cliente_visita.id_cliente_visita as id_cliente_visita, pedidos.id_mesa as id_mesa, productos.id as id_producto, pedidos_detalles.cantidad as cantidad, productos.id_cocina as lugar_cocina
+            FROM cliente_visita,pedidos, pedidos_detalles, productos
+            where pedidos.id_cliente_visita=cliente_visita.id_cliente_visita
+            and cliente_visita.mozo=".$id_user_token."
+            and pedidos_detalles.id=pedidos.id
+            and productos.id_producto=pedidos_detalles.id_producto";
+         
+         //   echo $sql;die();
+             
+            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+            $consulta =$objetoAccesoDato->RetornarConsulta($sql);
+            $consulta->execute();      
+            $consulta->setFetchMode(PDO::FETCH_CLASS,"stdClass"); 
+            $rta= $consulta->fetchAll();
+
+            print_r($rta);die();
+
+        }
+
 
                 ##=========================== REGION DESECHADAS
 

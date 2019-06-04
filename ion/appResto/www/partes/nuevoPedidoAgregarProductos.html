@@ -62,10 +62,14 @@
     }
 
     function cbMozoMandaPedido(e){
-        $("#agregarProductos, #verPedidoMozo").fadeOut();
-                mostrarEstadoMesaMozo(mesa)
+        //$("#agregarProductos, #verPedidoMozo").fadeOut();
+        ocultarAgregarPedidoAMesa()
+        ocultarEstadoMesa()
+      //  cbMostrarEstadoMesa
     }
 
+    
+ 
 
     function mostrarModalAgregarProductos(id) {
         //cada vez que abre esto carga los productos, porq el admin puede haber cambiado algo
