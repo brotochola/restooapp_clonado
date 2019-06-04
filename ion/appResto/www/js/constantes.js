@@ -67,7 +67,9 @@ function formatDate(date) {
     return str;
 }
 
-
+function copyObj(obj){
+  return JSON.parse(JSON.stringify(obj))
+  }
 
 function base64(fotoObj, callback) {
   // console.log("base64 " + fotoObj.name)
