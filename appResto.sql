@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-05-2019 a las 06:55:52
+-- Tiempo de generación: 04-06-2019 a las 02:21:26
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.1
 
@@ -31,19 +31,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `clientes` (
   `id_cliente` int(11) NOT NULL,
   `nombre_completo` varchar(100) NOT NULL,
-  `dni` int(11) DEFAULT NULL
+  `dni` int(11) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `foto` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id_cliente`, `nombre_completo`, `dni`) VALUES
-(2, 'Emilio Perez Reverte', NULL),
-(3, 'Juan Carlos Z.', 4344433),
-(4, 'Juan Ramirez', NULL),
-(5, 'Emilia Estefan', NULL),
-(6, 'Maria Laura', NULL);
+INSERT INTO `clientes` (`id_cliente`, `nombre_completo`, `dni`, `email`, `foto`) VALUES
+(2, 'Emilio Perez Reverte', NULL, NULL, ''),
+(3, 'Juan Carlos Z.', 4344433, NULL, ''),
+(4, 'Juan Ramirez', NULL, NULL, ''),
+(5, 'Emilia Estefan', NULL, NULL, ''),
+(6, 'Maria Laura', NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -94,44 +96,6 @@ INSERT INTO `cocina` (`id_cocina`, `nombre_cocina`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `comandas`
---
-
-CREATE TABLE `comandas` (
-  `id_comanda` varchar(5) NOT NULL,
-  `id_mesa` int(11) NOT NULL,
-  `id_mozo` int(11) NOT NULL,
-  `id_estado_pedido` int(11) NOT NULL,
-  `fecha_alta` datetime NOT NULL,
-  `fecha_estipulada` datetime NOT NULL,
-  `fecha_entrega` datetime DEFAULT NULL,
-  `foto_mesa` varchar(100) DEFAULT NULL,
-  `id_cliente` int(11) DEFAULT NULL,
-  `total` decimal(10,0) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `comanda_detalles`
---
-
-CREATE TABLE `comanda_detalles` (
-  `id` int(11) NOT NULL,
-  `id_comanda` varchar(5) NOT NULL,
-  `id_producto` int(11) NOT NULL,
-  `cantidad_producto` int(11) NOT NULL,
-  `estado_pedido` int(11) NOT NULL,
-  `comienzo_preparacion` datetime DEFAULT NULL,
-  `hora_estimada` datetime DEFAULT NULL,
-  `hora_listo` datetime DEFAULT NULL,
-  `id_empleado` int(11) DEFAULT NULL,
-  `hora_alta` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `empleados`
 --
 
@@ -155,35 +119,20 @@ CREATE TABLE `empleados` (
 --
 
 INSERT INTO `empleados` (`id_empleado`, `usuario`, `email`, `nombre_completo`, `fecha_nac`, `dni`, `id_rol`, `fecha_ingreso`, `fecha_egreso`, `sueldo`, `clave`, `habilitado`) VALUES
-(1, 'dolinuck', 'daro@gmail.com', 'Daro', '0000-00-00', 30111222, 6, '0000-00-00', '0000-00-00 00:00:00', '35000', '', 1),
 (2, 'ejimenez', 'ejimene@gmail.com', 'Emilio Jimenez', '0000-00-00', 30111222, 2, '2018-07-25', '0000-00-00 00:00:00', '20000', '1234', 1),
 (3, 'fsaiegh', 'fsaiegh@gmail.com', 'Facundo Saiegh', '0000-00-00', 0, 1, '2018-07-14', NULL, '25000', '1234', 1),
-(4, 'male', 'male@gmail.com', 'male prueba', '2018-12-31', 12456123, 5, '0000-00-00', '0000-00-00 00:00:00', '5656', '', 1),
-(5, 'elcapitan', 'castro@gmail.com', 'Raul Castro', '1931-03-04', 11222333, 4, '0000-00-00', '0000-00-00 00:00:00', '3', '1234', 1),
-(6, 'ssdaas', 'sdasdaa', 'aaaaa', '0000-00-00', 0, 0, '0000-00-00', '0000-00-00 00:00:00', '0', 'adf adf adf', 1),
-(7, '', '', '', '0000-00-00', 0, 0, '2019-05-26', '0000-00-00 00:00:00', '0', NULL, 1),
-(8, '', '', '', '0000-00-00', 0, 0, '2019-05-26', '0000-00-00 00:00:00', '0', NULL, 1),
-(9, '', '', '', '0000-00-00', 0, 0, '2019-05-26', '0000-00-00 00:00:00', '0', NULL, 1),
-(10, '', '', '', '0000-00-00', 0, 0, '2019-05-26', '0000-00-00 00:00:00', '0', NULL, 1),
-(11, '', '', '', '0000-00-00', 0, 0, '2019-05-26', '0000-00-00 00:00:00', '0', NULL, 1),
-(12, '', '', '', '0000-00-00', 0, 0, '2019-05-26', '0000-00-00 00:00:00', '0', NULL, 1),
-(13, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'sdasd', '0434-03-31', 343434343, 2, '2019-05-26', '0000-00-00 00:00:00', '34', NULL, 1),
-(14, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'sdasd', '0000-00-00', 343434343, 2, '0000-00-00', '0000-00-00 00:00:00', '34', '', 1),
-(15, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'asd asd asd ads asd 4', '0434-03-31', 343434, 2, '2019-05-26', '0000-00-00 00:00:00', '0', NULL, 1),
-(16, '', 'chicho@chichicch.com', 'chicho22', '4343-02-28', 23423424, 3, '0000-00-00', '0000-00-00 00:00:00', '3144', '', 1),
-(17, 'eric_estrada', 'sdad@asdd.com', 'eric estrada', '0000-00-00', 444443, 0, '2019-05-26', '0000-00-00 00:00:00', '0', NULL, 1),
-(18, 'mario', 'mario@baracus.com', 'mario baracus', '2000-12-12', 34433434, 5, '2019-05-29', '0000-00-00 00:00:00', '32000', NULL, 1),
-(19, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', NULL, 1),
-(20, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', NULL, 1),
-(21, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', NULL, 1),
-(22, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', NULL, 1),
-(23, '', '', '', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', NULL, 1),
-(24, '', '', '', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', NULL, 1),
-(25, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '2019-05-29', '0000-00-00 00:00:00', '2424', NULL, 1),
-(26, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '2019-05-29', '0000-00-00 00:00:00', '2424', NULL, 1),
-(27, 'ñeleo', 'asd@dasd.com', 'lelo lelel', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', 'qwe', 1),
-(28, 'ñeleo', 'asd@dasd.com', 'lelo lelel', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', 'qwe', 1),
-(29, 'inegniero basualdo', 'basualdo@inasd.com', 'ingeniero basualdo', '1980-10-01', 387787, 5, '0000-00-00', '0000-00-00 00:00:00', '50000', '376317996', 1);
+(4, 'male', 'male@gmail.com', 'male prueba', '2018-12-31', 12456123, 2, '0000-00-00', '0000-00-00 00:00:00', '5656', '1234', 1),
+(14, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'sdasd', '0000-00-00', 343434343, 2, '0000-00-00', '0000-00-00 00:00:00', '34', '1234', 1),
+(15, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'asd asd asd ads asd 4', '0434-03-31', 343434, 2, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1),
+(16, '', 'chicho@chichicch.com', 'chicho22', '4343-02-28', 23423424, 3, '0000-00-00', '0000-00-00 00:00:00', '3144', '1234', 1),
+(17, 'eric_estrada', 'sdad@asdd.com', 'eric estrada', '0000-00-00', 444443, 0, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1),
+(18, 'mario', 'mario@baracus.com', 'mario baracus', '2000-12-12', 34433434, 5, '2019-05-29', '0000-00-00 00:00:00', '32000', '1234', 1),
+(21, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1),
+(22, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-11', 0, 0, '0000-00-00', '0000-00-00 00:00:00', '0', '1234', 0),
+(24, '', '', '', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1),
+(25, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '0000-00-00', '0000-00-00 00:00:00', '2424', '1234', 0),
+(26, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '2019-05-29', '0000-00-00 00:00:00', '2424', '1234', 1),
+(27, 'ñeleo', 'asd@dasd.com', 'lelo lelel', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1);
 
 -- --------------------------------------------------------
 
@@ -290,7 +239,12 @@ INSERT INTO `mesas` (`id_mesa`, `sillas`, `estado_mesa`, `zona`, `habilitada`) V
 (9, 6, 0, 2, 1),
 (10, 3, 0, 2, 1),
 (11, 3, 0, 2, 1),
-(12, 3, 0, 2, 1);
+(12, 3, 0, 2, 1),
+(13, 2, 0, 1, 1),
+(14, 6, 0, 1, 1),
+(15, 2, 0, 1, 1),
+(16, 2, 0, 1, 1),
+(17, 2, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -491,22 +445,6 @@ ALTER TABLE `cocina`
   ADD PRIMARY KEY (`id_cocina`);
 
 --
--- Indices de la tabla `comandas`
---
-ALTER TABLE `comandas`
-  ADD PRIMARY KEY (`id_comanda`),
-  ADD KEY `id_mesa` (`id_mesa`),
-  ADD KEY `id_mozo` (`id_mozo`),
-  ADD KEY `id_estado_pedido` (`id_estado_pedido`);
-
---
--- Indices de la tabla `comanda_detalles`
---
-ALTER TABLE `comanda_detalles`
-  ADD PRIMARY KEY (`id_comanda`,`id_producto`),
-  ADD KEY `id` (`id`);
-
---
 -- Indices de la tabla `empleados`
 --
 ALTER TABLE `empleados`
@@ -542,8 +480,7 @@ ALTER TABLE `logueos`
 -- Indices de la tabla `mesas`
 --
 ALTER TABLE `mesas`
-  ADD PRIMARY KEY (`id_mesa`),
-  ADD KEY `fk_id_setor` (`zona`);
+  ADD PRIMARY KEY (`id_mesa`);
 
 --
 -- Indices de la tabla `pedidos`
@@ -578,13 +515,7 @@ ALTER TABLE `sector`
 -- AUTO_INCREMENT de la tabla `cliente_visita`
 --
 ALTER TABLE `cliente_visita`
-  MODIFY `id_cliente_visita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `comanda_detalles`
---
-ALTER TABLE `comanda_detalles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_cliente_visita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `encuestas`
@@ -599,6 +530,12 @@ ALTER TABLE `logueos`
   MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `mesas`
+--
+ALTER TABLE `mesas`
+  MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
@@ -609,18 +546,6 @@ ALTER TABLE `pedidos`
 --
 ALTER TABLE `productos`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `comandas`
---
-ALTER TABLE `comandas`
-  ADD CONSTRAINT `comandas_ibfk_1` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id_mesa`),
-  ADD CONSTRAINT `comandas_ibfk_2` FOREIGN KEY (`id_mozo`) REFERENCES `empleados` (`id_empleado`),
-  ADD CONSTRAINT `comandas_ibfk_3` FOREIGN KEY (`id_estado_pedido`) REFERENCES `estado_pedidos` (`id_estado_pedido`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
