@@ -885,6 +885,15 @@ parte#login{
     padding-top: 20px;
 }
 
+#contListaProductosMozo{
+    height: 60vh;
+    overflow-y: scroll;
+}
+.contenedor-listados-pedidos .boton-borrar {
+    width: 28%;
+    margin-left: 6px;
+}
+
 .back-header-listing h6{
     font-weight: bold;
     color: black;

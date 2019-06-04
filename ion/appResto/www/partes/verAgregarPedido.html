@@ -36,7 +36,7 @@
                <!--  <button class="boton-modal" id="botonAgregarProductoAPedido" onclick="agregarProducto()" style="display:none">Gestionar Productos</button>-->
 
 
-                <button class="boton-modal" onclick="$('#verPedidoMozo').fadeOut();">Cerrar</button>
+                <button class="boton-modal" onclick="ocultarVerPedido()">Cerrar</button>
             </div>
         </div>
     </div>
@@ -88,12 +88,19 @@ function verPedido(id) {
 
         $("#mesaIdVerPedido").html(mesaActiva.id_mesa)
         $("#pedidoIDVerPedido").html(id)
-           $("#verPedidoMozo").fadeIn()
+           mostrarVerPedido();
 
     }
  
 
 
+}
+
+function ocultarVerPedido(){
+    app.esconderUnaParte("partes/verAgregarPedido.html")
+}
+function mostrarVerPedido(){
+    app.traerHTML("partes/verAgregarPedido.html", true, true)
 }
 
 function armarProducto(producto) {

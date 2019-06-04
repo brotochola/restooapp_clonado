@@ -11,8 +11,7 @@
                             <div class="info"><img src="media/Img/mesa-gris.png"> MESA #<span id="idMesaAgregarProductos"></div>
                         </div>
                     </div>
-                    <div class="row contenedor-listados-pedidos" style="    height: auto !important;
-}">
+                    <div id="contListaProductosMozo" class="row contenedor-listados-pedidos" >
                         <ul id="listaProductosMozo">
                         </ul>
                     </div>
@@ -82,23 +81,24 @@ function mostrarModalAgregarProductos(id) {
     //o quiza estan sin barra de tragos
     pedido.productos=new Array();
     console.log("nuevo pedido para mesa " + id)
-    $.ajax({
-        url: caminoBackend+"mozo/productos/lista",
-        headers: {
-            token: localStorage[usuarioLogueado_ls]
-        },
-        success: function(e) {
+
+    api.traerProductos(cbListaDeProductos);
+ 
+    
+}
+
+function cbListaDeProductos(e){
+   
            // console.log(e)
             $("ul#listaProductosMozo").html("")
-            try { listaProds = JSON.parse(e) } catch (e) { listaProds = e }
-            for (var i = 0; i<listaProds.length; i++) {
-                $("ul#listaProductosMozo").append(armarUnProd(listaProds[i]))
+           
+            for (var i = 0; i<api.productos.length; i++) {
+                $("ul#listaProductosMozo").append(armarUnProd(api.productos[i]))
             }
 
-            $("#idMesaAgregarProductos").html(mesaId)
-            $("#agregarProductos").fadeIn();
-        }
-    })
+            $("#idMesaAgregarProductos").html(idMesa)
+            app.traerHTML("partes/nuevoPedidoAgregarProductos.html",true,true);
+        
 }
 
 function agregarEsteProducto(id, cant){
