@@ -56,24 +56,14 @@
             mostrarModalConfirmacion("Este pedido no tiene productos", "ok")
             return;
         }
-        $.ajax({
-            url: caminoBackend + "mozo/pedidos/agregar",
-            headers: {
-                token: localStorage[usuarioLogueado_ls]
-            },
-            data: {
-                idMesa: mesaId,
-                productos: JSON.stringify(pedido.productos)
-            },
-            success: function (e) {
-                try { mesa = JSON.parse(e) } catch (e) { mesa = e }
-                // console.log(e)
-                $("#agregarProductos, #verPedidoMozo").fadeOut();
+      api.mozoMandaPedido(pedido, cbMozoMandaPedido)
+
+
+    }
+
+    function cbMozoMandaPedido(e){
+        $("#agregarProductos, #verPedidoMozo").fadeOut();
                 mostrarEstadoMesaMozo(mesa)
-            }
-        })
-
-
     }
 
 

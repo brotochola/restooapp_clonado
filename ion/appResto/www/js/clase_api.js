@@ -20,7 +20,7 @@ class API{
     }
 
 
-    
+
 
     habilitarMesa(data,cb){
 
@@ -41,6 +41,28 @@ class API{
             },error:e=>console.log(e)
         })//ajax
     }
+
+
+    mozoMandaPedido(ped,cb){
+
+        $.ajax({
+            url: this.urlServer + "comanda/alta",
+            type:"post",
+            dataType:"json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            data: ped,
+            success: function (e) {
+               
+                // console.log(e)
+       
+                if(cb instanceof Function) cb(e);
+             
+            }
+        })
+    }
+
     traerProductos(cb){
 
         $.ajax({

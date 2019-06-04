@@ -13,8 +13,8 @@ require_once './clases/cliente.php';
 require_once './clases/clienteApi.php';
 require_once './clases/mesa.php';
 require_once './clases/mesaApi.php';
-require_once './clases/comanda.php';
-require_once './clases/comandaApi.php';
+//require_once './clases/comanda.php';
+//require_once './clases/comandaApi.php';
 require_once './clases/pedidoApi.php';
 require_once './clases/pedido.php';
 require_once './clases/encuestaApi.php';
@@ -123,31 +123,6 @@ $app->group('/login', function () {
 })->add(\MWparaCORS::class . ':HabilitarCORS4200');
 
 
-//===========Se verificaron todos los métodos usados
-$app->group('/comanda', function () {
-     
-    /**Alta comanda  * @param    id_mesa, id_cliente, pedidos, cantidades */
-
-    #used
-   $this->post('/alta',\comandaApi::class . ':CargarComanda'); 
-
-     /**consulta comanda  * @param    id_comanda */
-   $this->post('/consulta',\comandaApi::class . ':TraerUnaComanda');
-
-   /**Listar comandas  * @param   token */ 
-   $this->put('/listado',\comandaApi::class . ':TraerComandas'); 
-
-   /**Modifica estado y mozo comanda  * @param    id_comanda id_empleado id_estado_pedido */
-   $this->get('/modificar',\comandaApi::class . ':ModificarComanda'); 
-
-    /**Borrar */
-   $this->delete('/borrar/{id}',\comandaApi::class . ':BorrarComanda');
-
-
-   $this->get('/cerrar',\pedidoApi::class . ':TraerPedidosComanda');
-            
-   
-})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 
 $app->group('/pedido', function () {        
@@ -227,7 +202,7 @@ $app->group('/informes', function () {
     
     $this->post('/pedidos/borrados',\informesApi::class . ':TraerPedidosEliminados'); 
   
-    $this->post('/mesas/uso/mayor',\comandaApi::class . ':MesaMayorOcupacion');
+  /*  $this->post('/mesas/uso/mayor',\comandaApi::class . ':MesaMayorOcupacion');
      
     $this->post('/mesas/uso/menor',\comandaApi::class . ':MesaMenorOcupacion');
     
@@ -240,7 +215,7 @@ $app->group('/informes', function () {
     $this->post('/mesas/facturacion/peor',\comandaApi::class . ':MesaFacturacionMasBaja');
 
     $this->post('/mesas/facturacion/fecha',\comandaApi::class . ':MesaFacturacionFecha');
-
+*/
     $this->post('/pedidos/demorados',\pedidoApi::class . ':PedidosDemorados');
 
     $this->post('/encuestas/mejor',\informesApi::class . ':MejorNota');
