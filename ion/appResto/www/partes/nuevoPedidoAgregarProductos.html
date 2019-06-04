@@ -25,7 +25,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                               <button class="boton-modal cancelar " onclick="$('#agregarProductos').fadeOut()">Cancelar</button>
+                               <button class="boton-modal cancelar " onclick="ocultarAgregarPedidoAMesa()">Cancelar</button>
                         </div>
                         <div class="col-6">
                             <button class="boton-modal" onclick="mandarPedido()">Enviar Pedido!</button>
@@ -163,4 +163,10 @@ function armarUnProd(prod) {
  //   console.log(html)
     return html
 }
+
+function ocultarAgregarPedidoAMesa(){
+        app.esconderUnaParte("partes/nuevoPedidoAgregarProductos.html");
+    }
+
+    
 </script>
