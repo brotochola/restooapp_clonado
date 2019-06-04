@@ -129,10 +129,13 @@ public static function TraerMiPedido($pId) {
         {
 
             $elProducto = producto::TraerUno($idsproductos[$x]["id_producto"]);
-            $elProducto=$elProducto[0];
-            $elProducto->cantidad=$idsproductos[$x]["cantidad"];
-            //return $elProducto;
-             array_push($arrProductos,$elProducto );
+            if(count($elProducto)>0){
+                $elProducto=$elProducto[0];
+                $elProducto->cantidad=$idsproductos[$x]["cantidad"];
+                //return $elProducto;
+                 array_push($arrProductos,$elProducto );
+            }
+ 
         }
 
 

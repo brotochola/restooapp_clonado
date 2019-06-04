@@ -5,7 +5,7 @@ class API{
     constructor(){
         
         //local
-        this.urlServer="../Resto/API/";
+        this.urlServer="../../../Resto/API/";
         //web
 
         //http://darodarioli.tech/restoapp2/Resto/API/
@@ -19,7 +19,25 @@ class API{
 
     }
 
+    habilitarMesa(data,cb){
 
+        $.ajax({
+          
+            url: this.urlServer + "mesas/habilitar",
+            type: "post", //esto es solo porq estoy no usando un backend de verdad
+            dataType:"json",
+            data:data,
+             headers: {
+                 token: localStorage[usuarioLogueado_ls]
+             },
+            success: (e)=> {
+               
+                this.estadoMozo=e;
+                      
+                if(cb instanceof Function) cb();
+            },error:e=>console.log(e)
+        })//ajax
+    }
     traerProductos(cb){
 
         $.ajax({

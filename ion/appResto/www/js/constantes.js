@@ -69,6 +69,21 @@ function formatDate(date) {
 
 
 
+function base64(fotoObj, callback) {
+  // console.log("base64 " + fotoObj.name)
+  var reader = new FileReader();
+
+  reader.onload = function(readerEvt) {
+      var binaryString = readerEvt.target.result;
+      var fotoBase64 = btoa(binaryString);
+      //$(thumb).show();
+      //$(thumb).attr("src", "data:image/png;base64," + fotoBase64);
+      console.log("foto cargada");
+      callback(fotoBase64);
+  };
+  reader.readAsBinaryString(fotoObj);
+}
+
 
 function parseJwt(token) {
   var objRta = {}

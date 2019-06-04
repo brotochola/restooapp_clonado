@@ -7,17 +7,19 @@ class cliente
     public $id_cliente;
     public $nombre_completo;
     public $dni;
+    public $email;
+    public $foto;
     
     public function __construct() {}
 
         public function Insertar()
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into clientes(id_cliente, nombre_completo, dni)
-            values(:id_cliente,:nombre_completo, dni)");
-            $consulta->bindValue(':id_cliente', $this->id_cliente, PDO::PARAM_STR);
-            $consulta->bindValue(':nombre_completo', $this->nombre_completo, PDO::PARAM_STR);
-            $consulta->bindValue(':dni', $this->dni, PDO::PARAM_STR);
+            $sql="INSERT into clientes( nombre_completo, dni, email, foto) values('$this->nombre_completo', '$this->dni','$this->email', '$this->foto')";
+
+            $consulta =$objetoAccesoDato->RetornarConsulta($sql);
+            
+
             $consulta->execute();		
 
             return $objetoAccesoDato->RetornarUltimoIdInsertado();
@@ -26,6 +28,12 @@ class cliente
         public static function TraerTodos()
         {
             $consulta = "SELECT * FROM `clientes`";
+            return AccesoDatos::ConsultaClase($consulta,"cliente");
+        }
+
+        public static function email2Cliente($email)
+        {             
+            $consulta = "SELECT * FROM `clientes` WHERE  `email` = '$email'";
             return AccesoDatos::ConsultaClase($consulta,"cliente");
         }
 

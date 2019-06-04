@@ -14,7 +14,7 @@ class mesa
 
         //=============AGREGADOS APP RESTO2
 
-        public static function CargarClienteVisita($vIdMesa, $vIdCliente, $vFecha, $vComensales)
+        public static function CargarClienteVisita($vIdMesa, $vIdCliente, $vFecha, $vComensales, $idmozo)
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
             
@@ -25,7 +25,7 @@ class mesa
             $consulta->bindValue(':id_cliente',$vIdCliente,PDO::PARAM_STR);
             $consulta->bindValue(':fecha',$vFecha,PDO::PARAM_STR);
             $consulta->bindValue(':comensales',$vComensales,PDO::PARAM_STR);
-            $consulta->bindValue(':mozo',$idMozo,PDO::PARAM_STR);
+            $consulta->bindValue(':mozo',$idmozo,PDO::PARAM_STR);
             $consulta->execute();		
 
             return $objetoAccesoDato->RetornarUltimoIdInsertado();

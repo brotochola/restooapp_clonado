@@ -15,28 +15,59 @@ class mesaApi extends mesa
 
         $ArrayDeParametros = $request->getParsedBody(); 
         
+
+     //   print_r($ArrayDeParametros);die();
+
+
         $vHora = new DateTime(); 
         $laHora = date_format($vHora,"Y/m/d H:i:s"); 
 
         $vIdMesa = $ArrayDeParametros['id_mesa'];
-        $vIdCliente = $ArrayDeParametros['id_cliente'];
-        $vComensales = $ArrayDeParametros['comensales'];
+        $nombre = $ArrayDeParametros['nombre'];      
+        $dni = $ArrayDeParametros['dni'];
+        $foto = $ArrayDeParametros['foto'];
+        $email = $ArrayDeParametros['email'];
+        $vComensales = $ArrayDeParametros['cantComensales'];
+
+
+        $vIdCliente = cliente::email2Cliente($email);
+
+        if(count($vIdCliente)>0) {
+             //el cliente existe
+            $vIdCliente=$vIdCliente[0]->id_cliente;
+         
+
+        }else{
+             //el cliente NO existe
+             $cliente=new cliente();
+             $cliente->nombre_completo=$nombre;
+             $cliente->dni=$dni;
+             $cliente->foto=$foto;
+             $cliente->email=$email;
+             $vIdCliente= $cliente->insertar();
+             
+        }
+       
+       
+
         
         $token= $request->getHeader('token')[0];      
         $payload=AutentificadorJWT::ObtenerData($token);
         $idmozo=$payload->id_empleado; 
 
         
+
+ 
+        
         $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, $vComensales, $idmozo);
 
         mesa::ModificarEstadoDeLaMesa($vIdMesa, 2);
         
-        $respuesta = mesa::TraerLaMesa($vIdMesa);
-
-        //el dato ya está en $id_cliente_visita
-        //select* from clientes_visitar where id_cliente=X order by fecha limit 1
-        
-        return $response->withJson($respuesta, 200);            
+        $rta=new stdClass();
+        $rta->mesas = mesa::TraerTodas();    
+        $response->getBody()->write(json_encode($rta));
+        //$newResponse = $response->withJson($rta, 200);  
+        return $response;    
         
     }
 

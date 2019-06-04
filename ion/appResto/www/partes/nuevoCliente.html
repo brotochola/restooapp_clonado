@@ -4,23 +4,52 @@
             <div class="container-cuerpo">
                 <div class="container">
                     <div class="row">
-                        <div class="col-6">
-                            <div class="info">Nombre:
-                                <input placeholder="Nombre" id="nombre">
+                        <div class="col-12">
+                            <div class="info">Nombre completo:
+                                <input placeholder="Nombre" id="nombreNuevoCliente">
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="info">Apellido:
-                                <input placeholder="Apellido" id="apellido">
-                            </div>
-                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="info"><img src="media/Img/usuario-seleccionado.png"> Usuario:
-                                <input id="user" placeholder="usuario"> </div>
+                            <div class="info">DNI:
+                                <input id="dniNuevoCliente" placeholder="DNI"> </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info text-center">
+
+                                <button class="boton-modal " onclick="escanearCodigoQRdelDNI()"> Escanear QR del
+                                    DNI</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info ">Email:
+                                <input id="emailNuevoCliente" placeholder="Email"> </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info text-center">
+                                <input type="file" id="fotoNuevoCliente" style="display:none">
+                                <label for="fotoNuevoCliente" class="boton-modal "> Sacar Foto</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
                     <div class="row">
                         <div class="col-8">
                             <div class="info"><img src="media/Img/usuarios-gris.png"> Nº de Personas</div>
@@ -42,7 +71,7 @@
                             <button class="boton-modal" id="agregar" onclick="agregarCliente()">Agregar Cliente</button>
                         </div>
                         <div class="col-6">
-                            <button class="boton-modal cancelar" onclick="$('#nuevoCliente').fadeOut();">Cancelar</button>
+                            <button class="boton-modal cancelar" onclick="ocultarModalNuevoCliente()">Cancelar</button>
                         </div>
                     </div>
                 </div>
@@ -51,50 +80,74 @@
     </div>
 </div>
 <script>
-var mesaID;
+    var mesaID;
 
-function mostrarModalNuevoCliente(m_id) {
-    mesaID = m_id
-    let laMesa=api.mesas[Mesa.mesaId2i(m_id)]
-    console.log(" nuevo cliente en mesa " + m_id)
-    $("#agregar").html("Agregar Cliente a Mesa #" + m_id)
-    app.traerHTML("partes/nuevoCliente.html", true, true)
+    function mostrarModalNuevoCliente(m_id) {
+        mesaID = m_id
+        let laMesa = api.mesas[Mesa.mesaId2i(m_id)]
+        console.log(" nuevo cliente en mesa " + m_id)
+        $("#agregar").html("Agregar Cliente a Mesa #" + m_id)
+        app.traerHTML("partes/nuevoCliente.html", true, true)
 
-    $("#selectCantSillas").html("")
-    for (var i = 1; i <= laMesa.sillas; i++) {
-        $("#selectCantSillas").append("<option value='" + i + "'>" + i + "</option>")
-    }
-
-
-}
-
-function agregarCliente() {
-
-    nombre=$("#nombre").val();
-    apellido=$("#apellido").val()
-    user=$("#user").val()
-
-    if(user=="" || apellido=="" || nombre==""){
-        mostrarModalConfirmacion("Complete todos los campos", "ok");
-        return;
-    }
-
-    $.ajax({
-        url: caminoBackend+"mozo/mesas/habilitar",
-        headers: {
-            token: localStorage[usuarioLogueado_ls]
-        },
-        data: {
-            "idMesa": mesaID,
-            "nombre": $("#nombre").val(),
-            "apellido": $("#apellido").val(),
-            "user": $("#user").val(),
-            "cantComensales": $("#selectCantSillas").val()
-        },
-        success: function(e) {
-            console.log(e)
-            app.esconderUnaParte("partes/nuevoCliente.html");
+        $("#selectCantSillas").html("")
+        for (var i = 1; i <= laMesa.sillas; i++) {
+            $("#selectCantSillas").append("<option value='" + i + "'>" + i + "</option>")
         }
-    })
-}
+
+
+    }
+
+    function agregarCliente() {
+
+        let nombre = $("#nombreNuevoCliente").val();
+        let email = $("#emailNuevoCliente").val()
+        let dni = $("#dniNuevoCliente").val()
+
+
+
+        if (email == "") {
+            mostrarModalConfirmacion("Complete email", "ok");
+            return;
+        }
+
+
+        let data = {
+            "id_mesa": mesaID,
+            "nombre": nombre,
+            "email": email,
+            "dni": dni,
+            "cantComensales": $("#selectCantSillas").val()
+        }
+
+        //foto es el archivo como viene del input
+        //lo q le sigue es un callback cuyo parametro es el string base64
+
+        let foto = null;
+        if ($("#fotoNuevoCliente")[0].files.length == 1) {
+            foto = $("#fotoNuevoCliente")[0].files[0]
+            base64(foto, (fotoBase64) => {
+                data.foto = fotoBase64;
+                api.habilitarMesa(data, cbHabilitarMesa)
+            })
+        } else {
+            //no hay foto
+            data.foto = '';
+            api.habilitarMesa(data, cbHabilitarMesa)
+
+        }
+
+
+
+
+    }
+    function ocultarModalNuevoCliente() {
+        app.esconderUnaParte("partes/nuevoCliente.html");
+    }
+
+    function cbHabilitarMesa() {
+        app.esconderUnaParte("partes/nuevoCliente.html");
+    }
+    function escanearCodigoQRdelDNI() {
+        console.log("ESCANEAR QR DEL DNI!")
+    }
 </script>

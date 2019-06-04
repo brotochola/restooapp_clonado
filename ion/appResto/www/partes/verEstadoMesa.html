@@ -1,4 +1,4 @@
-<div class="fondo-modal" id="verEstadoMesaAdmin" >
+<div class="fondo-modal" id="verEstadoMesaAdmin">
     <div class="contenedor-modal">
         <div class="cuerpo-modal">
             <div class="container-cuerpo">
@@ -9,7 +9,7 @@
                             <div class="info"><img src="media/Img/usuario-seleccionado.png"> <span
                                     id="nombreCliente">fulanito de tal</span></div>
                         </div>
-                        <div class="col-6 pp-n-left">
+                        <div class="col-6 pp-n-right">
                             <div class="info"><img src="media/Img/visitas.png"> Visitas: <strong
                                     id="cantVisitas">XX</strong> </div>
                         </div>
@@ -17,9 +17,14 @@
                             <div class="info"><img src="media/Img/calendario-seleccionado.png"><span id="ultimaVisita">
                                     Ultima Visita: 25 - JULIO - 2018</span></div>
                         </div>-->
-                        <div class="col-12 pp-n-right">
+                        <div class="col-6 pp-n-left">
                             <div class="info"><img src="media/Img/usuarios-gris.png"> Total De Comenzales: <strong
                                     id="cantComensales">#8</strong> </div>
+                        </div>
+                        <div class="col-6 pp-n-right">
+                            <div class="info"> <img src="media/Img/checar-gris.png">
+                                Llegada: <strong
+                                    id="horaLlegadaMesa">xx</strong> </div>
                         </div>
                         <div class="col-6 pp-n-left">
                             <div class="info"><img src="media/Img/mozo.png"><span id="mozoAsignado"> Mozo
@@ -64,7 +69,7 @@
                         </div>
                         <div class="col-1"></div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="botonEstadisticas">
                         <div class="col-1"></div>
                         <div class="col-10">
                             <button class="boton-modal" id="botonEstadisticas">Estadisticas</button>
@@ -84,12 +89,12 @@
     </div>
 </div>
 <script>
- 
+
 
     var idMesa = -1;
     var mesa = {};
 
-    function ocultarEstadoMesa(){
+    function ocultarEstadoMesa() {
         app.esconderUnaParte("partes/verEstadoMesa.html")
     }
 
@@ -118,56 +123,71 @@
 
 
     function cbMostrarEstadoMesa(mesa) {
-     
+
         app.ocultarLoading();
 
 
 
         console.log(mesa)
-        mesaActiva=mesa;
+        mesaActiva = mesa;
         $("#listadoDePedidosMesa").html("")
         //arma pedidos
-        for (var i = 0; i < mesa.pedidos.length; i++) {
-            pe = mesa.pedidos[i]
-            $("#listadoDePedidosMesa").append(armarPedido(pe))
+
+        if (mesa.pedidos.length == 0) {
+            $("#listadoDePedidosMesa").append("<br>No hay pedidos</br>")
+        } else {
+            for (var i = 0; i < mesa.pedidos.length; i++) {
+                pe = mesa.pedidos[i]
+                $("#listadoDePedidosMesa").append(armarPedido(pe))
+            }
         }
 
         //datos
         $("#idMesa").html("#" + mesa.id_mesa)
-        if(checkStr(mesa.cliente.nombre_completo)){
-            $("#botonCerrarMesa").show();
+        if (checkStr(mesa.cliente.nombre_completo)) {
+            //SI LA MESA TIENE UN CLIENTE ES QUE TIENE DATA Y TODO
+            if (usuario.dataUsuario().id_rol != 1) {
+            //no es admin
+                $("#botonCerrarMesa, #botonEstadisticas").hide();
+            } else {
+                $("#botonCerrarMesa, #botonEstadisticas").show();
+            }
+            ////
             $("#nombreCliente").html(mesa.cliente.nombre_completo)
             $("#cantVisitas").html(mesa.cliente.cant_visitas)
-            $("#cantComensales").html("<b> "+mesa.clienteVisita.comensales+"</b>")
-           $("#mozoAsignado").html(mesa.mozo.nombre_completo)
+            $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")
+            $("#mozoAsignado").html(mesa.mozo.nombre_completo)
             $("#total").html("$" + mesa.total_mesa)
-        }else{
+       
+            $("#horaLlegadaMesa").html(hora(mesa.clienteVisita.date_created));
+        } else {
             $("#botonCerrarMesa").hide();
             $("#nombreCliente").html("")
             $("#cantVisitas").html("")
             $("#cantComensales").html("")
-           $("#mozoAsignado").html("")
+            $("#mozoAsignado").html("")
             $("#total").html("")
+            $("#horaLlegadaMesa").html("");
         }
 
- 
+
     }
 
     function mostrarEstadoMesaAdmin(id) {
-       // console.log(id)
-
-       app.mostrarLoading()
+        // console.log(id)
+    
+        app.mostrarLoading()
 
         idMesa = id;
         $("#botonEstadisticas").off().click(function () {
             window.location.href = "estadisticas.html?mesaId=" + id
         })
 
-        api.traerUnaMesa(id,cbMostrarEstadoMesa);
+        api.traerUnaMesa(id, cbMostrarEstadoMesa);
 
 
-        app.traerHTML("partes/verEstadoMesa.html",true);
-        
+        app.traerHTML("partes/verEstadoMesa.html", true);
+
     }
 
 
@@ -180,9 +200,9 @@
         html += '<div class="container">'
         html += '<div class="row" onclick="verPedido(' + pedido.id + ')">'
         html += '<div class="col-2 text-center contenedor-icono-listado"><h5>#' + pedido.id + '</h5></div>'
-        
-        let horaPedidoAgregado=hora(pedido.fecha_alta)
-        
+
+        let horaPedidoAgregado = hora(pedido.fecha_alta)
+
         html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
         html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
         html += '<div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
