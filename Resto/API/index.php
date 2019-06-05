@@ -40,6 +40,8 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
+
+
 $app = new \Slim\App(["settings" => $config]);
 
 // Agregados appResto2
@@ -56,7 +58,7 @@ $app->group('/mozo', function () {
     // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
     
          
-})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+});
 
 $app->group('/admin', function () {
    
@@ -66,7 +68,7 @@ $app->group('/admin', function () {
     // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
     
          
-})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+});
 
 
 $app->group('/pedidos', function () {
@@ -79,7 +81,7 @@ $app->group('/pedidos', function () {
 
     $this->get('/cancelar/{id}',\pedidoApi::class . ':CancelarPedido');     
          
-})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+});
 
 $app->group('/mesas', function () {
    
@@ -92,7 +94,7 @@ $app->group('/mesas', function () {
     // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
     
          
-})->add(\MWparaCORS::class . ':HabilitarCORSTodos')->add(\MWparaCORS::class . ':HabilitarCORS8080');
+});
 
 
 $app->group('/reservas', function () {   
@@ -121,7 +123,7 @@ $app->group('/login', function () {
     $this->get('/respuestas',\captchaApi::class . ':TraerRespuestas'); 
     
          
-})->add(\MWparaCORS::class . ':HabilitarCORS4200');
+});
 
 
 
@@ -152,7 +154,7 @@ $app->group('/pedido', function () {
 
       $this->get('/modificarCantidad',\pedidoApi::class . ':ModificaCantidad');        
               
-  })->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+  });
   
 
 $app->group('/empleados', function () {   
@@ -174,7 +176,7 @@ $app->group('/empleados', function () {
     $this->post('/borrar',\empleadoApi::class . ':BorrarEmpleado');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
      
          
-})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+});
 //->add(\AutentificadorMW::class . ':VerificarAccesoUnico')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 $app->group('/AccesoClientes', function () {
@@ -226,7 +228,7 @@ $app->group('/informes', function () {
     $this->post('/encuestas/listado',\encuestaApi::class . ':TraerEncuestas');
  
         
-})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+});//->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 //->add(\AutentificadorMW::class . ':VerificarAccesoInformes')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 
@@ -244,7 +246,7 @@ $app->group('/producto', function () {
     $this->delete('/borra', \productoApi::class . ':BorrarProducto'); 
     
             
-})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+});//->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 
 $app->group('/cliente', function () {   
@@ -260,7 +262,7 @@ $app->group('/cliente', function () {
     $this->delete('/borrar/{id}',\clienteApi::class . ':BorrarCliente');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
         
         
-})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+});//->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 $app->group('/mesa', function () {
 
@@ -277,11 +279,19 @@ $app->group('/mesa', function () {
         $this->delete('/borrar/{id_mesa}',\mesaApi::class . ':BorraMesa')->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
 
         
-})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+});//->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
  //->add(\AutentificadorMW::class . ':VerificarAccesoUnico')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 //localhost/resto/API/crearToken/?id_empleado=2&nombre_completo=Juan Gritz&id_rol=2&clave=1234
 
  
+///CORS FÜR ALLES
+$app->add(function ($req, $res, $next) {
+    $response = $next($req, $res);
+    return $response
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization, token, Token')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+});
 
 $app->run();

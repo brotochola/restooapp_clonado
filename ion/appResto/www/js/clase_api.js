@@ -257,16 +257,36 @@ class API{
         $.ajax({
             url: this.urlServer + "mozo/estado",
             type: "post",
-            // headers: {
-            //     token: localStorage[dataDelUsuario_ls]
-            // },
+            headers:{
+                      token: localStorage[usuarioLogueado_ls]
+                  },
             success: (e)=>{
                 this.estadoAnteriorMozo=this.estadoMozo;
                 this.estadoMozo=e;
                 if(cb instanceof Function) cb(e);
             },
             error: (e) => {
+                console.log(e.responseText)
+            }
+        })
+    }//estdo mozo
+
+    cargarPedidosMozo(cb){
+        $.ajax({
+            url: this.urlServer + "mozo/traerMisPedidos",
+            type: "post",
+            dataType:"json",
+            headers:{
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e)=>{
                 console.log(e)
+                this.pedidosAnteriorMozo=this.pedidosMozo;
+                this.pedidosMozo=e;
+                if(cb instanceof Function) cb(e);
+            },
+            error: (e) => {
+                console.log(e.responseText)
             }
         })
     }//estdo mozo

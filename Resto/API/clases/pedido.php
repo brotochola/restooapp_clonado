@@ -416,6 +416,7 @@ class pedido
 
         public static function traerMisPedidos($request,$response){
 
+          //  var_dump($request->getHeader('token')[0]);die();
 
             $tk= $request->getHeader('token')[0];
             $id_user_token="";
@@ -442,8 +443,8 @@ class pedido
             $consulta->execute();      
             $consulta->setFetchMode(PDO::FETCH_CLASS,"stdClass"); 
             $rta= $consulta->fetchAll();
-
-            print_r($rta);die();
+            $response->getBody()->write(json_encode($rta));
+         
 
         }
 

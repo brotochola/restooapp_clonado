@@ -149,27 +149,29 @@
 
         }
 
-        function compararEstadoAnteriorYActual(){
+        function compararEstadoAnteriorYActual() {
+            api.cargarPedidosMozo();
             for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
-                let m=api.estadoMozo.mesas[i]
+                let m = api.estadoMozo.mesas[i]
                 let mesaAnterior
-              
-              try{ 
-                 
-                mesaAnterior=buscarEnArray(m.id_mesa, "id_mesa", api.estadoAnteriorMozo.mesas);
-              
-                if(mesaAnterior.estado_mesa==2 && m.estado_mesa==3){
-                    //si la mesa antes estaba esperando pedido y ahora la mesa tiene un pedido q esta listo...
-                    let notif={
-                        "mesa":m.id_mesa,
-                        "pedido":1,
-                        "donde":"cocina"
+
+                try {
+
+                    mesaAnterior = buscarEnArray(m.id_mesa, "id_mesa", api.estadoAnteriorMozo.mesas);
+
+                    if (mesaAnterior.estado_mesa == 2 && m.estado_mesa == 3) {
+                        //si la mesa antes estaba esperando pedido y ahora la mesa tiene un pedido q esta listo...
+                       
+                        let notif = {
+                            "mesa": m.id_mesa,
+                            "pedido": 1,
+                            "donde": "cocina"
                         }
-                    cargarNotificacion(notif)
-                }
-                
-                }catch(e){}
-              
+                        cargarNotificacion(notif)
+                    }
+
+                } catch (e) { }
+
             }
         }
 
@@ -181,19 +183,13 @@
             //try { m = JSON.parse(localStorage["mesas_" + nombreDelSitio]) } catch (err) { m = localStorage["mesas_" + nombreDelSitio] }
             //console.log(m)
             for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
-
-              try{  $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.estadoMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
-              }catch(e){}
-
+                try {
+                $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.estadoMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
+                } catch (e) { }
             }
 
             compararEstadoAnteriorYActual()
-
-
-
-            
-               
-               mostrarSiguienteNotificacion()
+            mostrarSiguienteNotificacion()
 
 
             //espera y pide el estado al server de nuevo

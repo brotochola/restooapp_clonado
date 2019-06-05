@@ -91,6 +91,8 @@ class mesaApi extends mesa
     public static function estadoMozo($request, $response) {
         $rta=new stdClass();
         $rta->mesas = mesa::TraerTodas();    
+
+     
          
         $newResponse = $response->withJson($rta, 200);  
         return $newResponse;
