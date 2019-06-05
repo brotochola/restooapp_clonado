@@ -53,7 +53,7 @@ public function CargarUnPedido($request, $response,$args){
                             $obj->respuesta = "Se cargo el pedido: ".$vPedido->id;    
                             $obj->itsOk = true;   
                             
-                            $estado_de_la_mesa=3;
+                            $estado_de_la_mesa=2; //2 es esperando pedido
                             mesa::ModificarEstadoDeLaMesa($vPedido->id_mesa,$estado_de_la_mesa);
 
                         }

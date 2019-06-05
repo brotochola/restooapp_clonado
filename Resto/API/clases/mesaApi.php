@@ -61,7 +61,7 @@ class mesaApi extends mesa
         
         $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, $vComensales, $idmozo);
 
-        mesa::ModificarEstadoDeLaMesa($vIdMesa, 2);
+        mesa::ModificarEstadoDeLaMesa($vIdMesa, 1);
         
         $rta=new stdClass();
         $rta->mesas = mesa::TraerTodas();    
@@ -91,11 +91,11 @@ class mesaApi extends mesa
     public static function estadoMozo($request, $response) {
         $rta=new stdClass();
         $rta->mesas = mesa::TraerTodas();    
+        $rta->pedidos= pedido::traerMisPedidos($request,$response);
 
-     
-         
-        $newResponse = $response->withJson($rta, 200);  
-        return $newResponse;
+        $response->getBody()->write(json_encode($rta));
+      
+        return $response;
     }
     
     

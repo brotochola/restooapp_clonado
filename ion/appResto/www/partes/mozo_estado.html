@@ -36,7 +36,7 @@
                         <img src="media/Img/mesa.png">
                     </div>
                     <div class="columna-70">
-                        <span id="idMesa">Mesa</span>
+                        <span id="divIdMesa">Mesa</span>
                     </div>
                 </div>
                 <div class="row contenedor-opciones">
@@ -93,7 +93,7 @@
                 Mesa.armarGraficoMesas($("#contenedorMesasMozo"), "verMesaMozo")
             })
             //Mesa.armarGraficoMesas($("#contenedorMesasMozo"));
-            api.cargarEstadoMozo(cbEstadoMozo)
+            api.cargarEstadoMozo(cbPedidosMozo)
 
         }
 
@@ -150,24 +150,34 @@
         }
 
         function compararEstadoAnteriorYActual() {
-            api.cargarPedidosMozo();
+          
+
+            
             for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
-                let m = api.estadoMozo.mesas[i]
+                let m=api.estadoMozo.mesas[i]
                 let mesaAnterior
 
                 try {
 
                     mesaAnterior = buscarEnArray(m.id_mesa, "id_mesa", api.estadoAnteriorMozo.mesas);
 
+                   // console.log(m, mesaAnterior)
                     if (mesaAnterior.estado_mesa == 2 && m.estado_mesa == 3) {
-                        //si la mesa antes estaba esperando pedido y ahora la mesa tiene un pedido q esta listo...
                        
-                        let notif = {
-                            "mesa": m.id_mesa,
-                            "pedido": 1,
-                            "donde": "cocina"
+                        //si la mesa antes estaba esperando pedido y ahora la mesa tiene un pedido q esta listo...
+                        let arrayPedidos=  api.estadoMozo.pedidos.filter(p=>p.id_mesa==m.id_mesa)
+                        //console.log(arrayMesas)
+                        for(let k=0;k<arrayPedidos.length;k++){
+                           // if(arrayPedidos[k].estado_pedido==3){
+                                let notif = {
+                                    "mesa": arrayPedidos[k].id_mesa,
+                                    "pedido": arrayPedidos[k].id_pedido,
+                                    "donde": arrayPedidos[k].nombre_sector_cocina
+                                }
+                                cargarNotificacion(notif);
+                          //  }
                         }
-                        cargarNotificacion(notif)
+                    
                     }
 
                 } catch (e) { }
@@ -175,13 +185,11 @@
             }
         }
 
-        function cbEstadoMozo() {
-            console.log("cargar estado mozo!")
+        function cbPedidosMozo() {
+           console.log("cb estado mozo", api.estadoMozo)
             //esta funcion se ejecuta cada 5 segundos
 
 
-            //try { m = JSON.parse(localStorage["mesas_" + nombreDelSitio]) } catch (err) { m = localStorage["mesas_" + nombreDelSitio] }
-            //console.log(m)
             for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
                 try {
                 $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.estadoMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
@@ -194,7 +202,7 @@
 
             //espera y pide el estado al server de nuevo
             setTimeout(() => {
-                api.cargarEstadoMozo(cbEstadoMozo)
+                api.cargarEstadoMozo(cbPedidosMozo)
             }, delayTraerEstado)
 
 
@@ -219,7 +227,7 @@
             try {
                 $("#donde").html(n.donde.toUpperCase())
                 $("#idPedido").html("#" + n.pedido)
-                $("#idMesa").html("#" + n.mesa)
+                $("#divIdMesa").html("#" + n.mesa)
 
                 $("#notificacionesMozo").fadeIn()
                 $("#contenedorMesasMozo").addClass("conNotif")
@@ -233,6 +241,7 @@
         }
 
         function cargarNotificacion(n) {
+            console.log(n)
             //{mesa,pedido, donde}
             for (var i = 0; i < notificacionesPendientes.length; i++) {
                 // console.log(notificacionesPendientes[i].mesa, n.mesa, notificacionesPendientes[i].pedido, n.pedido, notificacionesPendientes[i].donde, n.donde)

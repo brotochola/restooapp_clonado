@@ -256,6 +256,7 @@ class API{
     cargarEstadoMozo(cb){
         $.ajax({
             url: this.urlServer + "mozo/estado",
+            dataType:"json",
             type: "post",
             headers:{
                       token: localStorage[usuarioLogueado_ls]

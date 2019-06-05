@@ -428,13 +428,19 @@ class pedido
                 die();
             }
 
-
-           $sql=" SELECT pedidos.id as id_pedido, pedidos.estado_pedido ,  cliente_visita.id_cliente_visita as id_cliente_visita, pedidos.id_mesa as id_mesa, productos.id as id_producto, pedidos_detalles.cantidad as cantidad, productos.id_cocina as lugar_cocina
-            FROM cliente_visita,pedidos, pedidos_detalles, productos
-            where pedidos.id_cliente_visita=cliente_visita.id_cliente_visita
-            and cliente_visita.mozo=".$id_user_token."
-            and pedidos_detalles.id=pedidos.id
-            and productos.id_producto=pedidos_detalles.id_producto";
+            //LOS PEDIDOS CUYA FECHA DE ALTA SEA MAYOR A "HACE 4 HORAS"
+           $sql="SELECT pedidos.id as id_pedido, pedidos.estado_pedido , 
+           pedidos.fecha_alta , cliente_visita.id_cliente_visita as id_cliente_visita,
+            pedidos.id_mesa as id_mesa, mesas.estado_mesa as estado_mesa, 
+            productos.id as id_producto, pedidos_detalles.cantidad as cantidad,
+             productos.id_cocina as lugar_cocina, cocina.nombre_cocina as nombre_sector_cocina
+              FROM cliente_visita,pedidos, pedidos_detalles, productos, mesas, cocina
+                where pedidos.id_cliente_visita=cliente_visita.id_cliente_visita and
+                cliente_visita.mozo=".$id_user_token."
+                and pedidos_detalles.id=pedidos.id
+                and cocina.id_cocina=productos.id_cocina
+                 and mesas.id_mesa=pedidos.id_mesa 
+                 and productos.id_producto=pedidos_detalles.id_producto and pedidos.fecha_alta > DATE_SUB(now(), INTERVAL 40 HOUR)";
          
          //   echo $sql;die();
              
@@ -443,7 +449,7 @@ class pedido
             $consulta->execute();      
             $consulta->setFetchMode(PDO::FETCH_CLASS,"stdClass"); 
             $rta= $consulta->fetchAll();
-            $response->getBody()->write(json_encode($rta));
+           return $rta;
          
 
         }
