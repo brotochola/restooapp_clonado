@@ -291,7 +291,7 @@ public static function TraerMayorTiempo($Pedidos){
         $resp["tiempoFaltante"] = $tiempo;
         return $response->withJson($resp);
     }
-
+/*
     public function AgregarPedidoAComanda($request, $response, $args) 
     {
 	$objDelaRespuesta= new stdclass();
@@ -346,7 +346,7 @@ public static function TraerMayorTiempo($Pedidos){
 
 	return $newResponse;
 
-    }
+}*//*
 
 	public function ModificaCantidad($request, $response, $args) {
 
@@ -388,8 +388,8 @@ public static function TraerMayorTiempo($Pedidos){
     }
 
 
-
-
+*/
+/*
     public function TraerPedidosDeComanda($request, $response, $args) 
     {
         $vector = $request->getParams('id_mesa');
@@ -409,8 +409,8 @@ public static function TraerMayorTiempo($Pedidos){
         }
         return $response->withJson($pedidos);
     }
+*/
 
-    #used
     public function TraerPedidosComanda($request, $response, $args) 
     {
         $vector = $request->getParams('id_mesa');
@@ -631,4 +631,19 @@ public static function TraerMayorTiempo($Pedidos){
             return "El no existe ningún pedido con esos valores";
         }
     }
+
+
+    public static function cocineroInformaPedidoListo($request, $response){
+        //AL CAMBIAR EL ESTDO DEL PEDIDO TMB TIENE Q CAMBIARSE EL DE LA MESA.
+        //EL TEMA ACA ES QUE CADA TIPO DE EMPLEADO SOLO INTERACTUA CON LA PARTE DEL PEDIDO, LOS PRODUCTOS,
+        //Q COINCIDEN CON SU ROL (BARTENDER, COCINERO, CANDYBAR)
+        //ENTONCES EL PEDIDO NO ESTARA LISTO EN SU TOTALIDAD HASTA Q TODAS LAS PARTES NO ESTEN LISTAS
+        $vector = $request->getParsedBody(); 
+        $vector["pedido"];
+        $vector["estado"];
+
+
+
+    }
+    //cambiar estado pedido
 }

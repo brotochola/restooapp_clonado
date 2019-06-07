@@ -1,7 +1,0 @@
-{
-  "name": "appResto",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}

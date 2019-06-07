@@ -1,0 +1,120 @@
+
+
+
+    <div class="container-fluid back-header-listing-adm">
+
+        <div class="row">
+            <div class="col-6 paddingn" onclick="botonVolver()">
+                <div class="row">
+                    <div class="col-5 paddingr">
+                        <img src="media/Img/jobs_one.png" />
+                    </div>
+                    <div class="col-7 paddingl name-perfil-adm text-left">
+                        <h6 id="nombreAdmin">Juanelo Gabines</h6>
+                        <h5>PROPIETARIO</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6 paddingr">
+                        <div class="precio-pedido"><img src="media/Img/pedido-black.png" /><span id="recaudacionDia">$
+                                2.830</span></div>
+                    </div>
+
+                    <div class="col-6 paddingl">
+                        <div class="hora-pedido"><img src="media/Img/usuarios-black.png" /><span
+                                id="cantComensalesDia">25 hora 56 al dia</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container contenedor-mesas">
+        <!-- primera fila de mesas -->
+        <div class="row filas-mesas" id="contenedorMesas">
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function botonVolver() {
+            bootbox.confirm("seguro queres desloguearte?", () => {
+                usuario.logout();
+            });
+        }
+
+        console.log("admin estado.html")
+
+        var delayTraerEstado = 5000;
+
+
+        var docReady = 0;
+
+
+
+
+        //traer mesas no trae el estado ni todos los pedidos q tiene cada mesa
+        api.traerMesas((e) => { if (docReady == 1) Mesa.armarGraficoMesas($("#contenedorMesas"), "mostrarEstadoMesaAdmin") })
+
+
+        $(document).ready(function () {
+            docReady = 1;
+            console.log("doc ready estado admin");
+            //if (api.mesas.length>0) Mesa.armarGraficoMesas();
+
+            $($(".botonFooterAdmin")[0]).addClass("active")
+
+
+
+
+            //populo cosas:
+            $("h6#nombreAdmin").html(usuario.data.nombre_completo)
+
+
+
+
+
+            //agrego cachos:
+
+
+
+
+            setTimeout(() => {
+                if (usuario.tokenValido()) {
+                    if (usuario.dataUsuario().id_rol == 1) {
+                        //si te deslogueaste esto deja de pasar
+                        api.cargarEstadoAdmin(cbEstadoAdmin);
+                    } //if rol
+                }//if token
+
+            }, delayTraerEstado / 2); //timeout
+        }); //docready
+
+
+
+        function cbEstadoAdmin(e) {
+
+            estadoActual = e
+            // console.log(estadoActual)
+            $("#recaudacionDia").html("$" + estadoActual.facturacionDia);
+            $("#cantComensalesDia").html(estadoActual.cubiertosDelDia);
+            //estados de las mesas
+            //try { m = JSON.parse(localStorage["mesas_" + nombreDelSitio]) } catch (err) { m = localStorage["mesas_" + nombreDelSitio] }
+            //console.log(m)
+            for (var i = 0; i < estadoActual.mesas.length; i++) {
+
+                $(".mesa." + estadoActual.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + estadoActual.mesas[i].sillas + "/" + Mesa.estadoMesas[estadoActual.mesas[i].estado_mesa] + ".png";
+
+            }
+
+            setTimeout(() => { api.cargarEstadoAdmin(cbEstadoAdmin) }, delayTraerEstado)
+        }
+
+
+
+
+    </script>
