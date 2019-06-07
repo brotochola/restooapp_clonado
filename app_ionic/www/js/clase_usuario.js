@@ -37,7 +37,9 @@ class Usuario {
     }
 
 
-
+    getRol(){
+        return  rolesEmpleados[this.dataUsuario().id_rol];
+    }
 
 
     tokenValido() {

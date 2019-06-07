@@ -41,11 +41,10 @@
 
 
     <script>
-        function botonVolver() {
-            bootbox.confirm("seguro queres desloguearte?", () => {
-                usuario.logout();
-            });
-        }
+     function botonVolver(){
+        mostrarModalConfirmacion("seguro logout", "si", "no", usuario.logout, ()=>{})
+
+    }
 
         console.log("admin estado.html")
 

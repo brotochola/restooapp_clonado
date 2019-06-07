@@ -1214,7 +1214,7 @@ parte#login{
 }
 
 .pedidos-cocineros{
-    padding-top: 55px;
+    padding-top: 4px;
 }
 
 .campana-roja img{
@@ -1977,6 +1977,7 @@ parte#login{
     .listaPedidosPendientes {
         background: #ddd;
         padding: 4px;
+        padding-top:8px
     }
     
     .pedidos-cocinero .col-8{

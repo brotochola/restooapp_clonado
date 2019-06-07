@@ -6,8 +6,8 @@
 	/* height: 41%; */
 	overflow: hidden;
 	top: 0px;
-	position: fixed;
-	z-index: 5;
+	position: relative;
+	z-index: 2;
 	/* border-bottom: 3px solid rgb(20,20,20,0.5); */
 	background: lightgray;
 	left: 0px;
@@ -71,6 +71,42 @@ header{
     </div>
     <!-- end section header -->
     
+
+    <div class="container" id="notifCocinero" style="display: none;">
+            <div class="row pedidos-cocineros">
+                <div class="col-4 campana-roja">
+                    <img src="media/Img/campana-roja.png">
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12 numero-pedido">
+                            <img src="media/Img/biff.png" class="img-pedido">
+                            <span class="mesa-numero" id="rolEmple">Cocina</span>
+                        </div>
+                        <div class="col-12 numero-pedido">
+                            <img src="media/Img/mesa.png" class="img-pedido">
+                            <span class="mesa-numero">Mesa #<span id="mesaNum">12</span>
+                        </span></div>
+                        <div class="col-12 numero-pedido">
+                            <img src="media/Img/pedido-black.png" class="img-pedido">
+                            <span class="mesa-numero">Pedido #<span id="pedidoNum">164</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 check-verde">
+                    <img src="media/Img/check-verde.png" onclick="aceptarPedido()">
+                </div>
+            </div>
+            <div class="container pedidos-cocinero">
+                <div class="row text-center" id="contPedidosNotif"> <div class="col-6"><div class="row"><div class="col-4"><span class="numero-de-pedido-cocinero">#<span id="idProducto">1</span></span></div> <div class="col-8 nombreProd">Kai Pad</div></div></div> <div class="col-6"><div class="row"><div class="col-4"><span class="numero-de-pedido-cocinero">#<span id="idProducto">44</span></span></div> <div class="col-8 nombreProd">Curry Rojo de Cerdo</div></div></div></div>
+            </div>
+            <!-- hora -->
+            <div class="row horaPedidos">
+                <div class="col-12" id="horaPedido">Hora Pedido: 22:02</div>
+                
+            </div>
+        </div>
+
     <div class="container-fluid" id="contenedorPedidosActuales">
         <div class="row cabezeraPedidosPendientes">
             <div class="col-12">
@@ -253,7 +289,9 @@ function cargarEstado() {
 
 
 
-    setTimeout(cargarEstado, tiempoDelay)
+  if(usuario.tokenValido() && usuario.dataUsuario().id_rol>2){ 
+       setTimeout(cargarEstado, tiempoDelay)
+  }
 }
 
 
@@ -270,17 +308,17 @@ function actualizarEstadoCocinero() {
 
 function mostrarNotif(notif) {
     console.log("lanzando notificacion")
-    rol = JSON.parse(localStorage[usuarioLogueado_ls]).rol
-    $("#rolEmple").html(lugaresDeTrabajoRoles[rol])
-    $("#mesaNum").html(notif.mesa)
-    $("#pedidoNum").html(notif.pedido)
+    rol = usuario.dataUsuario().id_rol;
+    $("#rolEmple").html(rolesEmpleados[rol])
+    $("#mesaNum").html(notif.id_mesa)
+    $("#pedidoNum").html(notif.id_pedido)
     $("#horaPedido").html("Hora Pedido: " + notif.hora_pedido)
 
-    keys = Object.keys(notif.prods)
-    $("#contPedidosNotif").html("")
-    for (var i = 0; i < keys.length; i++) {
 
-        $("#contPedidosNotif").append(armarProdNotif(keys[i], notif.prods[keys[i]]))
+    $("#contPedidosNotif").html("")
+    for (var i = 0; i < notif.productos; i++) {
+        let prod=notif.productos[i]
+        $("#contPedidosNotif").append(armarProdNotif(prod))
     }
 
 
@@ -322,13 +360,14 @@ function aceptarPedido(id) {
 function armarProdPedidoActual(prod) {
     //ID PROD
     //NOMBRE PROD
+  //  console.log(prod)
     var html = ""
     html += '<div class="col-12 prod">'
     html += '<div class="row">'
     html += '<div class="col-2">'
     html += '<span class="numero-de-pedido-cocinero">#' + prod.id_producto + '</span>'
     html += '</div>'
-    html += '<div class="col-10 text-left">' + prod.nombre_producto +" x"+prod.cantidad+ ' </div>'
+    html += '<div class="col-10 text-left">' + prod.nombre_producto +" <strong>x"+prod.cantidad+ ' </strong></div>'
     html += '</div>'
     html += '<hr>'
     html += '</div>'
@@ -346,7 +385,7 @@ function armarPedidoActual(pedido) {
 
 
    // console.log(pedido)
-
+    if(!pedido.hasOwnProperty("productos")) return;
     var html = '  <!-- un pedido -->'
     html += '            <div class="unPedido '+pedido.id+'">'
     html += '                  <div class="row listaPedidosPendientes">'
@@ -364,11 +403,11 @@ function armarPedidoActual(pedido) {
     html += '  </div>'
     html += '  <div class="row list-pedidos-pendientes">'
 
-    
-    for (var i = 0; i < pedido.productos.length; i++) {
-        html += armarProdPedidoActual(pedido.productos[i] )
-    }
 
+        for (var i = 0; i < pedido.productos.length; i++) {
+            html += armarProdPedidoActual(pedido.productos[i] )
+        }
+    
     html += '  </div>'
     html += '  </div>'
     html += '  <!-- fin pedido-->'
@@ -377,6 +416,7 @@ function armarPedidoActual(pedido) {
 }
 
 function botonVolver(){
-    usuario.logout();
+    mostrarModalConfirmacion("seguro logout", "si", "no", usuario.logout, ()=>{})
+
 }
 </script>
