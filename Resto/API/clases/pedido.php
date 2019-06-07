@@ -376,7 +376,7 @@ class pedido
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }*/
 
-        public static function TraerTodosLosPedidosPendientesSector($pSector)
+        public static function TraerTodosLosPedidosPendientes()
         {             
           //  $consulta = "SELECT * FROM `comanda_detalles` INNER JOIN `productos` ON comanda_detalles.id_producto = productos.id_producto WHERE `id_cocina` = '$pSector' AND comanda_detalles.estado_pedido=1";
           $consulta="SELECT * FROM pedidos where estado_pedido=1";
@@ -391,7 +391,7 @@ class pedido
         }
 
 
-        public static function TraerPedidoPendiente($vId_comanda,$vId_producto){
+    /*    public static function TraerPedidoPendiente($vId_comanda,$vId_producto){
         
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
             $consulta =$objetoAccesoDato->RetornarConsulta("SELECT id_empleado FROM `comanda_detalles` WHERE  `id_comanda` = '$vId_comanda' AND id_producto = '$vId_producto' AND estado_pedido = 2");
@@ -399,7 +399,7 @@ class pedido
             $consulta->setFetchMode(PDO::FETCH_CLASS,"comanda"); 
             return $consulta->fetchAll();
 
-        }
+        }*/
        
         public static function TraerCantidadProducto($pId)
         {

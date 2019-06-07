@@ -130,15 +130,32 @@ public static function estadoCocinero($request, $response){
     //$user_id=$payload->id;
     $rol=$payload->id_rol;
 
+    //AGARRO EL ROL DEL EMPLEADO PARA VER Q PRODUCTOS DE CADA PEDIDO LE CORRESPONDEN
 
-    $pedidosPendientes=pedido::TraerTodosLosPedidosPendientesSector($rol);
+
+    $pedidosPendientes=pedido::TraerTodosLosPedidosPendientes();
 
     for($i=0;$i<count($pedidosPendientes);$i++){
-        $pedidosPendientes[$i]["productos"]=pedido::TraerPedidosProductosPorPedido( $pedidosPendientes[$i]["id"]);
-        for($j=0;$j<count( $pedidosPendientes[$i]["productos"]);$j++){
-            $cant=$pedidosPendientes[$i]["productos"][$j]["cantidad"];
-            $pedidosPendientes[$i]["productos"][$j]=producto::TraerUno($pedidosPendientes[$i]["productos"][$j]["id_producto"])[0];
-            $pedidosPendientes[$i]["productos"][$j]->cantidad=$cant;
+        //ARRPRODS SON LOS IDS DE PRODUCTOS CON LA CANTIDAD
+        $arrProds=pedido::TraerPedidosProductosPorPedido( $pedidosPendientes[$i]["id"]);
+        $pedidosPendientes[$i]["productos"]=[];
+        
+
+        for($j=0;$j<count( $arrProds);$j++){          
+            //PROD ES EL PRODUCTO DE LA TABLA PRODUCTOS 
+            $prod=producto::TraerUno($arrProds[$j]["id_producto"])[0];
+            $cant= $arrProds[$j]["cantidad"];
+            if($prod->id_cocina==$rol){               
+                $arrProds[$j]=$prod;               
+                $arrProds[$j]->cantidad=$cant;
+                array_push( $pedidosPendientes[$i]["productos"],$arrProds[$j]);
+
+               
+            }
+        }
+        //DESPUES DE PROCSAR LOS PRODUCTOS DE CADA PEDIDO, SE FIJA SI LE QUEDO UNO
+        if(count($pedidosPendientes[$i]["productos"])==0){
+            array_splice($pedidosPendientes,$i,1);
         }
 
       
