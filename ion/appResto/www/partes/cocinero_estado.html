@@ -113,15 +113,15 @@ header{
         
         <div class="row listaPedidosPendientes">
             <div class="col-5">
-                <img src="../media/Img/pedido-black.png" class="pedido-pendiente">
+                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
                 <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
             </div>
             <div class="col-5">
-                <img src="../media/Img/mesa.png" class="mesa-pendiente">
+                <img src="media/Img/mesa.png" class="mesa-pendiente">
                 <span class="n-mesa-p">MESA #<strong>10</strong></span>
             </div>
             <div class="col-2 check-verde-pedidos">
-                <img src="../media/Img/check-verde.png">
+                <img src="media/Img/check-verde.png">
             </div>
             
         </div>
@@ -159,15 +159,15 @@ header{
         </div>
           <div class="row listaPedidosPendientes">
             <div class="col-5">
-                <img src="../media/Img/pedido-black.png" class="pedido-pendiente">
+                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
                 <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
             </div>
             <div class="col-5">
-                <img src="../media/Img/mesa.png" class="mesa-pendiente">
+                <img src="media/Img/mesa.png" class="mesa-pendiente">
                 <span class="n-mesa-p">MESA #<strong>8</strong></span>
             </div>
             <div class="col-2 check-verde-pedidos">
-                <img src="../media/Img/check-verde.png">
+                <img src="media/Img/check-verde.png">
             </div>
             
         </div>
@@ -204,53 +204,20 @@ header{
         </div>
           <div class="row listaPedidosPendientes">
             <div class="col-5">
-                <img src="../media/Img/pedido-black.png" class="pedido-pendiente">
+                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
                 <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
             </div>
             <div class="col-5">
-                <img src="../media/Img/mesa.png" class="mesa-pendiente">
+                <img src="media/Img/mesa.png" class="mesa-pendiente">
                 <span class="n-mesa-p">MESA #<strong>8</strong></span>
             </div>
             <div class="col-2 check-verde-pedidos">
-                <img src="../media/Img/check-verde.png">
+                <img src="media/Img/check-verde.png">
             </div>
             
         </div>
     </div>
-     <!-- Menu botton -->
-    <div class="container-fluid menu-botton-selec">
-        <div class="col-12">
-            <div class="row">
-                <div class="columna-medio-16">
-                    <img src="../media/Img/Empleados.png" />
-                    <h6>Empleados</h6>
-                </div>
-                <div class="columna-medio-16">
-                    <img src="../media/Img/calendario.png" />
-                    <h6>Estado Actual</h6>
-                </div>
-                <div class="columna-medio-16">
-                    <img src="../media/Img/mesas.png" />
-                    <h6>Mesas</h6>
-                </div>
-                
-                <div class="columna-medio-16">
-                    <img src="../media/Img/facturacion.png" />
-                    <h6>Facturacion</h6>
-                </div>
-                
-                <div class="columna-medio-16">
-                    <img src="../media/Img/productos.png" />
-                    <h6>Productos</h6>
-                </div>
-                <div class="columna-medio-16">
-                    <img src="../media/Img/estadisticas.png" />
-                    <h6>Estadisticas</h6>
-                </div>
-            </div>    
-        </div>    
-    </div>
-    <!-- end Menu botton -->
+  
  
     
 
@@ -270,14 +237,16 @@ function cargarEstado() {
     console.log("cargar estado")
 
     $.ajax({
-        url: caminoBackend+"cocinero/estado",
+        url: api.urlServer+"cocinero/estado",
+        type:"post",
+        dataType:"json",
         headers: {
             token: localStorage[usuarioLogueado_ls]
         },
         success: function(e) {
             try { estadoActual = JSON.parse(e) } catch (e) { estadoActual = e }
             actualizarEstadoActual(estadoActual)
-        }
+        }, error:consoleLogE
     })
 
 
@@ -333,7 +302,7 @@ function armarProdNotif(id, prod) {
 function aceptarPedido(id) {
     $("#notifCocinero").fadeOut()
     $.ajax({
-        url: caminoBackend+"cocinero/aceptarPedido",
+        url: api.urlServer+"cocinero/aceptarPedido",
         headers: {
             token: localStorage[usuarioLogueado_ls]
         },
@@ -377,15 +346,15 @@ function armarPedidoActual(pedido) {
     html += '            <div class="unPedido '+pedido.id+'">'
     html += '                  <div class="row listaPedidosPendientes">'
     html += '  <div class="col-5">'
-    html += '  <img src="../media/Img/pedido-black.png" class="pedido-pendiente">'
+    html += '  <img src="media/Img/pedido-black.png" class="pedido-pendiente">'
     html += '  <span class="n-pedido-p">PEDIDO #<strong>' + pedido.id + '</strong></span>'
     html += '  </div>'
     html += '  <div class="col-5">'
-    html += '  <img src="../media/Img/mesa.png" class="mesa-pendiente">'
+    html += '  <img src="media/Img/mesa.png" class="mesa-pendiente">'
     html += '  <span class="n-mesa-p">MESA #<strong>' + pedido.mesa + '</strong></span>'
     html += '  </div>'
     html += '  <div class="col-2 check-verde-pedidos">'
-    html += '  <img src="../media/Img/check-verde.png" onclick="pedidoListo(' + pedido.id + ')">'
+    html += '  <img src="media/Img/check-verde.png" onclick="pedidoListo(' + pedido.id + ')">'
     html += '  </div>'
     html += '  </div>'
     html += '  <div class="row list-pedidos-pendientes">'

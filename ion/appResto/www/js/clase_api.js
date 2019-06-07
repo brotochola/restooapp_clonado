@@ -305,7 +305,7 @@ class API{
             },
             success:(e)=>{
                 if(cb instanceof Function) cb(e);
-            }
+            },error:e=>console.log(e)
         })
     }
 

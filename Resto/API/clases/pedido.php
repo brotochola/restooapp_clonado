@@ -378,7 +378,8 @@ class pedido
 
         public static function TraerTodosLosPedidosPendientesSector($pSector)
         {             
-            $consulta = "SELECT * FROM `comanda_detalles` INNER JOIN `productos` ON comanda_detalles.id_producto = productos.id_producto WHERE `id_cocina` = '$pSector' AND comanda_detalles.estado_pedido=1";
+          //  $consulta = "SELECT * FROM `comanda_detalles` INNER JOIN `productos` ON comanda_detalles.id_producto = productos.id_producto WHERE `id_cocina` = '$pSector' AND comanda_detalles.estado_pedido=1";
+          $consulta="SELECT * FROM pedidos where estado_pedido=1";
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
 
@@ -429,18 +430,19 @@ class pedido
             }
 
             //LOS PEDIDOS CUYA FECHA DE ALTA SEA MAYOR A "HACE 4 HORAS"
+            $cantHoras=40; //para probar, deberia ser 4, o la hora de apertura del lugar
            $sql="SELECT pedidos.id as id_pedido, pedidos.estado_pedido , 
            pedidos.fecha_alta , cliente_visita.id_cliente_visita as id_cliente_visita,
             pedidos.id_mesa as id_mesa, mesas.estado_mesa as estado_mesa, 
             productos.id as id_producto, pedidos_detalles.cantidad as cantidad,
-             productos.id_cocina as lugar_cocina, cocina.nombre_cocina as nombre_sector_cocina
+             productos.id_cocina as lugar_cocina, rol.nombre_rol as nombre_sector_cocina
               FROM cliente_visita,pedidos, pedidos_detalles, productos, mesas, cocina
                 where pedidos.id_cliente_visita=cliente_visita.id_cliente_visita and
                 cliente_visita.mozo=".$id_user_token."
                 and pedidos_detalles.id=pedidos.id
-                and cocina.id_cocina=productos.id_cocina
+                and rol.id_rol=productos.id_cocina
                  and mesas.id_mesa=pedidos.id_mesa 
-                 and productos.id_producto=pedidos_detalles.id_producto and pedidos.fecha_alta > DATE_SUB(now(), INTERVAL 40 HOUR)";
+                 and productos.id_producto=pedidos_detalles.id_producto and pedidos.fecha_alta > DATE_SUB(now(), INTERVAL ".$cantHoras." HOUR)";
          
          //   echo $sql;die();
              

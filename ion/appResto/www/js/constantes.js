@@ -31,6 +31,10 @@ function array2Select(arr,id){
   return str
 }
 
+function consoleLogE(e){
+  console.log(e)
+}
+
 function hora(data){
 
   let a=new Date(data);

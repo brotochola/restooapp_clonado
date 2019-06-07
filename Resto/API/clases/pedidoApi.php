@@ -117,6 +117,10 @@ public function TraerPedido($request, $response, $args) {
 }
 
 
+public static function estadoCocinero($requesto, $response){
+    $pedidosPendientes=pedido::TraerTodosLosPedidosPendientesSector();
+}
+
 public static function TraerMiPedido($pId) {
 
   //  $elPedido = pedido::TraerPedidosPorId($pId);

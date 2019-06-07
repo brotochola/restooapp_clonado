@@ -60,6 +60,11 @@ $app->group('/mozo', function () {
          
 });
 
+$app->group('/cocinero', function () {
+   
+    $this->post('/estado',\pedidoApi::class . ':estadoCocinero'); 
+});
+
 $app->group('/admin', function () {
    
     $this->post('/estado',\mesaApi::class . ':estadoAdmin');     

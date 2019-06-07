@@ -16,14 +16,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <select id="rol">
+                            <div class="col-12" id="contSelectCatProducto">
+                               <!-- <select id="rol">
                                 <option value="0">-</option>
                                 <option value="1">Bar</option>
                                 <option value="2">Cervezas</option>
                                 <option value="3">Cocina</option>
                                 <option value="6">Candybar</option>
-                            </select>
+                            </select>-->
                             </div>
                         </div>
                     </div>
@@ -76,6 +76,10 @@
 <script>
 
 idProductoActual = -1;
+
+
+$("#contSelectCatProducto").html(array2Select(rolesEmpleados,"rol"))
+
 
 function ocultarAgregarVerProducto(){
     app.esconderUnaParte("partes/agregarVerProducto.html");
