@@ -18,6 +18,7 @@ class API{
         this.productos=null;
         this.estadoAnteriorMozo=null;
         this.estadoMozo=null;
+        this.estadoCocinero = null;
 
     }
 

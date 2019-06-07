@@ -51,7 +51,9 @@ class Usuario {
         localStorage[usuarioLogueado_ls] =  "";
         usuario.data={};
         usuario.token="";
-      //  app.inicioSesion()
+        app.traerHTML("partes/login.html");
+        app.ocultarFooterAdmin()
+      //  app.inicioSesion()s
       //  app.ocultarFooterComercio()
       //  app.esconderFooter();
 

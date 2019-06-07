@@ -202,7 +202,13 @@
 
             //espera y pide el estado al server de nuevo
             setTimeout(() => {
-                api.cargarEstadoMozo(cbPedidosMozo)
+                if(usuario.tokenValido()){
+                        if(usuario.dataUsuario().id_rol==2){
+                            //si te deslogueaste esto deja de pasar
+                            api.cargarEstadoMozo(cbPedidosMozo)
+                        }
+                    }
+               
             }, delayTraerEstado)
 
 

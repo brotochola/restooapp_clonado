@@ -77,8 +77,16 @@
         
 
 
-           setTimeout(()=>{ api.cargarEstadoAdmin(cbEstadoAdmin)},delayTraerEstado/2)
-        });
+           setTimeout(()=>{
+                if(usuario.tokenValido()){
+                        if(usuario.dataUsuario().id_rol==1){
+                            //si te deslogueaste esto deja de pasar
+                            api.cargarEstadoAdmin(cbEstadoAdmin);
+                        } //if rol
+                    }//if token
+
+              },delayTraerEstado/2); //timeout
+    }); //docready
 
       
 
@@ -97,7 +105,7 @@
 
                     }
 
-                    setTimeout(()=>{  api.cargarEstadoAdmin(cbEstadoAdmin)}, delayTraerEstado)
+                    setTimeout( ()=>{  api.cargarEstadoAdmin(cbEstadoAdmin)}, delayTraerEstado)
         }
 
     

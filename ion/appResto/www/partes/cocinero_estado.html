@@ -56,7 +56,7 @@ header{
 </style>
         
     
-<body class="fondo-add">
+
         
     <!-- section header -->
     <div class="container-fluid back-header-listing">
@@ -71,7 +71,7 @@ header{
     </div>
     <!-- end section header -->
     
-    <div class="container-fluid">
+    <div class="container-fluid" id="contenedorPedidosActuales">
         <div class="row cabezeraPedidosPendientes">
             <div class="col-12">
                 PEDIDOS PENDIENTES
@@ -224,14 +224,14 @@ header{
     <script>
     console.log("cocinero.js")
 
-const tiempoDelay = 10000;
+const tiempoDelay = 5000;
 
 $(document).ready(function() {
     cargarEstado()
 
 });
 
-var estadoActual = {};
+
 
 function cargarEstado() {
     console.log("cargar estado")
@@ -244,8 +244,9 @@ function cargarEstado() {
             token: localStorage[usuarioLogueado_ls]
         },
         success: function(e) {
-            try { estadoActual = JSON.parse(e) } catch (e) { estadoActual = e }
-            actualizarEstadoActual(estadoActual)
+            console.log(e)
+          api.estadoCocinero = e
+          actualizarEstadoCocinero()
         }, error:consoleLogE
     })
 
@@ -256,14 +257,14 @@ function cargarEstado() {
 }
 
 
-function actualizarEstadoActual(ea) {
-    if (ea.notif.length > 0) {
+function actualizarEstadoCocinero() {
+ /*  if (ea.notif.length > 0) {
         mostrarNotif(ea.notif[0])
-    }
+    }*/
 
     $("#contenedorPedidosActuales").html("")
-    for (var i = 0; i < ea.pedidos.length; i++) {
-        $("#contenedorPedidosActuales").append(armarPedidoActual(ea.pedidos[i]))
+    for (var i = 0; i < api.estadoCocinero.length; i++) {
+        $("#contenedorPedidosActuales").append(armarPedidoActual(api.estadoCocinero[i]))
     }
 }
 
@@ -302,6 +303,8 @@ function armarProdNotif(id, prod) {
 function aceptarPedido(id) {
     $("#notifCocinero").fadeOut()
     $.ajax({
+        type:"post",
+        dataType:"json",
         url: api.urlServer+"cocinero/aceptarPedido",
         headers: {
             token: localStorage[usuarioLogueado_ls]
@@ -310,20 +313,22 @@ function aceptarPedido(id) {
             "idPedido": id
         },
         success: function(e) {
-            try { estadoActual = JSON.parse(e) } catch (e) { estadoActual = e }        	
-        	actualizarEstadoActual(estadoActual)
+            api.estadoCocinero = e      	
+        	actualizarEstadoCocinero()
         }
     })
 }
 
-function armarProdPedidoActual(id, nombre) {
+function armarProdPedidoActual(prod) {
+    //ID PROD
+    //NOMBRE PROD
     var html = ""
     html += '<div class="col-12 prod">'
     html += '<div class="row">'
     html += '<div class="col-2">'
-    html += '<span class="numero-de-pedido-cocinero">#' + id + '</span>'
+    html += '<span class="numero-de-pedido-cocinero">#' + prod.id_producto + '</span>'
     html += '</div>'
-    html += '<div class="col-10 text-left">' + nombre + ' </div>'
+    html += '<div class="col-10 text-left">' + prod.nombre_producto +" x"+prod.cantidad+ ' </div>'
     html += '</div>'
     html += '<hr>'
     html += '</div>'
@@ -340,7 +345,7 @@ function pedidoListo(id) {
 function armarPedidoActual(pedido) {
 
 
-    console.log(pedido)
+   // console.log(pedido)
 
     var html = '  <!-- un pedido -->'
     html += '            <div class="unPedido '+pedido.id+'">'
@@ -351,7 +356,7 @@ function armarPedidoActual(pedido) {
     html += '  </div>'
     html += '  <div class="col-5">'
     html += '  <img src="media/Img/mesa.png" class="mesa-pendiente">'
-    html += '  <span class="n-mesa-p">MESA #<strong>' + pedido.mesa + '</strong></span>'
+    html += '  <span class="n-mesa-p">MESA #<strong>' + pedido.id_mesa + '</strong></span>'
     html += '  </div>'
     html += '  <div class="col-2 check-verde-pedidos">'
     html += '  <img src="media/Img/check-verde.png" onclick="pedidoListo(' + pedido.id + ')">'
@@ -359,9 +364,9 @@ function armarPedidoActual(pedido) {
     html += '  </div>'
     html += '  <div class="row list-pedidos-pendientes">'
 
-    keys = Object.keys(pedido.prods)
-    for (var i = 0; i < keys.length; i++) {
-        html += armarProdPedidoActual(keys[i], pedido.prods[keys[i]])
+    
+    for (var i = 0; i < pedido.productos.length; i++) {
+        html += armarProdPedidoActual(pedido.productos[i] )
     }
 
     html += '  </div>'

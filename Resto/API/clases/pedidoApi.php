@@ -117,8 +117,36 @@ public function TraerPedido($request, $response, $args) {
 }
 
 
-public static function estadoCocinero($requesto, $response){
-    $pedidosPendientes=pedido::TraerTodosLosPedidosPendientesSector();
+public static function estadoCocinero($request, $response){
+    $tk= $request->getHeader('token')[0];
+ 
+
+    try{
+        $payload=AutentificadorJWT::ObtenerData($tk);
+        $rta= $payload;
+    }catch(exception $e){
+        $rta= -1;
+    }
+    //$user_id=$payload->id;
+    $rol=$payload->id_rol;
+
+
+    $pedidosPendientes=pedido::TraerTodosLosPedidosPendientesSector($rol);
+
+    for($i=0;$i<count($pedidosPendientes);$i++){
+        $pedidosPendientes[$i]["productos"]=pedido::TraerPedidosProductosPorPedido( $pedidosPendientes[$i]["id"]);
+        for($j=0;$j<count( $pedidosPendientes[$i]["productos"]);$j++){
+            $cant=$pedidosPendientes[$i]["productos"][$j]["cantidad"];
+            $pedidosPendientes[$i]["productos"][$j]=producto::TraerUno($pedidosPendientes[$i]["productos"][$j]["id_producto"])[0];
+            $pedidosPendientes[$i]["productos"][$j]->cantidad=$cant;
+        }
+
+      
+    }
+  
+
+   return  $response->getBody()->write(json_encode($pedidosPendientes));
+
 }
 
 public static function TraerMiPedido($pId) {

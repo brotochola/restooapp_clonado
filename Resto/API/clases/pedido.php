@@ -309,13 +309,13 @@ class pedido
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
 
-        public static function TraerUnPedido($pComanda,$pProducto)
+   /*     public static function TraerUnPedido($pComanda,$pProducto)
         {            
             $consulta = "SELECT * FROM `comanda_detalles` WHERE `id_comanda`= '$pComanda' AND `id_producto` = '$pProducto'";
             return AccesoDatos::ConsultaClase($consulta, "pedido");
-        }
+        }*/
         
-        public static function TraerPedidosPorComandaNombres($pComanda)
+    /*    public static function TraerPedidosPorComandaNombres($pComanda)
         {  
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
             $consulta = "SELECT  comanda_detalles.id_comanda,
@@ -325,15 +325,15 @@ class pedido
             AND comanda_detalles.id_comanda = '$pComanda'";            
             
             return AccesoDatos::ConsultaDatosAsociados($consulta);
-        }
+        }*/
         
-        public static function TraerPedidosPorComanda($pComanda)
+   /*     public static function TraerPedidosPorComanda($pComanda)
         {             
             $consulta = "SELECT * FROM `comanda_detalles` WHERE `id_comanda`= '$pComanda'";
             return AccesoDatos::ConsultaDatosAsociados($consulta);
-        }
+        }*/
         
-        public static function TraerTodosLosPedidos()
+     /*   public static function TraerTodosLosPedidos()
         {
             $consulta = "SELECT  comandas.id_mozo, comanda_detalles.id_comanda,
             comanda_detalles.id_producto, comanda_detalles.cantidad_producto,comanda_detalles.estado_pedido,
@@ -344,8 +344,8 @@ class pedido
             
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
-
-        public static function TraerTodosLosPedidosPorIdMozo($id_mozo)
+*/
+     /*   public static function TraerTodosLosPedidosPorIdMozo($id_mozo)
         {
             $consulta = "SELECT  comandas.id_comanda, comandas.id_mozo, comanda_detalles.id_comanda,
             comanda_detalles.id_producto, comanda_detalles.cantidad_producto,comanda_detalles.estado_pedido,
@@ -356,7 +356,7 @@ class pedido
             AND comanda_detalles.id_producto = productos.id_producto";
             
             return AccesoDatos::ConsultaDatosAsociados($consulta);
-        }
+        }*/
 
         public static function TraerTiempoPedido($pId_comanda)
         {             
@@ -364,7 +364,7 @@ class pedido
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
 
-        public static function TraerTodosLosPedidosPendientes()
+      /*  public static function TraerTodosLosPedidosPendientes()
         {
             $consulta = "SELECT  comanda_detalles.id_comanda,
             comanda_detalles.id_producto, comanda_detalles.cantidad_producto,comanda_detalles.estado_pedido,
@@ -374,7 +374,7 @@ class pedido
             AND comanda_detalles.estado_pedido = 1"; 
             
             return AccesoDatos::ConsultaDatosAsociados($consulta);
-        }
+        }*/
 
         public static function TraerTodosLosPedidosPendientesSector($pSector)
         {             
