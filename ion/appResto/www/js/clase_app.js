@@ -17,7 +17,11 @@ class App {
            setTimeout(()=>{ this.mostrarFooterAdmin()},200)//lo atamo con alambre
         }else if(usuario.dataUsuario().id_rol==2){      
             this.traerHTML("partes/mozo_estado.html", false, true, "admin_estado", false)
-          //  setTimeout(()=>{ this.mostrarFooterAdmin()},500)//lo atamo con alambre
+       
+        }else if(usuario.dataUsuario().id_rol==5){      
+            //COCINERO
+            this.traerHTML("partes/cocinero_estado.html", false, true, "cocinero_estado", false)
+         
         }
       
      
