@@ -8,22 +8,24 @@ class AccesoDatos
     {
 
 
-        $servername = "localhost";
-        $username = "root";
-        $database = "appresto";
-        $password = "";
+        $servername = "mysql.hostinger.com.ar";
+        $username = "u579678119_resto";
+        $database = "u579678119_resto";
+        $password = "0d4qGOmzDdpG";
 
         try { 
 
             //local
             //$this->objetoPDO = new PDO('mysql:host=localhost;dbname=db_angular;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-            $this->objetoPDO = new PDO('mysql:host='.$servername.';dbname='.$database.';charset=utf8', $username, $password, array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            //$this->objetoPDO = new PDO('mysql:host=localhost;dbname=appResto;charset=utf8', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false,PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
            
             //web
-            //$this->objetoPDO = new PDO("mysql:host=mysql.hostinger.com.ar;dbname=u579678119_rest2", $username, $password);
+
+            $this->objetoPDO = new PDO("mysql:host=mysql.hostinger.com.ar;dbname=u579678119_rest2", $username, $password);
             
             $this->objetoPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->objetoPDO->exec("SET CHARACTER SET utf8");
+           
             } 
         catch (PDOException $e) { 
             print "Error!: " . $e->getMessage(); 

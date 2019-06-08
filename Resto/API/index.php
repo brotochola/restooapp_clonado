@@ -61,7 +61,7 @@ $app->group('/mozo', function () {
 });
 
 $app->group('/cocinero', function () {
-   
+  
     $this->post('/estado',\pedidoApi::class . ':estadoCocinero'); 
 });
 
