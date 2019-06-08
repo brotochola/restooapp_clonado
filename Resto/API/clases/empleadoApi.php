@@ -9,10 +9,15 @@ class empleadoApi extends empleado
         
     public function TraerUnEmpleado($request, $response, $args) 
     {   
+     
+
+      
+
         $objDelaRespuesta = new stdclass();  
         $objDelaRespuesta->itsOK = false;  
         $objDelaRespuesta->mensaje = "El empleado no existe";            
         $vector = $request->getParsedBody();
+        //print_r($vector);die();
     
         //$vUsuario = $vector['usuario'];  
         $vEmail = $vector['email'];  

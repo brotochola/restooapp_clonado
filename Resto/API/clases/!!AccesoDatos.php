@@ -8,11 +8,15 @@ class AccesoDatos
     {
 
 
-        $servername = "localhost";
-        $username = "root";
-        $database = "appresto";
-        $password = "";
+       /*$servername = "mysql.hostinger.com.ar";
+        $username = "u579678119_rest2";
+        $database = "u579678119_daro";
+        $password = "HL3Ej8Q3hqnk";*/
 
+       $servername = "localhost";
+        $username = "root";
+        $database = "appResto";
+        $password = "Pepwm0ga";
         try { 
 
             //local
