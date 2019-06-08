@@ -10,7 +10,8 @@ class API{
 
         //http://darodarioli.tech/restoapp2/Resto/API/
        // this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
-        this.urlServer="http://pixeloide.com/restoApp/API/";
+       if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
+       else this.urlServer ="../../Resto/API/";
       
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
         this.empleados=null;
