@@ -5,11 +5,13 @@ class API{
     constructor(){
         
         //local
-        this.urlServer="../../Resto/API/";
+       // this.urlServer="../../Resto/API/";
         //web
 
         //http://darodarioli.tech/restoapp2/Resto/API/
-       // this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
+        this.urlServer = "http://darodarioli.tech/Resto/API/";
+
+        //this.urlServer = "http://www.pixeloide.com/restoApp/API/";
 
       
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
@@ -21,9 +23,6 @@ class API{
         this.estadoCocinero = null;
 
     }
-
-
-
 
     habilitarMesa(data,cb){
 
@@ -84,9 +83,9 @@ class API{
             url: this.urlServer + "producto/listado",
             type: "post", //esto es solo porq estoy no usando un backend de verdad
             dataType:"json",
-            // headers: {
-            //     token: localStorage[usuarioLogueado_ls]
-            // },
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
             success: (e)=> {
                 console.log(e)
                     this.productos = e
@@ -259,9 +258,9 @@ class API{
             url: this.urlServer + "mozo/estado",
             dataType:"json",
             type: "post",
-            headers:{
-                      token: localStorage[usuarioLogueado_ls]
-                  },
+            // headers:{
+            //           token: localStorage[usuarioLogueado_ls]
+            //       },
             success: (e)=>{
                 this.estadoAnteriorMozo=this.estadoMozo;
                 this.estadoMozo=e;
@@ -278,9 +277,9 @@ class API{
             url: this.urlServer + "mozo/traerMisPedidos",
             type: "post",
             dataType:"json",
-            headers:{
-                token: localStorage[usuarioLogueado_ls]
-            },
+            // headers:{
+            //     token: localStorage[usuarioLogueado_ls]
+            // },
             success: (e)=>{
                 console.log(e)
                 this.pedidosAnteriorMozo=this.pedidosMozo;
@@ -297,7 +296,7 @@ class API{
     logueo(mail, clave,cb){
         console.log("Clase api: "+mail,clave, "server: "+ this.urlServer)
         $.ajax({
-            url: this.urlServer+ "/login/",
+            url: this.urlServer+ "login/",
             type:"post",
             dataType:"json",
             data:{
