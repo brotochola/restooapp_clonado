@@ -71,7 +71,7 @@ class empleadoApi extends empleado
         $emp->habilitado = $vector['habilitado'];
         $emp->email = $vector['email'];
         $emp->sueldo = $vector['sueldo'];
-        $emp->clave = $vector['clave'];  
+        $emp->foto = $vector['foto'];
 
             
         if($vector['fecha_ingreso'] == ""){

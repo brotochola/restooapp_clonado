@@ -8,6 +8,8 @@ $(document).ready(function() {
 
 	//agrego cachos:
 	agregarCachoABody("modalConfirmacion.html")
+	agregarCachoABody("perfilesDePrueba.html")
+
 });
 
 function login(){

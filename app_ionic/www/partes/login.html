@@ -41,6 +41,11 @@
             <!-- <h5><a href="#">Olvidaste la contraseña?</a></h5>-->
         </div>
 
+        <div class="col-12 section-button">
+            <button id="botonTestingRoles">Usuarios de prueba</button>
+            <!-- <h5><a href="#">Olvidaste la contraseña?</a></h5>-->
+        </div>
+
     </div>
 </div>
 
@@ -50,8 +55,9 @@
 
 
     $(document).ready(function () {
-        console.log("doc ready login ");    
+        console.log("doc ready login ");
         $("#botonLogin").click(clickLogin)
+        $("#botonTestingRoles").click(clickUsuariosPrueba)
     });//doc ready
 
 
@@ -61,7 +67,7 @@
             mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
         } else {
             usuario.meterleToken(r.token)
-           app.quePasaDespuesDeLogin()
+            app.quePasaDespuesDeLogin()
 
         }
     }//cblogin
@@ -83,8 +89,8 @@
     }
 
 
-
-
-
+    function clickUsuariosPrueba() {
+        app.traerHTML("partes/perfilesDePrueba.html", true);
+    }
 
 </script>

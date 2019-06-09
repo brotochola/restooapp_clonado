@@ -1,0 +1,57 @@
+<div class="fondo-modal" id="perfilesDePrueba">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal agregarVerEmpleado">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick='logueoPrueba(1)' class="boton-modal cancelar">Admin</button>
+                    </div>
+                    <div class="col-6">
+                        <button onclick='logueoPrueba(2)' class="boton-modal cancelar">Meserx</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    function logueoPrueba(rol) {
+
+        alert(rol);
+
+        switch (rol) {
+            case 1:
+                mail = "fsaiegh@gmail.com";
+                break;
+            case 2:
+                mail = "male@gmail.com";
+                break;
+            default:
+                alert("Sin programar");
+
+        }
+
+        clave = "1234";
+
+        api.logueo(mail, clave, callbackPruebaPerfil)
+
+    }
+
+
+    let callbackPruebaPerfil = function (r) {
+        console.log(r);
+        if (r.itsOK == false) {
+            mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
+        } else {
+            usuario.meterleToken(r.token)
+            app.quePasaDespuesDeLogin()
+
+        }
+    }//cblogin
+
+</script>

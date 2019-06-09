@@ -16,6 +16,7 @@ class empleado
     public $habilitado;
     public $clave;
     public $email;
+    public $foto;
 
         public function __construct() {} 
 
@@ -39,8 +40,8 @@ class empleado
         {
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
             $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into empleados 
-            (id_empleado, usuario, email, nombre_completo,fecha_nac,dni,id_rol,fecha_ingreso,fecha_egreso,sueldo,clave,habilitado)
-            values(:id_empleado,:usuario,:email,:nombre_completo,:fecha_nac,:dni,:id_rol,:fecha_ingreso,:fecha_egreso,:sueldo,:clave,:habilitado)");
+            (id_empleado, usuario, email, nombre_completo,fecha_nac,dni,id_rol,fecha_ingreso,fecha_egreso,sueldo,clave,habilitado,foto)
+            values(:id_empleado,:usuario,:email,:nombre_completo,:fecha_nac,:dni,:id_rol,:fecha_ingreso,:fecha_egreso,:sueldo,:clave,:habilitado,:foto)");
 
             $consulta->bindValue(':id_empleado', $this->id_empleado, PDO::PARAM_STR);
             $consulta->bindValue(':usuario', $this->usuario, PDO::PARAM_STR);
@@ -54,6 +55,7 @@ class empleado
             $consulta->bindValue(':fecha_egreso', $this->fecha_egreso, PDO::PARAM_STR);
             $consulta->bindValue(':sueldo', $this->sueldo, PDO::PARAM_STR);
             $consulta->bindValue(':clave', $this->clave, PDO::PARAM_STR);            
+            $consulta->bindValue(':foto', $this->foto, PDO::PARAM_STR);
             
             $consulta->execute();	           
             return $consulta->rowCount();
