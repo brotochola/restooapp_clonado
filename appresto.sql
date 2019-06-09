@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-06-2019 a las 00:15:10
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.1
+-- Tiempo de generación: 09-06-2019 a las 03:02:42
+-- Versión del servidor: 10.1.40-MariaDB
+-- Versión de PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -100,28 +100,29 @@ CREATE TABLE `empleados` (
   `fecha_egreso` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `sueldo` decimal(10,0) DEFAULT NULL,
   `clave` varchar(50) DEFAULT NULL,
-  `habilitado` int(11) DEFAULT NULL
+  `habilitado` int(11) DEFAULT NULL,
+  `foto` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`id_empleado`, `usuario`, `email`, `nombre_completo`, `fecha_nac`, `dni`, `id_rol`, `fecha_ingreso`, `fecha_egreso`, `sueldo`, `clave`, `habilitado`) VALUES
-(2, 'ejimenez', 'cocinero@a.aaa', 'Emilio Jimenez', '0000-00-00', 30111222, 5, '2018-07-25', '0000-00-00 00:00:00', '20000', '1234', 1),
-(3, 'fsaiegh', 'fsaiegh@gmail.com', 'Facundo Saiegh', '0000-00-00', 0, 1, '2018-07-14', NULL, '25000', '1234', 1),
-(4, 'male', 'male@gmail.com', 'male prueba', '2018-12-31', 12456123, 2, '0000-00-00', '0000-00-00 00:00:00', '5656', '1234', 1),
-(14, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'sdasd', '0000-00-00', 343434343, 2, '0000-00-00', '0000-00-00 00:00:00', '34', '1234', 1),
-(15, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'asd asd asd ads asd 4', '0434-03-31', 343434, 2, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1),
-(16, '', 'chicho@chichicch.com', 'chicho22', '4343-02-28', 23423424, 3, '0000-00-00', '0000-00-00 00:00:00', '3144', '1234', 1),
-(17, 'eric_estrada', 'sdad@asdd.com', 'eric estrada', '0000-00-00', 444443, 0, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1),
-(18, 'mario', 'mario@baracus.com', 'mario baracus', '2000-12-12', 34433434, 5, '2019-05-29', '0000-00-00 00:00:00', '32000', '1234', 1),
-(21, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1),
-(22, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-11', 0, 0, '0000-00-00', '0000-00-00 00:00:00', '0', '1234', 0),
-(24, '', '', '', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1),
-(25, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '0000-00-00', '0000-00-00 00:00:00', '2424', '1234', 0),
-(26, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '2019-05-29', '0000-00-00 00:00:00', '2424', '1234', 1),
-(27, 'ñeleo', 'asd@dasd.com', 'lelo lelel', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1);
+INSERT INTO `empleados` (`id_empleado`, `usuario`, `email`, `nombre_completo`, `fecha_nac`, `dni`, `id_rol`, `fecha_ingreso`, `fecha_egreso`, `sueldo`, `clave`, `habilitado`, `foto`) VALUES
+(2, 'ejimenez', 'cocinero@a.aaa', 'Emilio Jimenez', '0000-00-00', 30111222, 5, '2018-07-25', '0000-00-00 00:00:00', '20000', '1234', 1, NULL),
+(3, 'fsaiegh', 'fsaiegh@gmail.com', 'Facundo Saiegh', '0000-00-00', 0, 1, '2018-07-14', NULL, '25000', '1234', 1, NULL),
+(4, 'male', 'male@gmail.com', 'male prueba', '2018-12-31', 12456123, 2, '0000-00-00', '0000-00-00 00:00:00', '5656', '1234', 1, NULL),
+(14, 'qweqw qwe qwe', 'dolinuck@gmail.com', 'sdasd', '0000-00-00', 343434343, 1, '0000-00-00', '0000-00-00 00:00:00', '34', '1234', 1, NULL),
+(15, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'asd asd asd ads asd 4', '0434-03-31', 343434, 2, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1, NULL),
+(16, '', 'chicho@chichicch.com', 'chicho22', '4343-02-28', 23423424, 3, '0000-00-00', '0000-00-00 00:00:00', '3144', '1234', 1, NULL),
+(17, 'eric_estrada', 'sdad@asdd.com', 'eric estrada', '0000-00-00', 444443, 0, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1, NULL),
+(18, 'mario', 'mario@baracus.com', 'mario baracus', '2000-12-12', 34433434, 5, '2019-05-29', '0000-00-00 00:00:00', '32000', '1234', 1, NULL),
+(21, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1, NULL),
+(22, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-11', 0, 0, '0000-00-00', '0000-00-00 00:00:00', '0', '1234', 0, NULL),
+(24, '', '', '', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1, NULL),
+(25, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '0000-00-00', '0000-00-00 00:00:00', '2424', '1234', 0, NULL),
+(26, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '2019-05-29', '0000-00-00 00:00:00', '2424', '1234', 1, NULL),
+(27, 'ñeleo', 'asd@dasd.com', 'lelo lelel', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1, NULL);
 
 -- --------------------------------------------------------
 
