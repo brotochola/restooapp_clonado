@@ -639,13 +639,16 @@ public static function TraerMayorTiempo($Pedidos){
         //Q COINCIDEN CON SU ROL (BARTENDER, COCINERO, CANDYBAR)
         //ENTONCES EL PEDIDO NO ESTARA LISTO EN SU TOTALIDAD HASTA Q TODAS LAS PARTES NO ESTEN LISTAS
         $vector = $request->getParsedBody(); 
-        $vector["pedido"];
-        $vector["estado"];
+       
+       $pedido= pedido::cambiarEstadoPedido( $vector["id_pedido"],3);
+      // print_r($pedido);die();
+       mesa::ModificarEstadoDeLaMesa($pedido[0]->id_mesa,3);
+       self::estadoCocinero($request, $response);
 
 
 
     }
-    //cambiar estado pedido
+
 
 
 

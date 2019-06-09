@@ -38,6 +38,26 @@ class pedido
            
             }
 
+
+            public static function cambiarEstadoPedido($id,$estado){
+                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+                $sql="UPDATE `pedidos` SET `estado_pedido` = '$estado' WHERE `pedidos`.`id` = ".$id;
+
+             // echo $sql;die();
+
+
+                $consulta =$objetoAccesoDato->RetornarConsulta($sql);
+                 $consulta->execute();
+
+                 $consulta =$objetoAccesoDato->RetornarConsulta("select * from pedidos where id=$id");
+                 $consulta->execute();
+
+                 $consulta->setFetchMode(PDO::FETCH_CLASS,"stdClass"); 
+                return $consulta->fetchAll();
+
+
+            }
+
             public function CargarPedidosDetalle($pPedidos,$pCantidades,$pId_pedido)
             {
                 $obj = new stdclass();
