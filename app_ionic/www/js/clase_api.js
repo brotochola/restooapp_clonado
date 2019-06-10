@@ -79,6 +79,48 @@ class API{
         })
     }
 
+
+    cargarEstadoCocinero(cb){
+
+
+      console.log("cargar estado cocoinero")
+           
+        
+            $.ajax({
+                url: api.urlServer+"cocinero/estado",
+                type:"post",
+                dataType:"json",
+                headers: {
+                    token: localStorage[usuarioLogueado_ls]
+                },
+                success: function(e) {
+                   console.log(e);
+                  api.estadoCocinero = e
+                  if(cb instanceof Function) cb();
+                }, error:consoleLogE
+            });
+    }
+
+    cocineroInformaQuePedidoEstaListo(id, cb){
+        $.ajax({
+            //url: "../../server/admin/productos/lista",
+            url: this.urlServer + "cocinero/pedidoListo",
+            type: "post", //esto es solo porq estoy no usando un backend de verdad
+            dataType:"json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            data:{
+                "id_pedido":id
+            },
+            success: (e)=> {
+                console.log(e)              
+               
+                if(cb instanceof Function) cb();
+            },error:e=>console.log(e)
+        })
+    }
+
     traerProductos(cb){
 
         $.ajax({
@@ -104,9 +146,9 @@ class API{
 
         $.ajax({
             url: this.urlServer+"mesas/id/"+id,
-            // headers: {
-            //     token: localStorage[usuarioLogueado_ls]
-            // },
+             headers: {
+                 token: localStorage[usuarioLogueado_ls]
+             },
             dataType:"json",
             success: function(e) {
                // console.log(e)
@@ -124,9 +166,9 @@ class API{
             url: this.urlServer+"mesas/lista",
             type: "post", 
             dataType:"json",
-            // headers: {
-            //     token: localStorage[usuarioLogueado_ls]
-            // },
+             headers: {
+                 token: localStorage[usuarioLogueado_ls]
+             },
             success: (e)=>{
                 this.mesas=e;
                 localStorage["mesas_" + nombreDelSitio] = JSON.stringify(e);
@@ -142,9 +184,10 @@ class API{
             url: this.urlServer + "empleados/listar",
             type: "post",
             dataType:"json",
-            // headers: {
-            //     token: localStorage[usuarioLogueado_ls]
-            // },
+            
+            headers: {
+                 token: localStorage[usuarioLogueado_ls]
+             },
             success: (e) =>{
                 this.empleados = e  
                  
@@ -164,11 +207,10 @@ class API{
         $.ajax({
             type:"post",
             dataType:"json",
-            url: api.urlServer + "empleados/alta",
-            //url:"../../server/admin/empleados/agregar",
-            // headers:{
-            //     token: localStorage[usuarioLogueado_ls]
-            // },
+            url: api.urlServer + "empleados/alta",         
+             headers:{
+                 token: localStorage[usuarioLogueado_ls]
+             },
             data:emple,
             success:(e)=>{
                 console.log(e)
@@ -192,9 +234,9 @@ class API{
         $.ajax({
             // url:"../../server/admin/empleados/modificar",
             url: this.urlServer + "empleados/borrar",
-            // headers:{
-            //     token: localStorage[usuarioLogueado_ls]
-            // },
+             headers:{
+                 token: localStorage[usuarioLogueado_ls]
+             },
             type:"post",
             dataType:"json",
             data:{id:id},
@@ -212,9 +254,9 @@ class API{
         $.ajax({
             // url:"../../server/admin/empleados/modificar",
             url: this.urlServer + "empleados/modificar",
-            //  headers:{
-            //      token: localStorage[usuarioLogueado_ls]
-            //  },
+              headers:{
+                  token: localStorage[usuarioLogueado_ls]
+              },
              type:"post",
              dataType:"json",
              data:emple,
@@ -242,9 +284,9 @@ class API{
         $.ajax({
             url: this.urlServer + "admin/estado",
             type: "post",
-            // headers: {
-            //     token: localStorage[dataDelUsuario_ls]
-            // },
+             headers: {
+                 token: localStorage[dataDelUsuario_ls]
+             },
             success: (e)=>{
                 console.log(e)
                 this.estadoAdmin=e;
@@ -261,9 +303,9 @@ class API{
             url: this.urlServer + "mozo/estado",
             dataType:"json",
             type: "post",
-            // headers:{
-            //           token: localStorage[usuarioLogueado_ls]
-            //       },
+             headers:{
+                       token: localStorage[usuarioLogueado_ls]
+                   },
             success: (e)=>{
                 this.estadoAnteriorMozo=this.estadoMozo;
                 this.estadoMozo=e;
@@ -280,9 +322,9 @@ class API{
             url: this.urlServer + "mozo/traerMisPedidos",
             type: "post",
             dataType:"json",
-            // headers:{
-            //     token: localStorage[usuarioLogueado_ls]
-            // },
+             headers:{
+                 token: localStorage[usuarioLogueado_ls]
+             },
             success: (e)=>{
                 console.log(e)
                 this.pedidosAnteriorMozo=this.pedidosMozo;
@@ -322,9 +364,9 @@ class API{
               "mesa":JSON.stringify(m)
           },
           dataType:"json",
-        //   headers:{
-        //     token:localStorage[usuarioLogueado_ls]
-        //   },
+           headers:{
+             token:localStorage[usuarioLogueado_ls]
+           },
           success:(e)=>{
             if(cb instanceof Function) cb(e)   
           }
@@ -341,9 +383,9 @@ class API{
               "mesa":JSON.stringify(m)
           },
           dataType:"json",
-        //   headers:{
-        //     token:localStorage[usuarioLogueado_ls]
-        //   },
+           headers:{
+             token:localStorage[usuarioLogueado_ls]
+           },
           success:function(e){
               this.mesas=e
               localStorage["mesas_"+nombreDelSitio]=e;

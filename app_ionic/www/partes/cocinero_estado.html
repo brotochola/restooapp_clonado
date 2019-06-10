@@ -263,37 +263,23 @@ header{
 const tiempoDelay = 5000;
 
 $(document).ready(function() {
-    cargarEstado()
+    api.cargarEstadoCocinero(cbCargarEstado)
 
 });
 
 
 
-function cargarEstado() {
-    console.log("cargar estado")
-
-    $.ajax({
-        url: api.urlServer+"cocinero/estado",
-        type:"post",
-        dataType:"json",
-        headers: {
-            token: localStorage[usuarioLogueado_ls]
-        },
-        success: function(e) {
-            console.log(e)
-          api.estadoCocinero = e
-          actualizarEstadoCocinero()
-        }, error:consoleLogE
-    })
-
-
-
-
-  if(usuario.tokenValido() && usuario.dataUsuario().id_rol>2){ 
-       setTimeout(cargarEstado, tiempoDelay)
+function cbCargarEstado(){
+    actualizarEstadoCocinero();
+    if(usuario.tokenValido() && usuario.dataUsuario().id_rol>2){ 
+        console.log("ok token y rol");
+       setTimeout(()=>{
+           
+           api.cargarEstadoCocinero(cbCargarEstado)
+        }
+       , tiempoDelay)
   }
 }
-
 
 function actualizarEstadoCocinero() {
  /*  if (ea.notif.length > 0) {
@@ -337,7 +323,7 @@ function armarProdNotif(id, prod) {
     html += '</div>';
     return html
 }
-
+/*
 function aceptarPedido(id) {
     $("#notifCocinero").fadeOut()
     $.ajax({
@@ -355,7 +341,7 @@ function aceptarPedido(id) {
         	actualizarEstadoCocinero()
         }
     })
-}
+}*/
 
 function armarProdPedidoActual(prod) {
     //ID PROD
@@ -378,6 +364,7 @@ function armarProdPedidoActual(prod) {
 function pedidoListo(id) {
     console.log("el pedido " + id + " esta listo")
     $(".unPedido."+id).remove() //esto es de mentirita
+    api.cocineroInformaQuePedidoEstaListo(id, actualizarEstadoCocinero);
 
 }
 
