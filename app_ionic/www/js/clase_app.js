@@ -44,6 +44,7 @@ class App {
        
         this.traerHTML("partes/nuevoPedidoAgregarProductos.html", true, true, "nuevoPedidoAgregarProductos", true)
         this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true)
+        this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true)
         
         
 

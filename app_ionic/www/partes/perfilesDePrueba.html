@@ -1,18 +1,48 @@
 <div class="fondo-modal" id="perfilesDePrueba">
     <div class="contenedor-modal">
-        <div class="cuerpo-modal agregarVerEmpleado">
+        <div class="cuerpo-modal contenedorPruebas">
             <div class="container">
 
                 <div class="row">
                     <div class="col-6">
-                        <button onclick='logueoPrueba(1)' class="boton-modal cancelar">Admin</button>
-                    </div>
-                    <div class="col-6">
-                        <button onclick='logueoPrueba(2)' class="boton-modal cancelar">Meserx</button>
+                        <button onclick='logueoPrueba(1)' class="boton-modal">Socio</button>
                     </div>
                 </div>
-
-
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick='logueoPrueba(2)' class="boton-modal">Meserx</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick='logueoPrueba(3)' class="boton-modal">Bartender</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick='logueoPrueba(4)' class="boton-modal">Cervecerx</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick='logueoPrueba(5)' class="boton-modal">Cocinerx</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick='logueoPrueba(6)' class="boton-modal">Pastelerx</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick='logueoPrueba(7)' class="boton-modal">Admin</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button onclick='sacarModalPerfilesDePrueba()' class="boton-modal cancelar">Cancelar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -31,17 +61,32 @@
             case 2:
                 mail = "male@gmail.com";
                 break;
+            case 3:
+                mail = "rcastro@gmail.com";
+                break;
+            case 4:
+                mail = "chicob@gmail.com";
+                break;
+            case 5:
+                mail = "mario@baracus.com";
+                break;
+            case 6:
+                mail = "jkrowling@gmail.com";
+                break;
+            case 7:
+                mail = "dolinuck@gmail.com";
+                break;
             default:
                 alert("Sin programar");
-
         }
-
         clave = "1234";
-
-        api.logueo(mail, clave, callbackPruebaPerfil)
-
+        api.logueo(mail, clave, callbackPruebaPerfil);
     }
 
+    function sacarModalPerfilesDePrueba() {
+        app.esconderUnaParte(null, "modalPerfilesDePrueba");
+
+    }
 
     let callbackPruebaPerfil = function (r) {
         console.log(r);
