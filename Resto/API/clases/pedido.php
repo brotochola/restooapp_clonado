@@ -156,7 +156,7 @@ class pedido
             
         ##=========================== REGION ABM
 
-        public function Insertar()
+    /*    public function Insertar()
         {
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
             $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into comanda_detalles(id_comanda, id_producto, cantidad_producto, estado_pedido) 
@@ -168,8 +168,8 @@ class pedido
             $consulta->bindValue(':estado_pedido', $this->estado_pedido, PDO::PARAM_STR);            
             return $consulta->execute();		
        
-        }
-        
+        }*/
+    /*    
         public function CargarPedidoComanda($pPedidos,$pCantidades,$pId_comanda,$pHora_alta)
         {
             $obj = new stdclass();
@@ -203,7 +203,8 @@ class pedido
             }     
             return $obj;                    
         }
-        
+        */
+        /*
         public function InsertarBorrado()
         {
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
@@ -288,7 +289,7 @@ class pedido
             }           
             return $obj;
         }
-
+*/
         ##=========================== REGION CONSULTAS
      
         public function TraerPrecios($pPedidos,$pCantidades)
@@ -378,11 +379,11 @@ class pedido
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }*/
 
-        public static function TraerTiempoPedido($pId_comanda)
+      /*  public static function TraerTiempoPedido($pId_comanda)
         {             
             $consulta = "SELECT * FROM `comanda_detalles`  WHERE `id_comanda`= '$pId_comanda'";
             return AccesoDatos::ConsultaDatosAsociados($consulta);
-        }
+        }*/
 
       /*  public static function TraerTodosLosPedidosPendientes()
         {
@@ -404,11 +405,11 @@ class pedido
         }
 
                
-        public static function TraerPedidosDemorados()
+    /*    public static function TraerPedidosDemorados()
         {             
             $consulta = "SELECT * FROM `comanda_detalles` WHERE hora_estimada < hora_listo";
             return AccesoDatos::ConsultaDatosAsociados($consulta);
-        }
+        }*/
 
 
     /*    public static function TraerPedidoPendiente($vId_comanda,$vId_producto){

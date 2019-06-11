@@ -79,8 +79,10 @@ class App {
     }
 
     terminoVideoSplash(){
+        this.mostrarLoading()
        this.$contenido.show();
        this.$videoSplash.hide();
+       setTimeout(()=>{this.ocultarLoading()},500);
 
     }
    

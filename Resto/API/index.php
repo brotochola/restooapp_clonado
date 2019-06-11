@@ -123,11 +123,11 @@ $app->group('/login', function () {
    
     $this->post('/',\empleadoApi::class . ':TraerUnEmpleado');     
 
-    $this->get('/get',\empleadoApi::class . ':TraerUnEmpleadoGet'); 
+   // $this->get('/get',\empleadoApi::class . ':TraerUnEmpleadoGet'); 
 
-    $this->get('/captcha',\captchaApi::class . ':TraerCaptchas'); 
+   // $this->get('/captcha',\captchaApi::class . ':TraerCaptchas'); 
 
-    $this->get('/respuestas',\captchaApi::class . ':TraerRespuestas'); 
+  //  $this->get('/respuestas',\captchaApi::class . ':TraerRespuestas'); 
     
          
 });
@@ -137,29 +137,29 @@ $app->group('/login', function () {
 
 $app->group('/pedido', function () {        
    
-      $this->post('/modificaCantidad/{cantidad}',\pedidoApi::class . ':ModificaCantidadPedido');
+   //   $this->post('/modificaCantidad/{cantidad}',\pedidoApi::class . ':ModificaCantidadPedido');
   
       $this->get('/listadoPendientes',\pedidoApi::class . ':TraerPendientes'); 
 
       $this->get('/listado',\pedidoApi::class . ':TraerPedidos'); 
       
-      $this->get('/pedidosmozo',\pedidoApi::class . ':PedidosPorMozo'); 
+ //     $this->get('/pedidosmozo',\pedidoApi::class . ':PedidosPorMozo'); 
  
-      $this->get('/listadoPendientesSector',\pedidoApi::class . ':TraerTodosLosPendientesSector');
+  //    $this->get('/listadoPendientesSector',\pedidoApi::class . ':TraerTodosLosPendientesSector');
   
-      $this->get('/tomarPedido',\pedidoApi::class . ':TomarUnPedido'); 
+   //   $this->get('/tomarPedido',\pedidoApi::class . ':TomarUnPedido'); 
  
-      $this->get('/finalizarPedido',\pedidoApi::class . ':FinalizarUnPedido'); 
+    //  $this->get('/finalizarPedido',\pedidoApi::class . ':FinalizarUnPedido'); 
 
-      $this->delete('/borrar',\pedidoApi::class . ':BorrarUnPedido');
+   //   $this->delete('/borrar',\pedidoApi::class . ':BorrarUnPedido');
       
-      $this->get('/pedidoComanda',\pedidoApi::class . ':TraerPedidosComanda'); 
+  //    $this->get('/pedidoComanda',\pedidoApi::class . ':TraerPedidosComanda'); 
 
-      $this->get('/pedidosDeUnaComanda',\pedidoApi::class . ':TraerPedidosDeComanda');
+   //   $this->get('/pedidosDeUnaComanda',\pedidoApi::class . ':TraerPedidosDeComanda');
 
-      $this->get('/agregar',\pedidoApi::class . ':AgregarPedidoAComanda'); 
+  //    $this->get('/agregar',\pedidoApi::class . ':AgregarPedidoAComanda'); 
 
-      $this->get('/modificarCantidad',\pedidoApi::class . ':ModificaCantidad');        
+   //   $this->get('/modificarCantidad',\pedidoApi::class . ':ModificaCantidad');        
               
   });
   
@@ -172,7 +172,7 @@ $app->group('/empleados', function () {
     
     $this->post('/listar',\empleadoApi::class . ':TraerEmpleados'); 
 
-    $this->get('/listar/Excel',\empleadoApi::class . ':TraerDatosParaExportarExcel');
+    //$this->get('/listar/Excel',\empleadoApi::class . ':TraerDatosParaExportarExcel');
     
     $this->put('/desactivar',\empleadoApi::class . ':DesactivarUnEmpleado');
 
