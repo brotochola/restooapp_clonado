@@ -8,6 +8,7 @@ class App {
         this.partes = [];
         this.$negroIndex=$("#negroIndex");
         this.$loading = $("#loading");
+        this.$videoSplash=$("video#videoSplash");
  
     
     }
@@ -77,6 +78,11 @@ class App {
 
     }
 
+    terminoVideoSplash(){
+       this.$contenido.show();
+       this.$videoSplash.hide();
+
+    }
    
 
     getGPS(cb){
