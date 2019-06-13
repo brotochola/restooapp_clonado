@@ -32,8 +32,8 @@ require_once './clases/usuario.php';
 
 
 
-require_once './clases/captchaApi.php';
-require_once './clases/captcha.php';
+//require_once './clases/captchaApi.php';
+//require_once './clases/captcha.php';
 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
