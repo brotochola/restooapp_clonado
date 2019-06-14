@@ -1,0 +1,409 @@
+<style>
+
+#notifCocinero{
+	display:none; 
+	box-shadow: 0px 0px 50px rgba(0,0,0,0.5);
+	/* height: 41%; */
+	overflow: hidden;
+	top: 0px;
+	position: relative;
+	z-index: 2;
+	/* border-bottom: 3px solid rgb(20,20,20,0.5); */
+	background: lightgray;
+	left: 0px;
+	background-image: url(media/Img/fondo-add-user.png);
+	/* background-size: cover; */
+}
+
+.cabezeraPedidosPendientes{
+	background: #1B5F20;
+	color: white;
+	border-bottom: 2px solid darkgray;border-top: 3px solid #144618;margin-bottom: 5px;box-shadow: 0px 3px 10px rgba(0,0,0,0.5);}
+header{
+	top:0px;
+	width:100%;
+	text-align:center;
+	left:0px;
+	background-color: #fed322;
+    padding: 8px 15px;
+    box-shadow: 0px 0px 1px 1px #eea002;
+    position: fixed;
+    z-index: 5;
+	position:fixed;
+	z-index:8988848484;
+}
+
+#containerPendientes{
+	margin-top: 86.5%;
+	left: 0px;
+	top:200px;
+	margin-bottom: 50%;
+	display: block;
+}
+*{
+	box-sizing:border-box;
+}
+
+.nombreProd{
+	padding-left: 0px;
+	text-align:left;
+}
+
+#selectTiempoEstimado{
+	width: 100%;
+
+}
+</style>
+        
+    
+
+        
+    <!-- section header -->
+    <div class="container-fluid back-header-listing">
+        <div class="row">
+            <div class="col-2 text-left" onclick="botonVolver()">
+               <i class="fas fa-angle-left flecha-atras"></i>
+            </div>
+            <div class="col-8 titulo-cabezera-cocinero">
+                <strong>Pedidos</strong>
+            </div>
+        </div>  
+    </div>
+    <!-- end section header -->
+    
+
+    <div class="container" id="notifCocinero" style="display: none;">
+            <div class="row pedidos-cocineros">
+                <div class="col-4 campana-roja">
+                    <img src="media/Img/campana-roja.png">
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-12 numero-pedido">
+                            <img src="media/Img/biff.png" class="img-pedido">
+                            <span class="mesa-numero" id="rolEmple">Cocina</span>
+                        </div>
+                        <div class="col-12 numero-pedido">
+                            <img src="media/Img/mesa.png" class="img-pedido">
+                            <span class="mesa-numero">Mesa #<span id="mesaNum">12</span>
+                        </span></div>
+                        <div class="col-12 numero-pedido">
+                            <img src="media/Img/pedido-black.png" class="img-pedido">
+                            <span class="mesa-numero">Pedido #<span id="pedidoNum">164</span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 check-verde">
+                    <img src="media/Img/check-verde.png" onclick="aceptarPedido()">
+                </div>
+            </div>
+            <div class="container pedidos-cocinero">
+                <div class="row text-center" id="contPedidosNotif"> <div class="col-6"><div class="row"><div class="col-4"><span class="numero-de-pedido-cocinero">#<span id="idProducto">1</span></span></div> <div class="col-8 nombreProd">Kai Pad</div></div></div> <div class="col-6"><div class="row"><div class="col-4"><span class="numero-de-pedido-cocinero">#<span id="idProducto">44</span></span></div> <div class="col-8 nombreProd">Curry Rojo de Cerdo</div></div></div></div>
+            </div>
+            <!-- hora -->
+            <div class="row horaPedidos">
+                <div class="col-12" id="horaPedido">Hora Pedido: 22:02</div>
+                
+            </div>
+        </div>
+
+    <div class="container-fluid" id="contenedorPedidosActuales">
+        <div class="row cabezeraPedidosPendientes">
+            <div class="col-12">
+                PEDIDOS PENDIENTES
+            </div>
+        </div>
+        
+        
+        <div class="row list-pedidos-pendientes">
+            
+             <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">CocaCola - <strong>$30</strong></div>
+                </div>
+                 <hr>
+            </div>
+            
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">Bife - <strong>$200</strong></div>
+                </div>
+                <hr>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">Papas - <strong>$70</strong></div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="row listaPedidosPendientes">
+            <div class="col-5">
+                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
+                <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
+            </div>
+            <div class="col-5">
+                <img src="media/Img/mesa.png" class="mesa-pendiente">
+                <span class="n-mesa-p">MESA #<strong>10</strong></span>
+            </div>
+            <div class="col-2 check-verde-pedidos">
+                <img src="media/Img/check-verde.png">
+            </div>
+            
+        </div>
+
+        <div class="row list-pedidos-pendientes">
+            
+             <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">CocaCola - <strong>$30</strong></div>
+                </div>
+                 <hr>
+            </div>
+            
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">Bife - <strong>$200</strong></div>
+                </div>
+                <hr>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">Papas - <strong>$70</strong></div>
+                </div>
+            </div>
+            
+        </div>
+          <div class="row listaPedidosPendientes">
+            <div class="col-5">
+                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
+                <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
+            </div>
+            <div class="col-5">
+                <img src="media/Img/mesa.png" class="mesa-pendiente">
+                <span class="n-mesa-p">MESA #<strong>8</strong></span>
+            </div>
+            <div class="col-2 check-verde-pedidos">
+                <img src="media/Img/check-verde.png">
+            </div>
+            
+        </div>
+        <div class="row list-pedidos-pendientes">
+            
+             <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">CocaCola - <strong>$30</strong></div>
+                </div>
+                 <hr>
+            </div>
+            
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">Bife - <strong>$200</strong></div>
+                </div>
+                <hr>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="numero-de-pedido-cocinero">#3</span>
+                    </div> 
+                    <div class="col-10 text-left">Papas - <strong>$70</strong></div>
+                </div>
+            </div>
+            
+        </div>
+          <div class="row listaPedidosPendientes">
+            <div class="col-5">
+                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
+                <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
+            </div>
+            <div class="col-5">
+                <img src="media/Img/mesa.png" class="mesa-pendiente">
+                <span class="n-mesa-p">MESA #<strong>8</strong></span>
+            </div>
+            <div class="col-2 check-verde-pedidos">
+                <img src="media/Img/check-verde.png">
+            </div>
+            
+        </div>
+    </div>
+  
+ 
+    
+
+    <script>
+    console.log("cocinero.js")
+
+const tiempoDelay = 5000;
+
+$(document).ready(function() {
+    api.cargarEstadoCocinero(cbCargarEstado)
+
+});
+
+
+
+function cbCargarEstado(){
+    actualizarEstadoCocinero();
+    if(usuario.tokenValido() && usuario.dataUsuario().id_rol>2){ 
+        console.log("ok token y rol");
+       setTimeout(()=>{
+           
+           api.cargarEstadoCocinero(cbCargarEstado)
+        }
+       , tiempoDelay)
+  }
+}
+
+function actualizarEstadoCocinero() {
+ /*  if (ea.notif.length > 0) {
+        mostrarNotif(ea.notif[0])
+    }*/
+
+    $("#contenedorPedidosActuales").html("")
+    for (var i = 0; i < api.estadoCocinero.length; i++) {
+        $("#contenedorPedidosActuales").append(armarPedidoActual(api.estadoCocinero[i]))
+    }
+}
+
+function mostrarNotif(notif) {
+    console.log("lanzando notificacion")
+    rol = usuario.dataUsuario().id_rol;
+    $("#rolEmple").html(rolesEmpleados[rol])
+    $("#mesaNum").html(notif.id_mesa)
+    $("#pedidoNum").html(notif.id_pedido)
+    $("#horaPedido").html("Hora Pedido: " + notif.hora_pedido)
+
+
+    $("#contPedidosNotif").html("")
+    for (var i = 0; i < notif.productos; i++) {
+        let prod=notif.productos[i]
+        $("#contPedidosNotif").append(armarProdNotif(prod))
+    }
+
+
+    $("#notifCocinero").fadeIn()
+}
+
+function armarProdNotif(id, prod) {
+    html = ""
+    html += ' <div class="col-6">';
+    html += '<div class="row">';
+    html += '<div class="col-4">';
+    html += '<span class="numero-de-pedido-cocinero">#<span id="idProducto">' + id + '</span></span>';
+    html += '</div> ';
+    html += '<div class="col-8 nombreProd">' + prod + '</div>';
+    html += '</div>';
+    html += '</div>';
+    return html
+}
+/*
+function aceptarPedido(id) {
+    $("#notifCocinero").fadeOut()
+    $.ajax({
+        type:"post",
+        dataType:"json",
+        url: api.urlServer+"cocinero/aceptarPedido",
+        headers: {
+            token: localStorage[usuarioLogueado_ls]
+        },
+        data: {
+            "idPedido": id
+        },
+        success: function(e) {
+            api.estadoCocinero = e      	
+        	actualizarEstadoCocinero()
+        }
+    })
+}*/
+
+function armarProdPedidoActual(prod) {
+    //ID PROD
+    //NOMBRE PROD
+  //  console.log(prod)
+    var html = ""
+    html += '<div class="col-12 prod">'
+    html += '<div class="row">'
+    html += '<div class="col-2">'
+    html += '<span class="numero-de-pedido-cocinero">#' + prod.id_producto + '</span>'
+    html += '</div>'
+    html += '<div class="col-10 text-left">' + prod.nombre_producto +" <strong>x"+prod.cantidad+ ' </strong></div>'
+    html += '</div>'
+    html += '<hr>'
+    html += '</div>'
+    return html;
+}
+
+
+function pedidoListo(id) {
+    console.log("el pedido " + id + " esta listo")
+    $(".unPedido."+id).remove() //esto es de mentirita
+    api.cocineroInformaQuePedidoEstaListo(id, actualizarEstadoCocinero);
+
+}
+
+function armarPedidoActual(pedido) {
+
+
+   // console.log(pedido)
+    if(!pedido.hasOwnProperty("productos")) return;
+    var html = '  <!-- un pedido -->'
+    html += '            <div class="unPedido '+pedido.id+'">'
+    html += '                  <div class="row listaPedidosPendientes">'
+    html += '  <div class="col-5">'
+    html += '  <img src="media/Img/pedido-black.png" class="pedido-pendiente">'
+    html += '  <span class="n-pedido-p">PEDIDO #<strong>' + pedido.id + '</strong></span>'
+    html += '  </div>'
+    html += '  <div class="col-5">'
+    html += '  <img src="media/Img/mesa.png" class="mesa-pendiente">'
+    html += '  <span class="n-mesa-p">MESA #<strong>' + pedido.id_mesa + '</strong></span>'
+    html += '  </div>'
+    html += '  <div class="col-2 check-verde-pedidos">'
+    html += '  <img src="media/Img/check-verde.png" onclick="pedidoListo(' + pedido.id + ')">'
+    html += '  </div>'
+    html += '  </div>'
+    html += '  <div class="row list-pedidos-pendientes">'
+
+
+        for (var i = 0; i < pedido.productos.length; i++) {
+            html += armarProdPedidoActual(pedido.productos[i] )
+        }
+    
+    html += '  </div>'
+    html += '  </div>'
+    html += '  <!-- fin pedido-->'
+    console.log()
+    return html
+}
+
+function botonVolver(){
+    mostrarModalConfirmacion("seguro logout", "si", "no", usuario.logout, ()=>{})
+
+}
+</script>

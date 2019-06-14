@@ -1,0 +1,271 @@
+<body class="body-color">
+
+
+
+
+    <div class="col-12 bar-top">
+        <div class="row">
+            <div class="col-2">
+                <i class="fas fa-angle-left" onclick="botonVolver()"></i>
+            </div>
+            <div class="col-8" id="nombreMozo">Estado - Camarerx</div>
+            <div class="col-2">
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- notif -->
+    <div class="container contenedor-pedidos" id="notificacionesMozo" style="display:none">
+        <div class="row text-center">
+            <div class="col-4">
+                <img class="icono-notificacion" src="media/Img/campana.png">
+            </div>
+            <div class="col-4">
+                <div class="row contenedor-opciones">
+                    <div class="columna-30">
+                        <img src="media/Img/cocina.png">
+                    </div>
+                    <div class="columna-70">
+                        <span id="donde">Cocina</span>
+                    </div>
+                </div>
+                <div class="row contenedor-opciones">
+                    <div class="columna-30">
+                        <img src="media/Img/mesa.png">
+                    </div>
+                    <div class="columna-70">
+                        <span id="divIdMesa">Mesa</span>
+                    </div>
+                </div>
+                <div class="row contenedor-opciones">
+                    <div class="columna-30">
+                        <img src="media/Img/pedido.png">
+                    </div>
+                    <div class="columna-70">
+                        <span id="idPedido">Pedido</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-4">
+                <i class="fas fa-check boton-check" onclick="ocultarNotificaciones()"></i>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    </div><!-- notif-->
+
+
+
+
+
+    <div class="container contenedor-mesas">
+        <!-- primera fila de mesas -->
+        <div class="row filas-mesas" id="contenedorMesasMozo">
+
+        </div>
+
+    </div>
+    <script>
+
+
+
+
+function botonVolver(){
+    mostrarModalConfirmacion("seguro logout", "si", "no", usuario.logout, ()=>{})
+
+}
+
+        console.log("estado.js")
+
+        var delayTraerEstado = 5000;
+        var tiempoNotificacion = 3500;
+        var estadoActual = {};
+        var mesas;
+        var mesasCargadas = 0;
+        var docReady = 0;
+        var notificacionesPendientes = [];
+
+
+
+
+
+        function setupEstadoMozo() {
+            //cargarEstadoMozo();
+            api.traerMesas((e) => {
+                Mesa.armarGraficoMesas($("#contenedorMesasMozo"), "verMesaMozo")
+            })
+            //Mesa.armarGraficoMesas($("#contenedorMesasMozo"));
+            api.cargarEstadoMozo(cbPedidosMozo)
+
+        }
+
+
+        $(document).ready(function () {
+            console.log("doc ready estado mozx");
+            api.traerMesas(setupEstadoMozo);
+
+            docReady = 1;
+
+
+
+
+
+            //populo cosas:
+
+
+            $("#nombreMozo").html(usuario.dataUsuario().nombre_completo)
+
+
+
+            //listeners
+
+
+            //agrego cachos:
+            /* agregarCachoABody("modalConfirmacion.html")
+             agregarCachoABody("verEstadoMesaMozo.html")
+             agregarCachoABody("verAgregarPedidoMozo.html")
+             agregarCachoABody("nuevoPedidoAgregarProductos.html")
+             agregarCachoABody("nuevoCliente.html")*/
+
+
+
+
+
+        });
+
+        function verMesaMozo(id) {
+            //aca la funcion ver mesa es esta
+            //en la pantalla de mesas la funcion es otra
+
+            let i = Mesa.mesaId2i(id)
+            let mesa = api.estadoMozo.mesas[i];
+            console.log(mesa.estado_mesa);
+            if (mesa.estado_mesa == 0) {
+                //LIBRE
+                mostrarModalNuevoCliente(id);
+            } else {
+                mostrarEstadoMesaAdmin(id)
+            }
+
+
+
+        }
+
+        function compararEstadoAnteriorYActual() {
+          
+
+            
+            for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
+                let m=api.estadoMozo.mesas[i]
+                let mesaAnterior
+
+                try {
+
+                    mesaAnterior = buscarEnArray(m.id_mesa, "id_mesa", api.estadoAnteriorMozo.mesas);
+
+                   // console.log(m, mesaAnterior)
+                    if (mesaAnterior.estado_mesa == 2 && m.estado_mesa == 3) {
+                       
+                        //si la mesa antes estaba esperando pedido y ahora la mesa tiene un pedido q esta listo...
+                        let arrayPedidos=  api.estadoMozo.pedidos.filter(p=>p.id_mesa==m.id_mesa)
+                        //console.log(arrayMesas)
+                        for(let k=0;k<arrayPedidos.length;k++){
+                           // if(arrayPedidos[k].estado_pedido==3){
+                                let notif = {
+                                    "mesa": arrayPedidos[k].id_mesa,
+                                    "pedido": arrayPedidos[k].id_pedido,
+                                    "donde": arrayPedidos[k].nombre_sector_cocina
+                                }
+                                cargarNotificacion(notif);
+                          //  }
+                        }
+                    
+                    }
+
+                } catch (e) { }
+
+            }
+        }
+
+        function cbPedidosMozo() {
+           console.log("cb estado mozo", api.estadoMozo)
+            //esta funcion se ejecuta cada 5 segundos
+
+
+            for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
+                try {
+                $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.estadoMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
+                } catch (e) { }
+            }
+
+            compararEstadoAnteriorYActual()
+            mostrarSiguienteNotificacion()
+
+
+            //espera y pide el estado al server de nuevo
+            setTimeout(() => {
+                if(usuario.tokenValido()){
+                        if(usuario.dataUsuario().id_rol==2){
+                            //si te deslogueaste esto deja de pasar
+                            api.cargarEstadoMozo(cbPedidosMozo)
+                        }
+                    }
+               
+            }, delayTraerEstado)
+
+
+
+
+        }
+
+
+        function mostrarSiguienteNotificacion() {
+            var muestro = 1;
+            $(".fondo-modal").each(function (k, v) {
+                if ($(v).is(":visible") == true) muestro = 0
+            })
+
+            //si estan todos invisible, sigue de largo y muestra la siguiente notif
+            if (muestro == 1 && notificacionesPendientes.length > 0) mostrarNotificacion(notificacionesPendientes.pop())
+
+        }
+
+
+        function mostrarNotificacion(n) {
+            try {
+                $("#donde").html(n.donde.toUpperCase())
+                $("#idPedido").html("#" + n.pedido)
+                $("#divIdMesa").html("#" + n.mesa)
+
+                $("#notificacionesMozo").fadeIn()
+                $("#contenedorMesasMozo").addClass("conNotif")
+                setTimeout(ocultarNotificaciones, tiempoNotificacion)
+            } catch (e) { console.log("la notificacion no está completa y nos e muestra") }
+        }
+
+        function ocultarNotificaciones() {
+            $("#notificacionesMozo").fadeOut()
+            $("#contenedorMesasMozo").removeClass("conNotif")
+        }
+
+        function cargarNotificacion(n) {
+            console.log(n)
+            //{mesa,pedido, donde}
+            for (var i = 0; i < notificacionesPendientes.length; i++) {
+                // console.log(notificacionesPendientes[i].mesa, n.mesa, notificacionesPendientes[i].pedido, n.pedido, notificacionesPendientes[i].donde, n.donde)
+                if (notificacionesPendientes[i].mesa == n.mesa && notificacionesPendientes[i].pedido == n.pedido && notificacionesPendientes[i].donde == n.donde) {
+                    //  console.log("son iguales")
+                    return;;
+                }
+            }
+            //no esta
+            notificacionesPendientes.push(n)
+        }
+    </script>
