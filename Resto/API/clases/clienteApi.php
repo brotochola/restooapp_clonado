@@ -1,91 +1,147 @@
 <?php
+require_once "cliente.php";
 
-require_once 'AccesoDatos.php';
-require_once 'cliente.php';
+class ClienteApi extends Cliente
+{
 
-class clienteApi extends cliente
-{   
-    public function CargarCliente($request,$response,$args)
-    {         
-        $miCliente = new cliente();
-        $ArrayDeParametros = $request->getParsedBody();                     
-        $miCliente->id_cliente = $ArrayDeParametros['id_cliente'];
-        $miCliente->nombre_completo = $ArrayDeParametros['nombre_completo'];
-        $miCliente->dni = $ArrayDeParametros['dni'];
-                
-        $var = cliente::TraerUno($miCliente->id_cliente);             
-        
-        if($var == null)
-        {                                  
-            return $miCliente->Insertar();
+    //OK
+    public function TraerUno($request, $response, $args)
+    {
+        $id_cliente = $args['id_cliente'];
+
+        $elcliente = Cliente::TraerUnCliente($id_cliente);
+
+        $rta = [];
+
+        $newResponse = $response;
+
+        if ($elcliente) {
+            $rta = $elcliente;
+        } else {
+            $rta["estado"] = "ERROR";
+            $rta['mensaje'] = 'No se encontró ese Cliente.';
         }
-        else
-        {
-            return $response->withJson(false, 200);            
-        }    
+
+        return $newResponse->withJson($rta, 200);
     }
 
-    public function TraerUnCliente($request, $response, $args) 
+    //OK
+    public function TraerTodos($request, $response, $args)
     {
-        $vector  = $request->getParams('id_cliente');       
-        $vId = $vector['id_cliente'];         
-        
-        $elElemento = cliente::TraerUno($vId);
-        $newResponse = $response->withJson($elElemento, 200);  
+        $Clientes = Cliente::TraerTodosLosClientes();
+        $newResponse = $response->withJson($Clientes, 200);
         return $newResponse;
     }
 
-
-
-    public function TraerClientes($request, $response, $args) 
+    //OK
+    public function CargarUno($request, $response, $args)
     {
-        $Clientes = cliente::TraerTodos();        
-        $newResponse = $response->withJson($Clientes, 200);  
-        return $newResponse;
-    }    
-   
-    public function ModificarCliente($request, $response,$args)
-    {           
-        $vCliente = new cliente();
-        $vector  = $request->getParams('id_cliente', 'nombre_completo');       
-        $vCliente->id_cliente = $vector['id_cliente'];
-        $vCliente->nombre_completo = $vector['nombre_completo'];       
-                    
-	   	$resultado = $vCliente->Modificar();
-	  	$responseObj= new stdclass();
-	    $responseObj->resultado=$resultado;
-        $responseObj->tarea="modificar";
-	    return $response->withJson($responseObj, 200);	
+        $Hora = new DateTime();
+        $aux = date_format($Hora, "Y/m/d H:i:s");
+
+        $el_cliente = new Cliente();
+
+        $vector = $request->getParsedBody();
+
+        if (array_key_exists("nombre_completo", $vector)) {
+            $el_cliente->nombre_completo = $vector['nombre_completo'];
+        }
+        if (array_key_exists("dni", $vector)) {
+            $el_cliente->dni = $vector['dni'];
+        }
+        if (array_key_exists("email", $vector)) {
+            $el_cliente->email = $vector['email'];
+        }
+        if (array_key_exists("clave", $vector)) {
+            $el_cliente->clave = $vector['clave'];
+        }
+        if (array_key_exists("foto", $vector)) {
+            $el_cliente->foto = $vector['foto'];
+        }
+
+        $resultado = $el_cliente->InsertarCliente();
+
+        $objDelaRespuesta = new stdclass();
+        $objDelaRespuesta->cantidad = $resultado;
+        $objDelaRespuesta->itsOk = false;
+
+        if ($resultado > 0) {
+            $objDelaRespuesta->mensaje = "Se hizo el alta del cliente!";
+            $objDelaRespuesta->itsOk = true;
+        } elseif ($resultado < 1) $objDelaRespuesta->mensaje = "No se pudo hacer el alta!";
+
+        return $response->withJson(Cliente::TraerTodosLosClientes(), 200);
     }
 
-    public function BorrarCliente($request, $response, $args) 
+    //OK
+    public function BorrarUno($request, $response, $args)
     {
-        $vCliente = new cliente();
-        $vId = $args['id'];        
-        $var = cliente::TraerUno($vId);
-        
-        if($var != null){
-               
-            $vCliente = $var[0];       
-            
-            $cantidadDeBorrados = $vCliente->BorrarUno(); 
+        $newResponse = $response;
 
-            $objDelaRespuesta= new stdclass();
-            $objDelaRespuesta->cantidad=$cantidadDeBorrados;
+        $ArrayDeParametros = $request->getParsedBody();
+        $id_cliente = $ArrayDeParametros['id_cliente'];
 
-            if($cantidadDeBorrados == 1)$objDelaRespuesta->resultado="Se borró un elemento!!!";
-            
-            elseif($cantidadDeBorrados > 1) $objDelaRespuesta->resultado="Se borró más de un elemento!!!";
-            
-            elseif($cantidadDeBorrados < 1) $objDelaRespuesta->resultado="No se borró ningún elemento!!!";
-            
-            $newResponse = $response->withJson($objDelaRespuesta, 200);  
-            return $newResponse; 
+        if (empty(Cliente::TraerUnCliente($id_cliente))) {
+            $rta['estado'] = 'ERROR';
+            $rta['respuesta'] = 'No se encontró ese cliente';
+            return $newResponse = $newResponse->withJson($rta, 200);
+        } else {
+
+            $cantidadDeBorrados = (Cliente::TraerUnCliente($id_cliente))->BorrarCliente();
+
+            if ($cantidadDeBorrados > 0) {
+                $rta['estado'] = 'OK';
+                $rta['respuesta'] = "Elementos borrados: " . $cantidadDeBorrados;
+            } else {
+                $rta['estado'] = 'ERROR';
+                $rta['respuesta'] = 'No se pudo borrar el cliente';
+                return $newResponse = $newResponse->withJson($rta, 200);
+            }
         }
-        else{
 
-            return "No existe ningún elemento con ese código";
+        return $newResponse = $newResponse->withJson(Cliente::TraerTodosLosClientes(), 200);
+    }
+
+    //OK
+    public function ModificarUno($request, $response, $args)
+    {
+        $el_cliente = new Cliente();
+
+        $vector = $request->getParsedBody(); //ahora viene por post
+    
+        if (array_key_exists("id_cliente", $vector)) {
+            $el_cliente->id_cliente = $vector['id_cliente'];
         }
+        if (array_key_exists("nombre_completo", $vector)) {
+            $el_cliente->nombre_completo = $vector['nombre_completo'];
+        }
+        if (array_key_exists("dni", $vector)) {
+            $el_cliente->dni = $vector['dni'];
+        }
+        if (array_key_exists("email", $vector)) {
+            $el_cliente->email = $vector['email'];
+        }
+        if (array_key_exists("clave", $vector)) {
+            $el_cliente->clave = $vector['clave'];
+        }
+        if (array_key_exists("foto", $vector)) {
+            $el_cliente->foto = $vector['foto'];
+        }
+
+        //return $response->withJson($el_cliente, 200);	
+
+        $resultado = $el_cliente->ModificarUno();
+
+        return $response->withJson(Cliente::TraerTodosLosClientes(), 200);
+    }
+
+    public function Login($request, $response, $args)
+    {
+        return $response->withJson("Sin Implementar", 200);
+    }
+
+    public function LoginAnon($request, $response, $args)
+    {
+        return $response->withJson("Sin Implementar", 200);
     }
 }
-?>

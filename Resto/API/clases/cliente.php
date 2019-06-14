@@ -1,80 +1,145 @@
 <?php
 
-require_once 'AccesoDatos.php';
-
-class cliente
+class Cliente
 {
-    public $id_cliente;
-    public $nombre_completo;
-    public $dni;
-    public $email;
-    public $foto;
-    
-    public function __construct() {}
+    public $id_cliente; //Obligatorio
+    public $nombre_completo; //Obligatorio
+    public $dni; //Único
+    public $email; //Único
+    public $clave;
+    public $foto; //Obligatorio
 
-        public function Insertar()
-        {                      
-            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $sql="INSERT into clientes( nombre_completo, dni, email, foto) values('$this->nombre_completo', '$this->dni','$this->email', '$this->foto')";
+    public static $table = "clientes_";
 
-            $consulta =$objetoAccesoDato->RetornarConsulta($sql);
-            
+    public function BorrarCliente()
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta("DELETE FROM " . self::$table . " WHERE id_cliente=:id_cliente");
+        $consulta->bindValue(':id_cliente', $this->id_cliente, PDO::PARAM_INT);
+        $consulta->execute();
 
-            $consulta->execute();		
+        return $consulta->rowCount();
+    }
 
-            return $objetoAccesoDato->RetornarUltimoIdInsertado();
+    public function ModificarCliente()
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+
+        $consulta = $objetoAccesoDato->RetornarConsulta(
+            "UPDATE " . self::$table . " SET 
+            nombre_completo=:nombre_completo,
+            dni=:dni,
+            email=:email,
+            clave=:clave,
+            foto=:foto
+
+            WHERE id_cliente=:id_cliente"
+        );
+
+        $consulta->bindValue(':id_cliente', $this->id_cliente, PDO::PARAM_INT);
+        $consulta->bindValue(':nombre_completo', $this->nombre_completo, PDO::PARAM_STR);
+        $consulta->bindValue(':dni', $this->dni, PDO::PARAM_INT);
+        $consulta->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $consulta->bindValue(':clave', $this->clave, PDO::PARAM_STR);
+        $consulta->bindValue(':foto', $this->foto, PDO::PARAM_STR);
+
+        return $consulta->execute();
+    }
+
+    public function InsertarCliente()
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+
+        $consulta = $objetoAccesoDato->RetornarConsulta(
+            "INSERT INTO " . self::$table . " (
+            dni,
+            nombre_completo,
+            email,
+            clave,
+            foto
+            ) values (
+            :dni,
+            :nombre_completo,
+            :email,
+            :clave,
+            :foto
+            )"
+        );
+
+        $consulta->bindValue(':nombre_completo', $this->nombre_completo, PDO::PARAM_STR);
+        $consulta->bindValue(':dni', $this->dni, PDO::PARAM_INT);
+        $consulta->bindValue(':email', $this->email, PDO::PARAM_STR);
+        $consulta->bindValue(':clave', $this->clave, PDO::PARAM_STR);
+        $consulta->bindValue(':foto', $this->foto, PDO::PARAM_STR);
+
+        $consulta->execute();
+
+        return $objetoAccesoDato->RetornarUltimoIdInsertado();
+    }
+
+    public function GuardarCliente()
+    {
+        if (empty(Cliente::TraerUnCliente($this->email))) {
+            $this->InsertarCliente();
+            echo "Cliente guardado";
+        } else {
+            $elCliente = Cliente::TraerUnCliente($this->email);
+            $this->id_cliente = $elCliente->id_cliente;
+
+            if ($this->ModificarCliente()) {
+                echo "Cliente modificado";
+            } else {
+                echo "No modifico el cliente";
+            }
+        }
+    }
+
+    public static function TraerTodosLosClientes()
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM " . self::$table);
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, "Cliente");
+    }
+
+    public static function TraerUnCliente($id_cliente)
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM " . self::$table . " WHERE id_cliente = :id_cliente");
+        $consulta->bindValue(':id_cliente', $id_cliente, PDO::PARAM_INT);
+        $consulta->execute();
+        $ClienteBuscado = $consulta->fetchObject('Cliente');
+
+        return $ClienteBuscado;
+    }
+
+    public static function TraerUnClientePorUniqueKey($key, $param)
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM " . self::$table . " WHERE " . $key . " = :" . $key);
+
+        if (is_string($param)) {
+            $consulta->bindValue(':' . $key . '', $param, PDO::PARAM_STR);
         }
 
-        public static function TraerTodos()
-        {
-            $consulta = "SELECT * FROM `clientes`";
-            return AccesoDatos::ConsultaClase($consulta,"cliente");
+        if (is_numeric($param)) {
+            $consulta->bindValue(':' . $key . '', $param, PDO::PARAM_INT);
         }
 
-        public static function email2Cliente($email)
-        {             
-            $consulta = "SELECT * FROM `clientes` WHERE  `email` = '$email'";
-            return AccesoDatos::ConsultaClase($consulta,"cliente");
-        }
+        $consulta->execute();
+        $ClienteBuscado = $consulta->fetchObject('Cliente');
 
-        public static function TraerUno($vIdCliente)
-        {             
-            $consulta = "SELECT * FROM `clientes` WHERE  `id_cliente` = '$vIdCliente'";
-            return AccesoDatos::ConsultaClase($consulta,"cliente");
-        }
+        return $ClienteBuscado;
+    }
 
-        public function Modificar()
-        {
-            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("
-                update clientes set
-                nombre_completo ='$this->nombre_completo'
-                WHERE id_cliente ='$this->id_cliente'");
-            return $consulta->execute();    
-        }
+    public static function BorrarClientePorId_cliente($id_cliente)
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta("DELETE FROM " . self::$table . " WHERE id_cliente=:id_cliente");
+        $consulta->bindValue(':id_cliente', $id_cliente, PDO::PARAM_INT);
+        $consulta->execute();
 
-        public function BorrarUno()
-        {
-            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("
-            delete 
-            from clientes 				
-            WHERE id_cliente =:id_cliente");	
-            $consulta->bindValue(':id_cliente',$this->id_cliente, PDO::PARAM_INT);		
-            $consulta->execute();
-            return $consulta->rowCount();
-        }
-
-        public static function cantVisitasCliente($id) 
-        {
-            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("select * from cliente_visita where id_cliente =".$id);	
-           
-            $consulta->execute();   
-            
-          
-            return   $consulta->rowCount();
-        }
+        return $consulta->rowCount();
+    }
 }
-
-?>
