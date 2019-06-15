@@ -31,10 +31,10 @@ require_once './clases/usuarioAPI.php';
 require_once './clases/usuario.php';
 
 
-
+/*
 require_once './clases/captchaApi.php';
 require_once './clases/captcha.php';
-
+*/
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 $config['displayErrorDetails'] = true;
@@ -267,7 +267,11 @@ $app->group('/cliente', function () {
     $this->put('/modificar',\clienteApi::class . ':ModificarCliente'); 
 
     $this->delete('/borrar/{id}',\clienteApi::class . ':BorrarCliente');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
-        
+    
+    $this->get('/habilitar/{email}/{dni}[/]',\clienteApi::class . ':habilitarUsuario');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
+
+    
+
         
 });//->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 

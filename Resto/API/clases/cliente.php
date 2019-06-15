@@ -75,6 +75,10 @@ class cliente
           
             return   $consulta->rowCount();
         }
+
+
+        
+   
 }
 
 ?>

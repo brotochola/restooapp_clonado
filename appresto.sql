@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2019 a las 03:02:42
--- Versión del servidor: 10.1.40-MariaDB
--- Versión de PHP: 7.3.5
+-- Tiempo de generación: 15-06-2019 a las 19:05:15
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,6 +34,7 @@ CREATE TABLE `clientes` (
   `dni` int(11) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `foto` text NOT NULL,
+  `habilitado` int(11) NOT NULL DEFAULT '0',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -42,18 +43,18 @@ CREATE TABLE `clientes` (
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id_cliente`, `nombre_completo`, `dni`, `email`, `foto`, `date_created`, `last_modified`) VALUES
-(2, 'Emilio Perez Reverte', NULL, NULL, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 'Juan Carlos Z.', 4344433, NULL, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 'Juan Ramirez', NULL, NULL, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 'Emilia Estefan', NULL, 'emilia@e.com', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 'Maria Laura', NULL, NULL, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 'facu', 42343242, 'facu@facu.facu', 'as asd sa ads asd', '2019-06-04 01:25:46', '2019-06-04 01:47:13'),
-(8, 'sdasd', 433434, 'fa4cu@facu.facu', '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', '2019-06-04 01:30:03', '2019-06-04 01:30:03'),
-(9, 'asdasdsada', 0, 'lalal@lala.com', 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAytJREFUeNqslu1LU1Ecx8+9u5ube+waKmZF4HOMUtJZaKZplCiB0htfKBUUhEUvqzf9BVFvehNBFkFEkj0goWWQQoi0+RBOMuesrVzNzT25uwfvvf0O3NEau3eV+8GH++L8zvd77jm/80CMt2xDElEFdAKNQAmwHaCAOPAT+Ay8BYYbx7w2MRFCxGQncAXoAQwoc7iAAeAGmK2lNpJpOnQIo7vwlwY4CoVBjU4cpRsymfQCj4Wp+Z+oBp6D0XExkzbgNpCLthY0cB+MalJNCgUDDcpO5GM9MNIkm1wGSlF2ox44naiuXfCdAgrSZQaqmlB+Q4dn3b4gizttet3COy60p4bkVFqCrm31hFwOSjlyR4e10nS3AodwzR8TMwAxVNTS5TG2dtLhNVd0euSZNxQJ0tig9tzVkEqr17gdK8yibWZTvTQlF9lnR7BJs9Q/7ygpz6G0BkKnNSj3Hm5jLZ4fger2U0S+sQ6PHvndrgjieVJCoh2blEmZTA895EyqXEa3u1SVV2ZU1/ecj+j2VCj5zRgKOe3RZfMky3OsTEKikhQqK21o7BaO+2rVWYafMDGfhyUoBcIGuC3osEWmnj4IB+cnacjjpTYqNlFKJODOPLM0ZyBl1O+F5XkkUyjJqHs1h2SCiTyxUGITv0QCyWlo9mD/dUaup0kuyggnHoFyC4oVpt6LvPpAmydDKfuxiVMigajsPhuiy/erYd6Rb+XThnlwwLPhXI4RlBzlVVariyqMWIOV0HDghf8INIllRJgwF3F/Z6MBX2x29EUsvDid5/9m95q6+zQESRLxWJQXjn+xMOPGEaBfLGNlbEi1ap0JyOQKPjI7TuvsFhSQUfr5iTc+djOO1q1mlTb9RsQRBV7iHQ85aALYJ5LIJR0/iQVOiIYynHejwAncGZfHTanFT16jlONDyoAVLjEuIfAIGMryAXkXeJ08yhhwCZjJkgG+Wa/BX/CpU+EU7vQPWzQYA/rAwCt2/S4Ir5N7GWo/bbUDt4AuMPhj71EiL48zwKDwmGjOcCXjwnmFb0IQH/+XJ1Fy1AEnARNQLBji0v0CvMcPBxCfkxL4JcAA4R4dVbacepQAAAAASUVORK5CYII=', '2019-06-04 01:33:33', '2019-06-04 01:33:33'),
-(10, 'pepe', 4873, 'pepe@pepe.pepe', 'iVBORw0KGgoAAAANSUhEUgAAAB8AAABACAYAAADidqwbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAqFJREFUeNrEmc1LG0EYxierp1J6laglB1u/UgjkIGnRYg89FPwMxGOEHnqwHizJtdg/IIEExIOeGnoLFIpYxHjwqGihOYigeIhKwT/Ai4L2fTezsIibzMy+M/PAQyBk+b2TnXlm3t1IMplkmuWAu8Ex8CB4nH8/06kJ+AQ8Bv4ETgf9iBIeAePfuAyeFLmgkwj6Bvwd3CdzYVj4C/AGv5dKk0FFWPQa+FQVrDryXvAhuItiGchoCnxBAZaFfwb/og4AEeHyWdGRPu00C/6mK/paqR/8U2fuBukZ+I/u0A9agvvgpzbg5TDhEQaO93mBGZDzyCbxmxnSQ/i47M5EBcdRrzOD8sOTJkf9EL7MDMvxnbkmbcHfqVycSCRYPp8PDf+ocnG9Xme1Wk25AIfP8rRq9VhAo9FgmUxGCd4T9t5Vq1X3U7YAh3cSjKKAWCzmzgMZ+Cuq2VsoFFg2mxUuAOGjlMsnl8u5BYjCh6jXLxZQLBaF4L06AkSkAIfqDK5SgMM0q1KpBIYQwq90wjGE4vF4IPxSJxxHXSqVAuHHusCYeBi9OPog+J4usD96g+B/qcGYcBi1rcBec9CgHjGCMWpFHg78o4SnUil3fYvG6x1VM4iBIgr2h8wP02A/fNs02A+/Bm+phghGqIoivmevI7wtllpSXoSqyP8o7IA1nzQ9l8ltqo7lHjxvq11C7YLPbMFx9NO24Kgj8KotOOqL7kNGK/gNX3pW4Khz8JwtuHsWAC/qgndEo9F2vzngYfTW9Mg9fQUv2YKjytRzQLZpqPKW+soG3FsFuPms24CjblnzbeFAmL0gbK92An4Jfs+3Y6NwbzPa4XPhtcyJiLJLvefdzwfWfEkw0a4QXW+R8Uy4ye29wsbbM4xHe9Z84pn+L8AAOUqROYAIQpIAAAAASUVORK5CYII=', '2019-06-04 01:37:01', '2019-06-04 01:37:01'),
-(11, 'ASDAD', 0, 'ASDA@DAS.COM', 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAytJREFUeNqslu1LU1Ecx8+9u5ube+waKmZF4HOMUtJZaKZplCiB0htfKBUUhEUvqzf9BVFvehNBFkFEkj0goWWQQoi0+RBOMuesrVzNzT25uwfvvf0O3NEau3eV+8GH++L8zvd77jm/80CMt2xDElEFdAKNQAmwHaCAOPAT+Ay8BYYbx7w2MRFCxGQncAXoAQwoc7iAAeAGmK2lNpJpOnQIo7vwlwY4CoVBjU4cpRsymfQCj4Wp+Z+oBp6D0XExkzbgNpCLthY0cB+MalJNCgUDDcpO5GM9MNIkm1wGSlF2ox44naiuXfCdAgrSZQaqmlB+Q4dn3b4gizttet3COy60p4bkVFqCrm31hFwOSjlyR4e10nS3AodwzR8TMwAxVNTS5TG2dtLhNVd0euSZNxQJ0tig9tzVkEqr17gdK8yibWZTvTQlF9lnR7BJs9Q/7ygpz6G0BkKnNSj3Hm5jLZ4fger2U0S+sQ6PHvndrgjieVJCoh2blEmZTA895EyqXEa3u1SVV2ZU1/ecj+j2VCj5zRgKOe3RZfMky3OsTEKikhQqK21o7BaO+2rVWYafMDGfhyUoBcIGuC3osEWmnj4IB+cnacjjpTYqNlFKJODOPLM0ZyBl1O+F5XkkUyjJqHs1h2SCiTyxUGITv0QCyWlo9mD/dUaup0kuyggnHoFyC4oVpt6LvPpAmydDKfuxiVMigajsPhuiy/erYd6Rb+XThnlwwLPhXI4RlBzlVVariyqMWIOV0HDghf8INIllRJgwF3F/Z6MBX2x29EUsvDid5/9m95q6+zQESRLxWJQXjn+xMOPGEaBfLGNlbEi1ap0JyOQKPjI7TuvsFhSQUfr5iTc+djOO1q1mlTb9RsQRBV7iHQ85aALYJ5LIJR0/iQVOiIYynHejwAncGZfHTanFT16jlONDyoAVLjEuIfAIGMryAXkXeJ08yhhwCZjJkgG+Wa/BX/CpU+EU7vQPWzQYA/rAwCt2/S4Ir5N7GWo/bbUDt4AuMPhj71EiL48zwKDwmGjOcCXjwnmFb0IQH/+XJ1Fy1AEnARNQLBji0v0CvMcPBxCfkxL4JcAA4R4dVbacepQAAAAASUVORK5CYII=', '2019-06-04 22:08:37', '2019-06-04 22:08:37'),
-(12, 'sdsdffsfs', 0, 'facu@facu,facu', '', '2019-06-05 15:27:42', '2019-06-05 15:27:42');
+INSERT INTO `clientes` (`id_cliente`, `nombre_completo`, `dni`, `email`, `foto`, `habilitado`, `date_created`, `last_modified`) VALUES
+(2, 'Emilio Perez Reverte', NULL, NULL, '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'Juan Carlos Z.', 4344433, NULL, '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'Juan Ramirez', NULL, NULL, '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'Emilia Estefan', NULL, 'emilia@e.com', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'Maria Laura', NULL, NULL, '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(7, 'facu', 42343242, 'facu@facu.facu', 'as asd sa ads asd', 0, '2019-06-04 01:25:46', '2019-06-04 01:47:13'),
+(8, 'sdasd', 433434, 'fa4cu@facu.facu', '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', 0, '2019-06-04 01:30:03', '2019-06-04 01:30:03'),
+(9, 'asdasdsada', 0, 'lalal@lala.com', 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAytJREFUeNqslu1LU1Ecx8+9u5ube+waKmZF4HOMUtJZaKZplCiB0htfKBUUhEUvqzf9BVFvehNBFkFEkj0goWWQQoi0+RBOMuesrVzNzT25uwfvvf0O3NEau3eV+8GH++L8zvd77jm/80CMt2xDElEFdAKNQAmwHaCAOPAT+Ay8BYYbx7w2MRFCxGQncAXoAQwoc7iAAeAGmK2lNpJpOnQIo7vwlwY4CoVBjU4cpRsymfQCj4Wp+Z+oBp6D0XExkzbgNpCLthY0cB+MalJNCgUDDcpO5GM9MNIkm1wGSlF2ox44naiuXfCdAgrSZQaqmlB+Q4dn3b4gizttet3COy60p4bkVFqCrm31hFwOSjlyR4e10nS3AodwzR8TMwAxVNTS5TG2dtLhNVd0euSZNxQJ0tig9tzVkEqr17gdK8yibWZTvTQlF9lnR7BJs9Q/7ygpz6G0BkKnNSj3Hm5jLZ4fger2U0S+sQ6PHvndrgjieVJCoh2blEmZTA895EyqXEa3u1SVV2ZU1/ecj+j2VCj5zRgKOe3RZfMky3OsTEKikhQqK21o7BaO+2rVWYafMDGfhyUoBcIGuC3osEWmnj4IB+cnacjjpTYqNlFKJODOPLM0ZyBl1O+F5XkkUyjJqHs1h2SCiTyxUGITv0QCyWlo9mD/dUaup0kuyggnHoFyC4oVpt6LvPpAmydDKfuxiVMigajsPhuiy/erYd6Rb+XThnlwwLPhXI4RlBzlVVariyqMWIOV0HDghf8INIllRJgwF3F/Z6MBX2x29EUsvDid5/9m95q6+zQESRLxWJQXjn+xMOPGEaBfLGNlbEi1ap0JyOQKPjI7TuvsFhSQUfr5iTc+djOO1q1mlTb9RsQRBV7iHQ85aALYJ5LIJR0/iQVOiIYynHejwAncGZfHTanFT16jlONDyoAVLjEuIfAIGMryAXkXeJ08yhhwCZjJkgG+Wa/BX/CpU+EU7vQPWzQYA/rAwCt2/S4Ir5N7GWo/bbUDt4AuMPhj71EiL48zwKDwmGjOcCXjwnmFb0IQH/+XJ1Fy1AEnARNQLBji0v0CvMcPBxCfkxL4JcAA4R4dVbacepQAAAAASUVORK5CYII=', 0, '2019-06-04 01:33:33', '2019-06-04 01:33:33'),
+(10, 'pepe', 4873, 'pepe@pepe.pepe', 'iVBORw0KGgoAAAANSUhEUgAAAB8AAABACAYAAADidqwbAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAqFJREFUeNrEmc1LG0EYxierp1J6laglB1u/UgjkIGnRYg89FPwMxGOEHnqwHizJtdg/IIEExIOeGnoLFIpYxHjwqGihOYigeIhKwT/Ai4L2fTezsIibzMy+M/PAQyBk+b2TnXlm3t1IMplkmuWAu8Ex8CB4nH8/06kJ+AQ8Bv4ETgf9iBIeAePfuAyeFLmgkwj6Bvwd3CdzYVj4C/AGv5dKk0FFWPQa+FQVrDryXvAhuItiGchoCnxBAZaFfwb/og4AEeHyWdGRPu00C/6mK/paqR/8U2fuBukZ+I/u0A9agvvgpzbg5TDhEQaO93mBGZDzyCbxmxnSQ/i47M5EBcdRrzOD8sOTJkf9EL7MDMvxnbkmbcHfqVycSCRYPp8PDf+ocnG9Xme1Wk25AIfP8rRq9VhAo9FgmUxGCd4T9t5Vq1X3U7YAh3cSjKKAWCzmzgMZ+Cuq2VsoFFg2mxUuAOGjlMsnl8u5BYjCh6jXLxZQLBaF4L06AkSkAIfqDK5SgMM0q1KpBIYQwq90wjGE4vF4IPxSJxxHXSqVAuHHusCYeBi9OPog+J4usD96g+B/qcGYcBi1rcBec9CgHjGCMWpFHg78o4SnUil3fYvG6x1VM4iBIgr2h8wP02A/fNs02A+/Bm+phghGqIoivmevI7wtllpSXoSqyP8o7IA1nzQ9l8ltqo7lHjxvq11C7YLPbMFx9NO24Kgj8KotOOqL7kNGK/gNX3pW4Khz8JwtuHsWAC/qgndEo9F2vzngYfTW9Mg9fQUv2YKjytRzQLZpqPKW+soG3FsFuPms24CjblnzbeFAmL0gbK92An4Jfs+3Y6NwbzPa4XPhtcyJiLJLvefdzwfWfEkw0a4QXW+R8Uy4ye29wsbbM4xHe9Z84pn+L8AAOUqROYAIQpIAAAAASUVORK5CYII=', 0, '2019-06-04 01:37:01', '2019-06-04 01:37:01'),
+(11, 'ASDAD', 0, 'ASDA@DAS.COM', 'iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAytJREFUeNqslu1LU1Ecx8+9u5ube+waKmZF4HOMUtJZaKZplCiB0htfKBUUhEUvqzf9BVFvehNBFkFEkj0goWWQQoi0+RBOMuesrVzNzT25uwfvvf0O3NEau3eV+8GH++L8zvd77jm/80CMt2xDElEFdAKNQAmwHaCAOPAT+Ay8BYYbx7w2MRFCxGQncAXoAQwoc7iAAeAGmK2lNpJpOnQIo7vwlwY4CoVBjU4cpRsymfQCj4Wp+Z+oBp6D0XExkzbgNpCLthY0cB+MalJNCgUDDcpO5GM9MNIkm1wGSlF2ox44naiuXfCdAgrSZQaqmlB+Q4dn3b4gizttet3COy60p4bkVFqCrm31hFwOSjlyR4e10nS3AodwzR8TMwAxVNTS5TG2dtLhNVd0euSZNxQJ0tig9tzVkEqr17gdK8yibWZTvTQlF9lnR7BJs9Q/7ygpz6G0BkKnNSj3Hm5jLZ4fger2U0S+sQ6PHvndrgjieVJCoh2blEmZTA895EyqXEa3u1SVV2ZU1/ecj+j2VCj5zRgKOe3RZfMky3OsTEKikhQqK21o7BaO+2rVWYafMDGfhyUoBcIGuC3osEWmnj4IB+cnacjjpTYqNlFKJODOPLM0ZyBl1O+F5XkkUyjJqHs1h2SCiTyxUGITv0QCyWlo9mD/dUaup0kuyggnHoFyC4oVpt6LvPpAmydDKfuxiVMigajsPhuiy/erYd6Rb+XThnlwwLPhXI4RlBzlVVariyqMWIOV0HDghf8INIllRJgwF3F/Z6MBX2x29EUsvDid5/9m95q6+zQESRLxWJQXjn+xMOPGEaBfLGNlbEi1ap0JyOQKPjI7TuvsFhSQUfr5iTc+djOO1q1mlTb9RsQRBV7iHQ85aALYJ5LIJR0/iQVOiIYynHejwAncGZfHTanFT16jlONDyoAVLjEuIfAIGMryAXkXeJ08yhhwCZjJkgG+Wa/BX/CpU+EU7vQPWzQYA/rAwCt2/S4Ir5N7GWo/bbUDt4AuMPhj71EiL48zwKDwmGjOcCXjwnmFb0IQH/+XJ1Fy1AEnARNQLBji0v0CvMcPBxCfkxL4JcAA4R4dVbacepQAAAAASUVORK5CYII=', 0, '2019-06-04 22:08:37', '2019-06-04 22:08:37'),
+(12, 'sdsdffsfs', 0, 'facu@facu,facu', '', 0, '2019-06-05 15:27:42', '2019-06-05 15:27:42');
 
 -- --------------------------------------------------------
 
@@ -80,7 +81,9 @@ INSERT INTO `cliente_visita` (`id_cliente_visita`, `id_cliente`, `id_mesa`, `fec
 (13, 7, 6, '2019-06-05', 1, 4, '2019-06-05 13:39:18', '2019-06-05 13:39:18'),
 (14, 7, 5, '2019-06-05', 1, 4, '2019-06-05 13:41:13', '2019-06-05 13:41:13'),
 (15, 7, 14, '2019-06-05', 1, 4, '2019-06-05 13:42:20', '2019-06-05 13:42:20'),
-(16, 12, 2, '2019-06-05', 1, 4, '2019-06-05 15:27:42', '2019-06-05 15:27:42');
+(16, 12, 2, '2019-06-05', 1, 4, '2019-06-05 15:27:42', '2019-06-05 15:27:42'),
+(17, 12, 1, '2019-06-09', 1, 4, '2019-06-09 15:34:15', '2019-06-09 15:34:15'),
+(18, 12, 9, '2019-06-09', 1, 4, '2019-06-09 15:34:29', '2019-06-09 15:34:29');
 
 -- --------------------------------------------------------
 
@@ -100,29 +103,28 @@ CREATE TABLE `empleados` (
   `fecha_egreso` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `sueldo` decimal(10,0) DEFAULT NULL,
   `clave` varchar(50) DEFAULT NULL,
-  `habilitado` int(11) DEFAULT NULL,
-  `foto` text
+  `habilitado` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `empleados`
 --
 
-INSERT INTO `empleados` (`id_empleado`, `usuario`, `email`, `nombre_completo`, `fecha_nac`, `dni`, `id_rol`, `fecha_ingreso`, `fecha_egreso`, `sueldo`, `clave`, `habilitado`, `foto`) VALUES
-(2, 'ejimenez', 'cocinero@a.aaa', 'Emilio Jimenez', '0000-00-00', 30111222, 5, '2018-07-25', '0000-00-00 00:00:00', '20000', '1234', 1, NULL),
-(3, 'fsaiegh', 'fsaiegh@gmail.com', 'Facundo Saiegh', '0000-00-00', 0, 1, '2018-07-14', NULL, '25000', '1234', 1, NULL),
-(4, 'male', 'male@gmail.com', 'male prueba', '2018-12-31', 12456123, 2, '0000-00-00', '0000-00-00 00:00:00', '5656', '1234', 1, NULL),
-(14, 'qweqw qwe qwe', 'dolinuck@gmail.com', 'sdasd', '0000-00-00', 343434343, 1, '0000-00-00', '0000-00-00 00:00:00', '34', '1234', 1, NULL),
-(15, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'asd asd asd ads asd 4', '0434-03-31', 343434, 2, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1, NULL),
-(16, '', 'chicho@chichicch.com', 'chicho22', '4343-02-28', 23423424, 3, '0000-00-00', '0000-00-00 00:00:00', '3144', '1234', 1, NULL),
-(17, 'eric_estrada', 'sdad@asdd.com', 'eric estrada', '0000-00-00', 444443, 0, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1, NULL),
-(18, 'mario', 'mario@baracus.com', 'mario baracus', '2000-12-12', 34433434, 5, '2019-05-29', '0000-00-00 00:00:00', '32000', '1234', 1, NULL),
-(21, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1, NULL),
-(22, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-11', 0, 0, '0000-00-00', '0000-00-00 00:00:00', '0', '1234', 0, NULL),
-(24, '', '', '', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1, NULL),
-(25, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '0000-00-00', '0000-00-00 00:00:00', '2424', '1234', 0, NULL),
-(26, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '2019-05-29', '0000-00-00 00:00:00', '2424', '1234', 1, NULL),
-(27, 'ñeleo', 'asd@dasd.com', 'lelo lelel', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1, NULL);
+INSERT INTO `empleados` (`id_empleado`, `usuario`, `email`, `nombre_completo`, `fecha_nac`, `dni`, `id_rol`, `fecha_ingreso`, `fecha_egreso`, `sueldo`, `clave`, `habilitado`) VALUES
+(2, 'ejimenez', 'cocinero@a.aaa', 'Emilio Jimenez', '0000-00-00', 30111222, 5, '2018-07-25', '0000-00-00 00:00:00', '20000', '1234', 1),
+(3, 'fsaiegh', 'fsaiegh@gmail.com', 'Facundo Saiegh', '0000-00-00', 0, 1, '2018-07-14', NULL, '25000', '1234', 1),
+(4, 'male', 'male@gmail.com', 'male prueba', '2018-12-31', 12456123, 2, '0000-00-00', '0000-00-00 00:00:00', '5656', '1234', 1),
+(14, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'sdasd', '0000-00-00', 343434343, 2, '0000-00-00', '0000-00-00 00:00:00', '34', '1234', 1),
+(15, 'qweqw qwe qwe', 'asdasdasd@dasd.com', 'asd asd asd ads asd 4', '0434-03-31', 343434, 2, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1),
+(16, '', 'chicho@chichicch.com', 'chicho22', '4343-02-28', 23423424, 3, '0000-00-00', '0000-00-00 00:00:00', '3144', '1234', 1),
+(17, 'eric_estrada', 'sdad@asdd.com', 'eric estrada', '0000-00-00', 444443, 0, '2019-05-26', '0000-00-00 00:00:00', '0', '1234', 1),
+(18, 'mario', 'mario@baracus.com', 'mario baracus', '2000-12-12', 34433434, 5, '2019-05-29', '0000-00-00 00:00:00', '32000', '1234', 1),
+(21, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-12', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1),
+(22, 'd asd asd asd', 'mario@baracus.com', 'asd asd asd adsas', '2000-12-11', 0, 0, '0000-00-00', '0000-00-00 00:00:00', '0', '1234', 0),
+(24, '', '', '', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1),
+(25, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '0000-00-00', '0000-00-00 00:00:00', '2424', '1234', 0),
+(26, 'adfadfa', 'adfadfdaf', 'adfadf', '0000-00-00', 2147483647, 6, '2019-05-29', '0000-00-00 00:00:00', '2424', '1234', 1),
+(27, 'ñeleo', 'asd@dasd.com', 'lelo lelel', '0000-00-00', 0, 0, '2019-05-29', '0000-00-00 00:00:00', '0', '1234', 1);
 
 -- --------------------------------------------------------
 
@@ -218,23 +220,23 @@ CREATE TABLE `mesas` (
 --
 
 INSERT INTO `mesas` (`id_mesa`, `sillas`, `estado_mesa`, `zona`, `habilitada`) VALUES
-(1, 4, 0, 1, 1),
-(2, 3, 2, 1, 1),
-(3, 4, 0, 1, 1),
-(4, 4, 0, 1, 1),
+(1, 4, 3, 1, 1),
+(2, 3, 0, 1, 1),
+(3, 4, 2, 1, 1),
+(4, 4, 2, 1, 1),
 (5, 4, 3, 1, 1),
-(6, 3, 3, 1, 1),
-(7, 3, 0, 2, 1),
-(8, 5, 0, 2, 1),
+(6, 3, 2, 1, 1),
+(7, 3, 2, 2, 1),
+(8, 5, 2, 2, 1),
 (9, 6, 0, 2, 1),
-(10, 3, 0, 2, 1),
-(11, 3, 0, 2, 1),
-(12, 3, 0, 2, 1),
-(13, 2, 0, 1, 1),
-(14, 6, 3, 1, 1),
-(15, 2, 0, 1, 1),
-(16, 2, 0, 1, 1),
-(17, 2, 0, 1, 1);
+(10, 3, 2, 2, 1),
+(11, 3, 1, 2, 1),
+(12, 3, 2, 2, 1),
+(13, 2, 1, 1, 1),
+(14, 6, 2, 1, 1),
+(15, 2, 2, 1, 1),
+(16, 2, 2, 1, 1),
+(17, 2, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -257,11 +259,19 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `id_mesa`, `id_cliente_visita`, `fecha_alta`, `estado_pedido`, `hora_estimada`, `hora_listo`) VALUES
-(30, 6, 13, '2019-06-05 10:39:24', 1, '2019-06-05 10:39:24', '0000-00-00 00:00:00'),
-(31, 5, 14, '2019-06-05 10:41:17', 3, '2019-06-05 10:41:17', '0000-00-00 00:00:00'),
-(32, 14, 15, '2019-06-05 10:42:28', 1, '2019-06-05 10:42:28', '0000-00-00 00:00:00'),
-(33, 2, 16, '2019-06-05 12:27:59', 1, '2019-06-05 12:27:59', '0000-00-00 00:00:00'),
-(34, 2, 16, '2019-06-07 19:04:14', 1, '2019-06-07 19:04:14', '0000-00-00 00:00:00');
+(30, 6, 13, '2019-06-05 10:39:24', 2, '2019-06-05 10:39:24', '0000-00-00 00:00:00'),
+(31, 5, 14, '2019-06-05 10:41:17', 2, '2019-06-05 10:41:17', '0000-00-00 00:00:00'),
+(32, 14, 15, '2019-06-05 10:42:28', 2, '2019-06-05 10:42:28', '0000-00-00 00:00:00'),
+(33, 2, 16, '2019-06-05 12:27:59', 2, '2019-06-05 12:27:59', '0000-00-00 00:00:00'),
+(34, 2, 16, '2019-06-07 19:04:14', 2, '2019-06-07 19:04:14', '0000-00-00 00:00:00'),
+(35, 5, 14, '2019-06-08 11:51:33', 2, '2019-06-08 11:51:33', '0000-00-00 00:00:00'),
+(36, 2, 16, '2019-06-09 12:34:08', 2, '2019-06-09 12:34:08', '0000-00-00 00:00:00'),
+(37, 1, 17, '2019-06-09 12:34:25', 2, '2019-06-09 12:39:25', '0000-00-00 00:00:00'),
+(38, 9, 18, '2019-06-09 12:34:37', 2, '2019-06-09 12:34:37', '0000-00-00 00:00:00'),
+(39, 2, 16, '2019-06-09 12:37:17', 2, '2019-06-09 12:37:17', '0000-00-00 00:00:00'),
+(40, 6, 13, '2019-06-09 12:37:24', 2, '2019-06-09 12:37:24', '0000-00-00 00:00:00'),
+(41, 5, 14, '2019-06-09 12:43:14', 3, '2019-06-09 12:43:14', '0000-00-00 00:00:00'),
+(42, 1, 17, '2019-06-09 12:43:18', 3, '2019-06-09 12:43:18', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -294,16 +304,42 @@ CREATE TABLE `pedidos_detalles` (
 --
 
 INSERT INTO `pedidos_detalles` (`id`, `id_producto`, `cantidad`, `date_created`, `last_modified`) VALUES
-(30, 4, 1, '2019-06-05 13:39:24', '2019-06-05 13:39:24'),
-(30, 3, 1, '2019-06-05 13:39:24', '2019-06-05 13:39:24'),
-(30, 2, 1, '2019-06-05 13:39:24', '2019-06-05 13:39:24'),
-(30, 1, 1, '2019-06-05 13:39:24', '2019-06-05 13:39:24'),
-(31, 5, 1, '2019-06-05 13:41:17', '2019-06-05 13:41:17'),
-(32, 5, 2, '2019-06-05 13:42:28', '2019-06-05 13:42:28'),
-(32, 9, 1, '2019-06-05 13:42:28', '2019-06-05 13:42:28'),
-(33, 3, 1, '2019-06-05 15:27:59', '2019-06-05 15:27:59'),
+(30, 4, 4, '2019-06-05 13:39:24', '2019-06-07 22:50:35'),
+(30, 3, 4, '2019-06-05 13:39:24', '2019-06-07 22:50:35'),
+(30, 2, 4, '2019-06-05 13:39:24', '2019-06-07 22:50:35'),
+(30, 1, 4, '2019-06-05 13:39:24', '2019-06-07 22:50:35'),
+(31, 5, 4, '2019-06-05 13:41:17', '2019-06-07 22:50:35'),
+(32, 5, 4, '2019-06-05 13:42:28', '2019-06-07 22:50:35'),
+(32, 9, 4, '2019-06-05 13:42:28', '2019-06-07 22:50:35'),
+(33, 3, 4, '2019-06-05 15:27:59', '2019-06-07 22:50:35'),
 (33, 4, 4, '2019-06-05 15:27:59', '2019-06-05 15:27:59'),
-(34, 3, 4, '2019-06-07 22:04:14', '2019-06-07 22:04:14');
+(34, 3, 4, '2019-06-07 22:04:14', '2019-06-07 22:04:14'),
+(35, 1, 1, '2019-06-08 14:51:33', '2019-06-08 14:51:33'),
+(35, 2, 1, '2019-06-08 14:51:33', '2019-06-08 14:51:33'),
+(35, 3, 4, '2019-06-08 14:51:33', '2019-06-08 14:51:33'),
+(35, 4, 1, '2019-06-08 14:51:33', '2019-06-08 14:51:33'),
+(36, 1, 2, '2019-06-09 15:34:08', '2019-06-09 15:34:08'),
+(36, 2, 2, '2019-06-09 15:34:08', '2019-06-09 15:34:08'),
+(37, 4, 1, '2019-06-09 15:34:25', '2019-06-09 15:34:25'),
+(37, 8, 3, '2019-06-09 15:34:25', '2019-06-09 15:34:25'),
+(37, 7, 2, '2019-06-09 15:34:25', '2019-06-09 15:34:25'),
+(37, 2, 3, '2019-06-09 15:34:25', '2019-06-09 15:34:25'),
+(38, 5, 3, '2019-06-09 15:34:37', '2019-06-09 15:34:37'),
+(38, 2, 3, '2019-06-09 15:34:37', '2019-06-09 15:34:37'),
+(38, 1, 2, '2019-06-09 15:34:37', '2019-06-09 15:34:37'),
+(38, 3, 1, '2019-06-09 15:34:37', '2019-06-09 15:34:37'),
+(38, 11, 4, '2019-06-09 15:34:37', '2019-06-09 15:34:37'),
+(38, 12, 5, '2019-06-09 15:34:37', '2019-06-09 15:34:37'),
+(39, 3, 3, '2019-06-09 15:37:17', '2019-06-09 15:37:17'),
+(39, 1, 2, '2019-06-09 15:37:17', '2019-06-09 15:37:17'),
+(40, 3, 3, '2019-06-09 15:37:24', '2019-06-09 15:37:24'),
+(40, 5, 1, '2019-06-09 15:37:24', '2019-06-09 15:37:24'),
+(40, 1, 2, '2019-06-09 15:37:24', '2019-06-09 15:37:24'),
+(41, 3, 1, '2019-06-09 15:43:14', '2019-06-09 15:43:14'),
+(41, 1, 1, '2019-06-09 15:43:14', '2019-06-09 15:43:14'),
+(41, 2, 1, '2019-06-09 15:43:14', '2019-06-09 15:43:14'),
+(42, 1, 2, '2019-06-09 15:43:18', '2019-06-09 15:43:18'),
+(42, 2, 1, '2019-06-09 15:43:18', '2019-06-09 15:43:18');
 
 -- --------------------------------------------------------
 
@@ -383,13 +419,15 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`id_rol`, `nombre_rol`) VALUES
+(0, 'metre'),
 (1, 'socio'),
 (2, 'mozo'),
 (3, 'bartender'),
 (4, 'cervecero'),
 (5, 'cocinero'),
 (6, 'pastelera'),
-(7, 'admin');
+(7, 'admin'),
+(8, 'metre');
 
 -- --------------------------------------------------------
 
@@ -505,7 +543,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `cliente_visita`
 --
 ALTER TABLE `cliente_visita`
-  MODIFY `id_cliente_visita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_cliente_visita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `encuestas`
@@ -529,7 +567,7 @@ ALTER TABLE `mesas`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`

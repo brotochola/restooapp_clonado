@@ -47,8 +47,7 @@ class App {
         this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true)
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true)
         
-        
-
+  
         
 
 

@@ -58,6 +58,40 @@ class clienteApi extends cliente
 	    return $response->withJson($responseObj, 200);	
     }
 
+
+
+    public static function habilitarUsuario($request, $response, $args) 
+    {
+        //LOS CLIENTES QUEDAN REGISTRADOS PERO CON EL CAMPO HABILITADO=0
+        //ESTO LOS PONE EN 1
+        $dni=$args["dni"];
+        $email=$args["email"];
+
+
+
+
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+        $sql="select * from clientes where email ='".$email."' and dni='".$dni."'";
+
+        $consulta =$objetoAccesoDato->RetornarConsulta($sql);	
+        $consulta->execute();   
+        //  echo $sql;
+        $rta=$consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");	
+       $id_cliente =$rta[0]->id_cliente;
+
+
+
+        $consulta =$objetoAccesoDato->RetornarConsulta("update clientes set habilitado=1 where id_cliente='$id_cliente'");
+        $consulta->execute(); 
+
+        echo "el cliente se dio de alta exitosamente";
+        
+      
+       
+    }
+
+
+
     public function BorrarCliente($request, $response, $args) 
     {
         $vCliente = new cliente();
