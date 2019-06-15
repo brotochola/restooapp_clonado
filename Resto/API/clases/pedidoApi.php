@@ -260,7 +260,7 @@ public static function TraerMayorTiempo($Pedidos){
         return $newResponse;
     }
 
-    public function TraerTiempoFaltante($request, $response, $args) 
+  /*  public function TraerTiempoFaltante($request, $response, $args) 
     {
         $vector = $request->getParams('id_comanda');
         $pPedido = $vector['id_comanda'];
@@ -290,8 +290,8 @@ public static function TraerMayorTiempo($Pedidos){
         $tiempo = date("i:s",$faltante);
         $resp["tiempoFaltante"] = $tiempo;
         return $response->withJson($resp);
-    }
-/*
+    }*/
+ /*
     public function AgregarPedidoAComanda($request, $response, $args) 
     {
 	$objDelaRespuesta= new stdclass();
@@ -440,13 +440,13 @@ public static function TraerMayorTiempo($Pedidos){
         return $response->withJson($total);
     }
 
-    public function PedidosPorMozo($request, $response, $args) 
+  /* public function PedidosPorMozo($request, $response, $args) 
     {
         $vector = $request->getParams('id_mozo');
         $vId = $vector['id_mozo'];
         $Pedidos = pedido::TraerTodosLosPedidosPorIdMozo($vId);
         return $response->withJson($Pedidos, 200);
-    }
+    }*/
 
     public function PedidosDemorados($request, $response, $args) 
     {
@@ -464,14 +464,14 @@ public static function TraerMayorTiempo($Pedidos){
         return $newResponse;
     }
 
-    public function TomarUnPedido($request, $response,$args)
+  /*  public function TomarUnPedido($request, $response,$args)
     {
         $unPedido = new pedido();
         $vHora = new DateTime();
         $vector = $request->getParsedBody();
 
         $vector = $request->getParams('minutos_estimados', 'id_comanda', 'id_producto','id_empleado');
-      //  $id = logueo::ObtenerId($request, $response, $args);
+     
 
         $unPedido->id_comanda = $vector['id_comanda'];
         $unPedido->id_producto = $vector['id_producto'];
@@ -485,18 +485,17 @@ public static function TraerMayorTiempo($Pedidos){
         date_add($vHoraEstipulada, date_interval_create_from_date_string($agregar));
         $unPedido->hora_estimada = date_format($vHoraEstipulada,"Y/m/d H:i:s");
 
-        //return var_dump($unPedido);
+  
 
         $resultado = $unPedido->TomarPedido();
 
-     //   $tarea = "Se toma pedido en comanda: ".$vComanda;
-      //  logueo::InsertarTransaccion($id,$tarea);
+
 
         $responseObj= new stdclass();
         $responseObj->resultado=$resultado;
         $responseObj->tarea="modificar";
         return $response->withJson($responseObj, 200);     
-    }
+    }*/
 
     // public function FinalizarUnPedido($request, $response,$args)
     // {
@@ -563,7 +562,7 @@ public static function TraerMayorTiempo($Pedidos){
     // }
 
 	 
-
+/*
     public function ModificaCantidadPedido($request, $response, $args) {
 
         $unPedido = new pedido();
@@ -632,7 +631,7 @@ public static function TraerMayorTiempo($Pedidos){
         }
     }
 
-
+*/
     public static function cocineroInformaPedidoListo($request, $response){
         //AL CAMBIAR EL ESTDO DEL PEDIDO TMB TIENE Q CAMBIARSE EL DE LA MESA.
         //EL TEMA ACA ES QUE CADA TIPO DE EMPLEADO SOLO INTERACTUA CON LA PARTE DEL PEDIDO, LOS PRODUCTOS,
