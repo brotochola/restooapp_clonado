@@ -187,7 +187,10 @@
                 showTorchButton : false, // iOS and Android, linterna
                 torchOn: false,*/ // Android, launch with the torch switched on (if available)
                 prompt: "escaneá el qr del DNI", // Android
-                resultDisplayDuration: 1500
+                resultDisplayDuration: 1500,
+                formats : "QR_CODE,PDF_417,UPC_E",
+                orientation : "portrait"
+                
                 /*, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
                         formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
                         orientation : "landscape",*/ // Android only (portrait|landscape), default unset so it rotates with the device
@@ -207,8 +210,8 @@
 
         var myJSON = JSON.stringify(data);
 
-        alert(myJSON);
-        //cargarDatosScaneados(data.text);
+        alert("Datos: "+myJSON);
+        cargarDatosScaneados(data.text);
     }
 
 

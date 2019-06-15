@@ -3,20 +3,9 @@
     <div class="col-12">
         <div class="row">
 
-            <div class="columna-medio-16  botonFooterAdmin" id="prepare">
+            <div class="columna-medio-16  botonFooterAdmin" id="prepare" onclick="scanQRMesa()">
                 <img src="media/Img/qr-reader.png" />
                 <h6>QR Mesa</h6>
-            </div>
-
-
-            <div class="columna-medio-16  botonFooterAdmin" id="show">
-                <img src="media/Img/qr-reader.png" />
-                <h6>Preparar</h6>
-            </div>
-
-            <div class="columna-medio-16  botonFooterAdmin" id="scan">
-                <img src="media/Img/qr-reader.png" />
-                <h6>Scanear</h6>
             </div>
 
         </div>
@@ -27,120 +16,54 @@
 
 <script>
 
+    // Para verificar disponibilidad de una mesa.
+    // Para relacionar al cliente con una mesa.
+    // Para ver el estado del pedido.
+    // Para acceder a la encuesta de satisfacción.
 
-// scaner
 
+    function scanQRMesa() {
 
-    document.querySelector("#prepare").addEventListener("touchend", function() {
-        alert("Entre a prepare!!!!!");
-        window.QRScanner.prepare(onDone); // show the prompt
+        try {
+            cordova.plugins.barcodeScanner.scan(QRok, QRmal, {
+                /*preferFrontCamera : false, // iOS and Android
+                showFlipCameraButton : true, // iOS and Android
+                showTorchButton : false, // iOS and Android, linterna
+                torchOn: false,*/ // Android, launch with the torch switched on (if available)
+                prompt: "escaneá el qr de la mesa", // Android
+                resultDisplayDuration: 1500,
+                orientation: "portrait"
 
-    });
+                /*, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                        formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                        orientation : "landscape",*/ // Android only (portrait|landscape), default unset so it rotates with the device
+                /* disableAnimations : true, // iOS
+                    disableSuccessBeep: false // iOS*/
+            });
+        } catch (e) {
+            alert(e);
 
-    document.querySelector("#show").addEventListener("touchend", function() {
-        window.QRScanner.show();
+            //actualizarDatos();
 
-    });
-
-    document.querySelector("#scan").addEventListener("touchend", function() {
-        window.QRScanner.scan(displayContents);
-
-    });
-
-    function onDone(err, status){
-        if (err) {
-            // here we can handle errors and clean up any loose ends.
-            console.error(err);
-        }
-        if (status.authorized) {
-            // W00t, you have camera access and the scanner is initialized.
-            // QRscanner.show() should feel very fast.
-        } else if (status.denied) {
-            // The video preview will remain black, and scanning is disabled. We can
-            // try to ask the user to change their mind, but we'll have to send them
-            // to their device settings with `QRScanner.openSettings()`.
-        } else {
-            // we didn't get permission, but we didn't get permanently denied. (On
-            // Android, a denial isn't permanent unless the user checks the "Don't
-            // ask again" box.) We can ask again at the next relevant opportunity.
         }
     }
 
-    function displayContents(err, text){
-        if(err){
-            // an error occurred, or the scan was canceled (error code `6`)
-        } else {
-            // The scan completed, display the contents of the QR code:
-            alert(text);
-        }
+    function QRok(data) {
+
+        var myJSON = JSON.stringify(data);
+        var obj = JSON.parse(myJSON);
+        var texto = obj.text;
+
+        alert(texto);
+
+        verMesaMozo(texto.id);
+        
     }
 
 
-
-// fin scaner
-    // function scanQRMesa() {
-
-    //     var todoBien = true;
-
-    //     alert("En scanner: " + todoBien);
-
-    //     try {
-    //         QRScanner.prepare(onDone); // show the prompt
-    //         alert("Después de prepare: " + todoBien);
-    //     }
-    //     catch (e) {
-    //         todoBien = false;
-    //         alert(e);
-    //     }
-
-    //     if (todoBien == true) {
-
-    //         alert("Entro a todo bien: " + todoBien);
-    //         scannear();
-    //     }
-
-    // }
+    function QRmal(error) {
+        alert("Error: " + error)
+    }
 
 
-    // var callback = function (err, contents) {
-    //     if (err) {
-    //         console.error(err._message);
-    //     }
-    //     alert('The QR Code contains: ' + contents);
-    // };
-
-
-    // function scannear() {
-    //     alert("Entramos a scannerar");
-    //     QRScanner.scan(callback);
-    // }
-
-    // function displayContents(err, text) {
-    //     if (err) {
-    //         // an error occurred, or the scan was canceled (error code `6`)
-    //         alert(err);
-    //     } else {
-    //         // The scan completed, display the contents of the QR code:
-    //         alert(text);
-    //     }
-    // }
-
-    // function onDone(err, status) {
-    //     if (err) {
-    //         // here we can handle errors and clean up any loose ends.
-    //         console.error(err);
-    //     }
-    //     if (status.authorized) {
-    //         // W00t, you have camera access and the scanner is initialized.
-    //         QRscanner.show();// should feel very fast.
-    //     } else if (status.denied) {
-    //         // The video preview will remain black, and scanning is disabled. We can
-    //         // try to ask the user to change their mind, but we'll have to send them
-    //         // to their device settings with `QRScanner.openSettings()`.
-    //     } else {
-    //         // we didn't get permission, but we didn't get permanently denied. (On
-    //         // Android, a denial isn't permanent unless the user checks the "Don't
-    //         // ask again" box.) We can ask again at the next relevant opportunity.
-    //     }
-    // }
 </script>
