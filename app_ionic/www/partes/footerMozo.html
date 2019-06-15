@@ -20,46 +20,30 @@
     // Para relacionar al cliente con una mesa.
     // Para ver el estado del pedido.
     // Para acceder a la encuesta de satisfacción.
-
+    //{"tipo":"mesa","id":5,"nombreResto":"BlaBla"}
+    //https://www.the-qrcode-generator.com/
 
     function scanQRMesa() {
 
         try {
-            cordova.plugins.barcodeScanner.scan(QRok, QRmal, {
-                /*preferFrontCamera : false, // iOS and Android
-                showFlipCameraButton : true, // iOS and Android
-                showTorchButton : false, // iOS and Android, linterna
-                torchOn: false,*/ // Android, launch with the torch switched on (if available)
+            cordova.plugins.barcodeScanner.scan(callBackQRMozo, QRmal, {                
                 prompt: "escaneá el qr de la mesa", // Android
                 resultDisplayDuration: 1500,
                 orientation: "portrait"
-
-                /*, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-                        formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-                        orientation : "landscape",*/ // Android only (portrait|landscape), default unset so it rotates with the device
-                /* disableAnimations : true, // iOS
-                    disableSuccessBeep: false // iOS*/
             });
         } catch (e) {
             alert(e);
-
-            //actualizarDatos();
-
         }
     }
 
-    function QRok(data) {
+    function callBackQRMozo(data) {
 
-        var myJSON = JSON.stringify(data);
-        var obj = JSON.parse(myJSON);
-        var texto = obj.text;
+        obj = JSON.parse(data.text);
 
-        alert(texto);
-
-        verMesaMozo(texto.id);
-        
+        if (obj.tipo == "mesa") {
+            verMesaMozo(obj.id);
+        }
     }
-
 
     function QRmal(error) {
         alert("Error: " + error)
