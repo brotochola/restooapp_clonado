@@ -54,7 +54,8 @@ class Usuario {
         usuario.data={};
         usuario.token="";
         app.traerHTML("partes/login.html");
-        app.ocultarFooterAdmin()
+        app.ocultarFooterAdmin();
+        app.ocultarFooterMozo();
       //  app.inicioSesion()s
       //  app.ocultarFooterComercio()
       //  app.esconderFooter();

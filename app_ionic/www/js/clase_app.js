@@ -18,7 +18,7 @@ class App {
            setTimeout(()=>{ this.mostrarFooterAdmin()},200)//lo atamo con alambre
         }else if(usuario.dataUsuario().id_rol==2){      
             this.traerHTML("partes/mozo_estado.html", false, true, "admin_estado", false)
-         
+            setTimeout(()=>{ this.mostrarFooterMozo()},200)//seguimos usando alambre
         }else if(usuario.dataUsuario().id_rol==5){      
             //COCINERO
             this.traerHTML("partes/cocinero_estado.html", false, true, "cocinero_estado", false)
@@ -56,6 +56,10 @@ class App {
         //FOOTER
         this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true,"fija",()=>{
             setTimeout(()=>{this.$footerAdmin=$("#footerAdmin");},500);          
+        })
+
+        this.traerHTML("partes/footerMozo.html", true, true, "footerMozo", true,"fija",()=>{
+            setTimeout(()=>{this.$footerMozo=$("#footerMozo");},500);          
         })
 
       
@@ -147,6 +151,13 @@ class App {
     }
     ocultarFooterAdmin(){
         this.$footerAdmin.hide();
+    }
+
+    mostrarFooterMozo(){
+        this.$footerMozo.show();
+    }
+    ocultarFooterMozo(){
+        this.$footerMozo.hide();
     }
 
     traerHTML(url, append, forzarNoCache, id, traerloOculto,clase,cb) {
