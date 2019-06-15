@@ -1,0 +1,48 @@
+api resto app:
+
+/admin/login (user y pass, te da token, no hay registro de admin, lo hacemos nosotros a mano en la db, si no paga la mensualidad lo cortamos)
+/admin/empleados/agregar
+/admin/empleados/modificar
+/admin/empleados/baja
+
+/admin/empleados/listar
+/admin/producto/agregar
+/admin/producto/modificar
+/admin/producto/bajar
+/admin/producto/listar
+
+/admin/mesas/agregar
+/admin/mesas/modificar
+/admin/mesas/bajar
+/admin/mesas/listar
+/admin/mesas/estado
+/admin/mesas/cerrarMesa
+
+/admin/estadisticas/mesas (facturacion total, cantidad de clientes, factura mas alta, cantidad de productos pedidos)
+/admin/estadisticas/empleados (listado de empleados)
+/admin/estadisticas/empleados/actividades (todas las actividades de todos)
+/admin/estadisticas/unEmpleado (trae la informacion de la persona + actividad)
+/admin/estadisticas/pedidos
+/admin/estadisticas/facturacion
+/admin/estadisticas/productos
+
+/////////////////////////////////////////
+
+/mozo/login (user y pass, te da token)
+/mozo/cliente/agregar
+/mozo/cliente/modificar
+/mozo/cliente/pedirCuenta
+/mozo/pedido/agregar (de aca se manda a la cocina y/o otros sectores)
+/mozo/pedido/cancelar
+/mozo/pedido/entregar (cuando)
+/mozo/pedido/traerUnPedido
+/mozo/mesa/habilitar
+/mozo/estado (podria traer arrays con numeros, lo cual seria bien liviano, y el sentido esta preestablecido. Necesito traer: estado de todas las mesas, uno de los cuales debe ser si hay un pedido listo para ser recogido por la cocina )
+
+/////////////////////////////////////////
+
+/cocinero/login (mandas usuario y pass y te da token)
+/cocinero/estado (trae los ids de los pedidos q esta laburando, y por otro lado si hay un pedido q ningun otro cocinero haya aceptado)
+/cocinero/listarPedidos (los propios)
+/cocinero/aceptarPedido (aca le manda el tiempo q espera tardar)
+/cocinero/pedidoListo (guarda el tiempo q demoró en hacer el pedido, y cambia el estado de la mesa del pedido)
