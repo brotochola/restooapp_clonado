@@ -271,7 +271,7 @@ $app->group('/cliente', function () {
        
     $this->put('/modificar', \clienteApi::class . ':ModificarCliente');
 
-    $this->delete('/borrar/{id}', \clienteApi::class . ':BorrarCliente'); //->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
+   // $this->delete('/borrar/{id}', \clienteApi::class . ':BorrarCliente'); //->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
 
 }); //->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
