@@ -1,0 +1,25 @@
+Comandos Cordova
+
+#Agregar plataforma
+
+ $ cordova platform add android
+ $ cordova platform add browser
+
+#Build
+
+ $ cordova build                   # build all platforms that were added
+ $ cordova build android           # build debug for only Android
+ $ cordova build android --debug   # build debug for only Android
+ $ cordova build android --release # build release for only Android
+
+#Renombrar id/Version en config.xml
+
+#firmar apk
+
+keytool -genkey -v -keystore lallave.keystore -alias unnombre -keyalg RSA -keysize 2048 -validity 10000
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore lallave.keystore resto.apk unnombre
+
+#Ejecutar
+cordova run android
+cordova run browser

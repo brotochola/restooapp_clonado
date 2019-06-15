@@ -40,10 +40,8 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="info text-center">
-                                <input type="file" id="fotoNuevoCliente" style="display:none">
-                                <label for="fotoNuevoCliente" class="boton-modal "> Sacar Foto</label>
-                            </div>
+                            <button onclick='sacarFotoCliente()' class="boton-modal centro" id="botonFotoEmpleado">Sacar
+                                Foto</button>
                         </div>
                     </div>
 
@@ -81,6 +79,34 @@
 </div>
 <script>
     var mesaID;
+    var fotoCargadaBase64;
+
+    //===========Foto Cliente
+    function sacarFotoCliente() {
+
+        try {
+            navigator.camera.getPicture(onSuccess, onFail, {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL
+            });
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+
+    function onSuccess(imageData) {
+        var image = document.getElementById('myImage');
+        //image.src = "data:image/jpeg;base64," + imageData;
+        fotoCargadaBase64 = "data:image/jpeg;base64," + imageData;
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+
+    //============Termina FotoCliente
+
 
     function mostrarModalNuevoCliente(m_id) {
         mesaID = m_id
@@ -116,30 +142,33 @@
             "nombre": nombre,
             "email": email,
             "dni": dni,
+            "foto": fotoCargadaBase64,
             "cantComensales": $("#selectCantSillas").val()
         }
+
+        api.habilitarMesa(data, cbHabilitarMesa)
 
         //foto es el archivo como viene del input
         //lo q le sigue es un callback cuyo parametro es el string base64
 
-        let foto = null;
-        if ($("#fotoNuevoCliente")[0].files.length == 1) {
-            foto = $("#fotoNuevoCliente")[0].files[0]
-            base64(foto, (fotoBase64) => {
-                data.foto = fotoBase64;
-                api.habilitarMesa(data, cbHabilitarMesa)
-            })
-        } else {
-            //no hay foto
-            data.foto = '';
-            api.habilitarMesa(data, cbHabilitarMesa)
+        //comento todo lo que estaba para agregar de camara
+        // let foto = null;
 
-        }
+        // if ($("#fotoNuevoCliente")[0].files.length == 1) {
+        //     foto = $("#fotoNuevoCliente")[0].files[0]
+        //     base64(foto, (fotoBase64) => {
+        //         data.foto = fotoBase64;
+        //         api.habilitarMesa(data, cbHabilitarMesa)
+        //     })
+        // } else {
+        //     //no hay foto
+        //     data.foto = '';
+        //     api.habilitarMesa(data, cbHabilitarMesa)
 
-
-
-
+        // }
     }
+
+
     function ocultarModalNuevoCliente() {
         app.esconderUnaParte("partes/nuevoCliente.html");
     }
@@ -147,7 +176,57 @@
     function cbHabilitarMesa() {
         app.esconderUnaParte("partes/nuevoCliente.html");
     }
+
     function escanearCodigoQRdelDNI() {
-        console.log("ESCANEAR QR DEL DNI!")
+        try {
+            cordova.plugins.barcodeScanner.scan(QRok, QRmal, {
+                /*preferFrontCamera : false, // iOS and Android
+                showFlipCameraButton : true, // iOS and Android
+                showTorchButton : false, // iOS and Android, linterna
+                torchOn: false,*/ // Android, launch with the torch switched on (if available)
+                prompt: "escaneá el qr del DNI", // Android
+                resultDisplayDuration: 1500
+                /*, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                        formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                        orientation : "landscape",*/ // Android only (portrait|landscape), default unset so it rotates with the device
+                /* disableAnimations : true, // iOS
+                    disableSuccessBeep: false // iOS*/
+            });
+        } catch (e) {
+            alert(e);
+
+            //actualizarDatos();      
+
+        }
+
+
+
+    }
+
+    function QRok(data) {
+
+        var myJSON = JSON.stringify(data);
+
+        alert(myJSON);
+        cargarDatosScaneados(data.text);
+    }
+
+
+    function QRmal(error) {
+        alert("Error: " + error)
+    }
+
+    function cargarDatosScaneados(data) {
+
+        alert("Falta programar!");
+        //Valido para empleado configuar cliente
+        // datosDNI = data.split('@');
+        // numeroDNI = parseInt(datosDNI[1]);
+        // nombreCompletoDNI = datosDNI[4] + ' ' + datosDNI[5];
+        // fechaDNI = datosDNI[7].split('/')[2] + '-' + datosDNI[7].split('/')[1] + '-' + datosDNI[7].split('/')[0];
+
+        // $("#nombre").val(nombreCompletoDNI);
+        // $("#dni").val(numeroDNI);
+        // $("#fechaNac").val(fechaDNI);
     }
 </script>

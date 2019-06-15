@@ -27,15 +27,43 @@ class clienteApi extends cliente
 
     public function TraerUnCliente($request, $response, $args) 
     {
-        $vector  = $request->getParams('id_cliente');       
-        $vId = $vector['id_cliente'];         
-        
-        $elElemento = cliente::TraerUno($vId);
-        $newResponse = $response->withJson($elElemento, 200);  
-        return $newResponse;
+        $id = $args['id'];
+
+		$elcliente = Cliente::TraerUno($id);
+
+		$rta = [];
+
+		$newResponse = $response;
+
+		if ($elcliente) {
+			$rta = $elcliente;
+		} else {
+			$rta["estado"] = "ERROR";
+			$rta['mensaje'] = 'No se encontró ese Cliente.';
+		}
+
+		return $newResponse->withJson($rta, 200);
     }
 
+    public function TraerUnClientePorMail($request, $response, $args) 
+    {
+        $email = $args['email'];
 
+		$elcliente = Cliente::email2Cliente($email);
+
+		$rta = [];
+
+		$newResponse = $response;
+
+		if ($elcliente) {
+			$rta = $elcliente;
+		} else {
+			$rta["estado"] = "ERROR";
+			$rta['mensaje'] = 'No se encontró ese Cliente.';
+		}
+
+		return $newResponse->withJson($rta, 200);
+    }
 
     public function TraerClientes($request, $response, $args) 
     {
@@ -120,6 +148,78 @@ class clienteApi extends cliente
 
             return "No existe ningún elemento con ese código";
         }
+    }
+
+    public function LoginCliente($request,$response,$args)
+    {         
+        $objDelaRespuesta = new stdclass();  
+        $objDelaRespuesta->itsOK = false;  
+        $objDelaRespuesta->mensaje = "El cliente no existe";            
+        $vector = $request->getParsedBody();
+        //print_r($vector);die();
+    
+        //$vUsuario = $vector['usuario'];  
+        $vEmail = $vector['email'];  
+        $vDNI = $vector['dni'];
+
+        $var = cliente::email2Cliente($vEmail);
+        
+        if($var != null)
+        {       
+            if($vDNI == $var->dni)
+            {  
+                $objDelaRespuesta->el_cliente = new cliente();
+                $objDelaRespuesta->itsOK = true;
+                $objDelaRespuesta->el_cliente = $var; 
+                $objDelaRespuesta->token = AutentificadorJWT::CrearToken($var);
+                $objDelaRespuesta->mensaje = "Login correcto";  
+                $newResponse = $response->withJson($objDelaRespuesta, 200);        
+                return $newResponse;        
+            }
+            else
+            {
+                $objDelaRespuesta->mensaje = "Datos incorrectos";
+            }
+
+        }       
+        $newResponse = $response->withJson($objDelaRespuesta, 200);        
+        return $newResponse;       
+    }
+
+    public function LoginAnonimo($request,$response,$args)
+    {         
+        $objDelaRespuesta = new stdclass();  
+        $objDelaRespuesta->itsOK = false;  
+        $objDelaRespuesta->mensaje = "El cliente no existe";            
+        $vector = $request->getParsedBody();
+        //print_r($vector);die();
+    
+        //$vUsuario = $vector['usuario'];  
+        $vId_cliente = $vector['id_cliente'];  
+        $vNombre_cliente = $vector['nombre_cliente'];
+
+        $var = cliente::TraerUno($vId_cliente);
+        
+        if($var != null)
+        {       
+            if($vNombre_cliente == $var->nombre_cliente)
+            {  
+                $objDelaRespuesta->el_cliente = new cliente();
+                $objDelaRespuesta->itsOK = true;
+                $objDelaRespuesta->el_cliente = $var; 
+                $objDelaRespuesta->token = AutentificadorJWT::CrearToken($var);
+                $objDelaRespuesta->mensaje = "Login correcto";  
+                $newResponse = $response->withJson($objDelaRespuesta, 200);        
+                return $newResponse;        
+            }
+            else
+            {
+                $objDelaRespuesta->mensaje = "Datos incorrectos";
+            }
+
+        }       
+        $newResponse = $response->withJson($objDelaRespuesta, 200);        
+        return $newResponse;       
     }
 }
 ?>
