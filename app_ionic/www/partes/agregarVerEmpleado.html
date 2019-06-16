@@ -181,14 +181,14 @@
     function leerDNIEmpleado() {
 
         try {
-            cordova.plugins.barcodeScanner.scan(QRok, QRmal, {
+            cordova.plugins.barcodeScanner.scan(callBackDNIEmpleado, QRmalDNIEmpleado, {
                 /*preferFrontCamera : false, // iOS and Android
                 showFlipCameraButton : true, // iOS and Android
                 showTorchButton : false, // iOS and Android, linterna
                 torchOn: false,*/ // Android, launch with the torch switched on (if available)
                 prompt: "escaneá el qr del DNI", // Android
                 resultDisplayDuration: 1500,
-                formats : "QR_CODE,PDF_417,UPC_E",
+                formats : "PDF417",
                 orientation : "portrait"
                 
                 /*, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
@@ -206,29 +206,32 @@
     }
 
 
-    function QRok(data) {
+    function callBackDNIEmpleado(data) {
 
-        var myJSON = JSON.stringify(data);
+        //var myJSON = JSON.stringify(data);
+        //obj = JSON.parse(data.text);   07255656
 
-        alert("Datos: "+myJSON);
-        cargarDatosScaneados(data.text);
+        alert("Datos DNI: "+data.text);
+        //cargarDatosScaneadosDNIEmpleado(data.text);
     }
 
 
-    function QRmal(error) {
+    function QRmalDNIEmpleado(error) {
         alert("Error: " + error)
     }
 
-    function cargarDatosScaneados(data) {
+    function cargarDatosScaneadosDNIEmpleado(data) {
 
         datosDNI = data.split('@');
-        numeroDNI = parseInt(datosDNI[1]);
-        nombreCompletoDNI = datosDNI[4] + ' ' + datosDNI[5];
-        fechaDNI = datosDNI[7].split('/')[2] + '-' + datosDNI[7].split('/')[1] + '-' + datosDNI[7].split('/')[0];
+       apellido = datosDNI[1];
 
-        $("#nombre").val(nombreCompletoDNI);
-        $("#dni").val(numeroDNI);
-        $("#fechaNac").val(fechaDNI);
+        // numeroDNI = parseInt(datosDNI[1]);
+        // nombreCompletoDNI = datosDNI[4] + ' ' + datosDNI[5];
+        // fechaDNI = datosDNI[7].split('/')[2] + '-' + datosDNI[7].split('/')[1] + '-' + datosDNI[7].split('/')[0];
+
+        $("#nombre").val(apellido);
+        // $("#dni").val(numeroDNI);
+        // $("#fechaNac").val(fechaDNI);
     }
 
 
