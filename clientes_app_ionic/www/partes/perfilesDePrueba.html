@@ -1,0 +1,56 @@
+<body>
+    <div class="fondo-modal" id="perfilesDePrueba">
+        <div class="contenedor-modal">
+            <div class="cuerpo-modal contenedorPruebas">
+                <div class="container" id="btns_clientes_test">
+                    <!-- Carga dinamica del array clientesTest -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    var clientesTest = [
+        {
+            mail: "esteban@cliente.com",
+            dni: 11111111
+        },
+        {
+            mail: "juan@cliente.com",
+            dni: 22222222
+        }
+    ];
+
+    var btns_clientes_test = "";
+
+    for (let k = 0; k < clientesTest.length; k++) {
+        cli_mail_ = clientesTest[k].mail;
+        btns_clientes_test = btns_clientes_test + '<div class="row" ><div class="col-6"><button onclick="logueoPrueba(' + k + ')" class="boton-modal">' + cli_mail_ + '</button></div></div>';
+    }
+
+    btns_clientes_test = btns_clientes_test + '<div class="row"> <div class="col-6"> <button onclick="sacarModalPerfilesDePrueba()" class="boton-modal cancelar">Cancelar</button></div></div>';
+
+    $("#btns_clientes_test").html(btns_clientes_test);
+
+    function logueoPrueba(id) {
+        var cl = clientesTest[id];
+        api.logueo(cl.mail, cl.dni, callbackPruebaPerfil);
+    }
+
+    function sacarModalPerfilesDePrueba() {
+        app.esconderUnaParte(null, "modalPerfilesDePrueba");
+    }
+
+    let callbackPruebaPerfil = function (r) {
+        console.log(r);
+        if (r.itsOK == false) {
+            mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
+        } else {
+            cliente.meterleToken(r.token)
+            app.quePasaDespuesDeLogin()
+        }
+    }//cblogin
+
+</script>

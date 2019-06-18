@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "725183204334",
+    "firebase_url": "https://clubmataderosarg.firebaseio.com",
+    "project_id": "clubmataderosarg",
+    "storage_bucket": "clubmataderosarg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:725183204334:android:3a274eeb78abcca4",
+        "android_client_info": {
+          "package_name": "com.pixeloide.clubmataderos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "725183204334-nlvdarr18c1coi4g8rp8jcfgopbe2gr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByRvBzIc9kyNj3CwNfZVDRpQENNfrqfv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "725183204334-nlvdarr18c1coi4g8rp8jcfgopbe2gr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
