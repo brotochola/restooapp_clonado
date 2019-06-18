@@ -109,7 +109,7 @@ class clienteApi extends cliente
         $dni=$rta[0]->dni;
        
         $str="<html><body>Estimadx ".$rta[0]->nombre_completo .".<br>Para habilitar su usuario de restoApp haga click en el siguiente link:\r\n\r\n\r\n";
-        $str.="<a href='pixeloide.com/restoApp/API/cliente/habilitar/".$email."/".$dni."'>Habilitar Usuario</a>";
+        $str.='<a href="pixeloide.com/restoApp/API/cliente/habilitar/'.$email.'/'.$dni.'">Habilitar Usuario</a>';
         $str.="</body></html>";
 
      //   echo $str;
