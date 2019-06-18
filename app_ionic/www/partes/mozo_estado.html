@@ -7,7 +7,7 @@
             </div>
             <div class="col-8" id="nombreMozo">Estado - Camarerx</div>
             <div class="col-2">
-
+                <img src="media/Img/qr-reader.jpg" height="35" onclick="scanQRMesa()" height="100%">
             </div>
         </div>
     </div>
@@ -71,7 +71,52 @@
     </div>
 
 </body>
+
+
+
+
+
 <script>
+
+///////////////COSAS DEL QR:
+    // Para verificar disponibilidad de una mesa.
+    // Para relacionar al cliente con una mesa.
+    // Para ver el estado del pedido.
+    // Para acceder a la encuesta de satisfacción.
+    //{"tipo":"mesa","id":5,"nombreResto":"BlaBla"}
+    //https://www.the-qrcode-generator.com/
+
+
+function scanQRMesa() {
+
+try {
+    cordova.plugins.barcodeScanner.scan(callBackQRMozo, QRmal, {                
+        prompt: "escaneá el qr de la mesa", // Android
+        resultDisplayDuration: 1500,
+        orientation: "portrait"
+    });
+} catch (e) {
+    alert(e);
+}
+}
+
+function callBackQRMozo(data) {
+
+obj = JSON.parse(data.text);
+
+if (obj.tipo == "mesa") {
+    verMesaMozo(obj.id);
+}
+}
+
+function QRmal(error) {
+alert("Error: " + error)
+}
+
+///////////////////FIN COSAS DEL QR
+
+
+
 
     function actualizarEstadoMozo(event) {
 

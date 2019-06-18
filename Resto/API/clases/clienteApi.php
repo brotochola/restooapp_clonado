@@ -5,6 +5,14 @@ require_once 'cliente.php';
 
 class clienteApi extends cliente
 {   
+
+    public static function pruebaAgregar($request,$response,$args){
+
+        $id= $args["id"];
+        self::mandarleMailConfirmacionAlCliente($id);
+    }
+
+
     public function CargarCliente($request,$response,$args)
     {         
         $miCliente = new cliente();
@@ -87,6 +95,34 @@ class clienteApi extends cliente
     }
 
 
+
+    public static function mandarleMailConfirmacionAlCliente($id){
+
+
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+        $sql="select * from clientes where id_cliente=$id";
+        $consulta =$objetoAccesoDato->RetornarConsulta($sql);	
+        $consulta->execute();   
+        //  echo $sql;
+        $rta=$consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");	
+        $email=$rta[0]->email;
+        $dni=$rta[0]->dni;
+       
+        $str="<html><body>Estimadx ".$rta[0]->nombre_completo .".<br>Para habilitar su usuario de restoApp haga click en el siguiente link:\r\n\r\n\r\n";
+        $str.='<a href="pixeloide.com/restoApp/API/cliente/habilitar/'.$email.'/'.$dni.'">Habilitar Usuario</a>';
+        $str.="</body></html>";
+
+     //   echo $str;
+        $headers = "From: no-reply@restoApp.com.ar"  . "\r\n" .	"Reply-To:  no-reply@restoApp.com.ar" . "\r\n" ;
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+        $mando = mail($email,"confirmación restoApp",$str,$headers);
+       // echo "<br>mando?= ".$mando;
+        return $mando;
+
+
+    }
 
     public static function habilitarUsuario($request, $response, $args) 
     {
