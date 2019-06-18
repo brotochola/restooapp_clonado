@@ -743,6 +743,7 @@ padding-bottom:100px;
 .contenedor-listados-pedidos ul{
     padding: 0;
     list-style: none;
+    /* height: 100px; */
     width: 100%;
 }
 
@@ -1755,7 +1756,8 @@ parte#login{
     }
     
     .contenedor-listados-pedidos {
-        height: 600px;
+        height: auto;
+        max-height: 40vh;
     }
     
     .titulo-cabezera-cocinero {
