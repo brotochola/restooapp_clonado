@@ -158,14 +158,13 @@ class clienteApi extends cliente
         $vector = $request->getParsedBody();
         //print_r($vector);die();
     
-        //$vUsuario = $vector['usuario'];  
         $vEmail = $vector['email'];  
         $vDNI = $vector['dni'];
 
-        $var = cliente::email2Cliente($vEmail);
+        $var = cliente::email2Cliente($vEmail)[0];
         
         if($var != null)
-        {       
+        {
             if($vDNI == $var->dni)
             {  
                 $objDelaRespuesta->el_cliente = new cliente();
@@ -196,13 +195,13 @@ class clienteApi extends cliente
     
         //$vUsuario = $vector['usuario'];  
         $vId_cliente = $vector['id_cliente'];  
-        $vNombre_cliente = $vector['nombre_cliente'];
+        $vNombre_completo = $vector['nombre_completo'];
 
-        $var = cliente::TraerUno($vId_cliente);
+        $var = cliente::TraerUno($vId_cliente)[0];
         
         if($var != null)
         {       
-            if($vNombre_cliente == $var->nombre_cliente)
+            if($vNombre_completo == $var->nombre_completo)
             {  
                 $objDelaRespuesta->el_cliente = new cliente();
                 $objDelaRespuesta->itsOK = true;
