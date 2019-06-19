@@ -63,7 +63,7 @@
         if (r.itsOK == false) {
             mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
         } else {
-            usuario.meterleToken(r.token)
+            cliente.meterleToken(r.token)
             app.quePasaDespuesDeLogin()
         }
     }//cblogin
