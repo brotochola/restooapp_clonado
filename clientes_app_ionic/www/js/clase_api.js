@@ -44,7 +44,7 @@ class API {
             type: "post",
             dataType: "json",
             headers: {
-                token: localStorage[usuarioLogueado_ls]
+                token: localStorage[clienteLogueado_ls]
             },
             data: pedidoParaMandar,
             success: function (e) {
@@ -65,7 +65,7 @@ class API {
             type: "post", //esto es solo porq estoy no usando un backend de verdad
             dataType: "json",
             headers: {
-                token: localStorage[usuarioLogueado_ls]
+                token: localStorage[clienteLogueado_ls]
             },
             success: (e) => {
                 console.log(e)
@@ -83,7 +83,7 @@ class API {
         $.ajax({
             url: this.urlServer + "mesas/id/" + id,
             headers: {
-                token: localStorage[usuarioLogueado_ls]
+                token: localStorage[clienteLogueado_ls]
             },
             dataType: "json",
             success: function (e) {
@@ -103,7 +103,7 @@ class API {
             type: "post",
             dataType: "json",
             headers: {
-                token: localStorage[usuarioLogueado_ls]
+                token: localStorage[clienteLogueado_ls]
             },
             success: (e) => {
                 console.log(e)

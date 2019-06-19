@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="cuerpo-modal">
+    <div class="cuerpo-modal cuerpo-cliente">
         <div class="container-cuerpo">
             <div class="container">
                 <div class="row"> <span id="idMesa" class="idMesa">#5</span></div>
@@ -137,7 +137,7 @@
             $.ajax({
                 url: caminoBackend + "admin/mesas/cerrar/id",
                 headers: {
-                    token: localStorage[usuarioLogueado_ls]
+                    token: localStorage[clienteLogueado_ls]
                 },
                 data: {
                     "id": idMesa
@@ -180,14 +180,9 @@
         $("#idMesa").html("#" + mesa.id_mesa)
         if (checkStr(mesa.cliente.nombre_completo)) {
             //SI LA MESA TIENE UN CLIENTE ES QUE TIENE DATA Y TODO
-            if (usuario.dataUsuario().id_rol != 1) {
-                //no es admin
-                $("#botonCerrarMesa, #botonEstadisticas").hide();
-                $("#botonAgregarPedidoAMesaMozo").show();
-            } else {
-                $("#botonCerrarMesa, #botonEstadisticas").show();
-                $("#botonAgregarPedidoAMesaMozo").hide();
-            }
+            $("#botonCerrarMesa, #botonEstadisticas").hide();
+            $("#botonAgregarPedidoAMesaMozo").show();
+            
             ////
             $("#nombreCliente").html(mesa.cliente.nombre_completo)
             $("#cantVisitas").html(mesa.cliente.cant_visitas)

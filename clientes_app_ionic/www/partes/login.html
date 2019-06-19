@@ -55,7 +55,7 @@
     $(document).ready(function () {
         console.log("doc ready login ");
         $("#botonLogin").click(clickLogin)
-        $("#botonTestingRoles").click(clickUsuariosPrueba)
+        $("#botonTestingRoles").click(clickClientesPrueba)
     });//doc ready
 
     let callbackLogin = function (r) {
@@ -79,7 +79,7 @@
         api.logueo(mail, clave, callbackLogin)
     }
 
-    function clickUsuariosPrueba() {
+    function clickClientesPrueba() {
         app.traerHTML("partes/perfilesDePrueba.html", true);
     }
 
