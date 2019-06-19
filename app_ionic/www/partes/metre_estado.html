@@ -109,14 +109,10 @@ alert("Error: " + error)
 
 
     $(document).ready(function () {
-        console.log("doc ready estado mozx");
+        console.log("doc ready estado metre");
         api.traerMesas(setupEstadoMozo);
 
         docReady = 1;
-
-
-
-
 
         //populo cosas:
 
@@ -127,13 +123,6 @@ alert("Error: " + error)
 
         //listeners
 
-
-        //agrego cachos:
-        /* agregarCachoABody("modalConfirmacion.html")
-         agregarCachoABody("verEstadoMesaMozo.html")
-         agregarCachoABody("verAgregarPedidoMozo.html")
-         agregarCachoABody("nuevoPedidoAgregarProductos.html")
-         agregarCachoABody("nuevoCliente.html")*/
 
 
 
@@ -159,44 +148,8 @@ alert("Error: " + error)
 
     }
 
-    function compararEstadoAnteriorYActual() {
-
-
-
-        for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
-            let m = api.estadoMozo.mesas[i]
-            let mesaAnterior
-
-            try {
-
-                mesaAnterior = buscarEnArray(m.id_mesa, "id_mesa", api.estadoAnteriorMozo.mesas);
-
-                // console.log(m, mesaAnterior)
-                if (mesaAnterior.estado_mesa == 2 && m.estado_mesa == 3) {
-
-                    //si la mesa antes estaba esperando pedido y ahora la mesa tiene un pedido q esta listo...
-                    let arrayPedidos = api.estadoMozo.pedidos.filter(p => p.id_mesa == m.id_mesa)
-                    //console.log(arrayMesas)
-                    for (let k = 0; k < arrayPedidos.length; k++) {
-                        // if(arrayPedidos[k].estado_pedido==3){
-                        let notif = {
-                            "mesa": arrayPedidos[k].id_mesa,
-                            "pedido": arrayPedidos[k].id_pedido,
-                            "donde": arrayPedidos[k].nombre_sector_cocina
-                        }
-                        cargarNotificacion(notif);
-                        //  }
-                    }
-
-                }
-
-            } catch (e) { }
-
-        }
-    }
-
     function cbPedidosMozo() {
-        console.log("cb estado mozo", api.estadoMozo)
+       // console.log("cb estado mozo", api.estadoMozo)
         //esta funcion se ejecuta cada 5 segundos
 
 
@@ -227,46 +180,4 @@ alert("Error: " + error)
     }
 
 
-    function mostrarSiguienteNotificacion() {
-        var muestro = 1;
-        $(".fondo-modal").each(function (k, v) {
-            if ($(v).is(":visible") == true) muestro = 0
-        })
-
-        //si estan todos invisible, sigue de largo y muestra la siguiente notif
-        if (muestro == 1 && notificacionesPendientes.length > 0) mostrarNotificacion(notificacionesPendientes.pop())
-
-    }
-
-
-    function mostrarNotificacion(n) {
-        try {
-            $("#donde").html(n.donde.toUpperCase())
-            $("#idPedido").html("#" + n.pedido)
-            $("#divIdMesa").html("#" + n.mesa)
-
-            $("#notificacionesMozo").fadeIn()
-            $("#contenedorMesasMozo").addClass("conNotif")
-            setTimeout(ocultarNotificaciones, tiempoNotificacion)
-        } catch (e) { console.log("la notificacion no está completa y nos e muestra") }
-    }
-
-    function ocultarNotificaciones() {
-        $("#notificacionesMozo").fadeOut()
-        $("#contenedorMesasMozo").removeClass("conNotif")
-    }
-
-    function cargarNotificacion(n) {
-        console.log(n)
-        //{mesa,pedido, donde}
-        for (var i = 0; i < notificacionesPendientes.length; i++) {
-            // console.log(notificacionesPendientes[i].mesa, n.mesa, notificacionesPendientes[i].pedido, n.pedido, notificacionesPendientes[i].donde, n.donde)
-            if (notificacionesPendientes[i].mesa == n.mesa && notificacionesPendientes[i].pedido == n.pedido && notificacionesPendientes[i].donde == n.donde) {
-                //  console.log("son iguales")
-                return;;
-            }
-        }
-        //no esta
-        notificacionesPendientes.push(n)
-    }
 </script>

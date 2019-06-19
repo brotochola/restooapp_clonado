@@ -62,7 +62,12 @@ class reservaApi extends reserva
         $newResponse = $response->withJson($reservas, 200);  
         return $newResponse;
     }    
-   
+    public function TraerReservasDeHoy($request, $response, $args) 
+    {
+        $reservas = reserva::TraerTodosDeHoy();        
+        $newResponse = $response->withJson($reservas, 200);  
+        return $newResponse;
+    }    
    
     // public function BorrarCliente($request, $response, $args) 
     // {

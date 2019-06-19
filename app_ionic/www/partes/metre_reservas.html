@@ -29,17 +29,19 @@ ul#reservas_lista {
 
 <script>
 console.log(">> metre_Reservas.html");
+
 function traerReservas(){
     $.ajax({
-    url:api.urlServer+"reservas/listado",
-    dataType:"json",
-    success:(e)=>{
-        console.log(e);
-        armarReservas(e)
-    },error:e=>console.log(e)
-});
+        url:api.urlServer+"reservas/listadoDeHoy",
+        dataType:"json",
+        success:(e)=>{
+            console.log(e);
+            armarReservas(e)
+        },error:e=>console.log(e)
+    });
 }
 
+traerReservas();
 
 function armarReservas(a){
     $("#reservas_lista").html("");

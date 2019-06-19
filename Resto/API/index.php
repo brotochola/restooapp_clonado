@@ -109,6 +109,8 @@ $app->group('/reservas', function () {
     $this->post('/confirmar/{id}', \reservaApi::class . ':ConfirmarReserva');
 
     $this->get('/listado', \reservaApi::class . ':TraerReservas');
+    $this->get('/listadoDeHoy', \reservaApi::class . ':TraerReservasDeHoy');
+
 
     // $this->delete('/borrar/{id}',\clienteApi::class . ':BorrarCliente');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
 
