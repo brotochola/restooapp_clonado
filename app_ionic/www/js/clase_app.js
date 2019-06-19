@@ -26,8 +26,7 @@ class App {
         }else if(usuario.dataUsuario().id_rol==8){      
             //METRE
             this.traerHTML("partes/metre_estado.html", false, true, "metre_estado", false)
-            setTimeout(() => { this.mostrarFooterMetre() }, 200)//lo atamo con alambre
-
+            this.traerHTML("partes/footer_metre.html", true, true, "footerMetre", false, "fija")
         }
     }
 
@@ -51,9 +50,7 @@ class App {
         this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true, "fija", () => {
             setTimeout(() => { this.$footerAdmin = $("#footerAdmin"); }, 500);
         })
-        this.traerHTML("partes/footer_metre.html", true, true, "footerMetre", true, "fija", () => {
-            setTimeout(() => { this.$footerMetre = $("#footerMetre"); }, 500);
-        })
+  
         this.traerHTML("partes/footerMozo.html", true, true, "footerMozo", true, "fija", () => {
             setTimeout(() => { this.$footerMozo = $("#footerMozo"); }, 500);
         })
