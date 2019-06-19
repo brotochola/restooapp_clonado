@@ -22,30 +22,20 @@ class App {
         }
 
         //Ver qué opciones del footer
-        //setTimeout(() => { this.mostrarFooterAdmin() }, 200)//lo atamo con alambre
+        setTimeout(() => { this.mostrarFooterCliente() }, 200)//lo atamo con alambre
     }
 
     init() {
         console.log("APP INIT")
         //MODALES:
-        this.traerHTML("partes/modalConfirmacion.html", true, true, "modalConfirm", false)
-        /* this.traerHTML("partes/verEstadoMesa.html", true, true, "verEstadoMesa", true)
-        this.traerHTML("partes/agregarVerProducto.html", true, true, "modalVerAgregarProducto", true)
-        this.traerHTML("partes/agregarVerEmpleado.html", true, true, "verEmpleado", true)
-        this.traerHTML("partes/verAgregarPedido.html", true, true, "modalVerPedido", true)
-        this.traerHTML("partes/agregarVerMesa.html", true, true, "agregarVerMesa", true)
-        this.traerHTML("partes/nuevoPedidoAgregarProductos.html", true, true, "nuevoPedidoAgregarProductos", true)
-        this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true) */
-        this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true)
+        this.traerHTML("partes/modalConfirmacion.html", true, true, "modalConfirm", false);
+        this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true);
 
         //FOOTER
-        /* this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true, "fija", () => {
-            setTimeout(() => { this.$footerAdmin = $("#footerAdmin"); }, 500);
-        }) */
-
-        /* this.traerHTML("partes/footerMozo.html", true, true, "footerMozo", true, "fija", () => {
-            setTimeout(() => { this.$footerMozo = $("#footerMozo"); }, 500);
-        }) */
+        //Revisar si es práctico que lo tenga el cliente, y qué opciones tendrá
+        this.traerHTML("partes/footerCliente.html", true, true, "footerCliente", true, "fija", () => {
+            setTimeout(() => { this.$footerCliente = $("#footerCliente"); }, 500);
+        })
 
         //LOGIN LO TRAE NO COMO APPEND Y NO OCULTO
         this.traerHTML("partes/login.html", false, true, "login", false)
@@ -106,18 +96,11 @@ class App {
         }
     }
 
-    mostrarFooterAdmin() {
-        this.$footerAdmin.show();
+    mostrarFooterCliente() {
+        this.$footerCliente.show();
     }
-    ocultarFooterAdmin() {
-        this.$footerAdmin.hide();
-    }
-
-    mostrarFooterMozo() {
-        this.$footerMozo.show();
-    }
-    ocultarFooterMozo() {
-        this.$footerMozo.hide();
+    ocultarFooterCliente() {
+        this.$footerCliente.hide();
     }
 
     traerHTML(url, append, forzarNoCache, id, traerloOculto, clase, cb) {
