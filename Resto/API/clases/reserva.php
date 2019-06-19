@@ -10,6 +10,7 @@ class reserva
     public $fecha;
     public $confirmada;
     public $fecha_alta;
+    public $comensales;
     
     
     public function __construct() {}
@@ -17,12 +18,13 @@ class reserva
         public function Insertar()
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into reservas(id_cliente, id_mesa, fecha, fecha_alta)
-            values(:id_cliente, :id_mesa, :fecha, :fecha_alta)");
+            $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into reservas(id_cliente, id_mesa, fecha, fecha_alta, comensales)
+            values(:id_cliente, :id_mesa, :fecha, :fecha_alta, :comensales)");
             $consulta->bindValue(':id_cliente', $this->id_cliente, PDO::PARAM_STR);
             $consulta->bindValue(':id_mesa', $this->id_mesa, PDO::PARAM_STR);
             $consulta->bindValue(':fecha', $this->fecha, PDO::PARAM_STR);
             $consulta->bindValue(':fecha_alta', $this->fecha_alta, PDO::PARAM_STR);
+            $consulta->bindValue(':comensales', $this->comensales, PDO::PARAM_STR);
             $consulta->execute();		
 
             return $objetoAccesoDato->RetornarUltimoIdInsertado();
