@@ -2,7 +2,7 @@ console.log("clase_usuario.js")
 const nombreDelSitio="Resto UTN";
 const usuarioLogueado_ls="token"+nombreDelSitio;
 const dataDelUsuario_ls="dataDelUsuario_"+nombreDelSitio;
-
+var fotoDelUsuario="sinFoto";
 
 class Usuario {
 

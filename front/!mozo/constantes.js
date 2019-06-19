@@ -1,5 +1,6 @@
 console.log("constantes.js")
 const nombreDelSitio="Resto UTN";
+const nombreDelUsuario="Resto UTN";
 const usuarioLogueado_ls="token"+nombreDelSitio;
 const dataDelUsuario_ls="dataDelUsuario_"+nombreDelSitio;
 const minSillasPorMesa=2;

@@ -6,7 +6,7 @@ function armarGraficoMesas(){
 	try{m=JSON.parse(localStorage["mesas_"+nombreDelSitio])}catch(e){m=localStorage["mesas_"+nombreDelSitio]}
 	$("#contenedorMesas").html("")
 
-	console.log("armar grafico de mesas!")
+	//console.log("armar grafico de mesas!")
 
 	zonaMax=0;
 	for(var i=0; i<m.length;i++){

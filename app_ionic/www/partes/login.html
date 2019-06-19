@@ -60,16 +60,21 @@
         $("#botonTestingRoles").click(clickUsuariosPrueba)
     });//doc ready
 
+    var imagenPerfil = "";
 
     let callbackLogin = function (r) {
-        console.log(r);
+       
+        console.log(r.elEmpleado.foto);
+
         if (r.itsOK == false) {
             mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
         } else {
             usuario.meterleToken(r.token)
+            fotoDelUsuario = usuario.dataUsuario().foto
             app.quePasaDespuesDeLogin()
 
         }
+       
     }//cblogin
 
     function clickLogin() {

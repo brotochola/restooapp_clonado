@@ -7,7 +7,7 @@
             <div class="col-6 paddingn" onclick="botonVolver()">
                 <div class="row">
                     <div class="col-5 paddingr">
-                        <img src="media/Img/jobs_one.png" />
+                        <img src="fotoDelUsuario">
                     </div>
                     <div class="col-7 paddingl name-perfil-adm text-left">
                         <h6 id="nombreAdmin">Juanelo Gabines</h6>
@@ -41,12 +41,13 @@
 
 
     <script>
+
      function botonVolver(){
         mostrarModalConfirmacion("seguro logout", "si", "no", usuario.logout, ()=>{})
 
     }
 
-        console.log("admin estado.html")
+//        console.log("admin estado.html")
 
         var delayTraerEstado = 5000;
 
@@ -62,7 +63,7 @@
 
         $(document).ready(function () {
             docReady = 1;
-            console.log("doc ready estado admin");
+            //console.log("doc ready estado admin");
             //if (api.mesas.length>0) Mesa.armarGraficoMesas();
 
             $($(".botonFooterAdmin")[0]).addClass("active")

@@ -19,7 +19,7 @@ class Mesa {
 		
 		$div.html("")
 
-		console.log("armar grafico de mesas!")
+		//console.log("armar grafico de mesas!")
 
 		let zonaMax = 0;
 		for (var i = 0; i < api.mesas.length; i++) {

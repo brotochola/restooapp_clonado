@@ -12,10 +12,12 @@ class API{
        // this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
 
 
-       if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
-       else this.urlServer ="../../Resto/API/";
+    //    if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
+    //    else this.urlServer ="../../Resto/API/";
 
-      // this.urlServer="http://pixeloide.com/restoApp/API/"
+
+
+       this.urlServer="http://pixeloide.com/restoApp/API/"
       
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
         this.empleados=null;
@@ -203,7 +205,9 @@ class API{
 
 
     agregarEmpleado(cb,emple){
+
         console.log("agregarEmpleado api")
+        
         $.ajax({
             type:"post",
             dataType:"json",
@@ -288,7 +292,7 @@ class API{
                  token: localStorage[dataDelUsuario_ls]
              },
             success: (e)=>{
-                console.log(e)
+               // console.log(e)
                 this.estadoAdmin=e;
                 if(cb instanceof Function) cb(e);
             },

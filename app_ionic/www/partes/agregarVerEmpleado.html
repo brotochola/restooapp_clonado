@@ -136,8 +136,8 @@
 </div>
 <script>
 
-    idEmpleadoActual = -1;
-    fotoCargadaBase64 = "";
+    var idEmpleadoActual = -1;
+    var fotoCargadaBase64 = "";
 
     $("#contenedorSelectRol").html(array2Select(rolesEmpleados, "rol"))
 
@@ -169,6 +169,7 @@
         var image = document.getElementById('myImage');
         //image.src = "data:image/jpeg;base64," + imageData;
         fotoCargadaBase64 = "data:image/jpeg;base64," + imageData;
+        console.log("En cargar foto: "+fotoCargadaBase64);
     }
 
     function onFail(message) {
@@ -262,7 +263,7 @@
             $("#contBotonBorrar").hide()
 
         } else {
-            console.log("modificar empleado")
+            console.log("modificar empleado test")
             $("#contBotonBorrar").show()
             $("#botonAgregarEmpleado").html("Modificar")
             $("#nombre").val(empleado.nombre_completo)
