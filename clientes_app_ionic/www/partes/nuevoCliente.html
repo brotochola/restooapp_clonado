@@ -1,0 +1,232 @@
+<div class="fondo-modal" id="nuevoCliente">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal">
+            <div class="container-cuerpo">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info">Nombre completo:
+                                <input placeholder="Nombre" id="nombreNuevoCliente">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info">DNI:
+                                <input id="dniNuevoCliente" placeholder="DNI"> </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info text-center">
+
+                                <button class="boton-modal " onclick="escanearCodigoQRdelDNI()"> Escanear QR del
+                                    DNI</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info ">Email:
+                                <input id="emailNuevoCliente" placeholder="Email"> </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button onclick='sacarFotoCliente()' class="boton-modal centro" id="botonFotoEmpleado">Sacar
+                                Foto</button>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="info"><img src="media/Img/usuarios-gris.png"> Nº de Personas</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="info">
+                                <select id="selectCantSillas">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="boton-modal" id="agregar" onclick="agregarCliente()">Agregar Cliente</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="boton-modal cancelar" onclick="ocultarModalNuevoCliente()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var mesaID;
+    var fotoCargadaBase64;
+
+    //===========Foto Cliente
+    function sacarFotoCliente() {
+
+        try {
+            navigator.camera.getPicture(onSuccess, onFail, {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL
+            });
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+
+    function onSuccess(imageData) {
+        var image = document.getElementById('myImage');
+        //image.src = "data:image/jpeg;base64," + imageData;
+        fotoCargadaBase64 = "data:image/jpeg;base64," + imageData;
+    }
+
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+
+    //============Termina FotoCliente
+
+
+    function mostrarModalNuevoCliente(m_id) {
+        mesaID = m_id
+        let laMesa = api.mesas[Mesa.mesaId2i(m_id)]
+        console.log(" nuevo cliente en mesa " + m_id)
+        $("#agregar").html("Agregar Cliente a Mesa #" + m_id)
+        app.traerHTML("partes/nuevoCliente.html", true, true)
+
+        $("#selectCantSillas").html("")
+        for (var i = 1; i <= laMesa.sillas; i++) {
+            $("#selectCantSillas").append("<option value='" + i + "'>" + i + "</option>")
+        }
+
+
+    }
+
+    function agregarCliente() {
+
+        let nombre = $("#nombreNuevoCliente").val();
+        let email = $("#emailNuevoCliente").val()
+        let dni = $("#dniNuevoCliente").val()
+
+
+
+        if (email == "") {
+            mostrarModalConfirmacion("Complete email", "ok");
+            return;
+        }
+
+
+        let data = {
+            "id_mesa": mesaID,
+            "nombre": nombre,
+            "email": email,
+            "dni": dni,
+            "foto": fotoCargadaBase64,
+            "cantComensales": $("#selectCantSillas").val()
+        }
+
+        api.habilitarMesa(data, cbHabilitarMesa)
+
+        //foto es el archivo como viene del input
+        //lo q le sigue es un callback cuyo parametro es el string base64
+
+        //comento todo lo que estaba para agregar de camara
+        // let foto = null;
+
+        // if ($("#fotoNuevoCliente")[0].files.length == 1) {
+        //     foto = $("#fotoNuevoCliente")[0].files[0]
+        //     base64(foto, (fotoBase64) => {
+        //         data.foto = fotoBase64;
+        //         api.habilitarMesa(data, cbHabilitarMesa)
+        //     })
+        // } else {
+        //     //no hay foto
+        //     data.foto = '';
+        //     api.habilitarMesa(data, cbHabilitarMesa)
+
+        // }
+    }
+
+
+    function ocultarModalNuevoCliente() {
+        app.esconderUnaParte("partes/nuevoCliente.html");
+    }
+
+    function cbHabilitarMesa() {
+        app.esconderUnaParte("partes/nuevoCliente.html");
+    }
+
+    function escanearCodigoQRdelDNI() {
+        try {
+            cordova.plugins.barcodeScanner.scan(QRok, QRmal, {
+                /*preferFrontCamera : false, // iOS and Android
+                showFlipCameraButton : true, // iOS and Android
+                showTorchButton : false, // iOS and Android, linterna
+                torchOn: false,*/ // Android, launch with the torch switched on (if available)
+                prompt: "escaneá el qr del DNI", // Android
+                resultDisplayDuration: 1500
+                /*, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                        formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                        orientation : "landscape",*/ // Android only (portrait|landscape), default unset so it rotates with the device
+                /* disableAnimations : true, // iOS
+                    disableSuccessBeep: false // iOS*/
+            });
+        } catch (e) {
+            alert(e);
+
+            //actualizarDatos();      
+
+        }
+
+
+
+    }
+
+    function QRok(data) {
+
+        var myJSON = JSON.stringify(data);
+
+        alert(myJSON);
+        cargarDatosScaneados(data.text);
+    }
+
+
+    function QRmal(error) {
+        alert("Error: " + error)
+    }
+
+    function cargarDatosScaneados(data) {
+
+        alert("Falta programar!");
+        //Valido para empleado configuar cliente
+        // datosDNI = data.split('@');
+        // numeroDNI = parseInt(datosDNI[1]);
+        // nombreCompletoDNI = datosDNI[4] + ' ' + datosDNI[5];
+        // fechaDNI = datosDNI[7].split('/')[2] + '-' + datosDNI[7].split('/')[1] + '-' + datosDNI[7].split('/')[0];
+
+        // $("#nombre").val(nombreCompletoDNI);
+        // $("#dni").val(numeroDNI);
+        // $("#fechaNac").val(fechaDNI);
+    }
+</script>

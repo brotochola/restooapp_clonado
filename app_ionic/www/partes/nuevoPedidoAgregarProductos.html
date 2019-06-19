@@ -25,13 +25,19 @@
             <div class="text-center">
                 <div class="container">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-3">
                             <button class="boton-modal cancelar "
                                 onclick="ocultarAgregarPedidoAMesa()">Cancelar</button>
                         </div>
-                        <div class="col-6">
+                        <div class="col-1"></div>
+                        <div class="col-3">
                             <button class="boton-modal" onclick="mandarPedido()">Enviar Pedido!</button>
                         </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <button class="boton-modal" onclick="escanearQRProductos()">QR!</button>
+                        </div>
+                        <div class="col-1"></div>
                     </div>
                 </div>
             </div>
@@ -47,7 +53,9 @@
     var pedido = {}; //si estas aca es pq estas haciendo un pedido nuevo
     pedido.estado = 1;
 
-
+function escanearQRProductos(){
+    console.log("FUNCION ESCANEAR QR PARA PRODUCTOS")
+}
 
     function mandarPedido() {
         //al momento de ocultar este modal, estas agregando los productos al pedido actual
@@ -149,7 +157,7 @@
         html += '<li>'
         html += '<div class="container">'
         html += '<div class="row">'
-        html += '<div class="col-2 text-center contenedor-icono-listado"><img src="' + rolesEmpleados[prod.id_rol_empleado] + '"></div>'
+        html += '<div class="col-2 text-center contenedor-icono-listado"><img src="media/Img/roles/' + rolesEmpleados[prod.id_cocina] + '.png"></div>'
         html += '<div class="col-5">' + prod.nombre_producto + "</div>"
         html += '<div class="col-5 botonesAgregarBorrarProducto" >'
         html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id + ', -1)" src="media/Img/botton-borrar.png">'

@@ -273,6 +273,8 @@ $app->group('/cliente', function () {
 
    // $this->delete('/borrar/{id}', \clienteApi::class . ':BorrarCliente'); //->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
 
+  
+
 }); //->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 $app->group('/mesa', function () {
