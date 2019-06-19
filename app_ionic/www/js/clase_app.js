@@ -9,9 +9,9 @@ class App {
         this.$negroIndex = $("#negroIndex");
         this.$loading = $("#loading");
         this.$videoSplash = $("video#videoSplash");
-
-
     }
+
+
     quePasaDespuesDeLogin() {
         if (usuario.dataUsuario().id_rol == 1) {
             this.traerHTML("partes/admin_estado.html", false, true, "admin_estado", false)
@@ -23,17 +23,11 @@ class App {
         }else if(usuario.dataUsuario().id_rol==5){      
             //COCINERO
             this.traerHTML("partes/cocinero_estado.html", false, true, "cocinero_estado", false)
-
         }
-
-
-
     }
 
 
     init() {
-
-
         console.log("APP INIT")
         //MODALES:
         this.traerHTML("partes/verEstadoMesa.html", true, true, "verEstadoMesa", true)
@@ -48,7 +42,6 @@ class App {
         this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true)
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true)
 
-
         //FOOTER
         this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true, "fija", () => {
             setTimeout(() => { this.$footerAdmin = $("#footerAdmin"); }, 500);
@@ -58,19 +51,12 @@ class App {
             setTimeout(() => { this.$footerMozo = $("#footerMozo"); }, 500);
         })
 
-
         //LOGIN LO TRAE NO COMO APPEND Y NO OCULTO
         this.traerHTML("partes/login.html", false, true, "login", false)
-
-
-
 
         if (usuario.tokenValido()) {
             setTimeout(() => { this.quePasaDespuesDeLogin() }, 600);
         }
-
-
-
     }
 
     terminoVideoSplash() {
@@ -140,6 +126,7 @@ class App {
     mostrarFooterAdmin() {
         this.$footerAdmin.show();
     }
+
     ocultarFooterAdmin() {
         this.$footerAdmin.hide();
     }
@@ -147,6 +134,7 @@ class App {
     mostrarFooterMozo() {
         this.$footerMozo.show();
     }
+
     ocultarFooterMozo() {
         this.$footerMozo.hide();
     }
@@ -199,8 +187,6 @@ class App {
             }
         }) //ajax
     }
-
-
 
     esApp() {
         return window.hasOwnProperty("cordova");
