@@ -35,7 +35,15 @@ class reserva
             $consulta = "SELECT reservas.*, clientes.nombre_completo, clientes.foto FROM reservas, clientes where reservas.id_cliente=clientes.id_cliente";
             return AccesoDatos::ConsultaClase($consulta,"reserva");
         }
-
+        public static function TraerTodosDeHoy()
+        {
+            $consulta = "SELECT reservas.*, clientes.nombre_completo, clientes.foto FROM reservas, clientes where reservas.id_cliente=clientes.id_cliente 
+            and reservas.fecha > now() AND
+            reservas.fecha  <  DATE_ADD(now(), INTERVAL 8 HOUR)
+            and reservas.fecha_alta > DATE_SUB(now(), INTERVAL 24 HOUR)
+            order by reservas.fecha desc";
+            return AccesoDatos::ConsultaClase($consulta,"reserva");
+        }
         public static function TraerUno($vId)
         {             
             $consulta = "SELECT * FROM `reservas` WHERE  `id` = '$vId'";

@@ -32,7 +32,7 @@ console.log(">> metre_Reservas.html");
 
 function traerReservas(){
     $.ajax({
-        url:api.urlServer+"reservas/listado",
+        url:api.urlServer+"reservas/listadoDeHoy",
         dataType:"json",
         success:(e)=>{
             console.log(e);
