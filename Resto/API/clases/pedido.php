@@ -52,7 +52,7 @@ class pedido
                  $consulta =$objetoAccesoDato->RetornarConsulta("select * from pedidos where id=$id");
                  $consulta->execute();
 
-                 $consulta->setFetchMode(PDO::FETCH_CLASS,"stdClass"); 
+                
                 return $consulta->fetchAll();
 
 
