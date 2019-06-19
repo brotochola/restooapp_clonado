@@ -32,7 +32,7 @@ class reserva
 
         public static function TraerTodos()
         {
-            $consulta = "SELECT * FROM `reservas`";
+            $consulta = "SELECT reservas.*, clientes.nombre_completo, clientes.foto FROM reservas, clientes where reservas.id_cliente=clientes.id_cliente";
             return AccesoDatos::ConsultaClase($consulta,"reserva");
         }
 

@@ -1,0 +1,76 @@
+<style>
+#reservas_lista *{
+font-family: 'Dosis', 'Open Sans'
+}
+.reserva{
+    background: #AAAAAA;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+ul#reservas_lista {
+    margin: 0px;
+    padding: 2vw;
+    overflow: scroll;
+    height: 91vh;
+}
+
+    .reserva p b{
+        font-weight: bold;
+        }
+
+</style>
+
+<ul id="reservas_lista">
+
+<li class="reserva"></li>
+
+</ul>
+
+<script>
+console.log(">> metre_Reservas.html");
+function traerReservas(){
+    $.ajax({
+    url:api.urlServer+"reservas/listado",
+    dataType:"json",
+    success:(e)=>{
+        console.log(e);
+        armarReservas(e)
+    },error:e=>console.log(e)
+});
+}
+
+
+function armarReservas(a){
+    $("#reservas_lista").html("");
+    for(let i=0;i<a.length;i++){
+        $("#reservas_lista").append(armarUnaReserva(a[i]));
+    }
+
+    setTimeout(traerReservas,5000);
+}
+
+
+
+function armarUnaReserva(a){
+/*
+comensales: 0
+confirmada: 0
+fecha: "2019-09-01 00:00:00"
+fecha_alta: "2019-05-27 22:47:27"
+id: 1
+id_cliente: 2
+nombre_completo:12e,
+id_mesa: 2*/
+
+str="<li class='reserva'>";
+str+="<p>Nombre:<b> "+a.nombre_completo+"</b></p>";
+str+="<p>Cantidad de Comensales:<b> "+a.comensales+"</b></p>";
+str+="<p>Hora de Reserva: <b>"+a.fecha_alta+"</b></p>";
+str+="<p>Para cuándo: <b>"+a.fecha+"</b></p>";
+str+="</li>";
+
+return str;
+
+}
+</script>

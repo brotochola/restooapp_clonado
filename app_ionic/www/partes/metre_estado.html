@@ -1,0 +1,272 @@
+<style>
+.menu-botton-selec img {
+    text-align: center;
+    width: 50%;
+    max-width: 10vw;
+}
+</style>
+
+    <div class="col-12 bar-top">
+        <div class="row">
+            <div class="col-2">
+                <i class="fas fa-angle-left" onclick="botonVolver()"></i>
+            </div>
+            <div class="col-8" id="nombreMozo">Estado - Metre</div>
+            <div class="col-2">
+                <img src="media/Img/qr-reader.jpg" height="35" onclick="scanQRMesa()" height="100%">
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="container contenedor-mesas" >
+        <!-- primera fila de mesas -->
+        <div class="row filas-mesas" id="contenedorMesasMozo">
+
+        </div>
+
+    </div>
+
+
+
+
+
+<script>
+
+///////////////COSAS DEL QR:
+    // Para verificar disponibilidad de una mesa.
+    // Para relacionar al cliente con una mesa.
+    // Para ver el estado del pedido.
+    // Para acceder a la encuesta de satisfacción.
+    //{"tipo":"mesa","id":5,"nombreResto":"BlaBla"}
+    //https://www.the-qrcode-generator.com/
+
+
+function scanQRMesa() {
+
+try {
+    cordova.plugins.barcodeScanner.scan(callBackQRMozo, QRmal, {                
+        prompt: "escaneá el qr de la mesa", // Android
+        resultDisplayDuration: 1500,
+        orientation: "portrait"
+    });
+} catch (e) {
+    alert(e);
+}
+}
+
+function callBackQRMozo(data) {
+
+    obj = JSON.parse(data.text);
+
+    if (obj.tipo == "mesa") {
+        verMesaMozo(obj.id);
+    }
+}
+
+function QRmal(error) {
+alert("Error: " + error)
+}
+
+///////////////////FIN COSAS DEL QR
+
+
+
+
+
+
+    function botonVolver() {
+        mostrarModalConfirmacion("seguro logout", "si", "no", usuario.logout, () => { })
+
+    }
+
+    console.log("estado.js")
+
+    var delayTraerEstado = 5000;
+    var estadoActual = {};
+    var mesas;
+    var mesasCargadas = 0;
+    var docReady = 0;
+   
+
+
+
+
+
+    function setupEstadoMozo() {
+        //cargarEstadoMozo();
+        api.traerMesas((e) => {
+            Mesa.armarGraficoMesas($("#contenedorMesasMozo"), null)
+        })
+        //Mesa.armarGraficoMesas($("#contenedorMesasMozo"));
+        api.cargarEstadoMozo(cbPedidosMozo)
+
+    }
+
+
+    $(document).ready(function () {
+        console.log("doc ready estado mozx");
+        api.traerMesas(setupEstadoMozo);
+
+        docReady = 1;
+
+
+
+
+
+        //populo cosas:
+
+
+        $("#nombreMozo").html(usuario.dataUsuario().nombre_completo)
+
+
+
+        //listeners
+
+
+        //agrego cachos:
+        /* agregarCachoABody("modalConfirmacion.html")
+         agregarCachoABody("verEstadoMesaMozo.html")
+         agregarCachoABody("verAgregarPedidoMozo.html")
+         agregarCachoABody("nuevoPedidoAgregarProductos.html")
+         agregarCachoABody("nuevoCliente.html")*/
+
+
+
+
+
+    });
+
+    function verMesaMozo(id) {
+        //aca la funcion ver mesa es esta
+        //en la pantalla de mesas la funcion es otra
+
+        let i = Mesa.mesaId2i(id)
+        let mesa = api.estadoMozo.mesas[i];
+        console.log(mesa.estado_mesa);
+        if (mesa.estado_mesa == 0) {
+            //LIBRE
+            mostrarModalNuevoCliente(id);
+        } else {
+            mostrarEstadoMesaAdmin(id)
+        }
+
+
+
+    }
+
+    function compararEstadoAnteriorYActual() {
+
+
+
+        for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
+            let m = api.estadoMozo.mesas[i]
+            let mesaAnterior
+
+            try {
+
+                mesaAnterior = buscarEnArray(m.id_mesa, "id_mesa", api.estadoAnteriorMozo.mesas);
+
+                // console.log(m, mesaAnterior)
+                if (mesaAnterior.estado_mesa == 2 && m.estado_mesa == 3) {
+
+                    //si la mesa antes estaba esperando pedido y ahora la mesa tiene un pedido q esta listo...
+                    let arrayPedidos = api.estadoMozo.pedidos.filter(p => p.id_mesa == m.id_mesa)
+                    //console.log(arrayMesas)
+                    for (let k = 0; k < arrayPedidos.length; k++) {
+                        // if(arrayPedidos[k].estado_pedido==3){
+                        let notif = {
+                            "mesa": arrayPedidos[k].id_mesa,
+                            "pedido": arrayPedidos[k].id_pedido,
+                            "donde": arrayPedidos[k].nombre_sector_cocina
+                        }
+                        cargarNotificacion(notif);
+                        //  }
+                    }
+
+                }
+
+            } catch (e) { }
+
+        }
+    }
+
+    function cbPedidosMozo() {
+        console.log("cb estado mozo", api.estadoMozo)
+        //esta funcion se ejecuta cada 5 segundos
+
+
+        for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
+            try {
+                $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.estadoMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
+            } catch (e) { }
+        }
+
+      //  compararEstadoAnteriorYActual()
+     //   mostrarSiguienteNotificacion()
+
+
+        //espera y pide el estado al server de nuevo
+        setTimeout(() => {
+            if (usuario.tokenValido()) {
+                if (usuario.dataUsuario().id_rol == 8) { //METRE
+                    //si te deslogueaste esto deja de pasar
+                    api.cargarEstadoMozo(cbPedidosMozo)
+                }
+            }
+
+        }, delayTraerEstado)
+
+
+
+
+    }
+
+
+    function mostrarSiguienteNotificacion() {
+        var muestro = 1;
+        $(".fondo-modal").each(function (k, v) {
+            if ($(v).is(":visible") == true) muestro = 0
+        })
+
+        //si estan todos invisible, sigue de largo y muestra la siguiente notif
+        if (muestro == 1 && notificacionesPendientes.length > 0) mostrarNotificacion(notificacionesPendientes.pop())
+
+    }
+
+
+    function mostrarNotificacion(n) {
+        try {
+            $("#donde").html(n.donde.toUpperCase())
+            $("#idPedido").html("#" + n.pedido)
+            $("#divIdMesa").html("#" + n.mesa)
+
+            $("#notificacionesMozo").fadeIn()
+            $("#contenedorMesasMozo").addClass("conNotif")
+            setTimeout(ocultarNotificaciones, tiempoNotificacion)
+        } catch (e) { console.log("la notificacion no está completa y nos e muestra") }
+    }
+
+    function ocultarNotificaciones() {
+        $("#notificacionesMozo").fadeOut()
+        $("#contenedorMesasMozo").removeClass("conNotif")
+    }
+
+    function cargarNotificacion(n) {
+        console.log(n)
+        //{mesa,pedido, donde}
+        for (var i = 0; i < notificacionesPendientes.length; i++) {
+            // console.log(notificacionesPendientes[i].mesa, n.mesa, notificacionesPendientes[i].pedido, n.pedido, notificacionesPendientes[i].donde, n.donde)
+            if (notificacionesPendientes[i].mesa == n.mesa && notificacionesPendientes[i].pedido == n.pedido && notificacionesPendientes[i].donde == n.donde) {
+                //  console.log("son iguales")
+                return;;
+            }
+        }
+        //no esta
+        notificacionesPendientes.push(n)
+    }
+</script>
