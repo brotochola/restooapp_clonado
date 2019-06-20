@@ -208,13 +208,17 @@
 
 var debugEmpleado;
     function callBackDNIEmpleado(data) {
-        debugEmpleado=data;
-        console.log(data);
-        //var myJSON = JSON.stringify(data);
-        //obj = JSON.parse(data.text);   07255656
-
-        alert("Datos DNI: "+data.text);
-        //cargarDatosScaneadosDNIEmpleado(data.text);
+        /*
+        nombre : '',
+            apellido : '',
+            dni : '',
+            sexo : '',
+            fechaNac : '',
+            raw :_text*/
+       let dataUsuarioDNI= Usuario.parsearQRDNI(data);
+        $("#fechaNac").val(formatDate(fechaArg2timeStamp(dataUsuarioDNI.fechaNac)));
+        $("#dni").val(dataUsuarioDNI.dni);
+     
     }
 
 
@@ -222,19 +226,6 @@ var debugEmpleado;
         alert("Error: " + error)
     }
 
-    function cargarDatosScaneadosDNIEmpleado(data) {
-
-        datosDNI = data.split('@');
-       apellido = datosDNI[1];
-
-        // numeroDNI = parseInt(datosDNI[1]);
-        // nombreCompletoDNI = datosDNI[4] + ' ' + datosDNI[5];
-        // fechaDNI = datosDNI[7].split('/')[2] + '-' + datosDNI[7].split('/')[1] + '-' + datosDNI[7].split('/')[0];
-
-        $("#nombre").val(apellido);
-        // $("#dni").val(numeroDNI);
-        // $("#fechaNac").val(fechaDNI);
-    }
 
 
    
