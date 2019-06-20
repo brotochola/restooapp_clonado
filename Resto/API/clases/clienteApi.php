@@ -47,7 +47,7 @@ class clienteApi extends cliente
     
                 $rta["estado"] = "OK";
                 $rta["id_cliente"] = $id_cliente;
-                $rta["envioMail"] = $mailEnviado;
+                $rta["envio_mail"] = $mailEnviado;
     
                 return $newResponse->withJson($rta, 200);
             } else {

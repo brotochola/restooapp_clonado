@@ -134,9 +134,18 @@
         app.esconderUnaParte("partes/nuevoCliente.html");
     }
 
-    function cbClienteRegistrado() {
-        mostrarModalConfirmacion("Bien! Te registraste. Te llegará un mail para confirmar tu registro.", "OK", null, null, null);
-        app.esconderUnaParte("partes/nuevoCliente.html");
+    function cbClienteRegistrado(rta) {
+        console.log("respuesta", rta);
+        if (rta.estado == "OK") {
+            if (rta.envio_mail) {
+                mostrarModalConfirmacion("Bien! Te registraste. Te llegará un mail para confirmar tu registro.", "OK", null, null, null);
+            } else {
+                mostrarModalConfirmacion("Te registraste. Pero hubo un error al enviarte el mail de confirmación, comunícate con nuestro soporte técnico.", "OK", null, null, null);
+            }
+            app.esconderUnaParte("partes/nuevoCliente.html");
+        } else {
+            mostrarModalConfirmacion(rta.mensaje, "OK", null, null, null);
+        }
     }
 
     function escanearCodigoQRdelDNI() {
