@@ -169,7 +169,9 @@ img.fotoEmple {
         try {
             navigator.camera.getPicture(onSuccess, onFail, {
                 quality: 50,
-                destinationType: Camera.DestinationType.DATA_URL
+                destinationType: Camera.DestinationType.DATA_URL,
+                targetWidth: 512,
+                targetHeight: 910
             });
         } catch (e) {
             alert(e)
@@ -321,7 +323,7 @@ var debugEmpleado;
         console.log("agregar empleado")
 
         empleado = {};
-        empleado.nombre_completo = $("#nombre").val();
+        empleado.nombre_completo = ""//$("#nombre").val();
         empleado.usuario = $("#usuario").val();
         empleado.email = $("#mailEmpleado").val();
         empleado.clave = $("#clave").val()
