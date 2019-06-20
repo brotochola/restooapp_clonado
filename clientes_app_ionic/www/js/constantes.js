@@ -6,6 +6,8 @@ const estadosPedidos = [null, "Pendiente", "En Preparación", "Listo", "Servido"
 const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada"];
 const rolesEmpleados=["-", "Socix","Camarerx", "Bartender", "Cervecerx", "Cocinerx",  "Pastelerx", "Admin"];
 
+
+
 const coloresMesas=["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
 var imgRolesEmpleados = [null, "media/Img/roles/tragos.png", "media/Img/roles/cerveza.png", "media/Img/roles/cocina.png", "Camarerx", "Admin", "media/Img/roles/candy.png"];
 
@@ -23,7 +25,9 @@ function formatDate(date) {
 }
 
 function array2Select(arr,id){
+
   let str="<select id='"+id+"'>"
+
   for(let i=0;i<arr.length;i++){
     str+="<option value='"+i+"'>"+arr[i]+"</option>";
   }

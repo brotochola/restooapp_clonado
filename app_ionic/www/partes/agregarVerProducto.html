@@ -1,37 +1,37 @@
-<div class="fondo-modal" id="agregarVerProducto" >
-        <div class="contenedor-modal">
-            <div class="cuerpo-modal modal-select-producto">
-                <div class="row">
-                    <div class="col-4 nume-producto"><span id="idProducto"></span></div>
+<div class="fondo-modal" id="agregarVerProducto">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal modal-select-producto">
+            <div class="row">
+                <div class="col-4 nume-producto"><span id="idProducto"></span></div>
 
-                    <div class="col-8 select-name">
-                        <div class="row">
-                            <div class="col-12"><input id="nombre_producto" placeholder="Nombre"></div>
+                <div class="col-8 select-name">
+                    <div class="row">
+                        <div class="col-12"><input id="nombre_producto" placeholder="Nombre"></div>
 
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="number" id="precio" placeholder="precio">
                         </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="number" id="precio" placeholder="precio">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12" id="contSelectCatProducto">
-                               <!-- <select id="rol">
+                    </div>
+                    <div class="row">
+                        <div class="col-12" id="contSelectCatProducto">
+                            <!-- <select id="rol">
                                 <option value="0">-</option>
                                 <option value="1">Bar</option>
                                 <option value="2">Cervezas</option>
                                 <option value="3">Cocina</option>
                                 <option value="6">Candybar</option>
                             </select>-->
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <hr>
+            <hr>
 
-<div class="container-fluid">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-6 inf-add">
                         <div class="info"> Habilitado</div>
@@ -46,161 +46,137 @@
                     </div>
                 </div>
             </div>
-                <hr>
+            <hr>
 
-                    <div class="container-fluid">
-                        <div><h5>DESCRIPCION</h5></div>
-
-
-                            <textarea class="form-control" id="descripcionProducto" placeholder="Descripcion del Producto"></textarea>
-
-
-                    </div>
-                <hr>
-
-                <div class="text-center">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-6"><button class="boton-modal" id="botonAgregarProducto">Agregar</button></div>
-                            <div class="col-6"><button class="boton-modal cancelar" onclick="ocultarAgregarVerProducto()">Cancelar</button></div>
-                        </div>
-                    </div>
-
+            <div class="container-fluid">
+                <div>
+                    <h5>DESCRIPCION</h5>
                 </div>
-            </div>
 
+
+                <textarea class="form-control" id="descripcionProducto"
+                    placeholder="Descripcion del Producto"></textarea>
+
+
+            </div>
+            <hr>
+
+            <div class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6"><button class="boton-modal" id="botonAgregarProducto">Agregar</button></div>
+                        <div class="col-6"><button class="boton-modal cancelar"
+                                onclick="ocultarAgregarVerProducto()">Cancelar</button></div>
+                    </div>
+                </div>
+
+            </div>
         </div>
+
     </div>
+</div>
 
 
 <script>
 
-idProductoActual = -1;
+    idProductoActual = -1;
+    //$("#contSelectCatProducto").html(array2Select(sectoresCocinas, "rolEmpleado"))
+    $("#contSelectCatProducto").html(array2Select(rolesEmpleados, "rolCocina"))
 
+    function ocultarAgregarVerProducto() {
+        app.esconderUnaParte("partes/agregarVerProducto.html");
+    }
 
-$("#contSelectCatProducto").html(array2Select(rolesEmpleados,"rol"))
+    function mostrarAgregarVerProducto(id) {
 
+        producto = Productos.traerProductoPorId(id);
+        idProductoActual = id;
 
-function ocultarAgregarVerProducto(){
-    app.esconderUnaParte("partes/agregarVerProducto.html");
-}
+        if (producto == -1) {
+            $("#idProducto").html("")
+            $("#botonAgregarProducto").html("Agregar")
+            $("#nombre_producto, #precio, #descripcionProducto").val("")
+            $("#botonAgregarProducto").off().click(agregarProductoAdmin)
+        } else {
+            $("#idProducto").html("#" + producto.id_producto)
+            $("#botonAgregarProducto").html("Modificar")
+            $("#nombre_producto").val(producto.nombre_producto)
+            $("#precio").val(producto.precio)
+            $("#descripcionProducto").val(producto.descripcion)
+            $("#rol option").each(function (k, v) {
+                if (v.value == producto.id_cocina) v.selected = true;
+            })
+            $("#habilitado option").each(function (k, v) {
+                if (v.value == producto.habilitado) v.selected = true;
+            })
+            $("#botonAgregarProducto").off().click(modificarProducto)
+        }
+        app.traerHTML("partes/agregarVerProducto.html", true, false);
+    }
 
-function mostrarAgregarVerProducto(id) {
+    function TraerProductoForm(funcion) {
 
+        producto = {};
 
-    // console.log(id)
-    // prod = id2i(id, productos)
-    // producto = productos[prod]
+        if (funcion != "Alta") {
+            producto.id_producto = idProductoActual;
+        }
 
+        producto.nombre_producto = $("#nombre_producto").val();
+        producto.precio = $("#precio").val();
+        producto.descripcion = $("#descripcionProducto").val();
+        producto.id_cocina = $("#rolCocina").val();
+        producto.habilitado = $("#habilitado").val();
 
-    producto = Productos.traerProductoPorId(id);
-    idProductoActual = id;
+        if (!validarInput($("#nombre_producto").val())) {
+            mostrarModalConfirmacion("Ingresar Producto", "ok", null, null, null)
+            return;
+        }
 
-    if (producto == -1){
+        if (!validarInput($("#precio").val())) {
+            mostrarModalConfirmacion("Ingresar Precio", "ok", null, null, null)
+            return;
+        }
 
-        console.log("agregar producto")
-        $("#idProducto").html("")
-        $("#botonAgregarProducto").html("Agregar")
-        $("#nombre_producto, #precio, #descripcionProducto").val("")
-        $("#botonAgregarProducto").off().click(agregarProductoAdmin)
+        if (!validarSelect($("#rolCocina").val())) {
+            mostrarModalConfirmacion("Elegir un sector", "ok", null, null, null)
+            return;
+        }
 
-    } else {
+        if (!validarInput($("#descripcionProducto").val())) {
+            mostrarModalConfirmacion("Ingresar Descripción", "ok", null, null, null)
+            return;
+        }
+        return producto;
+    }
 
-        console.log("modificar producto")
-        $("#idProducto").html("#"+producto.id_producto)
-        $("#botonAgregarProducto").html("Modificar")
-        $("#nombre_producto").val(producto.nombre_producto)
-        $("#precio").val(producto.precio)
+    function modificarProducto() {
 
-        $("#descripcionProducto").val(producto.descripcion)
+        producto = {};
+        producto = TraerProductoForm("Modificacion");
 
-        $("#rol option").each(function(k, v) {
-            if (v.value == producto.id_cocina) v.selected = true;
+        api.modificarProducto(producto, () => {
+            ocultarAgregarVerProducto();
+            Productos.armarTablaProductos($("#listaDeProductos"))
         })
-        $("#habilitado option").each(function(k, v) {
-            if (v.value == producto.habilitado) v.selected = true;
+    }
+
+    function agregarProductoAdmin() {
+
+        producto = {};
+        producto = TraerProductoForm("Alta");
+
+        api.agregarProducto(producto, () => {
+
+            ocultarAgregarVerProducto();
+            Productos.armarTablaProductos($("#listaDeProductos"))
         })
-        $("#botonAgregarProducto").off().click(modificarProducto)
+    }
+
+
+    function sacarModalVerProducto() {
+        app.esconderUnaParte(null, "verEmpleado");
 
     }
 
-    app.traerHTML("partes/agregarVerProducto.html", true, false);
-
-}
-
-function modificarProducto(){
-
-    console.log("modificar producto")
-     producto={};
-    
-     producto.id_producto = idProductoActual;
-    producto.nombre_producto= $("#nombre_producto").val();
-    producto.precio=$("#precio").val();
-    producto.descripcion=$("#descripcionProducto").val();
-    producto.id_cocina=$("#rol").val();
-    producto.habilitado=$("#habilitado").val();
-
-     console.log(producto)
-
-      $.ajax({
-        url: caminoBackEnd + "producto/modifica",
-        type: "get", //esto es solo porq estoy no usando un backend de verdad
-        headers:{
-            token: localStorage[usuarioLogueado_ls]
-        },
-        data:producto,
-        success:function(e){
-            console.log(e)
-            if(e!=-1) {
-
-                   try {
-                        productos = e
-                    } catch (e) { 
-                        productos = e 
-                    }
-                    localStorage["productos_" + nombreDelSitio] = e;
-                    armarTablaProductos();
-
-            }else{
-                mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
-
-            }
-            ocultarAgregarVerProducto()
-        }
-    })
-}
-
-function agregarProductoAdmin(){
-    console.log("agregar producto")
-    producto={};
-    producto.nombre_producto= $("#nombre_producto").val();
-    producto.precio=$("#precio").val();
-    producto.descripcion=$("#descripcionProducto").val();
-    producto.id_cocina=$("#rol").val();
-    producto.habilitado=$("#habilitado").val();
-
-     console.log(producto)
-    $.ajax({
-        url: caminoBackEnd + "producto/cargar",
-        type: "post", //esto es solo porq estoy no usando un backend de verdad
-        headers:{
-            token: localStorage[usuarioLogueado_ls]
-        },
-        data:producto,
-        success:function(e){
-            console.log(e)
-            if(e!=-1) {
-                   try { productos = e } catch (e) { productos = e }
-                    localStorage["productos_" + nombreDelSitio] = e;
-                    armarTablaProductos();
-
-            }else{
-                mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
-
-            }
-             
-        }
-    })
-
-}
 </script>

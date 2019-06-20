@@ -1,297 +1,357 @@
 console.log("clase_api.js")
 
-class API{
+class API {
 
-    constructor(){
-        
+    constructor() {
+
         //local
-      // this.urlServer="../../Resto/API/";
+        this.urlServer = "../../Resto/API/";
         //web
 
         //http://darodarioli.tech/restoapp2/Resto/API/
-       // this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
+        // this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
 
 
-        if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
-        else this.urlServer ="../../Resto/API/";
-     //  this.urlServer="http://pixeloide.com/restoApp/API/"
-      
+        // if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
+        //   else this.urlServer ="../../Resto/API/";
+        this.urlServer = "http://pixeloide.com/restoApp/API/"
+
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
-        this.empleados=null;
-        this.mesas=null;
-        this.productos=null;
-        this.estadoAnteriorMozo=null;
-        this.estadoMozo=null;
+        this.empleados = null;
+        this.mesas = null;
+        this.productos = null;
+        this.estadoAnteriorMozo = null;
+        this.estadoMozo = null;
         this.estadoCocinero = null;
 
     }
 
-    habilitarMesa(data,cb){
+    habilitarMesa(data, cb) {
 
         $.ajax({
-          
+
             url: this.urlServer + "mesas/habilitar",
             type: "post", //esto es solo porq estoy no usando un backend de verdad
-            dataType:"json",
-            data:data,
-             headers: {
-                 token: localStorage[usuarioLogueado_ls]
-             },
-            success: (e)=> {
-               
-                this.estadoMozo=e;
-                      
-                if(cb instanceof Function) cb();
-            },error:e=>console.log(e)
+            dataType: "json",
+            data: data,
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e) => {
+
+                this.estadoMozo = e;
+
+                if (cb instanceof Function) cb();
+            }, error: e => console.log(e)
         })//ajax
     }
 
 
-    mozoMandaPedido(ped,cb){
-        let pedidoParaMandar={}
-        pedidoParaMandar.id_mesa=mesaActiva.id_mesa;
-        pedidoParaMandar.id_cliente=mesaActiva.cliente.id_cliente
-        pedidoParaMandar.id_cliente_visita=mesaActiva.clienteVisita.id_cliente_visita;
-        pedidoParaMandar.productos=[]
-        pedidoParaMandar.cantidades=[]
+    mozoMandaPedido(ped, cb) {
+        let pedidoParaMandar = {}
+        pedidoParaMandar.id_mesa = mesaActiva.id_mesa;
+        pedidoParaMandar.id_cliente = mesaActiva.cliente.id_cliente
+        pedidoParaMandar.id_cliente_visita = mesaActiva.clienteVisita.id_cliente_visita;
+        pedidoParaMandar.productos = []
+        pedidoParaMandar.cantidades = []
         //los paso al formato q requiere el backend:
-        for(let i=0;i<ped.productos.length;i++){
+        for (let i = 0; i < ped.productos.length; i++) {
             pedidoParaMandar.productos.push(ped.productos[i].id_producto)
             pedidoParaMandar.cantidades.push(ped.productos[i].cantidad)
         }
 
         $.ajax({
             url: this.urlServer + "mozo/agregarPedido",
-            type:"post",
-            dataType:"json",
+            type: "post",
+            dataType: "json",
             headers: {
                 token: localStorage[usuarioLogueado_ls]
             },
             data: pedidoParaMandar,
             success: function (e) {
-               
-                 console.log(e)
-       
-                if(cb instanceof Function) cb(e);
-             
-            },error:e=>console.log(e)
+
+                console.log(e)
+
+                if (cb instanceof Function) cb(e);
+
+            }, error: e => console.log(e)
         })
     }
 
 
-    cargarEstadoCocinero(cb){
+    cargarEstadoCocinero(cb) {
 
 
-      console.log("cargar estado cocoinero")
-           
-        
-            $.ajax({
-                url: api.urlServer+"cocinero/estado",
-                type:"post",
-                dataType:"json",
-                headers: {
-                    token: localStorage[usuarioLogueado_ls]
-                },
-                success: function(e) {
-                   console.log(e);
-                  api.estadoCocinero = e
-                  if(cb instanceof Function) cb();
-                }, error:consoleLogE
-            });
+        console.log("cargar estado cocoinero")
+
+
+        $.ajax({
+            url: api.urlServer + "cocinero/estado",
+            type: "post",
+            dataType: "json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: function (e) {
+                console.log(e);
+                api.estadoCocinero = e
+                if (cb instanceof Function) cb();
+            }, error: consoleLogE
+        });
     }
 
-    cocineroInformaQuePedidoEstaListo(id, cb){
+    cocineroInformaQuePedidoEstaListo(id, cb) {
         $.ajax({
             //url: "../../server/admin/productos/lista",
             url: this.urlServer + "cocinero/pedidoListo",
             type: "post", //esto es solo porq estoy no usando un backend de verdad
-            dataType:"json",
+            dataType: "json",
             headers: {
                 token: localStorage[usuarioLogueado_ls]
             },
-            data:{
-                "id_pedido":id
+            data: {
+                "id_pedido": id
             },
-            success: (e)=> {
-                console.log(e)              
-               
-                if(cb instanceof Function) cb();
-            },error:e=>console.log(e)
+            success: (e) => {
+                console.log(e)
+
+                if (cb instanceof Function) cb();
+            }, error: e => console.log(e)
         })
     }
 
-    traerProductos(cb){
+    traerProductos(cb) {
 
         $.ajax({
             //url: "../../server/admin/productos/lista",
             url: this.urlServer + "producto/listado",
             type: "post", //esto es solo porq estoy no usando un backend de verdad
-            dataType:"json",
+            dataType: "json",
             headers: {
                 token: localStorage[usuarioLogueado_ls]
             },
-            success: (e)=> {
+            success: (e) => {
                 console.log(e)
-                    this.productos = e
-               
+                this.productos = e
+
                 localStorage["productos_" + nombreDelSitio] = e;
-               
-                if(cb instanceof Function) cb();
-            },error:e=>console.log(e)
+
+                if (cb instanceof Function) cb();
+            }, error: e => console.log(e)
         })
     }
 
-    traerUnaMesa(id,cb){
+
+    agregarProducto(producto, cb) {
 
         $.ajax({
-            url: this.urlServer+"mesas/id/"+id,
-             headers: {
-                 token: localStorage[usuarioLogueado_ls]
-             },
-            dataType:"json",
-            success: function(e) {
-               // console.log(e)
-                let mesa=e
-               // console.log(mesa)
-                if(cb instanceof Function) cb(mesa);
-            },error:(e)=>{
+            url: this.urlServer + "producto/cargar",
+            type: "post",
+            dataType: "json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            data: producto,
+            success: (e) => {
+
+                console.log(e)
+                if (e != -1) {
+                    this.productos = e;
+                    if (cb instanceof Function) cb();
+
+                } else {
+                    mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
+
+                }
+
+            },
+            error: function (e) {
                 console.log(e)
             }
-             }); //ajax
+        })
     }
 
-    traerMesas(cb){
+    modificarProducto(producto, cb) {
+
         $.ajax({
-            url: this.urlServer+"mesas/lista",
-            type: "post", 
-            dataType:"json",
-             headers: {
-                 token: localStorage[usuarioLogueado_ls]
-             },
-            success: (e)=>{
-                this.mesas=e;
-                localStorage["mesas_" + nombreDelSitio] = JSON.stringify(e);
-                if(cb instanceof Function) cb(e);
+            url: this.urlServer + "producto/modifica",
+            type: "get",
+            dataType: "json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            data: producto,
+            success: (e) => {
+
+                console.log(e)
+                if (e != -1) {
+                    this.productos = e;
+                    if (cb instanceof Function) cb();
+
+                } else {
+                    mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
+
+                }
+
+            },
+            error: function (e) {
+                console.log(e)
             }
         })
     }
 
-    traerEmpleados(cb){
+
+    traerUnaMesa(id, cb) {
 
         $.ajax({
-           
+            url: this.urlServer + "mesas/id/" + id,
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            dataType: "json",
+            success: function (e) {
+                // console.log(e)
+                let mesa = e
+                // console.log(mesa)
+                if (cb instanceof Function) cb(mesa);
+            }, error: (e) => {
+                console.log(e)
+            }
+        }); //ajax
+    }
+
+    traerMesas(cb) {
+        $.ajax({
+            url: this.urlServer + "mesas/lista",
+            type: "post",
+            dataType: "json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e) => {
+                this.mesas = e;
+                localStorage["mesas_" + nombreDelSitio] = JSON.stringify(e);
+                if (cb instanceof Function) cb(e);
+            }
+        })
+    }
+
+    traerEmpleados(cb) {
+
+        $.ajax({
+
             url: this.urlServer + "empleados/listar",
             type: "post",
-            dataType:"json",
-            
+            dataType: "json",
+
             headers: {
-                 token: localStorage[usuarioLogueado_ls]
-             },
-            success: (e) =>{
-                this.empleados = e  
-                 
-                localStorage["empleados_" + nombreDelSitio] = JSON.stringify(e);              
-                if(cb instanceof Function) cb(e);
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e) => {
+                this.empleados = e
+
+                localStorage["empleados_" + nombreDelSitio] = JSON.stringify(e);
+                if (cb instanceof Function) cb(e);
             }
         })
-    
-    
-    
+
+
+
 
     }//traerEmpleados
 
 
-    agregarEmpleado(cb,emple){
+    agregarEmpleado(cb, emple) {
 
         console.log("agregarEmpleado api")
-        
+
         $.ajax({
-            type:"post",
-            dataType:"json",
-            url: api.urlServer + "empleados/alta",         
-             headers:{
-                 token: localStorage[usuarioLogueado_ls]
-             },
-            data:emple,
-            success:(e)=>{
+            type: "post",
+            dataType: "json",
+            url: api.urlServer + "empleados/alta",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            data: emple,
+            success: (e) => {
                 console.log(e)
-                if(e!=-1) {
-                      this.empleados = e
-                        localStorage["empleados_" + nombreDelSitio] = JSON.stringify(e);
-                        if(cb instanceof Function) cb(e);
-    
-                }else{
+                if (e != -1) {
+                    this.empleados = e
+                    localStorage["empleados_" + nombreDelSitio] = JSON.stringify(e);
+                    if (cb instanceof Function) cb(e);
+
+                } else {
                     mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
-                
+
                 }
-               
-            },error:(e)=>{
+
+            }, error: (e) => {
                 console.log(e)
             }
         })
     }
 
-    borrarEmpleado(cb,id){
+    borrarEmpleado(cb, id) {
         $.ajax({
             // url:"../../server/admin/empleados/modificar",
             url: this.urlServer + "empleados/borrar",
-             headers:{
-                 token: localStorage[usuarioLogueado_ls]
-             },
-            type:"post",
-            dataType:"json",
-            data:{id:id},
-            success:(e)=>{
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            type: "post",
+            dataType: "json",
+            data: { id: id },
+            success: (e) => {
                 console.log(e)
-                this.empleados=e
-                if(cb instanceof Function) cb(e);
-            },error:(e)=>{
+                this.empleados = e
+                if (cb instanceof Function) cb(e);
+            }, error: (e) => {
                 console.log(e)
             }
         });
     }
 
-    modificarEmpleado(cb,emple){
+    modificarEmpleado(cb, emple) {
         $.ajax({
             // url:"../../server/admin/empleados/modificar",
             url: this.urlServer + "empleados/modificar",
-              headers:{
-                  token: localStorage[usuarioLogueado_ls]
-              },
-             type:"post",
-             dataType:"json",
-             data:emple,
-             success:(e)=>{
-                 console.log(e)
-                 if(e!=-1) {
-                       this.empleados=e
-                         localStorage["empleados_" + nombreDelSitio] = JSON.stringify(e);
-                       
-     
-                 }else{
-                     mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
-                 
-                 }                 
-                  if(cb instanceof Function) cb(e);
-             },
-             error:(e)=>{
-                 console.log(e)
-             }
-         }) //ajx
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            type: "post",
+            dataType: "json",
+            data: emple,
+            success: (e) => {
+                console.log(e)
+                if (e != -1) {
+                    this.empleados = e
+                    localStorage["empleados_" + nombreDelSitio] = JSON.stringify(e);
+
+
+                } else {
+                    mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
+
+                }
+                if (cb instanceof Function) cb(e);
+            },
+            error: (e) => {
+                console.log(e)
+            }
+        }) //ajx
 
     }
 
-    cargarEstadoAdmin(cb){
+    cargarEstadoAdmin(cb) {
         $.ajax({
             url: this.urlServer + "admin/estado",
             type: "post",
-             headers: {
-                 token: localStorage[dataDelUsuario_ls]
-             },
-            success: (e)=>{
-               // console.log(e)
-                this.estadoAdmin=e;
-                if(cb instanceof Function) cb(e);
+            headers: {
+                token: localStorage[dataDelUsuario_ls]
+            },
+            success: (e) => {
+                // console.log(e)
+                this.estadoAdmin = e;
+                if (cb instanceof Function) cb(e);
             },
             error: (e) => {
                 console.log(e)
@@ -299,18 +359,18 @@ class API{
         })
     }//cargarEstadoAdmin
 
-    cargarEstadoMozo(cb){
+    cargarEstadoMozo(cb) {
         $.ajax({
             url: this.urlServer + "mozo/estado",
-            dataType:"json",
+            dataType: "json",
             type: "post",
-             headers:{
-                       token: localStorage[usuarioLogueado_ls]
-                   },
-            success: (e)=>{
-                this.estadoAnteriorMozo=this.estadoMozo;
-                this.estadoMozo=e;
-                if(cb instanceof Function) cb(e);
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e) => {
+                this.estadoAnteriorMozo = this.estadoMozo;
+                this.estadoMozo = e;
+                if (cb instanceof Function) cb(e);
             },
             error: (e) => {
                 console.log(e.responseText)
@@ -318,19 +378,19 @@ class API{
         })
     }//estdo mozo
 
-    cargarPedidosMozo(cb){
+    cargarPedidosMozo(cb) {
         $.ajax({
             url: this.urlServer + "mozo/traerMisPedidos",
             type: "post",
-            dataType:"json",
-             headers:{
-                 token: localStorage[usuarioLogueado_ls]
-             },
-            success: (e)=>{
+            dataType: "json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e) => {
                 console.log(e)
-                this.pedidosAnteriorMozo=this.pedidosMozo;
-                this.pedidosMozo=e;
-                if(cb instanceof Function) cb(e);
+                this.pedidosAnteriorMozo = this.pedidosMozo;
+                this.pedidosMozo = e;
+                if (cb instanceof Function) cb(e);
             },
             error: (e) => {
                 console.log(e.responseText)
@@ -339,62 +399,62 @@ class API{
     }//estdo mozo
 
 
-    logueo(mail, clave,cb){
-        console.log("Clase api: "+mail,clave, "server: "+ this.urlServer)
+    logueo(mail, clave, cb) {
+        console.log("Clase api: " + mail, clave, "server: " + this.urlServer)
         $.ajax({
-            url: this.urlServer+ "login/",
-            type:"post",
-            dataType:"json",
-            data:{
-                "email":mail,
-                "clave":clave
+            url: this.urlServer + "login/",
+            type: "post",
+            dataType: "json",
+            data: {
+                "email": mail,
+                "clave": clave
             },
-            success:(e)=>{
-                if(cb instanceof Function) cb(e);
-            },error:e=>console.log(e)
+            success: (e) => {
+                if (cb instanceof Function) cb(e);
+            }, error: e => console.log(e)
         })
     }
 
 
-    
- modificarMesa(m,cb){
-    $.ajax({
-         url:this.urlServer+"mesa/modificar",
-          type:"post",
-          data:{
-              "mesa":JSON.stringify(m)
-          },
-          dataType:"json",
-           headers:{
-             token:localStorage[usuarioLogueado_ls]
-           },
-          success:(e)=>{
-            if(cb instanceof Function) cb(e)   
-          }
+
+    modificarMesa(m, cb) {
+        $.ajax({
+            url: this.urlServer + "mesa/modificar",
+            type: "post",
+            data: {
+                "mesa": JSON.stringify(m)
+            },
+            dataType: "json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e) => {
+                if (cb instanceof Function) cb(e)
+            }
         })
-  
-     
-  }
-  
-   agregarMesa(m, cb){
-      $.ajax({
-          url:this.urlServer+"mesa/alta",
-          type:"post",
-          data:{
-              "mesa":JSON.stringify(m)
-          },
-          dataType:"json",
-           headers:{
-             token:localStorage[usuarioLogueado_ls]
-           },
-          success:function(e){
-              this.mesas=e
-              localStorage["mesas_"+nombreDelSitio]=e;
-              Mesa.armarGraficoMesas($("#contMesasAdmin"),"verMesaAdmin")
-              ocultarAgregarVerMesa();
-          }
-  
-      })
-  }
+
+
+    }
+
+    agregarMesa(m, cb) {
+        $.ajax({
+            url: this.urlServer + "mesa/alta",
+            type: "post",
+            data: {
+                "mesa": JSON.stringify(m)
+            },
+            dataType: "json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: function (e) {
+                this.mesas = e
+                localStorage["mesas_" + nombreDelSitio] = e;
+                Mesa.armarGraficoMesas($("#contMesasAdmin"), "verMesaAdmin")
+                ocultarAgregarVerMesa();
+            }
+
+        })
+    }
 
 }

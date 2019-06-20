@@ -5,7 +5,7 @@
                 <div class="col-2">
                     <!--    <i class="fas fa-angle-left"></i>-->
                 </div>
-                <div class="col-8">Iniciar Sessión</div>
+                <div class="col-8">Iniciar Sesión</div>
                 <div class="col-2"></div>
             </div>
         </div>
@@ -64,10 +64,12 @@
 
     let callbackLogin = function (r) {
        
-        console.log(r.elEmpleado.foto);
+        //console.log(r.elEmpleado.foto);
 
         if (r.itsOK == false) {
+
             mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
+            
         } else {
             usuario.meterleToken(r.token)
             fotoDelUsuario = usuario.dataUsuario().foto
@@ -84,10 +86,14 @@
             mostrarModalConfirmacion("Email invalido", "ok", null, null, null)
             return;
         }
+
+        if (!validarInput($("#pass").val())) {
+            mostrarModalConfirmacion("Ingresar contraseña", "ok", null, null, null)
+            return;
+        }
+
         let mail = $("#email").val()
         let clave = $("#pass").val()
-
-
 
 
         api.logueo(mail, clave, callbackLogin)

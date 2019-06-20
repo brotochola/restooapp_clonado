@@ -4,7 +4,9 @@ const minSillasPorMesa=2;
 const maxSillasPorMesa=6;
 const estadosPedidos = [null, "Pendiente", "En Preparación", "Listo", "Servido", "Cancelado"]
 const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada"];
-const rolesEmpleados=["-", "Socix","Camarerx", "Bartender", "Cervecerx", "Cocinerx",  "Pastelerx", "Admin"];
+const rolesEmpleados = ["-", "Socix","Camarerx", "Bartender", "Cervecerx", "Cocinerx",  "Pastelerx", "Admin"];
+
+const sectoresCocinas = ["-", "Bar", "Cervecería", "Cocina",  "Pastelería"];
 
 const coloresMesas=["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
 var imgRolesEmpleados = [null, "media/Img/roles/tragos.png", "media/Img/roles/cerveza.png", "media/Img/roles/cocina.png", "Camarerx", "Admin", "media/Img/roles/candy.png"];
@@ -125,6 +127,14 @@ function checkStr(str){
 function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
+}
+
+function validarInput(input){
+  return !input == "";
+}
+
+function validarSelect(seleccion){
+  return !seleccion == "0";
 }
 
 function buscarEnArray(val,propiedad,array){

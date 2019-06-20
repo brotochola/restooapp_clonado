@@ -23,7 +23,9 @@ class productoApi extends producto
         
         if($var == null)
         {               
-            return $miProducto->Insertar();
+            $miProducto->Insertar();
+            $Productos=producto::TraerTodos();        
+            return $response->withJson($Productos, 200);  
         }
         else
         {
@@ -61,7 +63,8 @@ class productoApi extends producto
 	    $responseObj= new stdclass();
 	    $responseObj->resultado=$resultado;
         $responseObj->tarea="modificar";
-	    return $response->withJson($responseObj, 200);	
+        $Productos=producto::TraerTodos();        
+        return $response->withJson($Productos, 200);	    
     }
    
     public function BorrarProducto($request, $response, $args) 
