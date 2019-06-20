@@ -109,4 +109,59 @@ class Usuario {
             }
     });//ajax
    }//actualizar
+
+
+   static parsearQRDNI(_text){
+    
+        
+         let  rta={ nombre : '',
+            apellido : '',
+            dni : '',
+            sexo : '',
+            fechaNac : '',
+            raw :_text
+        };
+        let data = _text.split('@');
+        console.log(data);
+        if( data.length == 8 ||  data.length == 9 ) {
+          // Formato nuevo
+          rta.apellido = data[1].trim()
+          rta.nombre   = data[2].trim()
+          rta.sexo     = data[3].trim()
+          rta.dni      = data[4].trim()
+          rta.fechaNac = data[6].trim()
+      
+        } else if (data.length == 15) {
+          // Formato anterior
+          rta.apellido = data[4].trim()
+          rta.nombre   = data[5].trim()
+          rta.sexo     = data[8].trim()
+          rta.dni      = data[1].trim()
+          rta.fechaNac = data[7].trim()
+        } else {
+        
+          return -1;
+        } //tipo de data q tiene el dni
+      
+        /////////////
+  /*  const validarTexto = _text => {
+        // El protocolo mantiene el texto en mayúsculas y sin caracteres especiales
+        let _regex = /^[A-Z ]+$/;
+        return _regex.test(_text.trim());
+    }
+    const validarFecha = _text => {
+        let _regex = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}?$/;
+        return _regex.test(_text.trim());
+    }
+    const validarNumero = _text => {
+        _text = _text.trim();
+        return !isNaN(_text) && _text.length >= 7 && _text.length <= 8;
+    }*/
+ //////////////////////
+      
+      return rta;
+      
+
+   } //parsear dni
+
 }
