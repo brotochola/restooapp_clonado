@@ -11,16 +11,28 @@ class App {
         this.$videoSplash = $("video#videoSplash");
     }
 
+    actualizarEstado(){
+
+        api.traerEstadoMesaCliente(id, ()=>{
+
+            if (true) {
+                this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
+            } else {
+                //Algún botón para QR solicitar mesa
+                this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
+            }
+
+            setTimeout(() => { this.actualizarEstado() }, 5000)
+        })
+
+    }
+
+
+
     quePasaDespuesDeLogin() {
         console.log("Acá UI cliente");
 
-        //Revisar que tiene mesa asignada
-        if (true) {
-            this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
-        } else {
-            //Algún botón para QR solicitar mesa
-        }
-
+        this.actualizarEstado();
         //Ver qué opciones del footer
         setTimeout(() => { this.mostrarFooterCliente() }, 200)//lo atamo con alambre
     }

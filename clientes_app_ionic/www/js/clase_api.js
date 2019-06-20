@@ -23,6 +23,7 @@ class API {
         this.estadoAnteriorMozo = null;
         this.estadoMozo = null;
         this.estadoCocinero = null;
+        this.estadoCliente = null;
 
     }
 
@@ -90,6 +91,25 @@ class API {
                 // console.log(e)
                 let mesa = e
                 // console.log(mesa)
+                if (cb instanceof Function) cb(mesa);
+            }, error: (e) => {
+                console.log(e)
+            }
+        }); //ajax
+    }
+
+    traerEstadoMesaCliente(id, cb) {
+
+        $.ajax({
+            url: this.urlServer + "mesas/id/" + id,
+            headers: {
+                token: localStorage[clienteLogueado_ls]
+            },
+            dataType: "json",
+            success: (e) => {
+                console.log(e);
+                this.estadoCliente = e;
+    
                 if (cb instanceof Function) cb(mesa);
             }, error: (e) => {
                 console.log(e)

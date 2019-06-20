@@ -1,0 +1,183 @@
+<body class="body-color" id="cuerpoPrincipal">
+
+    <div class="col-12 bar-top">
+        <div class="row">
+            <div class="col-2">
+                <i class="fas fa-angle-left" onclick="botonVolver()"></i>
+            </div>
+            <div class="col-8" id="nombreCliente">unCliente</div>
+            <div class="col-2">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="cuerpo-modal cuerpo-cliente">
+        <div class="text-center">
+            <div class="container botonesVerEstadoMesaAdmin">
+
+                <div class="row" id="botonEstadisticas">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <button class="boton-modal" id="botonEstadisticas">Estadisticas</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <button class="boton-modal " onclick="ocultarEstadoMesa()">OK</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+
+                <div class="row" id="botonCerrarMesa">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <button class="boton-modal cancelar" onclick="cerrarMesa()">Cerrar Mesa</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    $(document).ready(function () {
+        console.log("doc ready estado cliente");
+
+        docReady = 1;
+
+        $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
+    });
+
+    console.log("estado.js")
+
+    function botonVolver() {
+        mostrarModalConfirmacion("¿Seguro quiere cerrar su sesión?", "Si", "No", cliente.logout, () => { })
+    }
+
+    var idMesa = -1;
+    var mesa = {};
+
+    function ocultarEstadoMesa() {
+        app.esconderUnaParte("partes/verEstadoMesa.html");
+    }
+
+    function agregarPedidoAEstaMesa() {
+        // app.traerHTML("partes/nuevoPedidoAgregarProductos.html",true,true);
+        mostrarModalAgregarProductos(idMesa);
+    }
+
+    function cerrarMesa() {
+        mostrarModalConfirmacion("Seguro que quiere cerrar la facturación de este mesa?", "Si", "No", function () {
+            $.ajax({
+                url: caminoBackend + "admin/mesas/cerrar/id",
+                headers: {
+                    token: localStorage[clienteLogueado_ls]
+                },
+                data: {
+                    "id": idMesa
+                },
+                success: function (e) {
+                    //aca habria q evaluar segun lo q viene del server
+                    //una vez cerrada la mesa
+                    console.log(e);
+                    ocultarModalConfirmacion();
+                    ocultarEstadoMesa();
+                }
+            })
+        }//cb si
+        )//mostrar moal confirmacion
+    }//cerrar mesa
+
+
+    function cbMostrarEstadoMesa(mesa) {
+
+        app.ocultarLoading();
+
+
+
+        console.log(mesa)
+        mesaActiva = mesa;
+        $("#listadoDePedidosMesa").html("")
+        //arma pedidos
+
+        if (mesa.pedidos.length == 0) {
+            $("#listadoDePedidosMesa").append("<br>No hay pedidos</br>")
+        } else {
+            for (var i = 0; i < mesa.pedidos.length; i++) {
+                pe = mesa.pedidos[i]
+                $("#listadoDePedidosMesa").append(armarPedido(pe))
+            }
+        }
+
+        //datos
+        $("#idMesa").html("#" + mesa.id_mesa)
+        if (checkStr(mesa.cliente.nombre_completo)) {
+            //SI LA MESA TIENE UN CLIENTE ES QUE TIENE DATA Y TODO
+            $("#botonCerrarMesa, #botonEstadisticas").hide();
+            $("#botonAgregarPedidoAMesaMozo").show();
+
+            ////
+            $("#nombreCliente").html(mesa.cliente.nombre_completo)
+            $("#cantVisitas").html(mesa.cliente.cant_visitas)
+            $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")
+            $("#mozoAsignado").html(mesa.mozo.nombre_completo)
+            $("#total").html("$" + mesa.total_mesa)
+
+            $("#horaLlegadaMesa").html(hora(mesa.clienteVisita.date_created));
+        } else {
+            $("#botonCerrarMesa").hide();
+            $("#nombreCliente").html("")
+            $("#cantVisitas").html("")
+            $("#cantComensales").html("")
+            $("#mozoAsignado").html("")
+            $("#total").html("")
+            $("#horaLlegadaMesa").html("");
+        }
+
+
+    }
+
+    function mostrarEstadoMesaAdmin(id) {
+        // console.log(id)
+
+        app.mostrarLoading()
+
+        idMesa = id;
+        $("#botonEstadisticas").off().click(function () {
+            window.location.href = "estadisticas.html?mesaId=" + id
+        })
+
+        api.traerUnaMesa(id, cbMostrarEstadoMesa);
+
+
+        app.traerHTML("partes/verEstadoMesa.html", true);
+
+    }
+
+    function armarPedido(pedido) {
+        console.log("pedido:");
+        console.log(pedido)
+        html = ' <li>'
+        html += '<div class="container">'
+        html += '<div class="row" onclick="verPedido(' + pedido.id + ')">'
+        html += '<div class="col-2 text-center contenedor-icono-listado"><h5>#' + pedido.id + '</h5></div>'
+
+        let horaPedidoAgregado = hora(pedido.fecha_alta)
+
+        html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
+        html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
+        html += '<div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
+        html += '</div>  '
+        html += '</div>  '
+        html += '</li>'
+        return html;
+
+    }
+</script>

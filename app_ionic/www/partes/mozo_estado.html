@@ -78,7 +78,7 @@
 
 <script>
 
-///////////////COSAS DEL QR:
+    ///////////////COSAS DEL QR:
     // Para verificar disponibilidad de una mesa.
     // Para relacionar al cliente con una mesa.
     // Para ver el estado del pedido.
@@ -87,33 +87,33 @@
     //https://www.the-qrcode-generator.com/
 
 
-function scanQRMesa() {
+    function scanQRMesa() {
 
-try {
-    cordova.plugins.barcodeScanner.scan(callBackQRMozo, QRmal, {                
-        prompt: "escaneá el qr de la mesa", // Android
-        resultDisplayDuration: 1500,
-        orientation: "portrait"
-    });
-} catch (e) {
-    alert(e);
-}
-}
+        try {
+            cordova.plugins.barcodeScanner.scan(callBackQRMozo, QRmal, {
+                prompt: "escaneá el qr de la mesa", // Android
+                resultDisplayDuration: 1500,
+                orientation: "portrait"
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
 
-function callBackQRMozo(data) {
+    function callBackQRMozo(data) {
 
-obj = JSON.parse(data.text);
+        obj = JSON.parse(data.text);
 
-if (obj.tipo == "mesa") {
-    verMesaMozo(obj.id);
-}
-}
+        if (obj.tipo == "mesa") {
+            verMesaMozo(obj.id);
+        }
+    }
 
-function QRmal(error) {
-alert("Error: " + error)
-}
+    function QRmal(error) {
+        alert("Error: " + error)
+    }
 
-///////////////////FIN COSAS DEL QR
+    ///////////////////FIN COSAS DEL QR
 
 
 
