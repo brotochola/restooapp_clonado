@@ -215,7 +215,8 @@ var debugEmpleado;
             sexo : '',
             fechaNac : '',
             raw :_text*/
-       let dataUsuarioDNI= Usuario.parsearQRDNI(data);
+            
+       let dataUsuarioDNI= Usuario.parsearQRDNI(data.text);
         $("#fechaNac").val(formatDate(fechaArg2timeStamp(dataUsuarioDNI.fechaNac)));
         $("#dni").val(dataUsuarioDNI.dni);
      
