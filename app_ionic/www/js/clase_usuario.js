@@ -113,7 +113,7 @@ class Usuario {
 
    static parsearQRDNI(_text){
     
-        
+        console.log(_text);
          let  rta={ nombre : '',
             apellido : '',
             dni : '',
