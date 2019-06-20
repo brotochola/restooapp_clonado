@@ -9,6 +9,56 @@ class mesaApi extends mesa
 
         //=============AGREGADOS APP RESTO2
 
+
+        public function clienteSolicitaMesa($request,$response,$args)
+        {    
+    
+            // ESTO ES CUANDO UN CLIENTE SE SIENTA EN UNA MESA
+            //Y SE GENERA UN CLIENTE_VISITA
+            $miMesa = new mesa();
+    
+            $ArrayDeParametros = $request->getParsedBody(); 
+            
+    
+         //   print_r($ArrayDeParametros);die();
+    
+    
+            $vHora = new DateTime(); 
+            $laHora = date_format($vHora,"Y/m/d H:i:s"); 
+    
+            $vIdMesa = $ArrayDeParametros['id_mesa'];
+            $vIdCliente = $ArrayDeParametros['id_cliente'];
+    
+    
+             
+    
+            //ME FIJO SI LA MESA ESTA USADA
+
+            $laMesa = mesa::TraerUno($vIdMesa);
+            if($laMesa->estado_mesa!=0){
+                //LE MESA ESTA OCUPADA
+                $rta=new stdClass();
+                $rta->mensaje="la mesa esta ocupada";
+                $response->getBody()->write(json_encode($rta));
+                return $response;   
+            }else{
+                //LA MESA ESTA LIBRE
+                $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, 2, -1);
+                 mesa::ModificarEstadoDeLaMesa($vIdMesa, 1);
+               
+                //DEVUELVE EL ESTADO COMPLETO DE ESTA MESA
+                $arr=self::id2MesaCompleta($vIdMesa);    
+
+                return $response->withJson( $arr, 200);
+                 
+            }
+     
+            
+          
+            
+        }
+
+
     public function HabilitarMesa($request,$response,$args)
     {    
 
@@ -101,12 +151,10 @@ class mesaApi extends mesa
         return $response;
     }
     
-    
-    public function TraerUnaMesa($request, $response, $args) {
+    public static function id2MesaCompleta($id){
 
         $respuestaArray = new stdClass();
-
-        $vId = $args['id'];        
+        $vId = $id;       
         $mesa = mesa::TraerLaMesa($vId)[0];
         
         $cliente_visita = mesa::TraerClienteVisita($vId);
@@ -149,6 +197,7 @@ class mesaApi extends mesa
             $respuestaArray->cliente=new stdClass();
             $respuestaArray->mozo=new stdClass();
             $respuestaArray->total_mesa=0;
+            
 
         }
 
@@ -159,8 +208,16 @@ class mesaApi extends mesa
 
     
       
-        $newResponse = $response->withJson($respuestaArray, 200);
-        return $newResponse;
+      
+        return $respuestaArray;
+    }
+
+    public function TraerUnaMesa($request, $response, $args) {
+        $arr=self::id2MesaCompleta(  $args['id_mesa']);
+       
+
+        return $response->withJson( $arr, 200);
+       
     }
 
 
