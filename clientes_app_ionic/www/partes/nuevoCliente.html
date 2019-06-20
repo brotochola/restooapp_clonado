@@ -97,7 +97,17 @@
         let dni = $("#dniNuevoCliente").val();
 
         if (email == "") {
-            mostrarModalConfirmacion("Complete email", "ok");
+            mostrarModalConfirmacion("Complete su email", "OK");
+            return;
+        }
+
+        if (nombre == "") {
+            mostrarModalConfirmacion("Complete su nombre", "OK");
+            return;
+        }
+
+        if (dni == "") {
+            mostrarModalConfirmacion("Complete su DNI", "OK");
             return;
         }
 
