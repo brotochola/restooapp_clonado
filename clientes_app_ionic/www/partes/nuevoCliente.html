@@ -5,58 +5,40 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="info">Nombre completo:
-                                <input placeholder="Nombre" id="nombreNuevoCliente">
+                            <div class="info">
+                                Nombre completo: <input placeholder="Nombre" id="nombreNuevoCliente">
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <div class="info">DNI:
-                                <input id="dniNuevoCliente" placeholder="DNI"> </div>
+                            <div class="info">
+                                DNI: <input id="dniNuevoCliente" placeholder="DNI">
+                            </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-12">
                             <div class="info text-center">
-
-                                <button class="boton-modal " onclick="escanearCodigoQRdelDNI()"> Escanear QR del
-                                    DNI</label>
+                                <button class="boton-modal " onclick="escanearCodigoQRdelDNI()">
+                                    Escanear QR del DNI
+                                </button>
                             </div>
                         </div>
                     </div>
-
-
-
                     <div class="row">
                         <div class="col-12">
-                            <div class="info ">Email:
-                                <input id="emailNuevoCliente" placeholder="Email"> </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-12">
-                            <button onclick='sacarFotoCliente()' class="boton-modal centro" id="botonFotoEmpleado">Sacar
-                                Foto</button>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="info"><img src="media/Img/usuarios-gris.png"> Nº de Personas</div>
-                        </div>
-                        <div class="col-4">
-                            <div class="info">
-                                <select id="selectCantSillas">
-                                </select>
+                            <div class="info ">
+                                Email:
+                                <input id="emailNuevoCliente" placeholder="Email">
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button onclick='sacarFotoCliente()' class="boton-modal centro" id="botonFotoEmpleado">
+                                Sacar Foto
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -66,7 +48,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            <button class="boton-modal" id="agregar" onclick="agregarCliente()">Agregar Cliente</button>
+                            <button class="boton-modal" id="agregar" onclick="agregarCliente()">Registrarme</button>
                         </div>
                         <div class="col-6">
                             <button class="boton-modal cancelar" onclick="ocultarModalNuevoCliente()">Cancelar</button>
@@ -78,12 +60,10 @@
     </div>
 </div>
 <script>
-    var mesaID;
     var fotoCargadaBase64;
 
     //===========Foto Cliente
     function sacarFotoCliente() {
-
         try {
             navigator.camera.getPicture(onSuccess, onFail, {
                 quality: 50,
@@ -94,7 +74,6 @@
         }
     }
 
-
     function onSuccess(imageData) {
         var image = document.getElementById('myImage');
         //image.src = "data:image/jpeg;base64," + imageData;
@@ -104,49 +83,32 @@
     function onFail(message) {
         alert('Failed because: ' + message);
     }
-
     //============Termina FotoCliente
 
-
-    function mostrarModalNuevoCliente(m_id) {
-        mesaID = m_id
-        let laMesa = api.mesas[Mesa.mesaId2i(m_id)]
-        console.log(" nuevo cliente en mesa " + m_id)
-        $("#agregar").html("Agregar Cliente a Mesa #" + m_id)
-        app.traerHTML("partes/nuevoCliente.html", true, true)
-
-        $("#selectCantSillas").html("")
-        for (var i = 1; i <= laMesa.sillas; i++) {
-            $("#selectCantSillas").append("<option value='" + i + "'>" + i + "</option>")
-        }
-
-
+    function mostrarModalNuevoCliente() {
+        console.log("nuevo cliente");
+        app.traerHTML("partes/nuevoCliente.html", true, true);
     }
 
     function agregarCliente() {
 
         let nombre = $("#nombreNuevoCliente").val();
-        let email = $("#emailNuevoCliente").val()
-        let dni = $("#dniNuevoCliente").val()
-
-
+        let email = $("#emailNuevoCliente").val();
+        let dni = $("#dniNuevoCliente").val();
 
         if (email == "") {
             mostrarModalConfirmacion("Complete email", "ok");
             return;
         }
 
-
         let data = {
-            "id_mesa": mesaID,
-            "nombre": nombre,
+            "nombre_completo": nombre,
             "email": email,
             "dni": dni,
-            "foto": fotoCargadaBase64,
-            "cantComensales": $("#selectCantSillas").val()
-        }
+            "foto": fotoCargadaBase64
+        };
 
-        api.habilitarMesa(data, cbHabilitarMesa)
+        api.registro(data, cbClienteRegistrado);
 
         //foto es el archivo como viene del input
         //lo q le sigue es un callback cuyo parametro es el string base64
@@ -158,22 +120,21 @@
         //     foto = $("#fotoNuevoCliente")[0].files[0]
         //     base64(foto, (fotoBase64) => {
         //         data.foto = fotoBase64;
-        //         api.habilitarMesa(data, cbHabilitarMesa)
+        //         api.habilitarMesa(data, cbClienteRegistrado)
         //     })
         // } else {
         //     //no hay foto
         //     data.foto = '';
-        //     api.habilitarMesa(data, cbHabilitarMesa)
+        //     api.habilitarMesa(data, cbClienteRegistrado)
 
         // }
     }
-
 
     function ocultarModalNuevoCliente() {
         app.esconderUnaParte("partes/nuevoCliente.html");
     }
 
-    function cbHabilitarMesa() {
+    function cbClienteRegistrado() {
         app.esconderUnaParte("partes/nuevoCliente.html");
     }
 
@@ -194,23 +155,16 @@
             });
         } catch (e) {
             alert(e);
-
             //actualizarDatos();      
-
         }
-
-
-
     }
 
     function QRok(data) {
-
         var myJSON = JSON.stringify(data);
 
         alert(myJSON);
         cargarDatosScaneados(data.text);
     }
-
 
     function QRmal(error) {
         alert("Error: " + error)

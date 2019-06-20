@@ -15,34 +15,51 @@
     <div class="cuerpo-modal cuerpo-cliente">
         <div class="container-cuerpo">
             <div class="container">
-                <div class="row"> <span id="idMesa" class="idMesa">#5</span></div>
+                <div class="row">
+                    <span id="idMesa" class="idMesa">#5</span>
+                </div>
                 <div class="row">
                     <div class="col-6 pp-n-left">
-                        <div class="info"><img src="media/Img/usuario-seleccionado.png"> <span
-                                id="nombreCliente">fulanito de tal</span></div>
+                        <div class="info"><img src="media/Img/usuario-seleccionado.png">
+                            <span id="nombreCliente">fulanito de tal</span>
+                        </div>
                     </div>
                     <div class="col-6 pp-n-right">
-                        <div class="info"><img src="media/Img/visitas.png"> Visitas: <strong
-                                id="cantVisitas">XX</strong> </div>
+                        <div class="info">
+                            <img src="media/Img/visitas.png">
+                            Visitas:
+                            <strong id="cantVisitas">XX</strong>
+                        </div>
                     </div>
-                    <!--<div class="col-12 pp-n-right">
-                            <div class="info"><img src="media/Img/calendario-seleccionado.png"><span id="ultimaVisita">
-                                    Ultima Visita: 25 - JULIO - 2018</span></div>
-                        </div>-->
+                    <!-- <div class="col-12 pp-n-right">
+                        <div class="info">
+                            <img src="media/Img/calendario-seleccionado.png">
+                            <span id="ultimaVisita">Ultima Visita: 25 - JULIO - 2018</span>
+                        </div>
+                    </div> -->
                     <div class="col-6 pp-n-left">
-                        <div class="info"><img src="media/Img/usuarios-gris.png"> Total De Comenzales: <strong
-                                id="cantComensales">#8</strong> </div>
+                        <div class="info">
+                            <img src="media/Img/usuarios-gris.png">
+                            Total De Comenzales:
+                            <strong id="cantComensales">#8</strong>
+                        </div>
                     </div>
                     <div class="col-6 pp-n-right">
-                        <div class="info"> <img src="media/Img/checar-gris.png">
-                            Llegada: <strong id="horaLlegadaMesa">xx</strong> </div>
+                        <div class="info">
+                            <img src="media/Img/checar-gris.png">
+                            Llegada: <strong id="horaLlegadaMesa">xx</strong>
+                        </div>
                     </div>
                     <div class="col-6 pp-n-left">
-                        <div class="info"><img src="media/Img/mozo.png"><span id="mozoAsignado"> Mozo
-                                Asignado</span></div>
+                        <div class="info">
+                            <img src="media/Img/mozo.png">
+                            <span id="mozoAsignado"> Mozo Asignado</span>
+                        </div>
                     </div>
                     <div class="col-6 pp-n-right">
-                        <div class="info"><img src="media/Img/bolsa-dinero.png"> Total: <strong id="total">$400</strong>
+                        <div class="info">
+                            <img src="media/Img/bolsa-dinero.png">
+                            Total: <strong id="total">$400</strong>
                         </div>
                     </div>
                 </div>
@@ -55,7 +72,6 @@
                         <i class="fas fa-plus boton_mas" id="botonAgregarPedidoAMesaMozo"
                             onclick="agregarPedidoAEstaMesa()"></i>
                     </div>
-
                 </div>
                 <div class="row contenedor-lista-pedidos">
                     <ul id="listadoDePedidosMesa">
@@ -124,7 +140,7 @@
     var mesa = {};
 
     function ocultarEstadoMesa() {
-        app.esconderUnaParte("partes/verEstadoMesa.html")
+        app.esconderUnaParte("partes/verEstadoMesa.html");
     }
 
     function agregarPedidoAEstaMesa() {
@@ -145,10 +161,9 @@
                 success: function (e) {
                     //aca habria q evaluar segun lo q viene del server
                     //una vez cerrada la mesa
-                    console.log(e)
+                    console.log(e);
                     ocultarModalConfirmacion();
-                    ocultarEstadoMesa()
-
+                    ocultarEstadoMesa();
                 }
             })
         }//cb si
@@ -182,7 +197,7 @@
             //SI LA MESA TIENE UN CLIENTE ES QUE TIENE DATA Y TODO
             $("#botonCerrarMesa, #botonEstadisticas").hide();
             $("#botonAgregarPedidoAMesaMozo").show();
-            
+
             ////
             $("#nombreCliente").html(mesa.cliente.nombre_completo)
             $("#cantVisitas").html(mesa.cliente.cant_visitas)
