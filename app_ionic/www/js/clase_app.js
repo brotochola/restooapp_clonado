@@ -15,7 +15,12 @@ class App {
     quePasaDespuesDeLogin() {
         if (usuario.dataUsuario().id_rol == 1) {
             this.traerHTML("partes/admin_estado.html", false, true, "admin_estado", false)
-            setTimeout(() => { this.mostrarFooterAdmin() }, 200)//lo atamo con alambre
+            this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true, "fija", () => {
+                setTimeout(() => {
+                 this.$footerAdmin = $("#footerAdmin");
+                this.mostrarFooterAdmin()  }, 500);
+            })
+          
         } else if (usuario.dataUsuario().id_rol == 2) {
             this.traerHTML("partes/mozo_estado.html", false, true, "admin_estado", false)
          //   setTimeout(()=>{ this.mostrarFooterMozo()},200)//seguimos usando alambre
@@ -47,9 +52,7 @@ class App {
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true)
 
         //FOOTER
-        this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true, "fija", () => {
-            setTimeout(() => { this.$footerAdmin = $("#footerAdmin"); }, 500);
-        })
+       
   
         this.traerHTML("partes/footerMozo.html", true, true, "footerMozo", true, "fija", () => {
             setTimeout(() => { this.$footerMozo = $("#footerMozo"); }, 500);
@@ -113,10 +116,10 @@ class App {
 
     esconderUnaParte(url, id) {
 
-        console.log("En esconder una parte: " + url);
+        //console.log("En esconder una parte: " + url);
         for (let i = 0; i < this.partes.length; i++) {
 
-            console.log(this.partes[i].url);
+          //  console.log(this.partes[i].url);
 
             if (this.partes[i].url == url || this.partes[i].id == id) {
 

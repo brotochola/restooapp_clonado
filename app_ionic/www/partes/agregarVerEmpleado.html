@@ -131,7 +131,7 @@ img.fotoEmple {
                             id="botonFotoEmpleado">Foto</button>
                     </div>
                     <div class="col-6">
-                       <img class="fotoEmple" width="50" height="50">
+                       <img id="fotoEmple" width="50" height="50">
                     </div>
                 </div>
                 <div class="row">
@@ -182,7 +182,7 @@ img.fotoEmple {
     function onSuccess(imageData) {
      
         fotoCargadaBase64 = "data:image/jpeg;base64," + imageData;
-        $("img.fotoEmple")[0].src=fotoCargadaBase64;
+        $("img#fotoEmple")[0].src=fotoCargadaBase64;
         console.log("En cargar foto: "+fotoCargadaBase64);
     }
 
@@ -323,7 +323,7 @@ var debugEmpleado;
         console.log("agregar empleado")
 
         empleado = {};
-        empleado.nombre_completo = ""//$("#nombre").val();
+        empleado.nombre_completo = $("#nombre").val();
         empleado.usuario = $("#usuario").val();
         empleado.email = $("#mailEmpleado").val();
         empleado.clave = $("#clave").val()
