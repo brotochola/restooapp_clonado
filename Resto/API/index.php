@@ -274,7 +274,10 @@ $app->group('/cliente', function () {
     $this->put('/modificar', \clienteApi::class . ':ModificarCliente');
 
    // $this->delete('/borrar/{id}', \clienteApi::class . ':BorrarCliente'); //->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
+   
+   $this->post('/estadoCliente', \clienteApi::class . ':estadoCliente');
 
+    $this->post('/clienteSolicitaMesa', \mesaApi::class . ':clienteSolicitaMesa');
   
 
 }); //->add(\MWparaCORS::class . ':HabilitarCORSTodos');

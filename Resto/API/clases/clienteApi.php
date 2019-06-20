@@ -6,19 +6,32 @@ require_once 'cliente.php';
 class clienteApi extends cliente
 {
 
-    public static function pruebaAgregar($request, $response, $args)
+
+    public static function estadoCliente($request, $response){
+        $ArrayDeParametros = $request->getParsedBody();
+        $id_cliente=$ArrayDeParametros["id_cliente"];
+       $rta= self::idCliente2idClienteVisita($id_cliente);
+        return $response->withJson($rta, 200);
+
+    }
+    public static function idCliente2idClienteVisita($id)
     {
 
-        $id = $args["id"];
-        self::mandarleMailConfirmacionAlCliente($id);
+        $sql="SELECT cliente_visita.* from cliente_visita where cliente_visita.id_cliente=".$id."
+        and cliente_visita.date_created < DATE_SUB(now(), INTERVAL 3 HOUR)
+        order by cliente_visita.date_created desc
+        limit 1";
+
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();        
+        $consulta = $objetoAccesoDato->RetornarConsulta($sql);
+        $consulta->execute();
+        $cliente_visita = $consulta->fetchAll(PDO::FETCH_CLASS, "stdClass")[0];
+        $arr=self::id2MesaCompleta(  $cliente_visita["id_mesa"]);
+       return $arr;
+
     }
 
-    public function agarrarMesa($request, $response){
-        //le entra id_cliente, id_mesa
-        //chequear q la mesa no este tomada
-        
-        //HACER SIMIL mesaApi::HabilitarMesa($request, $response)
-    }
+
 
     public function CargarCliente($request, $response, $args)
     {
