@@ -16,6 +16,8 @@ class clienteApi extends cliente
 
     public function CargarCliente($request, $response, $args)
     {
+        $newResponse = $response;
+
         $miCliente = new cliente();
         $ArrayDeParametros = $request->getParsedBody();
         //$miCliente->id_cliente = $ArrayDeParametros['id_cliente'];
@@ -26,9 +28,19 @@ class clienteApi extends cliente
         $var = cliente::email2Cliente($miCliente->email);
 
         if ($var == null) {
-            return $miCliente->Insertar();
+
+            $id_cliente = $miCliente->Insertar();
+
+            $mailEnviado = self::mandarleMailConfirmacionAlCliente($id_cliente);
+            //$mailEnviado = true;
+
+            $rta["ID_cliente"] = $id_cliente;
+            $rta["EnvioMail"] = $mailEnviado;
+
+            return $newResponse->withJson($rta, 200);
         } else {
-            return $response->withJson(false, 200);
+            $rta["Error"] = "El mail ".$ArrayDeParametros['email']. " ya está registrado.";
+            return $response->withJson($rta, 200);
         }
     }
 

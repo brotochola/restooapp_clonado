@@ -141,7 +141,6 @@ class API {
             dataType: "json",
             data: datos,
             success: (e) => {
-                alert("Te registraste!");
                 if (cb instanceof Function) cb(e);
             }, error: e => console.log(e)
         })
