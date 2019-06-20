@@ -109,7 +109,10 @@ class API {
             success: (e) => {
                 console.log(e);
                 this.estadoCliente = e;
-    
+                
+
+                
+                // console.log(mesa)
                 if (cb instanceof Function) cb(mesa);
             }, error: (e) => {
                 console.log(e)
