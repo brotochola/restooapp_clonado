@@ -132,4 +132,18 @@ class API {
             }, error: e => console.log(e)
         })
     }
+
+    registro(datos, cb) {
+        console.log("server: " + this.urlServer, datos);
+        $.ajax({
+            url: this.urlServer + "cliente/alta",
+            type: "post",
+            dataType: "json",
+            data: datos,
+            success: (e) => {
+                alert("Te registraste!");
+                if (cb instanceof Function) cb(e);
+            }, error: e => console.log(e)
+        })
+    }
 }
