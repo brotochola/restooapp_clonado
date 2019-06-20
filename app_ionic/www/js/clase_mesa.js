@@ -27,7 +27,7 @@ class Mesa {
 		}
 		console.log("hay " + zonaMax + " zonas en el resto ")
 		for (var q = 1; q <= zonaMax; q++) {
-			$div.append("<div class='zonaMesas " + q + "' ><p class='nombreZonaMesas'>Zona " + q + "</p></div>")
+			$div.append("<div class='zonaMesas " + q + "' ><p class='nombreZonaMesas'>Zona" + q + "</p></div>")
 		}
 
 		for (var i = 0; i < api.mesas.length; i++) {
