@@ -121,6 +121,25 @@ class clienteApi extends cliente
         return $response->withJson($responseObj, 200);
     }
 
+    public static function mandarleMailConfirmacionAlCliente_v2($email)
+    {
+        $rta = cliente::email2Cliente($email)[0];
+        $dni = $rta->dni;
+
+        $str = "<html><body>Estimadx " . $rta->nombre_completo . ".<br>Para habilitar su usuario de restoApp haga click en el siguiente link:\r\n\r\n\r\n";
+        $str .= '<a href="pixeloide.com/restoApp/API/cliente/habilitar/' . $email . '/' . $dni . '">Habilitar Usuario</a>';
+        $str .= "</body></html>";
+
+        //   echo $str;
+        $headers = "From: no-reply@restoApp.com.ar"  . "\r\n" .    "Reply-To:  no-reply@restoApp.com.ar" . "\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+        $mando = mail($email, "confirmación restoApp", $str, $headers);
+        // echo "<br>mando?= ".$mando;
+        return $mando;
+    }
+
     public static function mandarleMailConfirmacionAlCliente($id)
     {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
@@ -165,7 +184,7 @@ class clienteApi extends cliente
         $consulta = $objetoAccesoDato->RetornarConsulta("update clientes set habilitado=1 where id_cliente='$id_cliente'");
         $consulta->execute();
 
-        echo "el cliente se dio de alta exitosamente";
+        echo "El cliente se dio de alta exitosamente.";
     }
 
     public function BorrarCliente($request, $response, $args)
