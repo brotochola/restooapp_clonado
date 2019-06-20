@@ -37,6 +37,12 @@ class cliente
             return AccesoDatos::ConsultaClase($consulta,"cliente");
         }
 
+        public static function dni2Cliente($dni)
+        {             
+            $consulta = "SELECT * FROM `clientes` WHERE  `dni` = '$dni'";
+            return AccesoDatos::ConsultaClase($consulta,"cliente");
+        }
+
         public static function TraerUno($vIdCliente)
         {             
             $consulta = "SELECT * FROM `clientes` WHERE  `id_cliente` = '$vIdCliente'";
@@ -80,5 +86,3 @@ class cliente
         
    
 }
-
-?>

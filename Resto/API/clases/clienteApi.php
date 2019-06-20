@@ -32,20 +32,30 @@ class clienteApi extends cliente
         $miCliente->email = $ArrayDeParametros['email'];
 
         $var = cliente::email2Cliente($miCliente->email);
+        $rta["estado"] = "ERROR";
 
         if ($var == null) {
 
-            $id_cliente = $miCliente->Insertar();
+            $var = cliente::dni2Cliente($miCliente->dni);
 
-            $mailEnviado = self::mandarleMailConfirmacionAlCliente($id_cliente);
-            //$mailEnviado = true;
-
-            $rta["ID_cliente"] = $id_cliente;
-            $rta["EnvioMail"] = $mailEnviado;
-
-            return $newResponse->withJson($rta, 200);
+            if ($var == null) {
+    
+                $id_cliente = $miCliente->Insertar();
+    
+                $mailEnviado = self::mandarleMailConfirmacionAlCliente($id_cliente);
+                //$mailEnviado = true;
+    
+                $rta["estado"] = "OK";
+                $rta["id_cliente"] = $id_cliente;
+                $rta["envioMail"] = $mailEnviado;
+    
+                return $newResponse->withJson($rta, 200);
+            } else {
+                $rta["mensaje"] = "El DNI ".$ArrayDeParametros['dni']. " ya está registrado.";
+                return $response->withJson($rta, 200);
+            }
         } else {
-            $rta["Error"] = "El mail ".$ArrayDeParametros['email']. " ya está registrado.";
+            $rta["mensaje"] = "El mail ".$ArrayDeParametros['email']. " ya está registrado.";
             return $response->withJson($rta, 200);
         }
     }
