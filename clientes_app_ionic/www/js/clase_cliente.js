@@ -36,11 +36,7 @@ class Cliente {
         cliente.data = {};
         cliente.token = "";
         app.traerHTML("partes/login.html");
-        //app.ocultarFooterAdmin();
-        //app.ocultarFooterMozo();
-        //  app.inicioSesion()s
-        //  app.ocultarFooterComercio()
-        //  app.esconderFooter();
+        app.ocultarFooterCliente();
     }
 
     dataCliente() {
