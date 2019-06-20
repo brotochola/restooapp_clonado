@@ -13,6 +13,12 @@ class clienteApi extends cliente
         self::mandarleMailConfirmacionAlCliente($id);
     }
 
+    public function agarrarMesa($request, $response){
+        //le entra id_cliente, id_mesa
+        //chequear q la mesa no este tomada
+        
+        //HACER SIMIL mesaApi::HabilitarMesa($request, $response)
+    }
 
     public function CargarCliente($request, $response, $args)
     {

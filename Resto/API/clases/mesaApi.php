@@ -11,6 +11,9 @@ class mesaApi extends mesa
 
     public function HabilitarMesa($request,$response,$args)
     {    
+
+        // ESTO ES CUANDO UN CLIENTE SE SIENTA EN UNA MESA
+        //Y SE GENERA UN CLIENTE_VISITA
         $miMesa = new mesa();
 
         $ArrayDeParametros = $request->getParsedBody(); 
