@@ -4,257 +4,247 @@ require_once 'AccesoDatos.php';
 require_once 'cliente.php';
 
 class clienteApi extends cliente
-{   
+{
 
-    public static function pruebaAgregar($request,$response,$args){
+    public static function pruebaAgregar($request, $response, $args)
+    {
 
-        $id= $args["id"];
+        $id = $args["id"];
         self::mandarleMailConfirmacionAlCliente($id);
     }
 
-
-    public function CargarCliente($request,$response,$args)
-    {         
-        $miCliente = new cliente();
-        $ArrayDeParametros = $request->getParsedBody();                     
-        $miCliente->id_cliente = $ArrayDeParametros['id_cliente'];
-        $miCliente->nombre_completo = $ArrayDeParametros['nombre_completo'];
-        $miCliente->dni = $ArrayDeParametros['dni'];
-                
-        $var = cliente::TraerUno($miCliente->id_cliente);             
+    public function agarrarMesa($request, $response){
+        //le entra id_cliente, id_mesa
+        //chequear q la mesa no este tomada
         
-        if($var == null)
-        {                                  
-            return $miCliente->Insertar();
-        }
-        else
-        {
-            return $response->withJson(false, 200);            
-        }    
+        //HACER SIMIL mesaApi::HabilitarMesa($request, $response)
     }
 
-    public function TraerUnCliente($request, $response, $args) 
+    public function CargarCliente($request, $response, $args)
+    {
+        $newResponse = $response;
+
+        $miCliente = new cliente();
+        $ArrayDeParametros = $request->getParsedBody();
+        //$miCliente->id_cliente = $ArrayDeParametros['id_cliente'];
+        $miCliente->nombre_completo = $ArrayDeParametros['nombre_completo'];
+        $miCliente->dni = $ArrayDeParametros['dni'];
+        $miCliente->email = $ArrayDeParametros['email'];
+
+        $var = cliente::email2Cliente($miCliente->email);
+
+        if ($var == null) {
+
+            $id_cliente = $miCliente->Insertar();
+
+            $mailEnviado = self::mandarleMailConfirmacionAlCliente($id_cliente);
+            //$mailEnviado = true;
+
+            $rta["ID_cliente"] = $id_cliente;
+            $rta["EnvioMail"] = $mailEnviado;
+
+            return $newResponse->withJson($rta, 200);
+        } else {
+            $rta["Error"] = "El mail ".$ArrayDeParametros['email']. " ya está registrado.";
+            return $response->withJson($rta, 200);
+        }
+    }
+
+    public function TraerUnCliente($request, $response, $args)
     {
         $id = $args['id'];
 
-		$elcliente = Cliente::TraerUno($id);
+        $elcliente = Cliente::TraerUno($id);
 
-		$rta = [];
+        $rta = [];
 
-		$newResponse = $response;
+        $newResponse = $response;
 
-		if ($elcliente) {
-			$rta = $elcliente;
-		} else {
-			$rta["estado"] = "ERROR";
-			$rta['mensaje'] = 'No se encontró ese Cliente.';
-		}
+        if ($elcliente) {
+            $rta = $elcliente;
+        } else {
+            $rta["estado"] = "ERROR";
+            $rta['mensaje'] = 'No se encontró ese Cliente.';
+        }
 
-		return $newResponse->withJson($rta, 200);
+        return $newResponse->withJson($rta, 200);
     }
 
-    public function TraerUnClientePorMail($request, $response, $args) 
+    public function TraerUnClientePorMail($request, $response, $args)
     {
         $email = $args['email'];
 
-		$elcliente = Cliente::email2Cliente($email);
+        $elcliente = Cliente::email2Cliente($email);
 
-		$rta = [];
+        $rta = [];
 
-		$newResponse = $response;
+        $newResponse = $response;
 
-		if ($elcliente) {
-			$rta = $elcliente;
-		} else {
-			$rta["estado"] = "ERROR";
-			$rta['mensaje'] = 'No se encontró ese Cliente.';
-		}
+        if ($elcliente) {
+            $rta = $elcliente;
+        } else {
+            $rta["estado"] = "ERROR";
+            $rta['mensaje'] = 'No se encontró ese Cliente.';
+        }
 
-		return $newResponse->withJson($rta, 200);
+        return $newResponse->withJson($rta, 200);
     }
 
-    public function TraerClientes($request, $response, $args) 
+    public function TraerClientes($request, $response, $args)
     {
-        $Clientes = cliente::TraerTodos();        
-        $newResponse = $response->withJson($Clientes, 200);  
+        $Clientes = cliente::TraerTodos();
+        $newResponse = $response->withJson($Clientes, 200);
         return $newResponse;
-    }    
-   
-    public function ModificarCliente($request, $response,$args)
-    {           
-        $vCliente = new cliente();
-        $vector  = $request->getParams('id_cliente', 'nombre_completo');       
-        $vCliente->id_cliente = $vector['id_cliente'];
-        $vCliente->nombre_completo = $vector['nombre_completo'];       
-                    
-	   	$resultado = $vCliente->Modificar();
-	  	$responseObj= new stdclass();
-	    $responseObj->resultado=$resultado;
-        $responseObj->tarea="modificar";
-	    return $response->withJson($responseObj, 200);	
     }
 
+    public function ModificarCliente($request, $response, $args)
+    {
+        $vCliente = new cliente();
+        $vector  = $request->getParams('id_cliente', 'nombre_completo');
+        $vCliente->id_cliente = $vector['id_cliente'];
+        $vCliente->nombre_completo = $vector['nombre_completo'];
 
+        $resultado = $vCliente->Modificar();
+        $responseObj = new stdclass();
+        $responseObj->resultado = $resultado;
+        $responseObj->tarea = "modificar";
+        return $response->withJson($responseObj, 200);
+    }
 
-    public static function mandarleMailConfirmacionAlCliente($id){
-
-
-        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-        $sql="select * from clientes where id_cliente=$id";
-        $consulta =$objetoAccesoDato->RetornarConsulta($sql);	
-        $consulta->execute();   
+    public static function mandarleMailConfirmacionAlCliente($id)
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $sql = "select * from clientes where id_cliente=$id";
+        $consulta = $objetoAccesoDato->RetornarConsulta($sql);
+        $consulta->execute();
         //  echo $sql;
-        $rta=$consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");	
-        $email=$rta[0]->email;
-        $dni=$rta[0]->dni;
-       
-        $str="<html><body>Estimadx ".$rta[0]->nombre_completo .".<br>Para habilitar su usuario de restoApp haga click en el siguiente link:\r\n\r\n\r\n";
-        $str.='<a href="pixeloide.com/restoApp/API/cliente/habilitar/'.$email.'/'.$dni.'">Habilitar Usuario</a>';
-        $str.="</body></html>";
+        $rta = $consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");
+        $email = $rta[0]->email;
+        $dni = $rta[0]->dni;
 
-     //   echo $str;
-        $headers = "From: no-reply@restoApp.com.ar"  . "\r\n" .	"Reply-To:  no-reply@restoApp.com.ar" . "\r\n" ;
+        $str = "<html><body>Estimadx " . $rta[0]->nombre_completo . ".<br>Para habilitar su usuario de restoApp haga click en el siguiente link:\r\n\r\n\r\n";
+        $str .= '<a href="pixeloide.com/restoApp/API/cliente/habilitar/' . $email . '/' . $dni . '">Habilitar Usuario</a>';
+        $str .= "</body></html>";
+
+        //   echo $str;
+        $headers = "From: no-reply@restoApp.com.ar"  . "\r\n" .    "Reply-To:  no-reply@restoApp.com.ar" . "\r\n";
         $headers .= "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-        $mando = mail($email,"confirmación restoApp",$str,$headers);
-       // echo "<br>mando?= ".$mando;
+        $mando = mail($email, "confirmación restoApp", $str, $headers);
+        // echo "<br>mando?= ".$mando;
         return $mando;
-
-
     }
 
-    public static function habilitarUsuario($request, $response, $args) 
+    public static function habilitarUsuario($request, $response, $args)
     {
         //LOS CLIENTES QUEDAN REGISTRADOS PERO CON EL CAMPO HABILITADO=0
         //ESTO LOS PONE EN 1
-        $dni=$args["dni"];
-        $email=$args["email"];
+        $dni = $args["dni"];
+        $email = $args["email"];
 
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $sql = "select * from clientes where email ='" . $email . "' and dni='" . $dni . "'";
 
-
-
-        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-        $sql="select * from clientes where email ='".$email."' and dni='".$dni."'";
-
-        $consulta =$objetoAccesoDato->RetornarConsulta($sql);	
-        $consulta->execute();   
+        $consulta = $objetoAccesoDato->RetornarConsulta($sql);
+        $consulta->execute();
         //  echo $sql;
-        $rta=$consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");	
-       $id_cliente =$rta[0]->id_cliente;
+        $rta = $consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");
+        $id_cliente = $rta[0]->id_cliente;
 
-
-
-        $consulta =$objetoAccesoDato->RetornarConsulta("update clientes set habilitado=1 where id_cliente='$id_cliente'");
-        $consulta->execute(); 
+        $consulta = $objetoAccesoDato->RetornarConsulta("update clientes set habilitado=1 where id_cliente='$id_cliente'");
+        $consulta->execute();
 
         echo "el cliente se dio de alta exitosamente";
-        
-      
-       
     }
 
-
-
-    public function BorrarCliente($request, $response, $args) 
+    public function BorrarCliente($request, $response, $args)
     {
         $vCliente = new cliente();
-        $vId = $args['id'];        
+        $vId = $args['id'];
         $var = cliente::TraerUno($vId);
-        
-        if($var != null){
-               
-            $vCliente = $var[0];       
-            
-            $cantidadDeBorrados = $vCliente->BorrarUno(); 
 
-            $objDelaRespuesta= new stdclass();
-            $objDelaRespuesta->cantidad=$cantidadDeBorrados;
+        if ($var != null) {
 
-            if($cantidadDeBorrados == 1)$objDelaRespuesta->resultado="Se borró un elemento!!!";
-            
-            elseif($cantidadDeBorrados > 1) $objDelaRespuesta->resultado="Se borró más de un elemento!!!";
-            
-            elseif($cantidadDeBorrados < 1) $objDelaRespuesta->resultado="No se borró ningún elemento!!!";
-            
-            $newResponse = $response->withJson($objDelaRespuesta, 200);  
-            return $newResponse; 
-        }
-        else{
+            $vCliente = $var[0];
+
+            $cantidadDeBorrados = $vCliente->BorrarUno();
+
+            $objDelaRespuesta = new stdclass();
+            $objDelaRespuesta->cantidad = $cantidadDeBorrados;
+
+            if ($cantidadDeBorrados == 1) $objDelaRespuesta->resultado = "Se borró un elemento!!!";
+
+            elseif ($cantidadDeBorrados > 1) $objDelaRespuesta->resultado = "Se borró más de un elemento!!!";
+
+            elseif ($cantidadDeBorrados < 1) $objDelaRespuesta->resultado = "No se borró ningún elemento!!!";
+
+            $newResponse = $response->withJson($objDelaRespuesta, 200);
+            return $newResponse;
+        } else {
 
             return "No existe ningún elemento con ese código";
         }
     }
 
-    public function LoginCliente($request,$response,$args)
-    {         
-        $objDelaRespuesta = new stdclass();  
-        $objDelaRespuesta->itsOK = false;  
-        $objDelaRespuesta->mensaje = "El cliente no existe";            
+    public function LoginCliente($request, $response, $args)
+    {
+        $objDelaRespuesta = new stdclass();
+        $objDelaRespuesta->itsOK = false;
+        $objDelaRespuesta->mensaje = "El cliente no existe";
         $vector = $request->getParsedBody();
         //print_r($vector);die();
-    
-        $vEmail = $vector['email'];  
+
+        $vEmail = $vector['email'];
         $vDNI = $vector['dni'];
 
         $var = cliente::email2Cliente($vEmail)[0];
-        
-        if($var != null)
-        {
-            if($vDNI == $var->dni)
-            {  
+
+        if ($var != null) {
+            if ($vDNI == $var->dni) {
                 $objDelaRespuesta->el_cliente = new cliente();
                 $objDelaRespuesta->itsOK = true;
-                $objDelaRespuesta->el_cliente = $var; 
+                $objDelaRespuesta->el_cliente = $var;
                 $objDelaRespuesta->token = AutentificadorJWT::CrearToken($var);
-                $objDelaRespuesta->mensaje = "Login correcto";  
-                $newResponse = $response->withJson($objDelaRespuesta, 200);        
-                return $newResponse;        
-            }
-            else
-            {
+                $objDelaRespuesta->mensaje = "Login correcto";
+                $newResponse = $response->withJson($objDelaRespuesta, 200);
+                return $newResponse;
+            } else {
                 $objDelaRespuesta->mensaje = "Datos incorrectos";
             }
-
-        }       
-        $newResponse = $response->withJson($objDelaRespuesta, 200);        
-        return $newResponse;       
+        }
+        $newResponse = $response->withJson($objDelaRespuesta, 200);
+        return $newResponse;
     }
 
-    public function LoginAnonimo($request,$response,$args)
-    {         
-        $objDelaRespuesta = new stdclass();  
-        $objDelaRespuesta->itsOK = false;  
-        $objDelaRespuesta->mensaje = "El cliente no existe";            
+    public function LoginAnonimo($request, $response, $args)
+    {
+        $objDelaRespuesta = new stdclass();
+        $objDelaRespuesta->itsOK = false;
+        $objDelaRespuesta->mensaje = "El cliente no existe";
         $vector = $request->getParsedBody();
         //print_r($vector);die();
-    
+
         //$vUsuario = $vector['usuario'];  
-        $vId_cliente = $vector['id_cliente'];  
+        $vId_cliente = $vector['id_cliente'];
         $vNombre_completo = $vector['nombre_completo'];
 
         $var = cliente::TraerUno($vId_cliente)[0];
-        
-        if($var != null)
-        {       
-            if($vNombre_completo == $var->nombre_completo)
-            {  
+
+        if ($var != null) {
+            if ($vNombre_completo == $var->nombre_completo) {
                 $objDelaRespuesta->el_cliente = new cliente();
                 $objDelaRespuesta->itsOK = true;
-                $objDelaRespuesta->el_cliente = $var; 
+                $objDelaRespuesta->el_cliente = $var;
                 $objDelaRespuesta->token = AutentificadorJWT::CrearToken($var);
-                $objDelaRespuesta->mensaje = "Login correcto";  
-                $newResponse = $response->withJson($objDelaRespuesta, 200);        
-                return $newResponse;        
-            }
-            else
-            {
+                $objDelaRespuesta->mensaje = "Login correcto";
+                $newResponse = $response->withJson($objDelaRespuesta, 200);
+                return $newResponse;
+            } else {
                 $objDelaRespuesta->mensaje = "Datos incorrectos";
             }
-
-        }       
-        $newResponse = $response->withJson($objDelaRespuesta, 200);        
-        return $newResponse;       
+        }
+        $newResponse = $response->withJson($objDelaRespuesta, 200);
+        return $newResponse;
     }
 }
-?>

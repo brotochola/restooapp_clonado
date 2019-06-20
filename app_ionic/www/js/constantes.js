@@ -22,6 +22,12 @@ function formatDate(date) {
   return [year, month, day].join('-');
 }
 
+function fechaArg2timeStamp(str){
+  let b=str.split("/");
+  return new Date(b[1]+"-"+b[0]+"-"+b[2])
+
+  }
+
 function array2Select(arr,id){
   let str="<select id='"+id+"'>"
   for(let i=0;i<arr.length;i++){

@@ -14,7 +14,7 @@ class API {
         if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
         else this.urlServer = "../../Resto/API/";
 
-        // this.urlServer="http://pixeloide.com/restoApp/API/"
+         this.urlServer="http://pixeloide.com/restoApp/API/"
 
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
         this.empleados = null;
@@ -127,6 +127,19 @@ class API {
                 "email": mail,
                 "dni": dni
             },
+            success: (e) => {
+                if (cb instanceof Function) cb(e);
+            }, error: e => console.log(e)
+        })
+    }
+
+    registro(datos, cb) {
+        console.log("server: " + this.urlServer, datos);
+        $.ajax({
+            url: this.urlServer + "cliente/alta",
+            type: "post",
+            dataType: "json",
+            data: datos,
             success: (e) => {
                 if (cb instanceof Function) cb(e);
             }, error: e => console.log(e)

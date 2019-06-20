@@ -1,3 +1,14 @@
+<style>
+
+img.fotoEmple {
+    margin-top: 18px;
+    width: 24vw;
+    height: 24vw;
+    object-fit: cover;
+    border-radius: 17%;
+}
+</style>
+
 <div class="fondo-modal" id="agregarVerEmpleado">
     <div class="contenedor-modal">
         <div class="cuerpo-modal agregarVerEmpleado">
@@ -15,11 +26,11 @@
                             <input id="mailEmpleado" placeholder="E-mail">
                         </div>
                     </div>
-                    <div class="col-12">
+                   <!-- <div class="col-12">
                         <div class="info">
                             <input id="usuario" placeholder="usuario">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -115,11 +126,12 @@
                 <div class="row">
                     <div class="col-6">
                         <button onclick='leerDNIEmpleado()' class="boton-modal centro" id="botonLeerDNIEmpleado">Leer
-                            DNI</button>
+                            DNI</button><br>
+                            <button onclick='sacarFotoEmpleado()' class="boton-modal centro"
+                            id="botonFotoEmpleado">Foto</button>
                     </div>
                     <div class="col-6">
-                        <button onclick='sacarFotoEmpleado()' class="boton-modal centro"
-                            id="botonFotoEmpleado">Foto</button>
+                       <img class="fotoEmple" width="50" height="50">
                     </div>
                 </div>
                 <div class="row">
@@ -157,7 +169,9 @@
         try {
             navigator.camera.getPicture(onSuccess, onFail, {
                 quality: 50,
-                destinationType: Camera.DestinationType.DATA_URL
+                destinationType: Camera.DestinationType.DATA_URL,
+                targetWidth: 512,
+                targetHeight: 910
             });
         } catch (e) {
             alert(e)
@@ -166,9 +180,9 @@
 
 
     function onSuccess(imageData) {
-        var image = document.getElementById('myImage');
-        //image.src = "data:image/jpeg;base64," + imageData;
+     
         fotoCargadaBase64 = "data:image/jpeg;base64," + imageData;
+        $("img.fotoEmple")[0].src=fotoCargadaBase64;
         console.log("En cargar foto: "+fotoCargadaBase64);
     }
 
@@ -208,13 +222,18 @@
 
 var debugEmpleado;
     function callBackDNIEmpleado(data) {
-        debugEmpleado=data;
-        console.log(data);
-        //var myJSON = JSON.stringify(data);
-        //obj = JSON.parse(data.text);   07255656
-
-        alert("Datos DNI: "+data.text);
-        //cargarDatosScaneadosDNIEmpleado(data.text);
+        /*
+        nombre : '',
+            apellido : '',
+            dni : '',
+            sexo : '',
+            fechaNac : '',
+            raw :_text*/
+            
+       let dataUsuarioDNI= Usuario.parsearQRDNI(data.text);
+        $("#fechaNac").val(formatDate(fechaArg2timeStamp(dataUsuarioDNI.fechaNac)));
+        $("#dni").val(dataUsuarioDNI.dni);
+     
     }
 
 
@@ -222,19 +241,6 @@ var debugEmpleado;
         alert("Error: " + error)
     }
 
-    function cargarDatosScaneadosDNIEmpleado(data) {
-
-        datosDNI = data.split('@');
-       apellido = datosDNI[1];
-
-        // numeroDNI = parseInt(datosDNI[1]);
-        // nombreCompletoDNI = datosDNI[4] + ' ' + datosDNI[5];
-        // fechaDNI = datosDNI[7].split('/')[2] + '-' + datosDNI[7].split('/')[1] + '-' + datosDNI[7].split('/')[0];
-
-        $("#nombre").val(apellido);
-        // $("#dni").val(numeroDNI);
-        // $("#fechaNac").val(fechaDNI);
-    }
 
 
    
@@ -268,7 +274,7 @@ var debugEmpleado;
             $("#contBotonBorrar").show()
             $("#botonAgregarEmpleado").html("Modificar")
             $("#nombre").val(empleado.nombre_completo)
-            $("#usuario").val(empleado.usuario)
+           // $("#usuario").val(empleado.usuario)
             $("#mailEmpleado").val(empleado.email)
             $("#dni").val(empleado.dni)
             $("#fechaNac").val(formatDate(empleado.fecha_nac))
@@ -294,7 +300,8 @@ var debugEmpleado;
         empleado.id_empleado = idEmpleadoActual;
         empleado.nombre_completo = $("#nombre").val();
         empleado.dni = $("#dni").val();
-        empleado.usuario = $("#usuario").val();
+      //  empleado.usuario = $("#usuario").val();
+        empleado.usuario = '';
         empleado.email = $("#mailEmpleado").val();
         empleado.clave = $("#clave").val();
         empleado.sueldo = $("#sueldo").val();
@@ -316,7 +323,7 @@ var debugEmpleado;
         console.log("agregar empleado")
 
         empleado = {};
-        empleado.nombre_completo = $("#nombre").val();
+        empleado.nombre_completo = ""//$("#nombre").val();
         empleado.usuario = $("#usuario").val();
         empleado.email = $("#mailEmpleado").val();
         empleado.clave = $("#clave").val()

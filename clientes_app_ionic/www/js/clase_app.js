@@ -30,6 +30,7 @@ class App {
         //MODALES:
         this.traerHTML("partes/modalConfirmacion.html", true, true, "modalConfirm", false);
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true);
+        this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true);
 
         //FOOTER
         //Revisar si es práctico que lo tenga el cliente, y qué opciones tendrá
