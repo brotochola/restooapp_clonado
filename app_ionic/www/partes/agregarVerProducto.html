@@ -80,12 +80,17 @@
 <script>
 
     idProductoActual = -1;
+
+    datosValidados = true;
+
     //$("#contSelectCatProducto").html(array2Select(sectoresCocinas, "rolEmpleado"))
     $("#contSelectCatProducto").html(array2Select(rolesEmpleados, "rolCocina"))
+
 
     function ocultarAgregarVerProducto() {
         app.esconderUnaParte("partes/agregarVerProducto.html");
     }
+
 
     function mostrarAgregarVerProducto(id) {
 
@@ -130,23 +135,28 @@
 
         if (!validarInput($("#nombre_producto").val())) {
             mostrarModalConfirmacion("Ingresar Producto", "ok", null, null, null)
+            datosValidados = false;
             return;
         }
 
         if (!validarInput($("#precio").val())) {
             mostrarModalConfirmacion("Ingresar Precio", "ok", null, null, null)
+            datosValidados = false;
             return;
         }
 
         if (!validarSelect($("#rolCocina").val())) {
             mostrarModalConfirmacion("Elegir un sector", "ok", null, null, null)
+            datosValidados = false;
             return;
         }
 
         if (!validarInput($("#descripcionProducto").val())) {
             mostrarModalConfirmacion("Ingresar Descripción", "ok", null, null, null)
+            datosValidados = false;
             return;
         }
+        datosValidados = true;
         return producto;
     }
 
@@ -155,10 +165,12 @@
         producto = {};
         producto = TraerProductoForm("Modificacion");
 
-        api.modificarProducto(producto, () => {
-            ocultarAgregarVerProducto();
-            Productos.armarTablaProductos($("#listaDeProductos"))
-        })
+        if (datosValidados == true) {
+            api.modificarProducto(producto, () => {
+                ocultarAgregarVerProducto();
+                Productos.armarTablaProductos($("#listaDeProductos"))
+            })
+        }
     }
 
     function agregarProductoAdmin() {
@@ -166,11 +178,15 @@
         producto = {};
         producto = TraerProductoForm("Alta");
 
-        api.agregarProducto(producto, () => {
+        if (datosValidados == true) {
 
-            ocultarAgregarVerProducto();
-            Productos.armarTablaProductos($("#listaDeProductos"))
-        })
+            api.agregarProducto(producto, () => {
+
+                ocultarAgregarVerProducto();
+                Productos.armarTablaProductos($("#listaDeProductos"))
+            })
+        }
+
     }
 
 
