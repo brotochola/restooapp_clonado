@@ -142,6 +142,7 @@ class mesaApi extends mesa
 
 
     public static function estadoMozo($request, $response) {
+      //  echo 1;die();
         $rta=new stdClass();
         $rta->mesas = mesa::TraerTodas();    
         $rta->pedidos= pedido::traerMisPedidos($request,$response);
@@ -213,7 +214,7 @@ class mesaApi extends mesa
     }
 
     public function TraerUnaMesa($request, $response, $args) {
-        $arr=self::id2MesaCompleta(  $args['id_mesa']);
+        $arr=self::id2MesaCompleta(  $args['id']);
        
 
         return $response->withJson( $arr, 200);

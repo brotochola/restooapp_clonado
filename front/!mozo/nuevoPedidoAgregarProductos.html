@@ -107,15 +107,15 @@ function agregarEsteProducto(id, cant){
     prodsFiltrados=pedido.productos.filter(function(k){if(k.id==id)return k})
     if(prodsFiltrados.length>0){
         //si el producto ya lo tenias en el pedido
-       p= pedido.productos[id2i(id,pedido.productos)]
+       p= pedido.productos[id_prod2i(id,pedido.productos)]
         p.cantidad+=cant
         //si dps de restar quedan en 0, o menos (?), lo quito
-        if(p.cantidad<1) pedido.productos.splice(id2i(p.id,pedido.productos), 1)
+        if(p.cantidad<1) pedido.productos.splice(id_prod2i(p.id,pedido.productos), 1)
     }else{
         //si no lo tenias
         if(cant==1){
             //y si estabas sumando este producto
-            nombre=listaProds[id2i(id,listaProds)].nombre_producto
+            nombre=listaProds[id_prod2i(id,listaProds)].nombre_producto
             nuevoProducto=new Object();
             nuevoProducto.id=id;
             nuevoProducto.cantidad=cant
@@ -154,9 +154,9 @@ function armarUnProd(prod) {
     html += '<div class="col-2 text-center contenedor-icono-listado"><img src="'+rolesEmpleados[prod.id_rol_empleado]+'"></div>'
     html += '<div class="col-5">'+prod.nombre_producto+"</div>"
      html += '<div class="col-5 botonesAgregarBorrarProducto" >'
-     html+='<img class="boton-borrar" onclick="agregarEsteProducto('+prod.id+', -1)" src="../media/Img/botton-borrar.png">'
-    html+=' <span class="cantProds '+prod.id+'">' + cant + '</span>'
-    html += '<img class="boton-borrar" onclick="agregarEsteProducto('+prod.id+',1)" src="../media/Img/boton-mas.png">'
+     html+='<img class="boton-borrar" onclick="agregarEsteProducto('+prod.id_producto+', -1)" src="../media/Img/botton-borrar.png">'
+    html+=' <span class="cantProds '+prod.id_producto+'">' + cant + '</span>'
+    html += '<img class="boton-borrar" onclick="agregarEsteProducto('+prod.id_producto+',1)" src="../media/Img/boton-mas.png">'
     html += '</div> </div> '
 
     html += '</li>'

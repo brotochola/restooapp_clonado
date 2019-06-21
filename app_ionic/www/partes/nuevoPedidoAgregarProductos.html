@@ -110,8 +110,8 @@ function escanearQRProductos(){
         if (pedido.productos == undefined) pedido.productos = new Array();
         // prodsFiltrados=pedido.productos.filter(function(k){if(k.id==id)return k})
 
-        let proOriginal = copyObj(api.productos[id2i(id, api.productos)])
-        let prodEnPedido = pedido.productos[id2i(id, pedido.productos)];
+        let proOriginal = copyObj(api.productos[id_prod2i(id, api.productos)])
+        let prodEnPedido = pedido.productos[id_prod2i(id, pedido.productos)];
         //console.log(prodEnPedido)
         if (prodEnPedido != undefined) {
 
@@ -123,7 +123,7 @@ function escanearQRProductos(){
 
             if (prodEnPedido.cantidad < 1) {
                 $(".cantProds." + id).html(0)
-                pedido.productos.splice(id2i(id, pedido.productos), 1)
+                pedido.productos.splice(id_prod2i(id, pedido.productos), 1)
             }
         } else {
             //si no lo tenias
@@ -160,9 +160,9 @@ function escanearQRProductos(){
         html += '<div class="col-2 text-center contenedor-icono-listado"><img src="media/Img/roles/' + rolesEmpleados[prod.id_cocina] + '.png"></div>'
         html += '<div class="col-5">' + prod.nombre_producto + "</div>"
         html += '<div class="col-5 botonesAgregarBorrarProducto" >'
-        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id + ', -1)" src="media/Img/botton-borrar.png">'
-        html += ' <span class="cantProds ' + prod.id + '">' + cant + '</span>'
-        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id + ',1)" src="media/Img/boton-mas.png">'
+        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id_producto + ', -1)" src="media/Img/botton-borrar.png">'
+        html += ' <span class="cantProds ' + prod.id_producto + '">' + cant + '</span>'
+        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id_producto + ',1)" src="media/Img/boton-mas.png">'
         html += '</div> </div> '
 
         html += '</li>'

@@ -4,21 +4,14 @@ class API {
 
     constructor() {
 
-        //local
-        this.urlServer = "../../Resto/API/";
-        //web
-
-        //http://darodarioli.tech/restoapp2/Resto/API/
-        // this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
+     
 
 
-        // if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
-        //   else this.urlServer ="../../Resto/API/";
+         if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
+           else this.urlServer ="../../Resto/API/";
         this.urlServer = "http://pixeloide.com/restoApp/API/"
 
-        if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
-        else this.urlServer ="../../Resto/API/";
-      // this.urlServer="http://pixeloide.com/restoApp/API/"
+
       
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
         this.empleados = null;

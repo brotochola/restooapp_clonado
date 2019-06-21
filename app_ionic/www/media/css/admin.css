@@ -199,3 +199,7 @@ padding-top: 10%;
  
 padding-bottom: 25%;
 }
+
+div#verEstadoMesaAdmin {
+    z-index: 9;
+}

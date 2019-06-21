@@ -50,7 +50,7 @@ class producto
         public static function TraerTiempoPorProducto($pId)
         {              
             $consulta = "SELECT  productos.minutos_preparacion
-            FROM productos WHERE productos.id = '$pId'";            
+            FROM productos WHERE productos.id_producto = '$pId'";            
             
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }

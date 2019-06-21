@@ -209,7 +209,8 @@ public static function TraerMayorTiempo($Pedidos){
     foreach($Pedidos as $mydata)
     {
         $resultado = producto::TraerTiempoPorProducto($mydata);
-
+    
+        
         if($tiempo <= $resultado){
          $tiempo = $resultado;
         }       
