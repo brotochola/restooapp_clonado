@@ -9,13 +9,14 @@ class cliente
     public $dni;
     public $email;
     public $foto;
+    public $habilitado = 0;
     
     public function __construct() {}
 
         public function Insertar()
         {                      
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $sql="INSERT into clientes( nombre_completo, dni, email, foto) values('$this->nombre_completo', '$this->dni','$this->email', '$this->foto')";
+            $sql="INSERT into clientes( nombre_completo, dni, email, foto, habilitado) values('$this->nombre_completo', '$this->dni','$this->email', '$this->foto', '$this->habilitado')";
 
             $consulta =$objetoAccesoDato->RetornarConsulta($sql);
             
