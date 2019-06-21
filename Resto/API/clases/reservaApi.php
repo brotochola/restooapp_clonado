@@ -28,10 +28,8 @@ class reservaApi extends reserva
         $respuesta = $unaReserva->Insertar();
 
         try{
-            
-            $objDelaRespuesta->reserva = reserva::TraerUno($respuesta[0]);       
+            $objDelaRespuesta->reserva = reserva::TraerUno($respuesta);       
             $objDelaRespuesta->itsOk = true;
-
         }
         catch(Exception $e){
 
