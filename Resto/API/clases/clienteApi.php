@@ -268,6 +268,8 @@ class clienteApi extends cliente
         $ArrayDeParametros = $request->getParsedBody();
         //$miCliente->id_cliente = $ArrayDeParametros['id_cliente'];
         $miCliente->nombre_completo = $ArrayDeParametros['nombre_completo'];
+        $miCliente->dni = null;
+        $miCliente->email = null;
         $miCliente->habilitado = 1;
 
         $id_cliente = $miCliente->Insertar();
