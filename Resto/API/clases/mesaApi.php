@@ -68,8 +68,7 @@ class mesaApi extends mesa
 
         $ArrayDeParametros = $request->getParsedBody(); 
         
-
-     //   print_r($ArrayDeParametros);die();
+   
 
 
         $vHora = new DateTime(); 
@@ -89,8 +88,11 @@ class mesaApi extends mesa
              //el cliente existe
             $vIdCliente=$vIdCliente[0]->id_cliente;
          
+            
+         
 
         }else{
+      
              //el cliente NO existe
              $cliente=new cliente();
              $cliente->nombre_completo=$nombre;
@@ -108,11 +110,14 @@ class mesaApi extends mesa
         $payload=AutentificadorJWT::ObtenerData($token);
         $idmozo=$payload->id_empleado; 
 
-        
+     
 
  
         
         $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, $vComensales, $idmozo);
+
+
+      
 
         mesa::ModificarEstadoDeLaMesa($vIdMesa, 1);
         

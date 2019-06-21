@@ -35,7 +35,7 @@ class API {
                 token: localStorage[usuarioLogueado_ls]
             },
             success: (e) => {
-
+                console.log(e)
                 this.estadoMozo = e;
 
                 if (cb instanceof Function) cb();
