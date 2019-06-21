@@ -55,21 +55,42 @@
         //QR para PUERTA
         //scanQRMesa(LeerQRSolicitarMesa);
 
-        //promt para comensales
-        datos = {
-            id_cliente: cliente.data.id_cliente,
-            id_mesa: 1,
-            comensales: 2,
-            fecha: "HOY"
-        };
-
-        console.log(datos);
-
-        api.reservaAhoraCliente(datos, null);
+        if (true) {
+            //promt para comensales
+            datos = {
+                id_cliente: cliente.data.id_cliente,
+                id_mesa: 1,
+                comensales: 2,
+                fecha: "HOY"
+            };
+    
+            console.log(datos);
+    
+            api.reservaAhoraCliente(datos, null);
+        } else {
+            console.log("Error en QR");
+        }
     }
 
     function ingresarEnMesa() {
         alert("solicito mesa");
+
+        //Que ingrese a la mesa
+        if (true) {
+            //promt para comensales
+            datos = {
+                id_cliente: cliente.data.id_cliente,
+                id_mesa: 1,
+                comensales: 2,
+                fecha: "HOY"
+            };
+    
+            console.log(datos);
+    
+            api.reservaAhoraCliente(datos, null);
+        } else {
+            console.log("Error en QR");
+        }S
     }
 
     function botonVolver() {
