@@ -35,6 +35,7 @@ class App {
         if (cliente.data.habilitado == 0) {
             mostrarModalConfirmacion("Todavía no se habilitó su usuario, debe revisar el enlace que se envió a su email", "OK", null, null, null)
         } else {
+            //Crear callback para meter nombre a tiempo
             this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
         }
 
