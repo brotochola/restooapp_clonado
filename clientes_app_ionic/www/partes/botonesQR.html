@@ -1,11 +1,11 @@
-<body class="body-color" id="cuerpoPrincipal">
+<body class="body-color" id="cuerpoPrincipalBotonQR">
 
     <div class="col-12 bar-top">
         <div class="row">
             <div class="col-2">
                 <i class="fas fa-angle-left" onclick="botonVolver()"></i>
             </div>
-            <div class="col-8" id="nombreCliente">unCliente</div>
+            <div class="col-8" id="nombreClienteBotonQR">unCliente</div>
             <div class="col-2">
 
             </div>
@@ -44,8 +44,12 @@
 
         docReady = 1;
 
-        $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
+        cargarNombreEnNavQR();
     });
+
+    function cargarNombreEnNavQR(){
+        $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
+    }
 
     function solicitarMesa() {
         //QR para PUERTA

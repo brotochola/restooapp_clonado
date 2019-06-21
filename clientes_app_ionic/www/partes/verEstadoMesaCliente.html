@@ -123,12 +123,16 @@
 
 <script>
     $(document).ready(function () {
-        console.log("doc ready estado cliente");
+        console.log("doc ready ver estado mesa cliente");
 
         docReady = 1;
 
-        $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
+        cargarNombreEnNav();
     });
+
+    function cargarNombreEnNav(){
+        $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
+    }
 
     console.log("estado.js")
 
