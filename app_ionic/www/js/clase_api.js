@@ -222,14 +222,14 @@ class API {
             url: this.urlServer + "mesas/lista",
             type: "post",
             dataType: "json",
-            headers: {
+           /* headers: {
                 token: localStorage[usuarioLogueado_ls]
-            },
+            },*/
             success: (e) => {
                 this.mesas = e;
                 localStorage["mesas_" + nombreDelSitio] = JSON.stringify(e);
                 if (cb instanceof Function) cb(e);
-            }
+            }, error:(e)=>console.log(e)
         })
     }
 

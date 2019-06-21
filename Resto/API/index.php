@@ -1,7 +1,7 @@
 <?php
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);  
+//error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);  
 require_once __DIR__ . '/../composer/vendor/autoload.php';
 
 require_once './clases/AccesoDatos.php';
@@ -100,7 +100,6 @@ $app->group('/mesas', function () {
 
 
 });
-
 
 $app->group('/reservas', function () {
 

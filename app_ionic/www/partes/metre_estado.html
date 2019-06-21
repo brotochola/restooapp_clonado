@@ -97,20 +97,26 @@ alert("Error: " + error)
 
 
 
-    function setupEstadoMozo() {
+    function setupEstadoMetre() {
         //cargarEstadoMozo();
         api.traerMesas((e) => {
-            Mesa.armarGraficoMesas($("#contenedorMesasMozo"), null)
+            Mesa.armarGraficoMesas($("#contenedorMesasMozo"), null)//este null es onclick de cada mesa
+
+            for (var i = 0; i < api.mesas.length; i++) {
+                try {
+                    $(".mesa." + api.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.mesas[i].sillas + "/" + Mesa.estadoMesas[api.mesas[i].estado_mesa] + ".png";
+                } catch (e) { }
+            }
+            setTimeout(setupEstadoMetre, 6000);
         })
-        //Mesa.armarGraficoMesas($("#contenedorMesasMozo"));
-        api.cargarEstadoMozo(cbPedidosMozo)
+
 
     }
 
 
     $(document).ready(function () {
         console.log("doc ready estado metre");
-        api.traerMesas(setupEstadoMozo);
+        setupEstadoMetre();
 
         docReady = 1;
 
@@ -147,7 +153,7 @@ alert("Error: " + error)
 
 
     }
-
+/*
     function cbPedidosMozo() {
        // console.log("cb estado mozo", api.estadoMozo)
         //esta funcion se ejecuta cada 5 segundos
@@ -177,7 +183,7 @@ alert("Error: " + error)
 
 
 
-    }
+    }*/
 
 
 </script>
