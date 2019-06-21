@@ -11,7 +11,7 @@ class App {
         this.$videoSplash = $("video#videoSplash");
     }
 
-    actualizarEstado(){
+    /* actualizarEstado(){
 
         api.traerEstadoMesaCliente(id, ()=>{
 
@@ -19,22 +19,27 @@ class App {
                 this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
             } else {
                 //Algún botón para QR solicitar mesa
-                this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
+                this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
             }
 
             setTimeout(() => { this.actualizarEstado() }, 5000)
         })
 
-    }
+    } */
 
 
 
     quePasaDespuesDeLogin() {
         console.log("Acá UI cliente");
 
-        this.actualizarEstado();
+        if (cliente.data.habilitado == 0) {
+            mostrarModalConfirmacion("Todavía no se habilitó su usuario, debe revisar el enlace que se envió a su email", "OK", null, null, null)
+        } else {
+            this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
+        }
+
         //Ver qué opciones del footer
-        setTimeout(() => { this.mostrarFooterCliente() }, 200)//lo atamo con alambre
+        //setTimeout(() => { this.mostrarFooterCliente() }, 200)//lo atamo con alambre
     }
 
     init() {
@@ -43,6 +48,7 @@ class App {
         this.traerHTML("partes/modalConfirmacion.html", true, true, "modalConfirm", false);
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true);
         this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true);
+        this.traerHTML("partes/nuevoAnonimo.html", true, true, "modalNuevoCliente", true);
 
         //FOOTER
         //Revisar si es práctico que lo tenga el cliente, y qué opciones tendrá

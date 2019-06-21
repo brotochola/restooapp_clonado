@@ -168,4 +168,17 @@ class API {
             }, error: e => console.log(e)
         })
     }
+
+    registroAnonimo(datos, cb) {
+        console.log("server: " + this.urlServer, datos);
+        $.ajax({
+            url: this.urlServer + "cliente/alta-anonimo",
+            type: "post",
+            dataType: "json",
+            data: datos,
+            success: (e) => {
+                if (cb instanceof Function) cb(e);
+            }, error: e => console.log(e)
+        })
+    }
 }

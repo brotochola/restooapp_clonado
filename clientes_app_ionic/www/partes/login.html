@@ -43,6 +43,7 @@
         </div>
 
         <div class="col-12 section-button">
+            <button id="botonUsuarioAnonimo">Usuario anónimo</button>
             <button id="botonTestingRoles">Usuarios de prueba</button>
             <!-- <h5><a href="#">Olvidaste la contraseña?</a></h5>-->
         </div>
@@ -56,27 +57,32 @@
         $("#botonLogin").click(clickLogin);
         $("#botonRegistrarme").click(clickRegistrarme);
         $("#botonTestingRoles").click(clickClientesPrueba);
+        $("#botonUsuarioAnonimo").click(clickAltaAnonimo);
     });//doc ready
 
     let callbackLogin = function (r) {
         console.log(r);
         if (r.itsOK == false) {
-            mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
+            mostrarModalConfirmacion(r.mensaje, "OK", null, null, null);
         } else {
-            cliente.meterleToken(r.token)
-            app.quePasaDespuesDeLogin()
+            cliente.meterleToken(r.token);
+            app.quePasaDespuesDeLogin();
         }
     }//cblogin
 
     function clickLogin() {
         if (!validateEmail($("#email").val())) {
-            mostrarModalConfirmacion("Email invalido", "ok", null, null, null)
+            mostrarModalConfirmacion("Email invalido", "OK", null, null, null);
             return;
         }
         let mail = $("#email").val()
         let clave = $("#pass").val()
 
-        api.logueo(mail, clave, callbackLogin)
+        api.logueo(mail, clave, callbackLogin);
+    }
+
+    function clickAltaAnonimo(){
+        mostrarModalNuevoAnonimo();
     }
 
     function clickRegistrarme() {
