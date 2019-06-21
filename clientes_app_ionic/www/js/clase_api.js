@@ -23,6 +23,7 @@ class API {
         this.estadoAnteriorMozo = null;
         this.estadoMozo = null;
         this.estadoCocinero = null;
+        this.estadoCliente = null;
 
     }
 
@@ -97,6 +98,28 @@ class API {
         }); //ajax
     }
 
+    traerEstadoMesaCliente(id, cb) {
+
+        $.ajax({
+            url: this.urlServer + "mesas/id/" + id,
+            headers: {
+                token: localStorage[clienteLogueado_ls]
+            },
+            dataType: "json",
+            success: (e) => {
+                console.log(e);
+                this.estadoCliente = e;
+                
+
+                
+                // console.log(mesa)
+                if (cb instanceof Function) cb(mesa);
+            }, error: (e) => {
+                console.log(e)
+            }
+        }); //ajax
+    }
+
     cargarPedidosMozo(cb) {
         $.ajax({
             url: this.urlServer + "mozo/traerMisPedidos",
@@ -137,6 +160,19 @@ class API {
         console.log("server: " + this.urlServer, datos);
         $.ajax({
             url: this.urlServer + "cliente/alta",
+            type: "post",
+            dataType: "json",
+            data: datos,
+            success: (e) => {
+                if (cb instanceof Function) cb(e);
+            }, error: e => console.log(e)
+        })
+    }
+
+    registroAnonimo(datos, cb) {
+        console.log("server: " + this.urlServer, datos);
+        $.ajax({
+            url: this.urlServer + "cliente/alta-anonimo",
             type: "post",
             dataType: "json",
             data: datos,

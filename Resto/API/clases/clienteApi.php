@@ -5,24 +5,23 @@ require_once 'cliente.php';
 
 class clienteApi extends cliente
 {
-
-
-    public static function estadoCliente($request, $response){
+    public static function estadoCliente($request, $response)
+    {
         $ArrayDeParametros = $request->getParsedBody();
-        $id_cliente=$ArrayDeParametros["id_cliente"];
-       $rta= self::idCliente2idClienteVisita($id_cliente);
+        $id_cliente = $ArrayDeParametros["id_cliente"];
+        $rta = self::idCliente2idClienteVisita($id_cliente);
         return $response->withJson($rta, 200);
-
     }
+
     public static function idCliente2idClienteVisita($id)
     {
 
-        $sql="SELECT cliente_visita.* from cliente_visita where cliente_visita.id_cliente=".$id."
+        $sql = "SELECT cliente_visita.* from cliente_visita where cliente_visita.id_cliente=" . $id . "
         and cliente_visita.date_created < DATE_SUB(now(), INTERVAL 3 HOUR)
         order by cliente_visita.date_created desc
         limit 1";
 
-        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();        
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
         $consulta = $objetoAccesoDato->RetornarConsulta($sql);
         $consulta->execute();
         $cliente_visita = $consulta->fetchAll(PDO::FETCH_CLASS, "stdClass")[0];
@@ -30,8 +29,6 @@ class clienteApi extends cliente
        return $arr;
 
     }
-
-
 
     public function CargarCliente($request, $response, $args)
     {
@@ -52,23 +49,23 @@ class clienteApi extends cliente
             $var = cliente::dni2Cliente($miCliente->dni);
 
             if ($var == null) {
-    
+
                 $id_cliente = $miCliente->Insertar();
-    
+
                 $mailEnviado = self::mandarleMailConfirmacionAlCliente($id_cliente);
                 //$mailEnviado = true;
-    
+
                 $rta["estado"] = "OK";
                 $rta["id_cliente"] = $id_cliente;
                 $rta["envio_mail"] = $mailEnviado;
-    
+
                 return $newResponse->withJson($rta, 200);
             } else {
-                $rta["mensaje"] = "El DNI ".$ArrayDeParametros['dni']. " ya está registrado.";
+                $rta["mensaje"] = "El DNI " . $ArrayDeParametros['dni'] . " ya está registrado.";
                 return $response->withJson($rta, 200);
             }
         } else {
-            $rta["mensaje"] = "El mail ".$ArrayDeParametros['email']. " ya está registrado.";
+            $rta["mensaje"] = "El mail " . $ArrayDeParametros['email'] . " ya está registrado.";
             return $response->withJson($rta, 200);
         }
     }
@@ -139,16 +136,16 @@ class clienteApi extends cliente
         $rta = cliente::email2Cliente($email)[0];
         if ($rta != null) {
             $dni = $rta->dni;
-    
+
             $str = "<html><body>Estimadx " . $rta->nombre_completo . ".<br>Para habilitar su usuario de restoApp haga click en el siguiente link:\r\n\r\n\r\n";
             $str .= '<a href="pixeloide.com/restoApp/API/cliente/habilitar/' . $email . '/' . $dni . '">Habilitar Usuario</a>';
             $str .= "</body></html>";
-    
+
             //   echo $str;
             $headers = "From: no-reply@restoApp.com.ar"  . "\r\n" .    "Reply-To:  no-reply@restoApp.com.ar" . "\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-    
+
             $mando = mail($email, "confirmación restoApp", $str, $headers);
             // echo "<br>mando?= ".$mando;
             return $mando;
@@ -261,6 +258,33 @@ class clienteApi extends cliente
         }
         $newResponse = $response->withJson($objDelaRespuesta, 200);
         return $newResponse;
+    }
+
+    public function CargarClienteAnonimo($request, $response, $args)
+    {
+        $newResponse = $response;
+
+        $miCliente = new cliente();
+        $ArrayDeParametros = $request->getParsedBody();
+        //$miCliente->id_cliente = $ArrayDeParametros['id_cliente'];
+        $miCliente->nombre_completo = $ArrayDeParametros['nombre_completo'];
+        $miCliente->habilitado = 1;
+
+        $id_cliente = $miCliente->Insertar();
+
+        if ($id_cliente != null) {
+
+            $var = cliente::TraerUno($id_cliente)[0];
+
+            $rta["itsOK"] = true;
+            $rta["el_cliente"] = $var;
+            $rta["token"] = AutentificadorJWT::CrearToken($var);
+            $rta["mensaje"] = "Login correcto";
+        } else {
+            $rta["mensaje"] = "Hubo un error al registrarse, inténtelo de nuevo.";
+        }
+
+        return $newResponse->withJson($rta, 200);
     }
 
     public function LoginAnonimo($request, $response, $args)

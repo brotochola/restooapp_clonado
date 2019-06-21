@@ -259,6 +259,8 @@ $app->group('/cliente', function () {
 
     $this->post('/login2', \clienteApi::class . ':LoginCliente');//Para reemplazar el anterior
 
+    $this->post('/alta-anonimo', \clienteApi::class . ':CargarClienteAnonimo');
+
     $this->post('/login-anonimo', \clienteApi::class . ':LoginAnonimo');
 
     $this->get('/por-id/{id}', \clienteApi::class . ':TraerUnCliente');

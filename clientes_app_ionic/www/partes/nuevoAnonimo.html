@@ -1,0 +1,128 @@
+<div class="fondo-modal" id="nuevoAnonimo">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal">
+            <div class="container-cuerpo">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info">
+                                Nombre completo: <input placeholder="Nombre" id="nombreNuevoAnonimo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button onclick='sacarFotoAnonimo()' class="boton-modal centro" id="botonFotoAnonimo">
+                                Sacar Foto
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="boton-modal" id="agregarAnonimo" onclick="agregarAnonimo()">Registrarme</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="boton-modal cancelar" onclick="ocultarModalNuevoAnonimo()">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var fotoCargadaBase64;
+
+    //===========Foto Anonimo
+    function sacarFotoAnonimo() {
+        try {
+            navigator.camera.getPicture(onSuccess_, onFail_, {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL
+            });
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+    function onSuccess_(imageData) {
+        var image = document.getElementById('myImage');
+        //image.src = "data:image/jpeg;base64," + imageData;
+        fotoCargadaBase64 = "data:image/jpeg;base64," + imageData;
+    }
+
+    function onFail_(message) {
+        alert('Failed because: ' + message);
+    }
+    //============Termina FotoAnonimo
+
+    function mostrarModalNuevoAnonimo() {
+        console.log("nuevo cliente anonimo");
+        app.traerHTML("partes/nuevoAnonimo.html", true, true);
+    }
+
+    function agregarAnonimo() {
+
+        let nombre = $("#nombreNuevoAnonimo").val();
+
+        if (nombre == "") {
+            mostrarModalConfirmacion("Complete su nombre", "OK");
+            return;
+        }
+
+        let data = {
+            "nombre_completo": nombre,
+            "foto": fotoCargadaBase64
+        };
+
+        api.registroAnonimo(data, callbackLoginAnonimo);
+
+        //foto es el archivo como viene del input
+        //lo q le sigue es un callback cuyo parametro es el string base64
+
+        //comento todo lo que estaba para agregar de camara
+        // let foto = null;
+
+        // if ($("#fotoNuevoAnonimo")[0].files.length == 1) {
+        //     foto = $("#fotoNuevoAnonimo")[0].files[0]
+        //     base64(foto, (fotoBase64) => {
+        //         data.foto = fotoBase64;
+        //         api.habilitarMesa(data, cbAnonimoRegistrado)
+        //     })
+        // } else {
+        //     //no hay foto
+        //     data.foto = '';
+        //     api.habilitarMesa(data, cbAnonimoRegistrado)
+
+        // }
+    }
+
+    let callbackLoginAnonimo = function (r) {
+        console.log(r);
+        if (r.itsOK == false) {
+            mostrarModalConfirmacion(r.mensaje, "OK", null, null, null);
+        } else {
+            cliente.meterleToken(r.token);
+            app.quePasaDespuesDeLogin();
+        }
+    }//cbloginanonimo
+
+    function ocultarModalNuevoAnonimo() {
+        app.esconderUnaParte("partes/nuevoAnonimo.html");
+    }
+
+    function cbAnonimoRegistrado(rta) {
+        console.log("respuesta", rta);
+        if (rta.estado == "OK") {
+            mostrarModalConfirmacion("Bien! Te registraste.", "OK", null, null, null);
+            app.esconderUnaParte("partes/nuevoAnonimo.html");
+        } else {
+            mostrarModalConfirmacion(rta.mensaje, "OK", null, null, null);
+        }
+    }
+</script>

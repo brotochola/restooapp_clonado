@@ -1,0 +1,68 @@
+<body class="body-color" id="cuerpoPrincipal">
+
+    <div class="col-12 bar-top">
+        <div class="row">
+            <div class="col-2">
+                <i class="fas fa-angle-left" onclick="botonVolver()"></i>
+            </div>
+            <div class="col-8" id="nombreCliente">unCliente</div>
+            <div class="col-2">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="cuerpo-modal cuerpo-cliente">
+        <div class="text-center">
+            <div class="container botonesVerEstadoMesaAdmin">
+
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <button class="boton-modal" onclick="solicitarMesa()">Solicitar mesa</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+
+                <div class="row" id="botonCerrarMesa">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <button class="boton-modal" onclick="ingresarEnMesa()">Ingresar a mesa</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    $(document).ready(function () {
+        console.log("doc ready botones QR");
+
+        docReady = 1;
+
+        $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
+    });
+
+    function solicitarMesa() {
+        alert("solicito mesa");
+    }
+
+    function ingresarEnMesa() {
+        alert("solicito mesa");
+    }
+
+    function botonVolver() {
+        let msj
+        if(cliente.data.email == ""){
+            msj = "Esta es una sesión anónima, si sale se perderán todos sus datos. ¿Seguro quiere cerrar su sesión?";
+        } else {
+            msj = "¿Seguro quiere cerrar su sesión?";
+        }
+        mostrarModalConfirmacion(msj, "Si", "No", cliente.logout, () => { })
+    }
+
+</script>
