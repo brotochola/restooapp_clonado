@@ -455,7 +455,7 @@ class pedido
            $sql="SELECT pedidos.id as id_pedido, pedidos.estado_pedido , 
            pedidos.fecha_alta , cliente_visita.id_cliente_visita as id_cliente_visita,
             pedidos.id_mesa as id_mesa, mesas.estado_mesa as estado_mesa, 
-            productos.id as id_producto, pedidos_detalles.cantidad as cantidad,
+            productos.id_producto as id_producto, pedidos_detalles.cantidad as cantidad,
              productos.id_cocina as lugar_cocina, rol.nombre_rol as nombre_sector_cocina
               FROM cliente_visita,pedidos, pedidos_detalles, productos, mesas, rol
                 where pedidos.id_cliente_visita=cliente_visita.id_cliente_visita and

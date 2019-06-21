@@ -25,8 +25,9 @@ class clienteApi extends cliente
         $consulta = $objetoAccesoDato->RetornarConsulta($sql);
         $consulta->execute();
         $cliente_visita = $consulta->fetchAll(PDO::FETCH_CLASS, "stdClass")[0];
-        $arr = mesaApi::id2MesaCompleta($cliente_visita["id_mesa"]);
-        return $arr;
+        $arr=mesaApi::id2MesaCompleta(  $cliente_visita->id_mesa);
+       return $arr;
+
     }
 
     public function CargarCliente($request, $response, $args)

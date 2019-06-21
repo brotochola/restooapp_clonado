@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
-                            <button class="boton-modal" onclick="escanearQRProductos()">QR!</button>
+                            <button class="boton-modal" onclick="escanearQRProducto()">QR!</button>
                         </div>
                         <div class="col-1"></div>
                     </div>
@@ -53,9 +53,46 @@
     var pedido = {}; //si estas aca es pq estas haciendo un pedido nuevo
     pedido.estado = 1;
 
-function escanearQRProductos(){
-    console.log("FUNCION ESCANEAR QR PARA PRODUCTOS")
-}
+    function escanearQRProducto() {
+
+        try {
+            cordova.plugins.barcodeScanner.scan(callBackQRProducto, QRmal, {
+                prompt: "escaneá el qr del producto", // Android
+                resultDisplayDuration: 1500,
+                orientation: "portrait"
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function callBackQRProducto(data) {
+
+        obj = JSON.parse(data.text);
+
+        if (obj.tipo == "producto") {
+            
+            //Agregar producto
+            //verMesaMozo(obj.id);
+
+            agregarEsteProducto(obj.id,1)
+        }
+    }
+
+    function QRmal(error) {
+        alert("Error: " + error)
+    }
+
+    //===============================Fin QR Producto
+
+
+
+
+
+
+
+
+
 
     function mandarPedido() {
         //al momento de ocultar este modal, estas agregando los productos al pedido actual
@@ -64,20 +101,20 @@ function escanearQRProductos(){
             mostrarModalConfirmacion("Este pedido no tiene productos", "ok")
             return;
         }
-      api.mozoMandaPedido(pedido, cbMozoMandaPedido)
+        api.mozoMandaPedido(pedido, cbMozoMandaPedido)
 
 
     }
 
-    function cbMozoMandaPedido(e){
+    function cbMozoMandaPedido(e) {
         //$("#agregarProductos, #verPedidoMozo").fadeOut();
         ocultarAgregarPedidoAMesa()
         ocultarEstadoMesa()
-      //  cbMostrarEstadoMesa
+        //  cbMostrarEstadoMesa
     }
 
-    
- 
+
+
 
     function mostrarModalAgregarProductos(id) {
         //cada vez que abre esto carga los productos, porq el admin puede haber cambiado algo
@@ -110,8 +147,8 @@ function escanearQRProductos(){
         if (pedido.productos == undefined) pedido.productos = new Array();
         // prodsFiltrados=pedido.productos.filter(function(k){if(k.id==id)return k})
 
-        let proOriginal = copyObj(api.productos[id2i(id, api.productos)])
-        let prodEnPedido = pedido.productos[id2i(id, pedido.productos)];
+        let proOriginal = copyObj(api.productos[id_prod2i(id, api.productos)])
+        let prodEnPedido = pedido.productos[id_prod2i(id, pedido.productos)];
         //console.log(prodEnPedido)
         if (prodEnPedido != undefined) {
 
@@ -123,7 +160,7 @@ function escanearQRProductos(){
 
             if (prodEnPedido.cantidad < 1) {
                 $(".cantProds." + id).html(0)
-                pedido.productos.splice(id2i(id, pedido.productos), 1)
+                pedido.productos.splice(id_prod2i(id, pedido.productos), 1)
             }
         } else {
             //si no lo tenias
@@ -160,9 +197,9 @@ function escanearQRProductos(){
         html += '<div class="col-2 text-center contenedor-icono-listado"><img src="media/Img/roles/' + rolesEmpleados[prod.id_cocina] + '.png"></div>'
         html += '<div class="col-5">' + prod.nombre_producto + "</div>"
         html += '<div class="col-5 botonesAgregarBorrarProducto" >'
-        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id + ', -1)" src="media/Img/botton-borrar.png">'
-        html += ' <span class="cantProds ' + prod.id + '">' + cant + '</span>'
-        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id + ',1)" src="media/Img/boton-mas.png">'
+        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id_producto + ', -1)" src="media/Img/botton-borrar.png">'
+        html += ' <span class="cantProds ' + prod.id_producto + '">' + cant + '</span>'
+        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id_producto + ',1)" src="media/Img/boton-mas.png">'
         html += '</div> </div> '
 
         html += '</li>'
