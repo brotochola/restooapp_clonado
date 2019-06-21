@@ -20,11 +20,11 @@ class reservaApi extends reserva
         $unaReserva->id_mesa = $ArrayDeParametros['id_mesa'];
         $unaReserva->comensales = $ArrayDeParametros['comensales'];
         if ($ArrayDeParametros['fecha'] == "HOY") {
-            $unaReserva->fecha = date_format($vHora,"Y/m/d H:i:s");  
+            $unaReserva->fecha = date_format($vHora,"YYYY-MM-DD HH:MM:SS");  
         } else {
             $unaReserva->fecha = $ArrayDeParametros['fecha'];
         }
-        $unaReserva->fecha_alta = date_format($vHora,"Y/m/d H:i:s");          
+        $unaReserva->fecha_alta = date_format($vHora,"YYYY-MM-DD HH:MM:SS");          
         $respuesta = $unaReserva->Insertar();
 
         try{
