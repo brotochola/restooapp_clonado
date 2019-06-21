@@ -6,13 +6,7 @@ const estadosPedidos = [null, "Pendiente", "En Preparación", "Listo", "Servido"
 const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada"];
 const rolesEmpleados = ["-", "Socix", "Camarerx", "Bartender", "Cervecerx", "Cocinerx", "Pastelerx", "Admin"];
 
-<<<<<<< HEAD
-
-
-const coloresMesas=["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
-=======
 const coloresMesas = ["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
->>>>>>> Cambios para boton QR
 var imgRolesEmpleados = [null, "media/Img/roles/tragos.png", "media/Img/roles/cerveza.png", "media/Img/roles/cocina.png", "Camarerx", "Admin", "media/Img/roles/candy.png"];
 
 
