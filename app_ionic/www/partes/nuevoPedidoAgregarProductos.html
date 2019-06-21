@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-1"></div>
                         <div class="col-3">
-                            <button class="boton-modal" onclick="escanearQRProductos()">QR!</button>
+                            <button class="boton-modal" onclick="escanearQRProducto()">QR!</button>
                         </div>
                         <div class="col-1"></div>
                     </div>
@@ -53,9 +53,46 @@
     var pedido = {}; //si estas aca es pq estas haciendo un pedido nuevo
     pedido.estado = 1;
 
-function escanearQRProductos(){
-    console.log("FUNCION ESCANEAR QR PARA PRODUCTOS")
-}
+    function escanearQRProducto() {
+
+        try {
+            cordova.plugins.barcodeScanner.scan(callBackQRProducto, QRmal, {
+                prompt: "escaneá el qr del producto", // Android
+                resultDisplayDuration: 1500,
+                orientation: "portrait"
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function callBackQRProducto(data) {
+
+        obj = JSON.parse(data.text);
+
+        if (obj.tipo == "producto") {
+            
+            //Agregar producto
+            //verMesaMozo(obj.id);
+
+            agregarEsteProducto(obj.id,1)
+        }
+    }
+
+    function QRmal(error) {
+        alert("Error: " + error)
+    }
+
+    //===============================Fin QR Producto
+
+
+
+
+
+
+
+
+
 
     function mandarPedido() {
         //al momento de ocultar este modal, estas agregando los productos al pedido actual
@@ -64,20 +101,20 @@ function escanearQRProductos(){
             mostrarModalConfirmacion("Este pedido no tiene productos", "ok")
             return;
         }
-      api.mozoMandaPedido(pedido, cbMozoMandaPedido)
+        api.mozoMandaPedido(pedido, cbMozoMandaPedido)
 
 
     }
 
-    function cbMozoMandaPedido(e){
+    function cbMozoMandaPedido(e) {
         //$("#agregarProductos, #verPedidoMozo").fadeOut();
         ocultarAgregarPedidoAMesa()
         ocultarEstadoMesa()
-      //  cbMostrarEstadoMesa
+        //  cbMostrarEstadoMesa
     }
 
-    
- 
+
+
 
     function mostrarModalAgregarProductos(id) {
         //cada vez que abre esto carga los productos, porq el admin puede haber cambiado algo
