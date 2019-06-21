@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-1"></div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -48,7 +48,18 @@
     });
 
     function solicitarMesa() {
-        alert("solicito mesa");
+        //QR para PUERTA
+        //scanQRMesa(LeerQRSolicitarMesa);
+
+        //promt para comensales
+        datos = {
+            id_cliente: cliente.data.id_cliente,
+            id_mesa: null,
+            comensales: 2,
+            fecha: null
+        };
+
+        api.reservaAhoraCliente(datos, null);
     }
 
     function ingresarEnMesa() {
@@ -57,12 +68,21 @@
 
     function botonVolver() {
         let msj
-        if(cliente.data.email == ""){
+        if (cliente.data.email == "") {
             msj = "Esta es una sesión anónima, si sale se perderán todos sus datos. ¿Seguro quiere cerrar su sesión?";
         } else {
             msj = "¿Seguro quiere cerrar su sesión?";
         }
         mostrarModalConfirmacion(msj, "Si", "No", cliente.logout, () => { })
+    }
+
+    function LeerQRSolicitarMesa(data) {
+
+        obj = JSON.parse(data.text);
+
+        if (obj.tipo == "entrada") {
+            //Llamada a API para estar en lista de espera
+        }
     }
 
 </script>

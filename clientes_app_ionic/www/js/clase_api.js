@@ -2,15 +2,6 @@ console.log("clase_api.js")
 
 class API {
     constructor() {
-
-        //local
-        // this.urlServer="../../Resto/API/";
-        //web
-
-        //http://darodarioli.tech/restoapp2/Resto/API/
-        // this.urlServer= "http://darodarioli.tech/restoapp2/Resto/API/";
-
-
         if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
         else this.urlServer = "../../Resto/API/";
 
@@ -24,7 +15,6 @@ class API {
         this.estadoMozo = null;
         this.estadoCocinero = null;
         this.estadoCliente = null;
-
     }
 
     mozoMandaPedido(ped, cb) {
@@ -98,8 +88,26 @@ class API {
         }); //ajax
     }
 
-    traerEstadoMesaCliente(id, cb) {
+    reservaAhoraCliente(datos, cb) {
+        $.ajax({
+            url: this.urlServer + "reservas/agregar",
+            type: "post",
+            dataType: "json",
+            headers: {
+                token: localStorage[clienteLogueado_ls]
+            },
+            data: datos,
+            success: (e) => {
+                console.log(e);
 
+                if (cb instanceof Function) cb(e);
+            }, error: (e) => {
+                console.log(e)
+            }
+        }); //ajax
+    }
+
+    traerEstadoMesaCliente(id, cb) {
         $.ajax({
             url: this.urlServer + "mesas/id/" + id,
             headers: {
@@ -119,26 +127,6 @@ class API {
             }
         }); //ajax
     }
-
-    cargarPedidosMozo(cb) {
-        $.ajax({
-            url: this.urlServer + "mozo/traerMisPedidos",
-            type: "post",
-            dataType: "json",
-            headers: {
-                token: localStorage[clienteLogueado_ls]
-            },
-            success: (e) => {
-                console.log(e)
-                this.pedidosAnteriorMozo = this.pedidosMozo;
-                this.pedidosMozo = e;
-                if (cb instanceof Function) cb(e);
-            },
-            error: (e) => {
-                console.log(e.responseText)
-            }
-        })
-    }//estdo mozo
 
     logueo(mail, dni, cb) {
         console.log("Clase api: " + mail, dni, "server: " + this.urlServer)

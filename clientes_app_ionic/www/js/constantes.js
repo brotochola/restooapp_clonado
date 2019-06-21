@@ -57,8 +57,6 @@ function formatDate(date) {
   return [year, month, day].join('-');
 }
 
-
-
 function decodeHTMLEntities(str) {
   if (str && typeof str === 'string') {
     var element = document.createElement('div');
@@ -92,10 +90,8 @@ function base64(fotoObj, callback) {
   reader.readAsBinaryString(fotoObj);
 }
 
-
 function parseJwt(token) {
   var objRta = {}
-
 
   try {
     var base64Url = token.split('.')[1];
@@ -108,15 +104,10 @@ function parseJwt(token) {
   return objRta;
 }
 
-
-
-
 function checkStr(str) {
   if (str != undefined && str != null && str != "" && str != "undefined" && str != "null") return true;
   else return false;
 }
-
-
 
 function validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
