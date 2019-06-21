@@ -32,6 +32,7 @@ class App {
             //METRE
             this.traerHTML("partes/metre_estado.html", false, true, "metre_estado", false)
             this.traerHTML("partes/footer_metre.html", true, true, "footerMetre", false, "fija")
+            this.traerHTML("partes/header_metre.html", true, true, "headerMetre", false, "fija")
         }
     }
 
