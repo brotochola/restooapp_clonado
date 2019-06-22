@@ -129,12 +129,14 @@
 
         
         //Parche para nombre en barra
-        setInterval(() => { cargarNombreEnNav(); }, 500);
+        /* setInterval(() => { cargarNombreEnNav(); }, 500); */
+
+        $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
     });
 
-    function cargarNombreEnNav(){
+    /* function cargarNombreEnNav(){
         $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
-    }
+    } */
 
     console.log("estado.js")
 
