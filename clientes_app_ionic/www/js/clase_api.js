@@ -11,10 +11,7 @@ class API {
         this.empleados = null;
         this.mesas = null;
         this.productos = null;
-        this.estadoAnteriorMozo = null;
-        this.estadoMozo = null;
-        this.estadoCocinero = null;
-        this.estadoCliente = null;
+        this.datosClienteVisita = null;
     }
 
     mozoMandaPedido(ped, cb) {
@@ -99,7 +96,7 @@ class API {
             data: datos,
             success: (e) => {
                 console.log(e);
-
+                
                 if (cb instanceof Function) cb(e);
             }, error: (e) => {
                 console.log(e)
@@ -108,20 +105,21 @@ class API {
     }
 
     traerEstadoMesaCliente(id, cb) {
+        console.log("Entra en traerEstadoMesaCliente");
+        
         $.ajax({
-            url: this.urlServer + "mesas/id/" + id,
+            url: this.urlServer + "cliente-visita/traer-por-id-cliente/" + id,
             headers: {
                 token: localStorage[clienteLogueado_ls]
             },
             dataType: "json",
             success: (e) => {
-                console.log(e);
-                this.estadoCliente = e;
-                
-
-                
-                // console.log(mesa)
-                if (cb instanceof Function) cb(mesa);
+                if (e.estado != "ERROR") {
+                    console.log(e);
+                    this.datosClienteVisita = e;
+                }
+            
+                if (cb instanceof Function) cb();
             }, error: (e) => {
                 console.log(e)
             }

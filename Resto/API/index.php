@@ -22,6 +22,7 @@ require_once './clases/encuesta.php';
 require_once './clases/informesApi.php';
 require_once './clases/reserva.php';
 require_once './clases/reservaApi.php';
+require_once './clases/clienteVisitaApi.php';
 
 require_once './clases/AutentificadorMW.php';
 require_once './clases/AutentificadorJWT.php';
@@ -40,24 +41,16 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
-
-
 $app = new \Slim\App(["settings" => $config]);
 
 // Agregados appResto2
-
-
-
 $app->group('/mozo', function () {
 
     $this->post('/estado', \mesaApi::class . ':estadoMozo');
     $this->post('/agregarPedido', \pedidoApi::class . ':CargarUnPedido');
     $this->post('/traerMisPedidos[/]', \pedido::class . ':traerMisPedidos');
 
-
     // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
-
-
 });
 
 $app->group('/cocinero', function () {
@@ -70,16 +63,11 @@ $app->group('/admin', function () {
 
     $this->post('/estado', \mesaApi::class . ':estadoAdmin');
 
-
-    // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
-
-
+    // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido');
 });
 
 
 $app->group('/pedidos', function () {
-
-
 
     $this->get('/id/{id}', \pedidoApi::class . ':TraerPedido');
 
@@ -97,8 +85,6 @@ $app->group('/mesas', function () {
     $this->get('/id/{id}', \mesaApi::class . ':TraerUnaMesa');
 
     // $this->get('/entregar/{id}',\pedidoApi::class . ':EntregarPedido'); 
-
-
 });
 
 $app->group('/reservas', function () {
@@ -108,11 +94,10 @@ $app->group('/reservas', function () {
     $this->post('/confirmar/{id}', \reservaApi::class . ':ConfirmarReserva');
 
     $this->get('/listado', \reservaApi::class . ':TraerReservas');
+
     $this->get('/listadoDeHoy', \reservaApi::class . ':TraerReservasDeHoy');
 
-
     // $this->delete('/borrar/{id}',\clienteApi::class . ':BorrarCliente');//->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
-
 })->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 
@@ -127,12 +112,7 @@ $app->group('/login', function () {
     // $this->get('/captcha',\captchaApi::class . ':TraerCaptchas'); 
 
     //  $this->get('/respuestas',\captchaApi::class . ':TraerRespuestas'); 
-
-
 });
-
-
-
 
 $app->group('/pedido', function () {
 
@@ -159,7 +139,6 @@ $app->group('/pedido', function () {
     //    $this->get('/agregar',\pedidoApi::class . ':AgregarPedidoAComanda'); 
 
     //   $this->get('/modificarCantidad',\pedidoApi::class . ':ModificaCantidad');        
-
 });
 
 
@@ -180,8 +159,6 @@ $app->group('/empleados', function () {
     $this->post('/modificar', \empleadoApi::class . ':ModificarEmpleado');
 
     $this->post('/borrar', \empleadoApi::class . ':BorrarEmpleado'); //->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
-
-
 });
 //->add(\AutentificadorMW::class . ':VerificarAccesoUnico')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
@@ -296,6 +273,21 @@ $app->group('/mesa', function () {
     $this->post('/modificar', \mesaApi::class . ':ModificarMesa');
 
     $this->delete('/borrar/{id_mesa}', \mesaApi::class . ':BorraMesa')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+}); //->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+
+$app->group('/cliente-visita', function () {
+    
+    $this->get('/traer-todas', \clienteVisitaApi::class . ':TraerTodos');
+
+    $this->get('/traer/{id_cliente_visita}', \clienteVisitaApi::class . ':TraerUno');
+
+    $this->get('/traer-por-id-cliente/{id_cliente}', \clienteVisitaApi::class . ':TraerMesaPorIDCliente');
+    
+    $this->post('/alta', \clienteVisitaApi::class . ':CargarUno');
+
+    $this->post('/modificar', \clienteVisitaApi::class . ':ModificarUno');
+
+    $this->delete('/borrar/{id_cliente_visita}', \clienteVisitaApi::class . ':BorrarUno');
 }); //->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 //->add(\AutentificadorMW::class . ':VerificarAccesoUnico')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
