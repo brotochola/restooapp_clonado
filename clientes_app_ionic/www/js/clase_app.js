@@ -20,7 +20,6 @@ class App {
 
             //Aca verifica si tiene un cliente visita
             api.traerEstadoMesaCliente(cliente.data.id_cliente, this.queParteTrae);
-
         }
 
         //Ver qué opciones del footer
@@ -35,8 +34,6 @@ class App {
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true);
         this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true);
         this.traerHTML("partes/nuevoAnonimo.html", true, true, "modalNuevoCliente", true);
-        this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
-        this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
 
         //FOOTER
         //Revisar si es práctico que lo tenga el cliente, y qué opciones tendrá
@@ -53,11 +50,11 @@ class App {
     }
 
     queParteTrae() {
-        if (api.estadoClienteVisita == null) {
-            this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
+        if (api.datosClienteVisita == null) {
+            app.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
         } else {
-            console.log("Mi mesa es #" + api.estadoClienteVisita.id_mesa);
-            this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
+            console.log("Mi mesa es #" + api.datosClienteVisita.id_mesa);
+            app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
         }
     }
 

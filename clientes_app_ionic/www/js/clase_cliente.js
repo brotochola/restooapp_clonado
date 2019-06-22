@@ -35,6 +35,7 @@ class Cliente {
         localStorage[clienteLogueado_ls] = "";
         cliente.data = {};
         cliente.token = "";
+        api.datosClienteVisita = null;
         app.traerHTML("partes/login.html");
         app.ocultarFooterCliente();
     }

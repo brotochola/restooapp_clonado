@@ -11,7 +11,7 @@ class API {
         this.empleados = null;
         this.mesas = null;
         this.productos = null;
-        this.estadoClienteVisita = null;
+        this.datosClienteVisita = null;
     }
 
     mozoMandaPedido(ped, cb) {
@@ -96,7 +96,7 @@ class API {
             data: datos,
             success: (e) => {
                 console.log(e);
-                this.estadoClienteVisita = e;
+                
                 if (cb instanceof Function) cb(e);
             }, error: (e) => {
                 console.log(e)
@@ -105,7 +105,8 @@ class API {
     }
 
     traerEstadoMesaCliente(id, cb) {
-        console.log("Entra en consulta a API");
+        console.log("Entra en traerEstadoMesaCliente");
+        
         $.ajax({
             url: this.urlServer + "cliente-visita/traer-por-id-cliente/" + id,
             headers: {
@@ -113,7 +114,10 @@ class API {
             },
             dataType: "json",
             success: (e) => {
-                console.log(e);
+                if (e.estado != "ERROR") {
+                    console.log(e);
+                    this.datosClienteVisita = e;
+                }
             
                 if (cb instanceof Function) cb();
             }, error: (e) => {
