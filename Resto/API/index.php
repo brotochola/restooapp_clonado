@@ -122,7 +122,7 @@ $app->group('/pedido', function () {
 
     $this->get('/listado', \pedidoApi::class . ':TraerPedidos');
 
-    //     $this->get('/pedidosmozo',\pedidoApi::class . ':PedidosPorMozo'); 
+    $this->get('/ClientesComiendo',\pedidoApi::class . ':InformarClientesComiendo'); 
 
     //    $this->get('/listadoPendientesSector',\pedidoApi::class . ':TraerTodosLosPendientesSector');
 
