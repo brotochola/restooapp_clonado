@@ -101,10 +101,6 @@
         }
     }
 
-
-
-
-
     function ingresarEnMesa() {
 
         //qr de una mesa
@@ -134,7 +130,7 @@
                 if (!e.hasOwnProperty("id_mesa")) {
                     mostrarModalConfirmacion(e.mensaje, "ok", null, null, null);
                 } else {
-                    mostrarModalConfirmacion("se registró correctamente en la mesa " + e.id_mesa, "ok", null, null, null);
+                    //mostrarModalConfirmacion("se registró correctamente en la mesa " + e.id_mesa, "ok", null, null, null);
                     app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "verMiMesa", false, "", null);
                     setTimeout(() => {
                         popularDatosMesa();
@@ -154,7 +150,7 @@
 
 
     function botonVolver() {
-        let msj
+        let msj = "";
         if (cliente.data.email == "") {
             msj = "Esta es una sesión anónima, si sale se perderán todos sus datos. ¿Seguro quiere cerrar su sesión?";
         } else {
@@ -162,7 +158,5 @@
         }
         mostrarModalConfirmacion(msj, "Si", "No", () => { cliente.logout() }, () => { })
     }
-
-
 
 </script>
