@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="info">
-                                DNI: <input id="dniNuevoCliente" placeholder="DNI" type="number">
+                                DNI: <input id="dniNuevoCliente" placeholder="DNI" type="number" maxlength="8">
                             </div>
                         </div>
                     </div>
@@ -108,6 +108,11 @@
 
         if (dni == "") {
             mostrarModalConfirmacion("Complete su DNI", "OK");
+            return;
+        }
+
+        if (dni.length != 8) {
+            mostrarModalConfirmacion("Ingrese un DNI válido", "OK");
             return;
         }
 

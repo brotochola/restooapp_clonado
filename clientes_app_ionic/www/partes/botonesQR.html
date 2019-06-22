@@ -68,18 +68,18 @@
         }
     }
 
-    String.prototype.replaceAll = function(search, replacement) {
-    var target = this;
-    return target.replace(new RegExp(search, 'g'), replacement);
-};
+    String.prototype.replaceAll = function (search, replacement) {
+        var target = this;
+        return target.replace(new RegExp(search, 'g'), replacement);
+    };
 
     function cbSolicitarMesa(data) {
         //hacer reserva!
-        
-       
-        
-      let a=data.text.replaceAll("”",'"').replaceAll("“",'"');
-     // alert(a)
+
+
+
+        let a = data.text.replaceAll("”", '"').replaceAll("“", '"');
+        // alert(a)
 
         obj = JSON.parse(a);
         if (obj.tipo == "entrada") {
@@ -121,25 +121,24 @@
 
     }
 
-    function QRmal(e){
+    function QRmal(e) {
         alert(JSON.stringify(e));
     }
 
     function cbEscanearQRMesa(data) {
-        let a=data.text.replaceAll("”",'"').replaceAll("“",'"');
+        let a = data.text.replaceAll("”", '"').replaceAll("“", '"');
         obj = JSON.parse(a);
         let datos = {};
         if (obj.tipo == "mesa") {
-            api.clienteSeSientaEnUnaMesaYEscaneaElQRDeLaMesa(obj.id, cliente.data.id_cliente, (e) => { 
-                if(!e.hasOwnProperty("id_mesa")){
-                    mostrarModalConfirmacion(e.mensaje,"ok",null,null,null);
-                }else{
-                    mostrarModalConfirmacion("se registró correctamente en la mesa "+e.id_mesa,"ok",null,null,null);
-                    app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "verMiMesa", false, "", null);        
-                        setTimeout(() => { 
-                            $("#nombreCliente").html(cliente.dataCliente().nombre_completo); 
-                            $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
-                        }, 500);;
+            api.clienteSeSientaEnUnaMesaYEscaneaElQRDeLaMesa(obj.id, cliente.data.id_cliente, (e) => {
+                if (!e.hasOwnProperty("id_mesa")) {
+                    mostrarModalConfirmacion(e.mensaje, "ok", null, null, null);
+                } else {
+                    mostrarModalConfirmacion("se registró correctamente en la mesa " + e.id_mesa, "ok", null, null, null);
+                    app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "verMiMesa", false, "", null);
+                    setTimeout(() => {
+                        popularDatosMesa();
+                    }, 500);
 
                 }
             });
@@ -147,9 +146,11 @@
         }
     }
 
-
-
-
+    function popularDatosMesa() {
+        mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa);
+        $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
+        $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
+    }
 
 
     function botonVolver() {
@@ -159,9 +160,9 @@
         } else {
             msj = "¿Seguro quiere cerrar su sesión?";
         }
-        mostrarModalConfirmacion(msj, "Si", "No", ()=>{cliente.logout()}, () => { })
+        mostrarModalConfirmacion(msj, "Si", "No", () => { cliente.logout() }, () => { })
     }
 
- 
+
 
 </script>
