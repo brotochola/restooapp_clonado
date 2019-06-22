@@ -14,20 +14,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="info">DNI:
-                                <input id="dniNuevoCliente" placeholder="DNI"> </div>
+                                <input id="dniNuevoCliente" placeholder="DNI" type="number"> </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="info text-center">
-
-                                <button class="boton-modal " onclick="escanearCodigoQRdelDNI()"> Escanear QR del
-                                    DNI</label>
-                            </div>
-                        </div>
-                    </div>
-
 
 
                     <div class="row">
@@ -37,15 +26,21 @@
                         </div>
                     </div>
 
-
                     <div class="row">
                         <div class="col-12">
-                            <button onclick='sacarFotoCliente()' class="boton-modal centro" id="botonFotoEmpleado">Sacar
-                                Foto</button>
+                            <div class="info text-center">
+                                <button onclick='vincularPorMail()' class="boton-modal centro"
+                                    id="vincularPorMailId">Vincular Por Email</button>
+
+                                <button class="boton-modal " onclick="escanearCodigoQRdelDNI()"> Escanear QR del
+                                    DNI</button>
+
+                                <button onclick='sacarFotoCliente()' class="boton-modal centro"
+                                    id="botonFotoEmpleado">Sacar Foto</button>
+
+                            </div>
                         </div>
                     </div>
-
-
 
 
                     <div class="row">
@@ -81,7 +76,39 @@
     var mesaID;
     var fotoCargadaBase64;
 
+    function vincularPorMail() {
+
+        let email = $("#emailNuevoCliente").val();
+
+        if (email == "") {
+            mostrarModalConfirmacion("Complete email", "ok");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            mostrarModalConfirmacion("Email invalido", "ok", null, null, null)
+            return;
+        }
+
+        api.traerClientePorEmail(email, cbTraerClientePorMail);
+    }
+
+    function cbTraerClientePorMail(cliente) {
+
+        if (cliente[0] == undefined) {
+
+            mostrarModalConfirmacion("El usuario aún no está registrado", "ok");
+            return;
+        }
+        else {
+            $("#nombreNuevoCliente").val(cliente[0].nombre_completo);
+            $("#dniNuevoCliente").val(cliente[0].dni)
+        }
+    }
+
     //===========Foto Cliente
+
+
     function sacarFotoCliente() {
 
         try {

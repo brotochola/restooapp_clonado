@@ -71,10 +71,6 @@
         obj = JSON.parse(data.text);
 
         if (obj.tipo == "producto") {
-            
-            //Agregar producto
-            //verMesaMozo(obj.id);
-
             agregarEsteProducto(obj.id,1)
         }
     }
@@ -143,7 +139,9 @@
     }
 
     function agregarEsteProducto(id, cant) {
-        console.log(id, cant)
+
+        //alert()
+
         if (pedido.productos == undefined) pedido.productos = new Array();
         // prodsFiltrados=pedido.productos.filter(function(k){if(k.id==id)return k})
 
@@ -163,6 +161,8 @@
                 pedido.productos.splice(id_prod2i(id, pedido.productos), 1)
             }
         } else {
+
+
             //si no lo tenias
             if (cant == 1) {
                 //y si estabas sumando este producto
