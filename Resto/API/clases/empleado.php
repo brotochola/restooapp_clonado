@@ -117,21 +117,20 @@ class empleado
         public function ModificarUno()
         {
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-            $consulta =$objetoAccesoDato->RetornarConsulta("
-                update empleados
-                set                 
-                nombre_completo ='$this->nombre_completo',
-                id_rol ='$this->id_rol',
-                fecha_ingreso ='$this->fecha_ingreso',
-                fecha_nac ='$this->fecha_nac',
-                email ='$this->email',
-                usuario ='$this->usuario',
-                dni ='$this->dni',
-                fecha_egreso ='$this->fecha_egreso',
-                sueldo ='$this->sueldo',                
-                clave ='$this->clave',
-                habilitado ='$this->habilitado'
-                WHERE id_empleado = '$this->id_empleado'");
+            $sql="
+            update empleados
+            set                 
+            nombre_completo ='$this->nombre_completo',
+            id_rol ='$this->id_rol',
+            email ='$this->email',
+            usuario ='$this->usuario',
+            dni ='$this->dni',
+            sueldo ='$this->sueldo',                
+            clave ='$this->clave',
+            habilitado ='$this->habilitado'
+            WHERE id_empleado = '$this->id_empleado'";
+            
+            $consulta =$objetoAccesoDato->RetornarConsulta($sql);
 
             return $consulta->execute();
         }

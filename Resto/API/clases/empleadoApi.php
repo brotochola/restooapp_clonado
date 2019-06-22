@@ -150,6 +150,9 @@ class empleadoApi extends empleado
         $emp->email = $vector['email'];
         $emp->sueldo = $vector['sueldo'];
         $emp->clave = $vector['clave']; 
+        if($vector['fecha_ingreso']=="" || $vector['fecha_ingreso']==null || !isset($vector['fecha_ingreso'])){
+            $emp->fecha_ingreso=date('Y-m-d').' 00:00:00';
+        }
 
 //        return $response->withJson($emp, 200);	
 
