@@ -185,9 +185,9 @@
         } else {
             $("#botonCerrarMesa").hide();
             $("#nombreCliente").html("")
-            $("#cantVisitas").html("")
+            try{  $("#cantVisitas").html("")}catch(e){}
             $("#cantComensales").html("")
-            $("#mozoAsignado").html("")
+          try{  $("#mozoAsignado").html("")}catch(e){}
             $("#total").html("")
             $("#horaLlegadaMesa").html("");
         }

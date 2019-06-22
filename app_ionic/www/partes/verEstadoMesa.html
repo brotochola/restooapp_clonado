@@ -7,11 +7,11 @@
                     <div class="row">
                         <div class="col-6 pp-n-left">
                             <div class="info"><img src="media/Img/usuario-seleccionado.png"> <span
-                                    id="nombreCliente">fulanito de tal</span></div>
+                                    id="nombreCliente"></span></div>
                         </div>
                         <div class="col-6 pp-n-right">
                             <div class="info"><img src="media/Img/visitas.png"> Visitas: <strong
-                                    id="cantVisitas">XX</strong> </div>
+                                    id="cantVisitas">-</strong> </div>
                         </div>
                         <!--<div class="col-12 pp-n-right">
                             <div class="info"><img src="media/Img/calendario-seleccionado.png"><span id="ultimaVisita">
@@ -19,7 +19,7 @@
                         </div>-->
                         <div class="col-6 pp-n-left">
                             <div class="info"><img src="media/Img/usuarios-gris.png"> Total De Comenzales: <strong
-                                    id="cantComensales">#8</strong> </div>
+                                    id="cantComensales">#-</strong> </div>
                         </div>
                         <div class="col-6 pp-n-right">
                             <div class="info"> <img src="media/Img/checar-gris.png">
@@ -27,12 +27,11 @@
                                     id="horaLlegadaMesa">xx</strong> </div>
                         </div>
                         <div class="col-6 pp-n-left">
-                            <div class="info"><img src="media/Img/mozo.png"><span id="mozoAsignado"> Mozo
-                                    Asignado</span></div>
+                            <div class="info"><img src="media/Img/mozo.png"><span id="mozoAsignado"> -</span></div>
                         </div>
                         <div class="col-6 pp-n-right">
                             <div class="info"><img src="media/Img/bolsa-dinero.png"> Total: <strong
-                                    id="total">$400</strong> </div>
+                                    id="total">$-</strong> </div>
                         </div>
                     </div>
                     <div class="row encabezado-lista-pedidos">
@@ -165,9 +164,9 @@
             }
             ////
             $("#nombreCliente").html(mesa.cliente.nombre_completo)
-            $("#cantVisitas").html(mesa.cliente.cant_visitas)
+            try{  $("#cantVisitas").html(mesa.cliente.cant_visitas)}catch(e)
             $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")
-            $("#mozoAsignado").html(mesa.mozo.nombre_completo)
+           try{ $("#mozoAsignado").html(mesa.mozo.nombre_completo)}catch(e){}
             $("#total").html("$" + mesa.total_mesa)
        
             $("#horaLlegadaMesa").html(hora(mesa.clienteVisita.date_created));

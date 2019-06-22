@@ -106,7 +106,9 @@
             //console.log(m)
             for (var i = 0; i < estadoActual.mesas.length; i++) {
 
-                $(".mesa." + estadoActual.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + estadoActual.mesas[i].sillas + "/" + Mesa.estadoMesas[estadoActual.mesas[i].estado_mesa] + ".png";
+              try{
+                    $(".mesa." + estadoActual.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + estadoActual.mesas[i].sillas + "/" + Mesa.estadoMesas[estadoActual.mesas[i].estado_mesa] + ".png";
+                }catch(e){}
 
             }
 
