@@ -7,9 +7,11 @@ class API {
      
 
 
-         if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
-           else this.urlServer ="../../Resto/API/";
-        this.urlServer = "http://pixeloide.com/restoApp/API/"
+        //  if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
+        //    else this.urlServer ="../../Resto/API/";
+     
+     
+           this.urlServer = "http://pixeloide.com/restoApp/API/"
 
 
       
@@ -168,6 +170,7 @@ class API {
         })
     }
 
+
     modificarProducto(producto, cb) {
 
         $.ajax({
@@ -184,6 +187,33 @@ class API {
                 if (e != -1) {
                     this.productos = e;
                     if (cb instanceof Function) cb();
+
+                } else {
+                    mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")
+
+                }
+
+            },
+            error: function (e) {
+                console.log(e)
+            }
+        })
+    }
+
+    traerClientePorEmail(email, cb) {
+
+        $.ajax({
+            url: this.urlServer + "cliente/por-email/"+email,
+            type: "get",
+            dataType: "json",
+            headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },
+            success: (e) => {
+                
+                if (e != -1) {
+                    
+                    if (cb instanceof Function) cb(e);
 
                 } else {
                     mostrarModalConfirmacion("Error conectando con la Base de datos", "ok")

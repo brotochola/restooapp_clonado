@@ -1,12 +1,11 @@
 <style>
-
-img.fotoEmple {
-    margin-top: 18px;
-    width: 24vw;
-    height: 24vw;
-    object-fit: cover;
-    border-radius: 17%;
-}
+    img.fotoEmple {
+        margin-top: 18px;
+        width: 24vw;
+        height: 24vw;
+        object-fit: cover;
+        border-radius: 17%;
+    }
 </style>
 
 <div class="fondo-modal" id="agregarVerEmpleado">
@@ -26,7 +25,7 @@ img.fotoEmple {
                             <input id="mailEmpleado" placeholder="E-mail">
                         </div>
                     </div>
-                   <!-- <div class="col-12">
+                    <!-- <div class="col-12">
                         <div class="info">
                             <input id="usuario" placeholder="usuario">
                         </div>
@@ -127,11 +126,11 @@ img.fotoEmple {
                     <div class="col-6">
                         <button onclick='leerDNIEmpleado()' class="boton-modal centro" id="botonLeerDNIEmpleado">Leer
                             DNI</button><br>
-                            <button onclick='sacarFotoEmpleado()' class="boton-modal centro"
+                        <button onclick='sacarFotoEmpleado()' class="boton-modal centro"
                             id="botonFotoEmpleado">Foto</button>
                     </div>
                     <div class="col-6">
-                       <img id="fotoEmple" width="50" height="50">
+                        <img id="fotoEmple" width="50" height="50">
                     </div>
                 </div>
                 <div class="row">
@@ -150,6 +149,7 @@ img.fotoEmple {
 
     var idEmpleadoActual = -1;
     var fotoCargadaBase64 = "";
+    datosValidados = true;
 
     $("#contenedorSelectRol").html(array2Select(rolesEmpleados, "rol"))
 
@@ -165,7 +165,7 @@ img.fotoEmple {
     //==============Sacar foto
 
     function sacarFotoEmpleado() {
-       
+
         try {
             navigator.camera.getPicture(onSuccess, onFail, {
                 quality: 50,
@@ -180,10 +180,10 @@ img.fotoEmple {
 
 
     function onSuccess(imageData) {
-     
+
         fotoCargadaBase64 = "data:image/jpeg;base64," + imageData;
-        $("img#fotoEmple")[0].src=fotoCargadaBase64;
-        console.log("En cargar foto: "+fotoCargadaBase64);
+        $("img#fotoEmple")[0].src = fotoCargadaBase64;
+        console.log("En cargar foto: " + fotoCargadaBase64);
     }
 
     function onFail(message) {
@@ -197,58 +197,36 @@ img.fotoEmple {
 
         try {
             cordova.plugins.barcodeScanner.scan(callBackDNIEmpleado, QRmalDNIEmpleado, {
-                /*preferFrontCamera : false, // iOS and Android
-                showFlipCameraButton : true, // iOS and Android
-                showTorchButton : false, // iOS and Android, linterna
-                torchOn: false,*/ // Android, launch with the torch switched on (if available)
+
                 prompt: "escaneá el qr del DNI", // Android
                 resultDisplayDuration: 1500,
-                formats : "PDF417",
-                orientation : "portrait"
-                
-                /*, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-                        formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-                        orientation : "landscape",*/ // Android only (portrait|landscape), default unset so it rotates with the device
-                /* disableAnimations : true, // iOS
-                    disableSuccessBeep: false // iOS*/
+                formats: "PDF417",
+                orientation: "portrait"
+
             });
         } catch (e) {
             alert(e);
 
-            //actualizarDatos();      
-
         }
     }
 
-var debugEmpleado;
+    var debugEmpleado;
+
     function callBackDNIEmpleado(data) {
-        /*
-        nombre : '',
-            apellido : '',
-            dni : '',
-            sexo : '',
-            fechaNac : '',
-            raw :_text*/
-            
-       let dataUsuarioDNI= Usuario.parsearQRDNI(data.text);
+
+        let dataUsuarioDNI = Usuario.parsearQRDNI(data.text);
         $("#fechaNac").val(formatDate(fechaArg2timeStamp(dataUsuarioDNI.fechaNac)));
         $("#dni").val(dataUsuarioDNI.dni);
-     
     }
-
 
     function QRmalDNIEmpleado(error) {
         alert("Error: " + error)
     }
 
-
-
-   
-
     function sacarModalVerEmpleado() {
         app.esconderUnaParte(null, "verEmpleado");
-
     }
+
     function mostrarAgregarVerEmpleado(id) {
 
         empleado = traerEmpleadoPorId(id);
@@ -274,7 +252,7 @@ var debugEmpleado;
             $("#contBotonBorrar").show()
             $("#botonAgregarEmpleado").html("Modificar")
             $("#nombre").val(empleado.nombre_completo)
-           // $("#usuario").val(empleado.usuario)
+            // $("#usuario").val(empleado.usuario)
             $("#mailEmpleado").val(empleado.email)
             $("#dni").val(empleado.dni)
             $("#fechaNac").val(formatDate(empleado.fecha_nac))
@@ -291,7 +269,6 @@ var debugEmpleado;
 
         }
         app.traerHTML("partes/agregarVerEmpleado.html", true);
-        // $("#agregarVerEmpleado").fadeIn();
     }
 
     function modificarEmpleado() {
@@ -300,7 +277,7 @@ var debugEmpleado;
         empleado.id_empleado = idEmpleadoActual;
         empleado.nombre_completo = $("#nombre").val();
         empleado.dni = $("#dni").val();
-      //  empleado.usuario = $("#usuario").val();
+        //  empleado.usuario = $("#usuario").val();
         empleado.usuario = '';
         empleado.email = $("#mailEmpleado").val();
         empleado.clave = $("#clave").val();
@@ -339,4 +316,81 @@ var debugEmpleado;
         api.agregarEmpleado(cbModificarEmpleado, empleado)
 
     }
+
+
+
+    function TraerEmpleadoForm(funcion) {
+
+        empleado = {};
+
+        if (funcion != "Alta") {
+            producto.id_producto = idProductoActual;
+        }
+
+        empleado.nombre_completo = $("#nombre").val();
+        // empleado.usuario = $("#usuario").val();
+        empleado.email = $("#mailEmpleado").val();
+        empleado.clave = $("#clave").val()
+        empleado.dni = $("#dni").val();
+        empleado.sueldo = $("#sueldo").val();
+        empleado.id_rol = $("#rol").val();
+        empleado.habilitado = $("#habilitado").val();
+        empleado.fecha_nac = $("#fechaNac").val();
+        empleado.fecha_ingreso = $("#fechaContratacion").val();
+        empleado.foto = fotoCargadaBase64;
+
+        if (!validarInput($("#nombre").val())) {
+            mostrarModalConfirmacion("Ingresar Nombre", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+        if (!validarInput($("#mailEmpleado").val())) {
+            mostrarModalConfirmacion("Ingresar Mail", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+        if (!validarInput($("#clave").val())) {
+            mostrarModalConfirmacion("Ingresar Clave", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+
+        if (!validarInput($("#dni").val())) {
+            mostrarModalConfirmacion("Ingresar DNI", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+        if (!validarInput($("#sueldo").val())) {
+            mostrarModalConfirmacion("Ingresar Sueldo", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+        if (!validarSelect($($("#rol").val()).val())) {
+            mostrarModalConfirmacion("Elegir un rol", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+        if (!validarInput($("#fechaNac").val())) {
+            mostrarModalConfirmacion("Ingresar fecha de nacimiento", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+        if (!validarInput($("#fechaContratacion").val())) {
+            mostrarModalConfirmacion("Ingresar fecha de contratación", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+        datosValidados = true;
+        return empleado;
+    }
+
+
 </script>
