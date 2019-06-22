@@ -99,7 +99,7 @@
         docReady = 1;
 
         $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
-        mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa);
+        setInterval(() => { mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa); }, 5000);
     });
 
     console.log("estado.js");
@@ -197,7 +197,7 @@
     function mostrarEstadoMesaAdmin(id) {
         // console.log(id)
 
-        app.mostrarLoading()
+        //app.mostrarLoading();
 
         idMesa = id;
         /*  $("#botonEstadisticas").off().click(function () {
