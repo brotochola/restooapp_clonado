@@ -272,22 +272,13 @@
     }
 
     function modificarEmpleado() {
-        console.log("modificar empleado")
+
         empleado = {};
-        empleado.id_empleado = idEmpleadoActual;
-        empleado.nombre_completo = $("#nombre").val();
-        empleado.dni = $("#dni").val();
-        //  empleado.usuario = $("#usuario").val();
-        empleado.usuario = '';
-        empleado.email = $("#mailEmpleado").val();
-        empleado.clave = $("#clave").val();
-        empleado.sueldo = $("#sueldo").val();
-        empleado.id_rol = $("#rol").val();
-        empleado.habilitado = $("#habilitado").val();
-        empleado.fecha_nac = $("#fechaNac").val();
-        empleado.fecha_ingreso = $("#fechaContratacion").val();
-        console.log(empleado)
-        api.modificarEmpleado(cbModificarEmpleado, empleado)
+        empleado = TraerEmpleadoForm("Modificacion");
+
+        if (datosValidados == true) {
+            api.modificarEmpleado(cbModificarEmpleado, empleado)
+        }
     }
 
     function cbModificarEmpleado(e) {
@@ -297,25 +288,7 @@
 
 
     function agregarEmpleado() {
-        // console.log("agregar empleado")
-
-        // empleado = {};
-        // empleado.nombre_completo = $("#nombre").val();
-        // empleado.usuario = $("#usuario").val();
-        // empleado.email = $("#mailEmpleado").val();
-        // empleado.clave = $("#clave").val()
-        // empleado.dni = $("#dni").val();
-        // empleado.sueldo = $("#sueldo").val();
-        // empleado.id_rol = $("#rol").val();
-        // empleado.habilitado = $("#habilitado").val();
-        // empleado.fecha_nac = $("#fechaNac").val();
-        // empleado.fecha_ingreso = $("#fechaContratacion").val();
-        // empleado.foto = fotoCargadaBase64;
-        // console.log(empleado)
-
-        // api.agregarEmpleado(cbModificarEmpleado, empleado)
-
-
+ 
         empleado = {};
         empleado = TraerEmpleadoForm("Alta");
 
@@ -333,7 +306,7 @@
         empleado = {};
 
         if (funcion != "Alta") {
-            producto.id_producto = idProductoActual;
+             empleado.id_empleado = idEmpleadoActual;
         }
 
         empleado.nombre_completo = $("#nombre").val();
@@ -378,11 +351,11 @@
             return;
         }
 
-        // if (!validarSelect($($("#rolEmpleado").val()).val())) {
-        //     mostrarModalConfirmacion("Elegir un rol", "ok", null, null, null)
-        //     datosValidados = false;
-        //     return;
-        // }
+        if (!validarSelect($("#rolEmpleado").val())) {
+            mostrarModalConfirmacion("Elegir un rol", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
 
         if (!validarInput($("#fechaNac").val())) {
             mostrarModalConfirmacion("Ingresar fecha de nacimiento", "ok", null, null, null)
