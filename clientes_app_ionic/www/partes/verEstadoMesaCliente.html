@@ -130,7 +130,12 @@
 
     function agregarPedidoAEstaMesa() {
         // app.traerHTML("partes/nuevoPedidoAgregarProductos.html",true,true);
-        mostrarModalAgregarProductos(idMesa);
+        if (mesaActiva.estado_mesa != 5) {
+            mostrarModalAgregarProductos(idMesa);
+        } else {
+            mostrarModalConfirmacion("Usted ya pagó la cuenta", "OK", null, null, null);
+        
+        }
     }
 
     function pedirCuenta() {
@@ -231,9 +236,15 @@
         let horaPedidoAgregado = hora(pedido.fecha_alta)
 
         html += '<div style="display: inline-block" class="col-2 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
-        html += '<div style="display: inline-block" class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
+        if (mesaActiva.estado_mesa == 5) {
+            html += '<div style="display: inline-block" class="col-4 estado-pedido"><span style="font-weight:bold"> PAGADO </span></div>';
+        } else {
+            html += '<div style="display: inline-block" class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>';
+        }
         html += '<div style="display: inline-block" class="col-2 botonPedidoEntregado">'
-        if (pedido.estado_pedido == 3) html += ' <img class="boton-borrar" onclick="informarPedidoEntregado(' + pedido.id + ',' + api.datosClienteVisita.id_mesa + ')" src="images/ok.png" style="height: 36px;    width: auto;     border-radius: 60px;">'
+        if (pedido.estado_pedido == 3) {
+            html += ' <img class="boton-borrar" onclick="informarPedidoEntregado(' + pedido.id + ',' + api.datosClienteVisita.id_mesa + ')" src="images/ok.png" style="height: 36px;    width: auto;     border-radius: 60px;">';
+        }
         html += "</div>";
         html += '<div style="display: inline-block" onclick="verPedido(' + pedido.id + ')" class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
         html += '</div>  '
