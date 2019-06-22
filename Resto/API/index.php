@@ -266,7 +266,7 @@ $app->group('/mesa', function () {
 
     $this->post('/consulta', \mesaApi::class . ':TraerMesa');
 
-    $this->get('/estado', \mesaApi::class . ':ModificarEstadoMesa');
+    $this->post('/estado', \ClienteVisitaApi::class . ':ModificarEstadoMesa_');
 
     $this->get('/listado', \mesaApi::class . ':TraerMesas');
 

@@ -166,4 +166,15 @@ class ClienteVisita
 
         return $consulta->rowCount();
     }
+
+    public static function CambiarEstadoMesa($id_mesa, $estado_mesa)
+    {
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta("UPDATE mesas SET estado_mesa=:estado_mesa WHERE id_mesa=:id_mesa");
+        $consulta->bindValue(':estado_mesa', $estado_mesa, PDO::PARAM_INT);
+        $consulta->bindValue(':id_mesa', $id_mesa, PDO::PARAM_INT);
+        $consulta->execute();
+
+        return $consulta->rowCount();
+    }
 }
