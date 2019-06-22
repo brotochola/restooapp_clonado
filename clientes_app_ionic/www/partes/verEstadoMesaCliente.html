@@ -127,25 +127,23 @@
 
         docReady = 1;
 
-        
-        //Parche para nombre en barra
-        /* setInterval(() => { cargarNombreEnNav(); }, 500); */
-
         $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
     });
 
-    /* function cargarNombreEnNav(){
-        $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
-    } */
-
-    console.log("estado.js")
+    console.log("estado.js");
 
     function botonVolver() {
-        mostrarModalConfirmacion("¿Seguro quiere cerrar su sesión?", "Si", "No", cliente.logout, () => { })
+        mostrarModalConfirmacion("¿Seguro quiere cerrar su sesión?", "Si", "No", cliente.logout, () => { });
     }
 
     var idMesa = -1;
     var mesa = {};
+    
+    function agregarIDMesa(){
+        if (api.datosClienteVisita != null) {
+            idMesa = api.datosClienteVisita.id_mesa;
+        }
+    }
 
     function ocultarEstadoMesa() {
         app.esconderUnaParte("partes/verEstadoMesa.html");
@@ -182,8 +180,6 @@
     function cbMostrarEstadoMesa(mesa) {
 
         app.ocultarLoading();
-
-
 
         console.log(mesa)
         mesaActiva = mesa;
@@ -224,7 +220,6 @@
             $("#horaLlegadaMesa").html("");
         }
 
-
     }
 
     function mostrarEstadoMesaAdmin(id) {
@@ -238,7 +233,6 @@
         })
 
         api.traerUnaMesa(id, cbMostrarEstadoMesa);
-
 
         app.traerHTML("partes/verEstadoMesa.html", true);
 
@@ -261,6 +255,5 @@
         html += '</div>  '
         html += '</li>'
         return html;
-
     }
 </script>
