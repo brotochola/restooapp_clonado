@@ -120,12 +120,23 @@
                     mostrarModalConfirmacion(e.mensaje,"ok",null,null,null);
                 }else{
                     mostrarModalConfirmacion("se registró correctamente en la mesa "+e.id_mesa,"ok",null,null,null);
+                    app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "verMiMesa", false, "", null);        
+                        setTimeout(() => { 
+                            $("#nombreCliente").html(cliente.dataCliente().nombre_completo); 
+                            $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
+                        }, 500);;
 
                 }
             });
 
         }
     }
+
+
+
+
+
+
     function botonVolver() {
         let msj
         if (cliente.data.email == "") {
