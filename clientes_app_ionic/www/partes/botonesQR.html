@@ -126,7 +126,8 @@
     }
 
     function cbEscanearQRMesa(data) {
-        obj = JSON.parse(data.text);
+        let a=data.text.replaceAll("”",'"').replaceAll("“",'"');
+        obj = JSON.parse(a);
         let datos = {};
         if (obj.tipo == "mesa") {
             api.clienteSeSientaEnUnaMesaYEscaneaElQRDeLaMesa(obj.id, cliente.data.id_cliente, (e) => { 

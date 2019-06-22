@@ -99,7 +99,7 @@ class API {
             },
             success: (e) => {
                 console.log(e);
-                this.datosClienteVisita=e.clienteVisita;
+                this.datosClienteVisita=e;
                 if (cb instanceof Function) cb(e);
             }, error: (e) => {
                 console.log(e)
