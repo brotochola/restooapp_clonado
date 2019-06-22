@@ -7,7 +7,7 @@ const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido
 const rolesEmpleados = ["-", "Socix", "Camarerx", "Bartender", "Cervecerx", "Cocinerx", "Pastelerx", "Admin"];
 
 const coloresMesas = ["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
-var imgRolesEmpleados = [null, "media/Img/roles/tragos.png", "media/Img/roles/cerveza.png", "media/Img/roles/cocina.png", "Camarerx", "Admin", "media/Img/roles/candy.png"];
+//var imgRolesEmpleados = [null, "media/Img/roles/tragos.png", "media/Img/roles/cerveza.png", "media/Img/roles/cocina.png", "Camarerx", "Admin", "media/Img/roles/candy.png"];
 
 
 function formatDate(date) {

@@ -144,7 +144,7 @@
         } else {
             msj = "¿Seguro quiere cerrar su sesión?";
         }
-        mostrarModalConfirmacion(msj, "Si", "No", cliente.logout, () => { })
+        mostrarModalConfirmacion(msj, "Si", "No", ()=>{cliente.logout()}, () => { })
     }
 
  
