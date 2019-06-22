@@ -19,43 +19,14 @@
                     <span id="idMesa" class="idMesa">#5</span>
                 </div>
                 <div class="row">
-                    <div class="col-6 pp-n-left">
-                        <div class="info"><img src="media/Img/usuario-seleccionado.png">
-                            <span id="nombreCliente">fulanito de tal</span>
-                        </div>
-                    </div>
-                    <div class="col-6 pp-n-right">
-                        <div class="info">
-                            <img src="media/Img/visitas.png">
-                            Visitas:
-                            <strong id="cantVisitas">XX</strong>
-                        </div>
-                    </div>
-                    <!-- <div class="col-12 pp-n-right">
-                        <div class="info">
-                            <img src="media/Img/calendario-seleccionado.png">
-                            <span id="ultimaVisita">Ultima Visita: 25 - JULIO - 2018</span>
-                        </div>
-                    </div> -->
-                    <div class="col-6 pp-n-left">
-                        <div class="info">
-                            <img src="media/Img/usuarios-gris.png">
-                            Total De Comenzales:
-                            <strong id="cantComensales">#8</strong>
-                        </div>
-                    </div>
+                 
                     <div class="col-6 pp-n-right">
                         <div class="info">
                             <img src="media/Img/checar-gris.png">
                             Llegada: <strong id="horaLlegadaMesa">xx</strong>
                         </div>
                     </div>
-                    <div class="col-6 pp-n-left">
-                        <div class="info">
-                            <img src="media/Img/mozo.png">
-                            <span id="mozoAsignado"> Mozo Asignado</span>
-                        </div>
-                    </div>
+              
                     <div class="col-6 pp-n-right">
                         <div class="info">
                             <img src="media/Img/bolsa-dinero.png">
@@ -104,7 +75,7 @@
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal " onclick="ocultarEstadoMesa()">OK</button>
+                      <!--  <button class="boton-modal " onclick="ocultarEstadoMesa()">OK</button> -->
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -204,10 +175,10 @@
             $("#botonAgregarPedidoAMesaMozo").show();
 
             ////
-            $("#nombreCliente").html(mesa.cliente.nombre_completo)
-            $("#cantVisitas").html(mesa.cliente.cant_visitas)
-            $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")
-            $("#mozoAsignado").html(mesa.mozo.nombre_completo)
+           // $("#nombreCliente").html(mesa.cliente.nombre_completo)
+           // $("#cantVisitas").html(mesa.cliente.cant_visitas)
+           // $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")
+          //  $("#mozoAsignado").html(mesa.mozo.nombre_completo)
             $("#total").html("$" + mesa.total_mesa)
 
             $("#horaLlegadaMesa").html(hora(mesa.clienteVisita.date_created));
@@ -229,9 +200,9 @@
         app.mostrarLoading()
 
         idMesa = id;
-        $("#botonEstadisticas").off().click(function () {
+      /*  $("#botonEstadisticas").off().click(function () {
             window.location.href = "estadisticas.html?mesaId=" + id
-        })
+        })*/
 
         api.traerUnaMesa(id, cbMostrarEstadoMesa);
 

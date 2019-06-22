@@ -9,7 +9,7 @@ const rolesEmpleados = ["-", "Socix","Camarerx", "Bartender", "Cervecerx", "Coci
 const sectoresCocinas = ["-", "Bar", "Cervecería", "Cocina",  "Pastelería"];
 
 const coloresMesas=["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
-var imgRolesEmpleados = [null, "media/Img/roles/tragos.png", "media/Img/roles/cerveza.png", "media/Img/roles/cocina.png", "Camarerx", "Admin", "media/Img/roles/candy.png"];
+
 
 
 function formatDate(date) {

@@ -36,7 +36,7 @@ static  armarProducto(prod) {
         html += '      <li>'
         html += '         <div class="row">'
         html += '              <div class="col-3">'
-        html += '                  <img src="' + imgRolesEmpleados[prod.id_cocina] + '">'
+        html += '                  <img src="media/Img/roles/' + rolesEmpleados[prod.id_cocina] + '.png">'
         html += '             </div>'
         html += '             <div class="col-7">' + prod.nombre_producto + ' - <span>$' + prod.precio + '</span></div>'
         html += '             <div class="col-2">'
