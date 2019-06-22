@@ -24,12 +24,16 @@ class App {
             })
           
         } else if (usuario.dataUsuario().id_rol == 2) {
-            this.traerHTML("partes/mozo_estado.html", false, true, "admin_estado", false)
+            this.traerHTML("partes/mozo_estado.html", false, true, "mozo_estado", false,null,()=>{
+                setTimeout(() => {  $("#fotoDelEmple")[0].src=usuario.dataUsuario().foto;},500);
+            })
          //   setTimeout(()=>{ this.mostrarFooterMozo()},200)//seguimos usando alambre
          //PERDON DARO, TE SACO EL FOOTER DEL MOZO PQ PUSE EL ICONO DE QR EN LA BARRA DE ARRIBA
         }else if(usuario.dataUsuario().id_rol==5){      
             //COCINERO
-            this.traerHTML("partes/cocinero_estado.html", false, true, "cocinero_estado", false)
+            this.traerHTML("partes/cocinero_estado.html", false, true, "cocinero_estado", false,null, ()=>{
+                setTimeout(() => {  $("#fotoDelEmple")[0].src=usuario.dataUsuario().foto;},500);
+            })
         }else if(usuario.dataUsuario().id_rol==8){      
             //METRE
             this.traerHTML("partes/metre_estado.html", false, true, "metre_estado", false)
