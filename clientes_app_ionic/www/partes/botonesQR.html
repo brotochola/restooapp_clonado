@@ -44,7 +44,8 @@
 
         docReady = 1;
 
-        cargarNombreEnNavQR();
+        //Parche para nombre en QR
+        setInterval(() => { cargarNombreEnNavQR(); }, 500);
     });
 
     function cargarNombreEnNavQR(){
@@ -111,7 +112,7 @@
             api.reservaAhoraCliente(datos, null);
         } else {
             console.log("Error en QR");
-        }S
+        }
     }
 
     function botonVolver() {
