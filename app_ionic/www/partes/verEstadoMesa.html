@@ -164,8 +164,8 @@
             }
             ////
             $("#nombreCliente").html(mesa.cliente.nombre_completo)
-            try{  $("#cantVisitas").html(mesa.cliente.cant_visitas)}catch(e)
-            $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")
+            try{  $("#cantVisitas").html(mesa.cliente.cant_visitas)}catch(e){}
+          try{  $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")}catch(e){}
            try{ $("#mozoAsignado").html(mesa.mozo.nombre_completo)}catch(e){}
             $("#total").html("$" + mesa.total_mesa)
        
@@ -174,7 +174,7 @@
             $("#botonCerrarMesa").hide();
             $("#nombreCliente").html("")
             $("#cantVisitas").html("")
-            $("#cantComensales").html("")
+           try{ $("#cantComensales").html("")}catch(e){}
             $("#mozoAsignado").html("")
             $("#total").html("")
             $("#horaLlegadaMesa").html("");
