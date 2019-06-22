@@ -2,9 +2,9 @@ console.log("clase_api.js")
 
 class API {
     constructor() {
-        /* if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
+        if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
         else this.urlServer = "../../Resto/API/";
- */
+
         this.urlServer="http://pixeloide.com/restoApp/API/"
 
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
@@ -79,6 +79,28 @@ class API {
                 let mesa = e
                 // console.log(mesa)
                 if (cb instanceof Function) cb(mesa);
+            }, error: (e) => {
+                console.log(e)
+            }
+        }); //ajax
+    }
+
+    clienteSeSientaEnUnaMesaYEscaneaElQRDeLaMesa(id_mesa,id_cliente,cb){
+        $.ajax({
+            url: this.urlServer + "cliente/clienteSolicitaMesa",
+            type: "post",
+            dataType: "json",
+            headers: {
+                token: localStorage[clienteLogueado_ls]
+            },
+            data: {
+                "id_mesa":id_mesa,
+                "id_cliente":id_cliente
+            },
+            success: (e) => {
+                console.log(e);
+                this.datosClienteVisita=e.clienteVisita;
+                if (cb instanceof Function) cb(e);
             }, error: (e) => {
                 console.log(e)
             }
