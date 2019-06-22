@@ -272,6 +272,7 @@ $(document).ready(function() {
 
 
 function cbCargarEstado(){
+    app.ocultarLoading();
     actualizarEstadoCocinero();
     if(usuario.tokenValido() && usuario.dataUsuario().id_rol>2){ 
         console.log("ok token y rol");
@@ -292,6 +293,7 @@ function actualizarEstadoCocinero() {
     for (var i = 0; i < api.estadoCocinero.length; i++) {
         $("#contenedorPedidosActuales").append(armarPedidoActual(api.estadoCocinero[i]))
     }
+    app.ocultarLoading();
 }
 
 function mostrarNotif(notif) {
@@ -364,6 +366,7 @@ function armarProdPedidoActual(prod) {
 
 
 function pedidoListo(id) {
+    app.mostrarLoading();
     console.log("el pedido " + id + " esta listo")
     $(".unPedido."+id).remove() //esto es de mentirita
     api.cocineroInformaQuePedidoEstaListo(id, actualizarEstadoCocinero);
