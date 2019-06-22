@@ -11,24 +11,6 @@ class App {
         this.$videoSplash = $("video#videoSplash");
     }
 
-    /* actualizarEstado(){
-
-        api.traerEstadoMesaCliente(id, ()=>{
-
-            if (true) {
-                this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
-            } else {
-                //Algún botón para QR solicitar mesa
-                this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
-            }
-
-            setTimeout(() => { this.actualizarEstado() }, 5000)
-        })
-
-    } */
-
-
-
     quePasaDespuesDeLogin() {
         console.log("Acá UI cliente");
 
@@ -37,15 +19,14 @@ class App {
         } else {
 
             //Aca verifica si tiene un cliente visita
-            
-            //Si no tiene
-            //Crear callback para meter nombre a tiempo
-            this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
+            api.traerEstadoMesaCliente(cliente.data.id_cliente, this.queParteTrae);
+
         }
 
         //Ver qué opciones del footer
         //setTimeout(() => { this.mostrarFooterCliente() }, 200)//lo atamo con alambre
     }
+
 
     init() {
         console.log("APP INIT")
@@ -54,6 +35,8 @@ class App {
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true);
         this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true);
         this.traerHTML("partes/nuevoAnonimo.html", true, true, "modalNuevoCliente", true);
+        this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
+        this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
 
         //FOOTER
         //Revisar si es práctico que lo tenga el cliente, y qué opciones tendrá
@@ -66,6 +49,15 @@ class App {
 
         if (cliente.tokenValido()) {
             setTimeout(() => { this.quePasaDespuesDeLogin() }, 600);
+        }
+    }
+
+    queParteTrae() {
+        if (api.estadoClienteVisita == null) {
+            this.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
+        } else {
+            console.log("Mi mesa es #" + api.estadoClienteVisita.id_mesa);
+            this.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
         }
     }
 
