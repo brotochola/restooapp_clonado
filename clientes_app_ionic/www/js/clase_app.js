@@ -51,11 +51,15 @@ class App {
 
     queParteTrae() {
         if (api.datosClienteVisita == null) {
-            app.traerHTML("partes/botonesQR.html", false, true, "mesaCliente", false);
+            app.traerHTML("partes/botonesQR.html", false, true, "botonesQR", false, "", null);
         } else {
             console.log("Mi mesa es #" + api.datosClienteVisita.id_mesa);
-            app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "mesaCliente", false);
+            app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "verMiMesa", false, "", null);
         }
+        setTimeout(() => { 
+            $("#nombreCliente").html(cliente.dataCliente().nombre_completo); 
+            $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
+        }, 500);
     }
 
     terminoVideoSplash() {

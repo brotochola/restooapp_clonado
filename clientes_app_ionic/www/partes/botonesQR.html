@@ -1,4 +1,4 @@
-<body class="body-color" id="cuerpoPrincipalBotonQR">
+<div class="body-color" id="cuerpoPrincipalBotonQR" >
 
     <div class="col-12 bar-top">
         <div class="row">
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-</body>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -45,13 +45,14 @@
         docReady = 1;
 
         //Parche para nombre en QR
-        setInterval(() => { cargarNombreEnNavQR(); }, 500);
+        //setInterval(() => { cargarNombreEnNavQR(); }, 500);
+        $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
     });
 
-    function cargarNombreEnNavQR(){
+    /* function cargarNombreEnNavQR(){
         $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
     }
-
+ */
     function solicitarMesa() {
         //QR para PUERTA
         //scanQRMesa(LeerQRSolicitarMesa);
