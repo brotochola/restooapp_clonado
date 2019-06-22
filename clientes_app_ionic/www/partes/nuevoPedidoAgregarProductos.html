@@ -94,7 +94,7 @@
         //al momento de ocultar este modal, estas agregando los productos al pedido actual
 
         if (pedido.productos == undefined || pedido.productos.length == 0) {
-            mostrarModalConfirmacion("Este pedido no tiene productos", "ok")
+            mostrarModalConfirmacion("Este pedido no tiene productos", "OK", null, null, null);
             return;
         }
         api.mozoMandaPedido(pedido, cbMozoMandaPedido)

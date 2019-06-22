@@ -3,7 +3,7 @@
     <div class="col-12 bar-top">
         <div class="row">
             <div class="col-2">
-                <i class="fas fa-angle-left" onclick="botonVolver()"></i>
+                <i class="fas fa-angle-left" onclick="botonVolver_()"></i>
             </div>
             <div class="col-8" id="nombreCliente">unCliente</div>
             <div class="col-2">
@@ -65,13 +65,6 @@
         </div>
         <div class="text-center">
             <div class="container botonesVerEstadoMesaAdmin">
-                <div class="row" id="botonEstadisticas">
-                    <div class="col-1"></div>
-                    <div class="col-10">
-                        <button class="boton-modal" id="botonEstadisticas">Estadisticas</button>
-                    </div>
-                    <div class="col-1"></div>
-                </div>
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
@@ -79,10 +72,10 @@
                     </div>
                     <div class="col-1"></div>
                 </div>
-                <div class="row" id="botonCerrarMesa">
+                <div class="row" id="botonPedirCuenta">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal cancelar" onclick="cerrarMesa()">Cerrar Mesa</button>
+                        <button class="boton-modal cancelar" onclick="pedirCuenta()">Pedir la cuenta</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -93,19 +86,33 @@
 </div>
 
 <script>
+    var refreshId = "";
+
     $(document).ready(function () {
         console.log("doc ready ver estado mesa cliente");
 
         docReady = 1;
 
         $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
-        setInterval(() => { mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa); }, 5000);
+
+        refreshId = setInterval(function () {
+            if (api.datosClienteVisita) {
+                //clearInterval(refreshId);
+                mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa);
+            }
+        }, 7000);
     });
 
     console.log("estado.js");
 
-    function botonVolver() {
-        mostrarModalConfirmacion("¿Seguro quiere cerrar su sesión?", "Si", "No", cliente.logout, () => { });
+    function botonVolver_() {
+        let msj = "";
+        if (cliente.data.email == "") {
+            msj = "Esta es una sesión anónima, si sale se perderán todos sus datos. ¿Seguro quiere cerrar su sesión?";
+        } else {
+            msj = "¿Seguro quiere cerrar su sesión?";
+        }
+        mostrarModalConfirmacion(msj, "Si", "No", () => { cliente.logout() }, () => { });
     }
 
     var idMesa = -1;
@@ -126,22 +133,25 @@
         mostrarModalAgregarProductos(idMesa);
     }
 
-    function cerrarMesa() {
-        mostrarModalConfirmacion("Seguro que quiere cerrar la facturación de este mesa?", "Si", "No", function () {
+    function pedirCuenta() {
+        mostrarModalConfirmacion("¿Seguro que quiere pedir la cuenta mesa?", "Si", "No", function () {
             $.ajax({
-                url: caminoBackend + "admin/mesas/cerrar/id",
+                url: api.urlServer + "mesa/estado",
+                type: "post",
+                dataType: "json",
                 headers: {
                     token: localStorage[clienteLogueado_ls]
                 },
                 data: {
-                    "id": idMesa
+                    "id_mesa": idMesa,
+                    "estado_mesa": 5
                 },
                 success: function (e) {
                     //aca habria q evaluar segun lo q viene del server
                     //una vez cerrada la mesa
                     console.log(e);
                     ocultarModalConfirmacion();
-                    ocultarEstadoMesa();
+                    //ocultarEstadoMesa();
                 }
             })
         }//cb si
@@ -171,7 +181,7 @@
         $("#idMesa").html("#" + mesa.id_mesa)
         if (checkStr(mesa.cliente.nombre_completo)) {
             //SI LA MESA TIENE UN CLIENTE ES QUE TIENE DATA Y TODO
-            $("#botonCerrarMesa, #botonEstadisticas").hide();
+            //$("#botonCerrarMesa, #botonEstadisticas").hide();
             $("#botonAgregarPedidoAMesaMozo").show();
 
             ////
@@ -185,9 +195,9 @@
         } else {
             $("#botonCerrarMesa").hide();
             $("#nombreCliente").html("")
-            try{  $("#cantVisitas").html("")}catch(e){}
+            try { $("#cantVisitas").html("") } catch (e) { }
             $("#cantComensales").html("")
-          try{  $("#mozoAsignado").html("")}catch(e){}
+            try { $("#mozoAsignado").html("") } catch (e) { }
             $("#total").html("")
             $("#horaLlegadaMesa").html("");
         }
@@ -215,17 +225,17 @@
         console.log(pedido)
         html = ' <li>'
         html += '<div class="container">'
-        html += '<div class="row">'
-        html += '<div class="col-2 text-center contenedor-icono-listado"><h5>#' + pedido.id + '</h5></div>'
+        html += '<div class="row" style="text-align: center">'
+        html += '<div style="display: inline-block" class="col-2 text-center contenedor-icono-listado"><h5>#' + pedido.id + '</h5></div>'
 
         let horaPedidoAgregado = hora(pedido.fecha_alta)
 
-        html += '<div class="col-2 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
-        html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
-        html += '<div class="col-2 botonPedidoEntregado">'
+        html += '<div style="display: inline-block" class="col-2 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
+        html += '<div style="display: inline-block" class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
+        html += '<div style="display: inline-block" class="col-2 botonPedidoEntregado">'
         if (pedido.estado_pedido == 3) html += ' <img class="boton-borrar" onclick="informarPedidoEntregado(' + pedido.id + ',' + api.datosClienteVisita.id_mesa + ')" src="images/ok.png" style="height: 36px;    width: auto;     border-radius: 60px;">'
         html += "</div>";
-        html += '<div  onclick="verPedido(' + pedido.id + ')" class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
+        html += '<div style="display: inline-block" onclick="verPedido(' + pedido.id + ')" class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
         html += '</div>  '
         html += '</div>  '
         html += '</li>'
