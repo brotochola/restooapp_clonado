@@ -75,6 +75,12 @@
             mostrarModalConfirmacion("Email invalido", "OK", null, null, null);
             return;
         }
+
+        if (dni.length != 8) {
+            mostrarModalConfirmacion("Ingrese un DNI válido", "OK");
+            return;
+        }
+        
         let mail = $("#email").val()
         let clave = $("#pass").val()
 
