@@ -480,7 +480,7 @@ public static function TraerMayorTiempo($Pedidos){
 
         $objDelaRespuesta->Pedidos = pedido::cambiarEstadoPedido($vPedido , 4);
         $objDelaRespuesta->mesas = mesa::ModificarEstadoDeLaMesa($vMesa, 4);
-
+    
         $newResponse = $response->withJson($objDelaRespuesta, 200);     
         return $newResponse;
     }

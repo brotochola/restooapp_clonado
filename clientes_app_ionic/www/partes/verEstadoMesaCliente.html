@@ -19,14 +19,14 @@
                     <span id="idMesa" class="idMesa">#5</span>
                 </div>
                 <div class="row">
-                 
+
                     <div class="col-6 pp-n-right">
                         <div class="info">
                             <img src="media/Img/checar-gris.png">
                             Llegada: <strong id="horaLlegadaMesa">xx</strong>
                         </div>
                     </div>
-              
+
                     <div class="col-6 pp-n-right">
                         <div class="info">
                             <img src="media/Img/bolsa-dinero.png">
@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
-                      <!--  <button class="boton-modal " onclick="ocultarEstadoMesa()">OK</button> -->
+                        <!--  <button class="boton-modal " onclick="ocultarEstadoMesa()">OK</button> -->
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -110,8 +110,8 @@
 
     var idMesa = -1;
     var mesa = {};
-    
-    function agregarIDMesa(){
+
+    function agregarIDMesa() {
         if (api.datosClienteVisita != null) {
             idMesa = api.datosClienteVisita.id_mesa;
         }
@@ -175,10 +175,10 @@
             $("#botonAgregarPedidoAMesaMozo").show();
 
             ////
-           // $("#nombreCliente").html(mesa.cliente.nombre_completo)
-           // $("#cantVisitas").html(mesa.cliente.cant_visitas)
-           // $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")
-          //  $("#mozoAsignado").html(mesa.mozo.nombre_completo)
+            // $("#nombreCliente").html(mesa.cliente.nombre_completo)
+            // $("#cantVisitas").html(mesa.cliente.cant_visitas)
+            // $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")
+            //  $("#mozoAsignado").html(mesa.mozo.nombre_completo)
             $("#total").html("$" + mesa.total_mesa)
 
             $("#horaLlegadaMesa").html(hora(mesa.clienteVisita.date_created));
@@ -200,9 +200,9 @@
         app.mostrarLoading()
 
         idMesa = id;
-      /*  $("#botonEstadisticas").off().click(function () {
-            window.location.href = "estadisticas.html?mesaId=" + id
-        })*/
+        /*  $("#botonEstadisticas").off().click(function () {
+              window.location.href = "estadisticas.html?mesaId=" + id
+          })*/
 
         api.traerUnaMesa(id, cbMostrarEstadoMesa);
 
@@ -222,7 +222,9 @@
 
         html += '<div class="col-2 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
         html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
-        html+='<div class="col-2 botonPedidoEntregado"> <img class="boton-borrar" onclick="informarPedidoEntregado('+pedido.id +','+api.datosClienteVisita.id_mesa+')" src="images/ok.png" style="height: 36px;    width: auto;     border-radius: 60px;"></div>'
+        html += '<div class="col-2 botonPedidoEntregado">'
+        if (pedido.estado_pedido == 3) html += ' <img class="boton-borrar" onclick="informarPedidoEntregado(' + pedido.id + ',' + api.datosClienteVisita.id_mesa + ')" src="images/ok.png" style="height: 36px;    width: auto;     border-radius: 60px;">'
+        html += "</div>";
         html += '<div  onclick="verPedido(' + pedido.id + ')" class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
         html += '</div>  '
         html += '</div>  '
@@ -230,18 +232,22 @@
         return html;
     }
 
-    function informarPedidoEntregado(id_pedido,id_mesa){
+    function informarPedidoEntregado(id_pedido, id_mesa) {
+        app.mostrarLoading();
         $.ajax({
-            url:api.urlServer+"/pedidos/clientesComiendo",
-            type:"post",
-            data:{
-                'id_pedido':id_pedido,
-                'id_mesa':id_mesa
+            url: api.urlServer + "/pedido/ClientesComiendo",
+            type: "post",
+            dataType: "json",
+            data: {
+                'id_pedido': id_pedido,
+                'id_mesa': id_mesa
             },
-            success:(e)=>{
-                mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa) 
+            success: (e) => {
+                // mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa) 
+                api.traerUnaMesa(api.datosClienteVisita.id_mesa, cbMostrarEstadoMesa);
+                // cbMostrarEstadoMesa(e);
             },
-            error:e=>console.log(e)
+            error: e => console.log(e)
         });
     }
 </script>
