@@ -81,7 +81,10 @@ class empleadoApi extends empleado
              $carpeta="img/".$emp->id_empleado."/";
              if(!is_dir($carpeta)) mkdir($carpeta);
              $foto_emple=$carpeta.$emp->id_empleado."-foto_empleado-".date('Y-m-d--H.i.s').".png";
-            file_put_contents($foto_emple, base64_decode($vector['foto']));
+             
+             $img = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $vector['foto']));
+
+            file_put_contents($foto_emple, $img);
             $emp->foto = $foto_emple; 
 
 
