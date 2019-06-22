@@ -4,7 +4,12 @@
 .body-color{
     background-color: #200200; 
 }
+#fotoDelEmple{
 
+border-radius:100%;
+max-height:50px;
+max-width:50px;
+}
 #loading{
     z-index: 999999;
      display: block;

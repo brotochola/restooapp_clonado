@@ -18,7 +18,9 @@ class App {
             this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true, "fija", () => {
                 setTimeout(() => {
                  this.$footerAdmin = $("#footerAdmin");
-                this.mostrarFooterAdmin()  }, 500);
+                this.mostrarFooterAdmin() 
+                $("#fotoDelEmple")[0].src=usuario.dataUsuario().foto;
+             }, 500);
             })
           
         } else if (usuario.dataUsuario().id_rol == 2) {
@@ -34,6 +36,8 @@ class App {
             this.traerHTML("partes/footer_metre.html", true, true, "footerMetre", false, "fija")
             this.traerHTML("partes/header_metre.html", true, true, "headerMetre", false, "fija")
         }
+
+       
     }
 
 
