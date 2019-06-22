@@ -127,7 +127,9 @@
 
         docReady = 1;
 
-        cargarNombreEnNav();
+        
+        //Parche para nombre en barra
+        setInterval(() => { cargarNombreEnNav(); }, 500);
     });
 
     function cargarNombreEnNav(){

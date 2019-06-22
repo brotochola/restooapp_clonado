@@ -44,7 +44,8 @@
 
         docReady = 1;
 
-        cargarNombreEnNavQR();
+        //Parche para nombre en QR
+        setInterval(() => { cargarNombreEnNavQR(); }, 500);
     });
 
     function cargarNombreEnNavQR(){
