@@ -11,7 +11,7 @@ class API {
             else this.urlServer ="../../Resto/API/";
      
      
-         //  this.urlServer = "http://pixeloide.com/restoApp/API/"
+           this.urlServer = "http://pixeloide.com/restoApp/API/"
 
 
       

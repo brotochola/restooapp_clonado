@@ -1,4 +1,4 @@
-<div class="body-color" id="cuerpoPrincipalBotonQR" >
+<div class="body-color" id="cuerpoPrincipalBotonQR">
 
     <div class="col-12 bar-top">
         <div class="row">
@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal" onclick="solicitarMesa()">Solicitar mesa</button>
+                        <button class="boton-modal" onclick="solicitarMesa()">QR Entrada al local</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="row" id="botonCerrarMesa">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal" onclick="ingresarEnMesa()">Ingresar a mesa</button>
+                        <button class="boton-modal" onclick="ingresarEnMesa()">QR Mesa</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -54,8 +54,8 @@
     }
  */
     function solicitarMesa() {
-        //QR para PUERTA
-        //scanQRMesa(LeerQRSolicitarMesa);
+        //QR para PUERTA (reserva)
+
 
         try {
             cordova.plugins.barcodeScanner.scan(cbSolicitarMesa, QRmal, {
@@ -69,12 +69,11 @@
     }
 
 
-    function cbSolicitarMesa() {
- 
+    function cbSolicitarMesa(data) {
+        //hacer reserva!
         obj = JSON.parse(data.text);
 
         if (obj.tipo == "entrada") {
-            
             //promt para comensales
             datos = {
                 id_cliente: cliente.data.id_cliente,
@@ -82,10 +81,12 @@
                 comensales: 2,
                 fecha: "HOY"
             };
-    
+
             console.log(datos);
-    
-            api.reservaAhoraCliente(datos, null);
+
+            api.reservaAhoraCliente(datos, () => {
+                mostrarModalConfirmacion("Se cargó la reserva, alguien le llamará", "ok", null, null, null)
+            });
         } else {
             console.log("Error en QR");
         }
@@ -96,26 +97,35 @@
 
 
     function ingresarEnMesa() {
-        alert("solicito mesa");
 
-        //Que ingrese a la mesa
-        if (true) {
-            //promt para comensales
-            datos = {
-                id_cliente: cliente.data.id_cliente,
-                id_mesa: 1,
-                comensales: 2,
-                fecha: "HOY"
-            };
-    
-            console.log(datos);
-    
-            api.reservaAhoraCliente(datos, null);
-        } else {
-            console.log("Error en QR");
+        //qr de una mesa
+
+        try {
+            cordova.plugins.barcodeScanner.scan(cbEscanearQRMesa, QRmal, {
+                prompt: "escaneá el qr de una mesa", // Android
+                resultDisplayDuration: 1500,
+                orientation: "portrait"
+            });
+        } catch (e) {
+            alert(e);
+        }
+
+    }
+    function cbEscanearQRMesa(data) {
+        obj = JSON.parse(data.text);
+        let datos = {};
+        if (obj.tipo == "mesa") {
+            api.clienteSeSientaEnUnaMesaYEscaneaElQRDeLaMesa(obj.id, cliente.data.id_cliente, (e) => { 
+                if(!e.hasOwnProperty("id_mesa")){
+                    mostrarModalConfirmacion(e.mensaje,"ok",null,null,null);
+                }else{
+                    mostrarModalConfirmacion("se registró correctamente en la mesa "+e.id_mesa,"ok",null,null,null);
+
+                }
+            });
+
         }
     }
-
     function botonVolver() {
         let msj
         if (cliente.data.email == "") {
@@ -126,13 +136,6 @@
         mostrarModalConfirmacion(msj, "Si", "No", cliente.logout, () => { })
     }
 
-    function LeerQRSolicitarMesa(data) {
-
-        obj = JSON.parse(data.text);
-
-        if (obj.tipo == "entrada") {
-            //Llamada a API para estar en lista de espera
-        }
-    }
+ 
 
 </script>
