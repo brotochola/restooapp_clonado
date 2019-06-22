@@ -130,7 +130,7 @@
                 if (!e.hasOwnProperty("id_mesa")) {
                     mostrarModalConfirmacion(e.mensaje, "ok", null, null, null);
                 } else {
-                    mostrarModalConfirmacion("se registró correctamente en la mesa " + e.id_mesa, "ok", null, null, null);
+                    //mostrarModalConfirmacion("se registró correctamente en la mesa " + e.id_mesa, "ok", null, null, null);
                     app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "verMiMesa", false, "", null);
                     setTimeout(() => {
                         popularDatosMesa();
