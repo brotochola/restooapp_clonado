@@ -34,6 +34,7 @@ class App {
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true);
         this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true);
         this.traerHTML("partes/nuevoAnonimo.html", true, true, "modalNuevoCliente", true);
+        this.traerHTML("partes/nuevoPedidoAgregarProductos.html", true, true, "nuevoPedidoAgregarProductos", true);
 
         //FOOTER
         //Revisar si es práctico que lo tenga el cliente, y qué opciones tendrá

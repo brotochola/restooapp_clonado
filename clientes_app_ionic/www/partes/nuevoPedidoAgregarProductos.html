@@ -1,0 +1,215 @@
+<div class="fondo-modal" id="agregarProductos">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal">
+            <div class="container-cuerpo" id="containerListaProductos">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 pp-n-left">
+                            <div class="info"><img src="media/Img/pedido-gris.png"> NUEVO PEDIDO</div>
+                        </div>
+                        <div class="col-6 pp-n-right">
+                            <div class="info"><img src="media/Img/mesa-gris.png"> MESA #<span
+                                    id="idMesaAgregarProductos"></div>
+                        </div>
+                    </div>
+                    <div id="contListaProductosMozo" class="row contenedor-listados-pedidos">
+                        <ul id="listaProductosMozo">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+
+
+            <div class="text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3">
+                            <button class="boton-modal cancelar "
+                                onclick="ocultarAgregarPedidoAMesa()">Cancelar</button>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <button class="boton-modal" onclick="mandarPedido()">Enviar Pedido!</button>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-3">
+                            <button class="boton-modal" onclick="escanearQRProducto()">QR!</button>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script>
+
+
+    var listaProds = []; //lista de productos del restoran
+    var pedido = {}; //si estas aca es pq estas haciendo un pedido nuevo
+    pedido.estado = 1;
+
+    function escanearQRProducto() {
+
+        try {
+            cordova.plugins.barcodeScanner.scan(callBackQRProducto, QRmal, {
+                prompt: "escaneá el qr del producto", // Android
+                resultDisplayDuration: 1500,
+                orientation: "portrait"
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function callBackQRProducto(data) {
+
+        obj = JSON.parse(data.text);
+
+        if (obj.tipo == "producto") {
+            agregarEsteProducto(obj.id,1)
+        }
+    }
+
+    function QRmal(error) {
+        alert("Error: " + error)
+    }
+
+    //===============================Fin QR Producto
+
+
+
+
+
+
+
+
+
+
+    function mandarPedido() {
+        //al momento de ocultar este modal, estas agregando los productos al pedido actual
+
+        if (pedido.productos == undefined || pedido.productos.length == 0) {
+            mostrarModalConfirmacion("Este pedido no tiene productos", "ok")
+            return;
+        }
+        api.mozoMandaPedido(pedido, cbMozoMandaPedido)
+
+
+    }
+
+    function cbMozoMandaPedido(e) {
+        //$("#agregarProductos, #verPedidoMozo").fadeOut();
+        ocultarAgregarPedidoAMesa()
+        ocultarEstadoMesa()
+        //  cbMostrarEstadoMesa
+    }
+
+
+
+
+    function mostrarModalAgregarProductos(id) {
+        //cada vez que abre esto carga los productos, porq el admin puede haber cambiado algo
+        //quiza un producto no hay mas, o quiza se rompió algo y no se puede producir.
+        //o quiza estan sin barra de tragos
+        pedido.productos = new Array();
+        console.log("nuevo pedido para mesa " + id)
+
+        api.traerProductos(cbListaDeProductos);
+
+
+    }
+
+    function cbListaDeProductos(e) {
+
+        // console.log(e)
+        $("ul#listaProductosMozo").html("")
+
+        for (var i = 0; i < api.productos.length; i++) {
+            $("ul#listaProductosMozo").append(armarUnProd(api.productos[i]))
+        }
+
+        $("#idMesaAgregarProductos").html(idMesa)
+        app.traerHTML("partes/nuevoPedidoAgregarProductos.html", true, true);
+
+    }
+
+    function agregarEsteProducto(id, cant) {
+
+        //alert()
+
+        if (pedido.productos == undefined) pedido.productos = new Array();
+        // prodsFiltrados=pedido.productos.filter(function(k){if(k.id==id)return k})
+
+        let proOriginal = copyObj(api.productos[id_prod2i(id, api.productos)])
+        let prodEnPedido = pedido.productos[id_prod2i(id, pedido.productos)];
+        //console.log(prodEnPedido)
+        if (prodEnPedido != undefined) {
+
+            //si el producto ya lo tenias en el pedido
+            if (prodEnPedido.cantidad == undefined) prodEnPedido.cantidad = 0;
+            prodEnPedido.cantidad += cant
+            //si dps de restar quedan en 0, o menos (?), lo quito
+
+
+            if (prodEnPedido.cantidad < 1) {
+                $(".cantProds." + id).html(0)
+                pedido.productos.splice(id_prod2i(id, pedido.productos), 1)
+            }
+        } else {
+
+
+            //si no lo tenias
+            if (cant == 1) {
+                //y si estabas sumando este producto
+                /* nombre=api.productos[id2i(id,listaProds)].nombre_producto
+                 nuevoProducto=new Object();
+                 nuevoProducto.id=id;
+                 nuevoProducto.cantidad=cant
+                 nuevoProducto.nombre_producto=nombre*/
+                proOriginal.cantidad = cant
+                pedido.productos.push(proOriginal)
+            } else {
+                //si no lo tenes y estas restando...
+                //no pasa na
+            }
+        }
+
+        for (var i = 0; i < pedido.productos.length; i++) {
+            donde = ".cantProds." + pedido.productos[i].id_producto
+            cant = pedido.productos[i].cantidad
+            $(donde).html(cant)
+        }
+
+    }
+
+    function armarUnProd(prod) {
+        //   console.log(prod)
+        cant = 0;
+        html = '';
+        html += '<li>'
+        html += '<div class="container">'
+        html += '<div class="row">'
+        html += '<div class="col-2 text-center contenedor-icono-listado"><img src="media/Img/roles/' + rolesEmpleados[prod.id_cocina] + '.png"></div>'
+        html += '<div class="col-5">' + prod.nombre_producto + "</div>"
+        html += '<div class="col-5 botonesAgregarBorrarProducto" >'
+        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id_producto + ', -1)" src="media/Img/botton-borrar.png">'
+        html += ' <span class="cantProds ' + prod.id_producto + '">' + cant + '</span>'
+        html += '<img class="boton-borrar" onclick="agregarEsteProducto(' + prod.id_producto + ',1)" src="media/Img/boton-mas.png">'
+        html += '</div> </div> '
+
+        html += '</li>'
+        //   console.log(html)
+        return html
+    }
+
+    function ocultarAgregarPedidoAMesa() {
+        app.esconderUnaParte("partes/nuevoPedidoAgregarProductos.html");
+    }
+
+
+</script>

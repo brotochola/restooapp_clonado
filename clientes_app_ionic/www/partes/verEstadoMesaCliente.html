@@ -128,6 +128,7 @@
         docReady = 1;
 
         $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
+        mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa);
     });
 
     console.log("estado.js");
@@ -146,7 +147,7 @@
     }
 
     function ocultarEstadoMesa() {
-        app.esconderUnaParte("partes/verEstadoMesa.html");
+        app.esconderUnaParte("partes/verEstadoMesaCliente.html");
     }
 
     function agregarPedidoAEstaMesa() {
@@ -234,7 +235,7 @@
 
         api.traerUnaMesa(id, cbMostrarEstadoMesa);
 
-        app.traerHTML("partes/verEstadoMesa.html", true);
+        app.traerHTML("partes/verEstadoMesaCliente.html", true);
 
     }
 
