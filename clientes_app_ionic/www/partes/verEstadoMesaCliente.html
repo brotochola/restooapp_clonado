@@ -215,17 +215,33 @@
         console.log(pedido)
         html = ' <li>'
         html += '<div class="container">'
-        html += '<div class="row" onclick="verPedido(' + pedido.id + ')">'
+        html += '<div class="row">'
         html += '<div class="col-2 text-center contenedor-icono-listado"><h5>#' + pedido.id + '</h5></div>'
 
         let horaPedidoAgregado = hora(pedido.fecha_alta)
 
-        html += '<div class="col-4 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
+        html += '<div class="col-2 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
         html += '<div class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>'
-        html += '<div class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
+        html+='<div class="col-2 botonPedidoEntregado"> <img class="boton-borrar" onclick="informarPedidoEntregado('+pedido.id +','+api.datosClienteVisita.id_mesa+')" src="images/ok.png" style="height: 36px;    width: auto;     border-radius: 60px;"></div>'
+        html += '<div  onclick="verPedido(' + pedido.id + ')" class="col-2 contenedor-boton-borrar"><img class="boton-borrar" src="media/Img/inf.png"></div>'
         html += '</div>  '
         html += '</div>  '
         html += '</li>'
         return html;
+    }
+
+    function informarPedidoEntregado(id_pedido,id_mesa){
+        $.ajax({
+            url:api.urlServer+"/pedidos/clientesComiendo",
+            type:"post",
+            data:{
+                'id_pedido':id_pedido,
+                'id_mesa':id_mesa
+            },
+            success:(e)=>{
+                mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa) 
+            },
+            error:e=>console.log(e)
+        });
     }
 </script>
