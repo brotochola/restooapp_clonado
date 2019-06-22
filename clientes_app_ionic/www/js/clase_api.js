@@ -2,8 +2,8 @@ console.log("clase_api.js")
 
 class API {
     constructor() {
-        //if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
-        //else this.urlServer = "../../Resto/API/";
+        if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
+        else this.urlServer = "../../Resto/API/";
 
         this.urlServer="http://pixeloide.com/restoApp/API/"
 
@@ -85,6 +85,28 @@ class API {
         }); //ajax
     }
 
+    clienteSeSientaEnUnaMesaYEscaneaElQRDeLaMesa(id_mesa,id_cliente,cb){
+        $.ajax({
+            url: this.urlServer + "cliente/clienteSolicitaMesa",
+            type: "post",
+            dataType: "json",
+            headers: {
+                token: localStorage[clienteLogueado_ls]
+            },
+            data: {
+                "id_mesa":id_mesa,
+                "id_cliente":id_cliente
+            },
+            success: (e) => {
+                console.log(e);
+                this.datosClienteVisita=e.clienteVisita;
+                if (cb instanceof Function) cb(e);
+            }, error: (e) => {
+                console.log(e)
+            }
+        }); //ajax
+    }
+
     reservaAhoraCliente(datos, cb) {
         $.ajax({
             url: this.urlServer + "reservas/agregar",
@@ -106,7 +128,7 @@ class API {
 
     traerEstadoMesaCliente(id, cb) {
         console.log("Entra en traerEstadoMesaCliente");
-        
+
         $.ajax({
             url: this.urlServer + "cliente-visita/traer-por-id-cliente/" + id,
             headers: {

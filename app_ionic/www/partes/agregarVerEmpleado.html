@@ -182,7 +182,7 @@
     function onSuccess(imageData) {
 
         fotoCargadaBase64 = "data:image/jpeg;base64," + imageData;
-        $("img#fotoEmple")[0].src = fotoCargadaBase64;
+        setTimeout(()=>{$("img#fotoEmple")[0].src = fotoCargadaBase64},500);
         console.log("En cargar foto: " + fotoCargadaBase64);
     }
 

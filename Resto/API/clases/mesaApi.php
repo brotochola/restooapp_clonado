@@ -34,7 +34,8 @@ class mesaApi extends mesa
     
             //ME FIJO SI LA MESA ESTA USADA
 
-            $laMesa = mesa::TraerUno($vIdMesa);
+            $laMesa = mesa::TraerUno($vIdMesa)[0];
+            //var_dump($laMesa);die();
             if($laMesa->estado_mesa!=0){
                 //LE MESA ESTA OCUPADA
                 $rta=new stdClass();
@@ -43,7 +44,7 @@ class mesaApi extends mesa
                 return $response;   
             }else{
                 //LA MESA ESTA LIBRE
-                $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, 2, -1);
+               // $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, 2, -1);
                  mesa::ModificarEstadoDeLaMesa($vIdMesa, 1);
                
                 //DEVUELVE EL ESTADO COMPLETO DE ESTA MESA
