@@ -101,10 +101,6 @@
         }
     }
 
-
-
-
-
     function ingresarEnMesa() {
 
         //qr de una mesa
@@ -154,7 +150,7 @@
 
 
     function botonVolver() {
-        let msj
+        let msj = "";
         if (cliente.data.email == "") {
             msj = "Esta es una sesión anónima, si sale se perderán todos sus datos. ¿Seguro quiere cerrar su sesión?";
         } else {
@@ -162,7 +158,5 @@
         }
         mostrarModalConfirmacion(msj, "Si", "No", () => { cliente.logout() }, () => { })
     }
-
-
 
 </script>

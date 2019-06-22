@@ -158,7 +158,7 @@ span.idMesa {
 .horaEnListaDePedidos{
     white-space: nowrap;
     overflow:hidden;
-    font-size: 130% !important;
+    font-size: 100% !important;
 }
 
 .encabezado-lista-pedidos img.pedidosIMG {
