@@ -72,6 +72,7 @@ class empleadoApi extends empleado
         $emp->habilitado = $vector['habilitado'];
         $emp->email = $vector['email'];
         $emp->sueldo = $vector['sueldo'];
+        $emp->clave = $vector['clave'];
 
         if (isset($_POST["foto"]) && !empty($_POST["foto"])) {
             //$emp->foto = $vector['foto']; 

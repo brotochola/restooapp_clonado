@@ -40,11 +40,10 @@ class empleado
         {
             $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
             $consulta =$objetoAccesoDato->RetornarConsulta("INSERT into empleados 
-            (id_empleado, usuario, email, nombre_completo,fecha_nac,dni,id_rol,fecha_ingreso,fecha_egreso,sueldo,clave,habilitado,foto)
-            values(:id_empleado,:usuario,:email,:nombre_completo,:fecha_nac,:dni,:id_rol,:fecha_ingreso,:fecha_egreso,:sueldo,:clave,:habilitado,:foto)");
+            (id_empleado, email, nombre_completo,fecha_nac,dni,id_rol,fecha_ingreso,fecha_egreso,sueldo,clave,habilitado,foto)
+            values(:id_empleado,:email,:nombre_completo,:fecha_nac,:dni,:id_rol,:fecha_ingreso,:fecha_egreso,:sueldo,:clave,:habilitado,:foto)");
 
-            $consulta->bindValue(':id_empleado', $this->id_empleado, PDO::PARAM_STR);
-            $consulta->bindValue(':usuario', $this->usuario, PDO::PARAM_STR);
+            $consulta->bindValue(':id_empleado', $this->id_empleado, PDO::PARAM_STR);            
             $consulta->bindValue(':email', $this->email, PDO::PARAM_STR);
             $consulta->bindValue(':nombre_completo', $this->nombre_completo, PDO::PARAM_STR);
             $consulta->bindValue(':fecha_nac', $this->fecha_nac, PDO::PARAM_STR);

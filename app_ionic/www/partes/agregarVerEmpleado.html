@@ -151,7 +151,7 @@
     var fotoCargadaBase64 = "";
     datosValidados = true;
 
-    $("#contenedorSelectRol").html(array2Select(rolesEmpleados, "rol"))
+    $("#contenedorSelectRol").html(array2Select(rolesEmpleados, "rolEmpleado"))
 
     function clickBorrarEmpleado() {
         //mostrarModalConfirmacion(texto, botSi, botNo, cbSi, cbNo)
@@ -297,24 +297,33 @@
 
 
     function agregarEmpleado() {
-        console.log("agregar empleado")
+        // console.log("agregar empleado")
+
+        // empleado = {};
+        // empleado.nombre_completo = $("#nombre").val();
+        // empleado.usuario = $("#usuario").val();
+        // empleado.email = $("#mailEmpleado").val();
+        // empleado.clave = $("#clave").val()
+        // empleado.dni = $("#dni").val();
+        // empleado.sueldo = $("#sueldo").val();
+        // empleado.id_rol = $("#rol").val();
+        // empleado.habilitado = $("#habilitado").val();
+        // empleado.fecha_nac = $("#fechaNac").val();
+        // empleado.fecha_ingreso = $("#fechaContratacion").val();
+        // empleado.foto = fotoCargadaBase64;
+        // console.log(empleado)
+
+        // api.agregarEmpleado(cbModificarEmpleado, empleado)
+
 
         empleado = {};
-        empleado.nombre_completo = $("#nombre").val();
-        empleado.usuario = $("#usuario").val();
-        empleado.email = $("#mailEmpleado").val();
-        empleado.clave = $("#clave").val()
-        empleado.dni = $("#dni").val();
-        empleado.sueldo = $("#sueldo").val();
-        empleado.id_rol = $("#rol").val();
-        empleado.habilitado = $("#habilitado").val();
-        empleado.fecha_nac = $("#fechaNac").val();
-        empleado.fecha_ingreso = $("#fechaContratacion").val();
-        empleado.foto = fotoCargadaBase64;
-        console.log(empleado)
+        empleado = TraerEmpleadoForm("Alta");
 
-        api.agregarEmpleado(cbModificarEmpleado, empleado)
+        if (datosValidados == true) {
 
+            api.agregarEmpleado(cbModificarEmpleado, empleado);
+
+        }
     }
 
 
@@ -328,12 +337,11 @@
         }
 
         empleado.nombre_completo = $("#nombre").val();
-        // empleado.usuario = $("#usuario").val();
         empleado.email = $("#mailEmpleado").val();
         empleado.clave = $("#clave").val()
         empleado.dni = $("#dni").val();
         empleado.sueldo = $("#sueldo").val();
-        empleado.id_rol = $("#rol").val();
+        empleado.id_rol = $("#rolEmpleado").val();
         empleado.habilitado = $("#habilitado").val();
         empleado.fecha_nac = $("#fechaNac").val();
         empleado.fecha_ingreso = $("#fechaContratacion").val();
@@ -370,11 +378,11 @@
             return;
         }
 
-        if (!validarSelect($($("#rol").val()).val())) {
-            mostrarModalConfirmacion("Elegir un rol", "ok", null, null, null)
-            datosValidados = false;
-            return;
-        }
+        // if (!validarSelect($($("#rolEmpleado").val()).val())) {
+        //     mostrarModalConfirmacion("Elegir un rol", "ok", null, null, null)
+        //     datosValidados = false;
+        //     return;
+        // }
 
         if (!validarInput($("#fechaNac").val())) {
             mostrarModalConfirmacion("Ingresar fecha de nacimiento", "ok", null, null, null)
