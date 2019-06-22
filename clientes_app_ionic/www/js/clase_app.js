@@ -36,6 +36,9 @@ class App {
         this.traerHTML("partes/nuevoAnonimo.html", true, true, "modalNuevoCliente", true);
         this.traerHTML("partes/nuevoPedidoAgregarProductos.html", true, true, "nuevoPedidoAgregarProductos", true);
 
+        this.traerHTML("partes/verAgregarPedido.html", true, true, "modalVerPedido", true)
+
+
         //FOOTER
         //Revisar si es práctico que lo tenga el cliente, y qué opciones tendrá
         this.traerHTML("partes/footerCliente.html", true, true, "footerCliente", true, "fija", () => {

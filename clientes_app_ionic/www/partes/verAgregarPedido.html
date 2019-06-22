@@ -1,0 +1,119 @@
+<div class="fondo-modal" id="verPedidoMozo" >
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal">
+            <!-- <div class="container-cuerpo">-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 pp-n-left">
+                        <div class="info"><img src="media/Img/pedido-gris.png"> PEDIDO #<span id="pedidoIDVerPedido"></span></div>
+                    </div>
+                    <div class="col-6 pp-n-right">
+                        <div class="info"><img src="media/Img/mesa-gris.png"> MESA #<span id="mesaIdVerPedido"></span></div>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="col-4 pp-n-left">
+                        <div class="info">Pedido:<br> <strong id="horaPedido">--:--</strong></div>
+                    </div>
+                    <div class="col-4 pp-n-right">
+                        <div class="info">Estimado:<br> <strong id="horaEstimada">--:--</strong></div>
+                    </div>
+                       <div class="col-4 pp-n-right">
+                        <div class="info">Entregado: <br><strong id="horaServido">--:--</strong></div>
+                    </div>
+                </div>
+              <div class="row encabezado-lista-pedidos">PRODUCTOS</div>
+
+                <div class="row contenedor-listados-pedidos">
+                    <ul id="listaProductos">
+                    </ul>
+                </div>
+            </div>
+            <!--  </div>-->
+            <hr>
+            <div class="text-center">
+               <!--  <button class="boton-modal" id="botonAgregarProductoAPedido" onclick="agregarProducto()" style="display:none">Gestionar Productos</button>-->
+
+
+                <button class="boton-modal" onclick="ocultarVerPedido()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+
+
+var pedido={};
+var mesaActiva;
+
+
+function agregarProducto(){
+    mostrarModalAgregarProductos(mesa.id); //esta func viene de nuevoPedidoAgregarProductos
+}
+function verPedido(id) {
+
+    app.traerHTML("partes/verAgregarPedido.html", true);
+    if (id == "agregar") {
+        console.log("agregar pedido!")
+       /* $("#listaProductos").html("")
+        $("#mesaIdVerPedido").html(mesa.id)
+        $("#pedidoIDVerPedido").html("--")
+        $("#botonAgregarProductoAPedido").show();
+         $("#horaPedido, #horaEstimada, #horaServido").html("--:--")*/
+        mostrarModalAgregarProductos(); //esta fun sale de nuevoPedidoAgregarProductos.html
+
+
+
+    } else {
+        $("#botonAgregarProductoAPedido").hide();
+
+        pe = mesaActiva.pedidos[id2i(id, mesaActiva.pedidos)]
+
+
+        console.log("el pedido " + id + " tiene " + pe.productos.length + " productos")
+
+        $("#horaPedido").html(hora(pe.fecha_alta))
+        $("#horaEstimada").html(hora(pe.hora_estimada))
+        $("#horaServido").html(hora(pe.hora_listo))
+
+        $("#listaProductos").html("")
+
+        for (i = 0; i < pe.productos.length; i++) {
+            prod = pe.productos[i]
+            $("#listaProductos").append(armarProducto(prod))
+        }
+
+        $("#mesaIdVerPedido").html(mesaActiva.id_mesa)
+        $("#pedidoIDVerPedido").html(id)
+           mostrarVerPedido();
+
+    }
+ 
+
+
+}
+
+function ocultarVerPedido(){
+    app.esconderUnaParte("partes/verAgregarPedido.html")
+}
+function mostrarVerPedido(){
+    app.traerHTML("partes/verAgregarPedido.html", true, true)
+}
+
+function armarProducto(producto) {
+    html = ""
+    html += '<li>'
+    html += '<div class="container">'
+    html += '<div class="row">'
+    html += '<div class="col-2 text-center"><span class="numero-pedido">#' + producto.id_producto + '</span></div>'
+    html += '<div class="col-10">' + producto.nombre_producto + '<span style="float:right">x' + producto.cantidad + '</span></div>'
+    //  html += '<div class="col-1 contenedor-boton-borrar">x'++'</div>'
+    html += '</div>  '
+    html += '</div> '
+    html += '</li>'
+    return html
+}
+</script>

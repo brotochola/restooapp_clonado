@@ -68,11 +68,20 @@
         }
     }
 
+    String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
 
     function cbSolicitarMesa(data) {
         //hacer reserva!
-        obj = JSON.parse(data.text);
+        
+       
+        
+      let a=data.text.replaceAll("”",'"').replaceAll("“",'"');
+     // alert(a)
 
+        obj = JSON.parse(a);
         if (obj.tipo == "entrada") {
             //promt para comensales
             datos = {
@@ -111,8 +120,14 @@
         }
 
     }
+
+    function QRmal(e){
+        alert(JSON.stringify(e));
+    }
+
     function cbEscanearQRMesa(data) {
-        obj = JSON.parse(data.text);
+        let a=data.text.replaceAll("”",'"').replaceAll("“",'"');
+        obj = JSON.parse(a);
         let datos = {};
         if (obj.tipo == "mesa") {
             api.clienteSeSientaEnUnaMesaYEscaneaElQRDeLaMesa(obj.id, cliente.data.id_cliente, (e) => { 
