@@ -38,8 +38,7 @@ class pedido
            
             }
 
-
-            public static function cambiarEstadoPedido($id,$estado){
+             public static function cambiarEstadoPedido($id,$estado){
                 $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
                 $sql="UPDATE `pedidos` SET `estado_pedido` = '$estado' WHERE `pedidos`.`id` = ".$id;
 

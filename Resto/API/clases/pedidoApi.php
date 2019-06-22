@@ -2,6 +2,7 @@
 
 require_once 'AccesoDatos.php';
 require_once 'pedido.php';
+require_once 'mesa.php';
 
 class pedidoApi extends pedido
 {
@@ -465,6 +466,26 @@ public static function TraerMayorTiempo($Pedidos){
         return $newResponse;
     }
 
+
+    public function InformarClientesComiendo($request, $response, $args) 
+    {
+        $objDelaRespuesta = new stdclass();  
+        $objDelaRespuesta->itsOK = false;  
+            
+        $vector = $request->getParsedBody();
+        
+        $vPedido = $vector['id_pedido'];  
+        $vMesa = $vector['id_mesa']; 
+
+
+        $objDelaRespuesta->Pedidos = pedido::cambiarEstadoPedido($vPedido , 4);
+        $objDelaRespuesta->mesas = mesa::ModificarEstadoDeLaMesa($vMesa, 4);
+
+        $newResponse = $response->withJson($objDelaRespuesta, 200);     
+        return $newResponse;
+    }
+
+
   /*  public function TomarUnPedido($request, $response,$args)
     {
         $unPedido = new pedido();
@@ -633,6 +654,11 @@ public static function TraerMayorTiempo($Pedidos){
     }
 
 */
+
+
+
+
+
     public static function cocineroInformaPedidoListo($request, $response){
         //AL CAMBIAR EL ESTDO DEL PEDIDO TMB TIENE Q CAMBIARSE EL DE LA MESA.
         //EL TEMA ACA ES QUE CADA TIPO DE EMPLEADO SOLO INTERACTUA CON LA PARTE DEL PEDIDO, LOS PRODUCTOS,
