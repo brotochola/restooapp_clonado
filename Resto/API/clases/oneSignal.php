@@ -6,7 +6,11 @@
 
         $id_empleado=$request->getParsedBody()["id_empleado"];
         $player_id=$request->getParsedBody()["player_id"];
-        $push_token=$request->getParsedBody()["push_token"];
+        $push_token="";
+        if(isset($request->getParsedBody()["push_token"])){
+            $push_token=$request->getParsedBody()["push_token"];
+        }
+
 
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
         $sql="INSERT INTO `empleados_onesignal` (`id_empleado`, `player_id`, `push_token`) VALUES ('$id_empleado','$player_id', '$push_token')";
@@ -41,6 +45,7 @@
          $consulta =$objetoAccesoDato->RetornarConsulta($sql);   
         $consulta->execute();
         $ids_empleados = $consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");
+     
         for($i=0;$i<count($ids_empleados);$i++){
            // $player_id=self::idEmpleado2playerId($ids_empleados[$i]->id_empleado);
             self::mandarPushAUsuario($ids_empleados[$i]->id_empleado, $texto);

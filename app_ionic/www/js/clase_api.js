@@ -11,7 +11,7 @@ class API {
             else this.urlServer ="../../Resto/API/";
      
      
-          this.urlServer = "http://pixeloide.com/restoApp/API/"
+      //    this.urlServer = "http://pixeloide.com/restoApp/API/"
 
 
       
@@ -31,12 +31,12 @@ class API {
             "player_id":player_id,
             "push_id":push_id
         }
+        console.log(data);
 
         $.ajax({
 
             url: this.urlServer + "empleados/guardarDataOneSignal",
             type: "post",
-            dataType: "json",
             data: data, 
             success: (e) => {
                 console.log(e)        
