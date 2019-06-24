@@ -128,6 +128,7 @@ class API {
                 token: localStorage[usuarioLogueado_ls]
             },
             data: {
+                "id_rol":usuario.dataUsuario().id_rol,
                 "id_pedido": id
             },
             success: (e) => {

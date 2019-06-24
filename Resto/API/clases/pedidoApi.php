@@ -684,6 +684,13 @@ public static function TraerMayorTiempo($Pedidos){
         $vector = $request->getParsedBody(); 
        // print_r($vector); die();
      
+       $rol=$vector["id_rol"];
+       $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+       $consulta =$objetoAccesoDato->RetornarConsulta("select nombre_rol from rol where id_rol='$rol'");
+       $consulta->execute();	
+       $rolObj= $consulta->fetchAll(PDO::FETCH_CLASS,"stdClass"); 
+       $nombre_rol=$rolObj[0]->nombre_rol;
+    
 
 
        $pedido= pedido::cambiarEstadoPedido( $vector["id_pedido"],3);      
@@ -696,7 +703,7 @@ public static function TraerMayorTiempo($Pedidos){
     
 
        if($id_mozo>0){
-           oneSignal::mandarPushAUsuario($id_mozo,"El Pedido ".$vector["id_pedido"]." está listo");
+           oneSignal::mandarPushAUsuario($id_mozo,"El Pedido ".$vector["id_pedido"]." está listo en el area de lxs ".$nombre_rol."s");
        }
 
 
