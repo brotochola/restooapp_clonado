@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "134361229992",
+    "firebase_url": "https://restoapp-99588.firebaseio.com",
+    "project_id": "restoapp-99588",
+    "storage_bucket": "restoapp-99588.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134361229992:android:239c5cedcf99a6eb",
+        "android_client_info": {
+          "package_name": "com.resto.restoappXXI"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134361229992-oavkf4d06i9gputdaqpv91trlm1lvt8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJeJgtpR46vtJWa3c1xJKNFzOLlbUnjpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134361229992-oavkf4d06i9gputdaqpv91trlm1lvt8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

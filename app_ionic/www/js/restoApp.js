@@ -50,10 +50,23 @@ function arrancar() {
 
 
 
-
+var notificationOpenedCallback = function(jsonData) {
+    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+  };
 
 function funcDeviceReady(){
 console.log("device ready!")
+document.addEventListener('deviceready', function () {
+  // Enable to debug issues.
+  // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+  
+
+
+  window.plugins.OneSignal
+    .startInit("549189c2-0a0f-4ee6-8053-e5063d08f206")
+    .handleNotificationOpened(notificationOpenedCallback)
+    .endInit();
+}, false);
 
 
 }
