@@ -42,9 +42,12 @@ class App {
         }
 
         //AGARRO LOS IDS DE ONE SIGNAL, UNA VEZ Q EL DISPOSITIVO SE REGISTRO
-          window.plugins.OneSignal.getIds(e=>{           
+        try{  window.plugins.OneSignal.getIds(e=>{           
             api.guardarDataOneSignal(usuario.data.id,  e.userId,  e.pushToken);
          });
+        }catch(e){
+            console.error(">> ERROR AL QUERER AGARRAR EL PLAYER_ID DE ONESIGNAL. SEGURAMENTE NO ESTAS EN EL CELU");
+        }
 
 
        

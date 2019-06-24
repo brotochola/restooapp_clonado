@@ -26,9 +26,10 @@ public function CargarUnPedido($request, $response,$args){
         
      
 
-        $productos = $vector['productos'];
-        $cantidades = $vector['cantidades'];    
-       
+        $productos = json_decode($vector['productos']);
+        $cantidades = json_decode($vector['cantidades']);    
+  
+
         if(count($productos) != count($cantidades))
         {
             $obj->respuesta="Las cantidades y productos deben coincidir";
@@ -64,6 +65,7 @@ public function CargarUnPedido($request, $response,$args){
                                 $p=producto::TraerUno($ids_prods[$j]);
                                 array_push($ids_roles_q_este_pedido_involucra,$p[0]->id_cocina);
                            }
+                           $ids_roles_q_este_pedido_involucra=array_unique($ids_roles_q_este_pedido_involucra);
                            //MANDO NOTIFICACIONES POR SECTOR
                            for($j=0;$j<count($ids_roles_q_este_pedido_involucra);$j++){
                             oneSignal::mandarPushARolDeUsuario($ids_roles_q_este_pedido_involucra[$j],"Nuevo pedido! ".$vPedido->id);
