@@ -3,7 +3,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);  
 require_once __DIR__ . '/../composer/vendor/autoload.php';
-
+require_once './clases/oneSignal.php';
 require_once './clases/AccesoDatos.php';
 require_once './clases/producto.php';
 require_once './clases/productoApi.php';
@@ -159,6 +159,9 @@ $app->group('/empleados', function () {
     $this->post('/modificar', \empleadoApi::class . ':ModificarEmpleado');
 
     $this->post('/borrar', \empleadoApi::class . ':BorrarEmpleado'); //->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
+    $this->post('/guardarDataOneSignal', \oneSignal::class . ':guardarEnDBIDPush'); //->add(\MWparaCORS::class . ':HabilitarCORSTodos'); 
+
+    
 });
 //->add(\AutentificadorMW::class . ':VerificarAccesoUnico')->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 

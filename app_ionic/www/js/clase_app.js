@@ -41,6 +41,12 @@ class App {
             this.traerHTML("partes/header_metre.html", true, true, "headerMetre", false, "fija")
         }
 
+        //AGARRO LOS IDS DE ONE SIGNAL, UNA VEZ Q EL DISPOSITIVO SE REGISTRO
+          window.plugins.OneSignal.getIds(e=>{           
+            api.guardarDataOneSignal(usuario.data.id,  e.userId,  e.pushToken);
+         });
+
+
        
     }
 

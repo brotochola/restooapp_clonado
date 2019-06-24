@@ -57,6 +57,19 @@ public function CargarUnPedido($request, $response,$args){
                             $estado_de_la_mesa=2; //2 es esperando pedido
                             mesa::ModificarEstadoDeLaMesa($vPedido->id_mesa,$estado_de_la_mesa);
 
+                            //EXTRAIGO LOS ROLES DE EMPLEADOS Q ESTE PEDIDO TIENE
+                            $ids_prods=json_decode($productos);
+                            $ids_roles_q_este_pedido_involucra=[];
+                           for($j=0;$j<count($ids_prods);$j++){
+                                $p=producto::TraerUno($ids_prods[$j]);
+                                array_push($ids_roles_q_este_pedido_involucra,$p[0]->id_cocina);
+                           }
+                           //MANDO NOTIFICACIONES POR SECTOR
+                           for($j=0;$j<count($ids_roles_q_este_pedido_involucra);$j++){
+                            oneSignal::mandarPushARolDeUsuario($ids_roles_q_este_pedido_involucra[$j],"Nuevo pedido! ".$vPedido->id);
+                           }
+                            
+
                         }
                         catch(Exception $e) 
                         {
@@ -669,9 +682,18 @@ public static function TraerMayorTiempo($Pedidos){
      
 
 
-       $pedido= pedido::cambiarEstadoPedido( $vector["id_pedido"],3);
-      
+       $pedido= pedido::cambiarEstadoPedido( $vector["id_pedido"],3);      
        mesa::ModificarEstadoDeLaMesa($pedido[0]["id_mesa"],3);
+
+        //PUEDE Q EL MOZO SEA -1 SI EL CLIENTE SE ESTA AUTOGESTIONANDO LA MESA
+       $id_mozo=$pedido[0]["id_mozo"];
+       if($id_mozo>0){
+           oneSignal::mandarPushAUsuario($id_mozo,"El Pedido ".$vector["id_pedido"]."está listo");
+       }
+
+
+     
+
        self::estadoCocinero($request, $response);
 
 

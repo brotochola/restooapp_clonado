@@ -25,6 +25,25 @@ class API {
 
     }
 
+    guardarDataOneSignal(id_empleado, player_id, push_id){
+        let data={
+            "id_empleado":id_empleado,
+            "player_id":player_id,
+            "push_id":push_id
+        }
+
+        $.ajax({
+
+            url: this.urlServer + "empleados/guardarDataOneSignal",
+            type: "post",
+            dataType: "json",
+            data: data, 
+            success: (e) => {
+                console.log(e)        
+            }, error: e => console.log(e)
+        })//ajax
+    }
+
     habilitarMesa(data, cb) {
 
         $.ajax({
