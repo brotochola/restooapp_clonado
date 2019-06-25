@@ -13,8 +13,6 @@ require_once './clases/cliente.php';
 require_once './clases/clienteApi.php';
 require_once './clases/mesa.php';
 require_once './clases/mesaApi.php';
-//require_once './clases/comanda.php';
-//require_once './clases/comandaApi.php';
 require_once './clases/pedidoApi.php';
 require_once './clases/pedido.php';
 require_once './clases/encuestaApi.php';
@@ -23,6 +21,10 @@ require_once './clases/informesApi.php';
 require_once './clases/reserva.php';
 require_once './clases/reservaApi.php';
 require_once './clases/clienteVisitaApi.php';
+
+
+require_once './clases/relevo.php';
+require_once './clases/relevoApi.php';
 
 require_once './clases/AutentificadorMW.php';
 require_once './clases/AutentificadorJWT.php';
@@ -225,6 +227,15 @@ $app->group('/producto', function () {
 
     $this->delete('/borra', \productoApi::class . ':BorrarProducto');
 }); //->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+
+
+$app->group('/empleados/relevo', function () {
+
+    $this->post('/cargar', \relevoApi::class . ':CargarRelevo');
+
+    $this->post('/listado', \relevoApi::class . ':TraerRelevos');
+
+});
 
 
 $app->group('/cliente', function () {
