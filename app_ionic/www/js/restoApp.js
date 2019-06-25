@@ -2,7 +2,7 @@ console.log("restoApp.js")
 
 var usuario = new Usuario()
 var app;
-var api 
+var api
 
 
 
@@ -23,26 +23,26 @@ function terminoVideoSplash() {
 
 }*/
 
-$(document).ready(function() {
-      //traerHTML(url, append, forzarNoCache, id, traerloOculto) {
- // document.getElementById("videoSplash").playbackRate = 10;
+$(document).ready(function () {
+    //traerHTML(url, append, forzarNoCache, id, traerloOculto) {
+    // document.getElementById("videoSplash").playbackRate = 10;
     console.log("doc ready restoApp.js")
     arrancar();
-    
+
 })
 
 
 
 
 function arrancar() {
-    
-   
- 
-    api= new API()
+
+
+
+    api = new API()
     app = new App("restoApp");
 
-       //traigo partes q uso despues, ocultas.
-         app.init()
+    //traigo partes q uso despues, ocultas.
+    app.init()
 }
 
 
@@ -50,10 +50,20 @@ function arrancar() {
 
 
 
+var notificationOpenedCallback = function (jsonData) {
+    console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+};
+
+function funcDeviceReady() {
+    console.log("device ready!")
+
+    // Enable to debug issues.
+    // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
 
-function funcDeviceReady(){
-console.log("device ready!")
+
+    window.plugins.OneSignal.startInit("549189c2-0a0f-4ee6-8053-e5063d08f206").handleNotificationOpened(notificationOpenedCallback).endInit();
+
 
 
 }

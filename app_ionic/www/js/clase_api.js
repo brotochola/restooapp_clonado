@@ -7,11 +7,11 @@ class API {
      
 
 
-         // if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
-           // else this.urlServer ="../../Resto/API/";
+         if(window.hasOwnProperty("cordova"))  this.urlServer="http://pixeloide.com/restoApp/API/";
+           else this.urlServer ="../../Resto/API/";
      
      
-          this.urlServer = "http://pixeloide.com/restoApp/API/"
+      //    this.urlServer = "http://pixeloide.com/restoApp/API/"
 
 
       
@@ -23,6 +23,25 @@ class API {
         this.estadoMozo = null;
         this.estadoCocinero = null;
 
+    }
+
+    guardarDataOneSignal(id_empleado, player_id, push_id){
+        let data={
+            "id_empleado":id_empleado,
+            "player_id":player_id,
+            "push_id":push_id
+        }
+        console.log(data);
+
+        $.ajax({
+
+            url: this.urlServer + "empleados/guardarDataOneSignal",
+            type: "post",
+            data: data, 
+            success: (e) => {
+                console.log(e)        
+            }, error: e => console.log(e)
+        })//ajax
     }
 
     habilitarMesa(data, cb) {
@@ -109,6 +128,7 @@ class API {
                 token: localStorage[usuarioLogueado_ls]
             },
             data: {
+                "id_rol":usuario.dataUsuario().id_rol,
                 "id_pedido": id
             },
             success: (e) => {

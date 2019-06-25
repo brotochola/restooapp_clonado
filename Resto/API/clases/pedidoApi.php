@@ -26,9 +26,10 @@ public function CargarUnPedido($request, $response,$args){
         
      
 
-        $productos = $vector['productos'];
-        $cantidades = $vector['cantidades'];    
-       
+        $productos = json_decode($vector['productos']);
+        $cantidades = json_decode($vector['cantidades']);    
+  
+
         if(count($productos) != count($cantidades))
         {
             $obj->respuesta="Las cantidades y productos deben coincidir";
@@ -56,6 +57,22 @@ public function CargarUnPedido($request, $response,$args){
                             
                             $estado_de_la_mesa=2; //2 es esperando pedido
                             mesa::ModificarEstadoDeLaMesa($vPedido->id_mesa,$estado_de_la_mesa);
+
+                            //EXTRAIGO LOS ROLES DE EMPLEADOS Q ESTE PEDIDO TIENE
+  
+                            $ids_roles_q_este_pedido_involucra=[];
+                           for($j=0;$j<count($productos);$j++){
+                                $p=producto::TraerUno($productos[$j]);
+                                array_push($ids_roles_q_este_pedido_involucra,$p[0]->id_cocina);
+                           }
+                           $ids_roles_q_este_pedido_involucra=array_unique($ids_roles_q_este_pedido_involucra);
+
+                         //  var_dump($ids_roles_q_este_pedido_involucra);die();
+                           //MANDO NOTIFICACIONES POR SECTOR
+                           for($j=0;$j<count($ids_roles_q_este_pedido_involucra);$j++){
+                            oneSignal::mandarPushARolDeUsuario($ids_roles_q_este_pedido_involucra[$j],"Nuevo pedido! ".$vPedido->id);
+                           }
+                            
 
                         }
                         catch(Exception $e) 
@@ -667,11 +684,31 @@ public static function TraerMayorTiempo($Pedidos){
         $vector = $request->getParsedBody(); 
        // print_r($vector); die();
      
+       $rol=$vector["id_rol"];
+       $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+       $consulta =$objetoAccesoDato->RetornarConsulta("select nombre_rol from rol where id_rol='$rol'");
+       $consulta->execute();	
+       $rolObj= $consulta->fetchAll(PDO::FETCH_CLASS,"stdClass"); 
+       $nombre_rol=$rolObj[0]->nombre_rol;
+    
 
 
-       $pedido= pedido::cambiarEstadoPedido( $vector["id_pedido"],3);
-      
+       $pedido= pedido::cambiarEstadoPedido( $vector["id_pedido"],3);      
        mesa::ModificarEstadoDeLaMesa($pedido[0]["id_mesa"],3);
+
+        //PUEDE Q EL MOZO SEA -1 SI EL CLIENTE SE ESTA AUTOGESTIONANDO LA MESA
+       $id_cliente_visita=$pedido[0]["id_cliente_visita"];
+       $cli=ClienteVisita::TraerUnClienteVisita($id_cliente_visita);
+        $id_mozo=$cli->mozo;
+    
+
+       if($id_mozo>0){
+           oneSignal::mandarPushAUsuario($id_mozo,"El Pedido ".$vector["id_pedido"]." está listo en el area de lxs ".$nombre_rol."s");
+       }
+
+
+     
+
        self::estadoCocinero($request, $response);
 
 
