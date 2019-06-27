@@ -101,7 +101,7 @@
 
             datos = {
                 id_cliente: cliente.data.id_cliente,
-                id_mesa: 1,
+                id_mesa: -5, //como bandera para indicar que no
                 comensales: 2,
                 fecha: "HOY"
             };
@@ -134,6 +134,14 @@
 
     function QRmal(e) {
         alert(JSON.stringify(e));
+    }
+
+    function ForzarQR_Puerta(mesa){
+        var QR_Ficticio = {
+
+        };
+
+        cbSolicitarMesa(QR_Ficticio);
     }
 
     function cbEscanearQRMesa(data) {
