@@ -105,7 +105,7 @@
                 comensales: 2,
                 fecha: "HOY"
             };
-            
+
 
             console.log(datos);
 
@@ -137,12 +137,17 @@
         alert(JSON.stringify(e));
     }
 
-    function ForzarQR_Puerta(mesa){
-        var QR_Ficticio = {
+    function ForzarQR_Mesa(mesa){
+        objJSON = {
+            tipo: "mesa",
+            id: mesa
+        }
 
+        var QRfake = {
+            text: JSON.stringify(objJSON)
         };
 
-        cbSolicitarMesa(QR_Ficticio);
+        cbEscanearQRMesa(QRfake);
     }
 
     function cbEscanearQRMesa(data) {
