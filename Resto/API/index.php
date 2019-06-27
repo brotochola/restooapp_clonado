@@ -1,4 +1,7 @@
 <?php
+
+
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 //error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);  
@@ -308,6 +311,9 @@ $app->group('/cliente-visita', function () {
 //localhost/resto/API/crearToken/?id_empleado=2&nombre_completo=Juan Gritz&id_rol=2&clave=1234
 
 
+$app->post('/prueba', \pedido::class . ':cambiarEstadoProductoDePedidoAPI');
+
+
 ///CORS FÜR ALLES
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
@@ -318,3 +324,5 @@ $app->add(function ($req, $res, $next) {
 });
 
 $app->run();
+
+?>

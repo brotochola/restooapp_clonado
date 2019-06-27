@@ -151,8 +151,8 @@ span.idMesa {
 }
 
 #listadoDePedidosMesa{
-        height: 27%;
-    overflow-y: scroll;
+        height: 100%;
+        overflow-y: scroll;
 }
 
 .horaEnListaDePedidos{

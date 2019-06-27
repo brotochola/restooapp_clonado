@@ -77,7 +77,7 @@ class API {
             pedidoParaMandar.productos.push(ped.productos[i].id_producto)
             pedidoParaMandar.cantidades.push(ped.productos[i].cantidad)
         }
-
+        app.mostrarLoading();
         $.ajax({
             url: this.urlServer + "mozo/agregarPedido",
             type: "post",
@@ -87,12 +87,15 @@ class API {
             },
             data: pedidoParaMandar,
             success: function (e) {
-
+                app.ocultarLoading();
                 console.log(e)
 
                 if (cb instanceof Function) cb(e);
 
-            }, error: e => console.log(e)
+            }, error: e => {  
+                app.ocultarLoading();
+                console.log(e)
+            }
         })
     }
 

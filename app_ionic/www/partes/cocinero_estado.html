@@ -260,6 +260,9 @@ header{
     
 
     <script>
+
+        let esperandoAjax=0;
+
     console.log("cocinero.js")
 
 const tiempoDelay = 5000;
@@ -278,7 +281,7 @@ function cbCargarEstado(){
         console.log("ok token y rol");
        setTimeout(()=>{
            
-           api.cargarEstadoCocinero(cbCargarEstado)
+          if(esperandoAjax==0)  api.cargarEstadoCocinero(cbCargarEstado)
         }
        , tiempoDelay)
   }
@@ -366,10 +369,14 @@ function armarProdPedidoActual(prod) {
 
 
 function pedidoListo(id) {
+    esperandoAjax=1;
     app.mostrarLoading();
     console.log("el pedido " + id + " esta listo")
     $(".unPedido."+id).remove() //esto es de mentirita
-    api.cocineroInformaQuePedidoEstaListo(id, actualizarEstadoCocinero);
+    api.cocineroInformaQuePedidoEstaListo(id,()=>{
+        esperandoAjax=0;
+         actualizarEstadoCocinero()
+    });
 
 }
 
