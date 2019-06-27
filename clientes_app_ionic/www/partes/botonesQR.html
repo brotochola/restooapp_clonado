@@ -16,18 +16,34 @@
         <div class="text-center">
             <div class="container botonesVerEstadoMesaAdmin">
 
-                <div class="row">
+                <div class="row" id="botonSolicitarMesa">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal" onclick="solicitarMesa()">QR Entrada al local</button>
+                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="solicitarMesa()">QR Entrada al local</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
 
-                <div class="row" id="botonCerrarMesa">
+                <div class="row" id="botonIngresoMesa">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal" onclick="ingresarEnMesa()">QR Mesa</button>
+                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="ingresarEnMesa()">QR Mesa</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+
+                <div class="row" id="botonHacerReserva">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="hacerReserva()">Hacer una reserva</button>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+
+                <div class="row" id="botonPedirDelivery">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="pedirDelivery()">Delivery!</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -76,14 +92,13 @@
     function cbSolicitarMesa(data) {
         //hacer reserva!
 
-
-
         let a = data.text.replaceAll("”", '"').replaceAll("“", '"');
         // alert(a)
 
         obj = JSON.parse(a);
         if (obj.tipo == "entrada") {
             //promt para comensales
+
             datos = {
                 id_cliente: cliente.data.id_cliente,
                 id_mesa: 1,
