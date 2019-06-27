@@ -261,7 +261,7 @@ header{
 
     <script>
 
-        let esperandoAjax=0;
+     var cualEstoyInformandoQEstaListo=-1;
 
     console.log("cocinero.js")
 
@@ -276,12 +276,12 @@ $(document).ready(function() {
 
 function cbCargarEstado(){
     app.ocultarLoading();
-    actualizarEstadoCocinero();
+   actualizarEstadoCocinero();
     if(usuario.tokenValido() && usuario.dataUsuario().id_rol>2){ 
         console.log("ok token y rol");
        setTimeout(()=>{
            
-          if(esperandoAjax==0)  api.cargarEstadoCocinero(cbCargarEstado)
+           api.cargarEstadoCocinero(cbCargarEstado)
         }
        , tiempoDelay)
   }
@@ -294,7 +294,11 @@ function actualizarEstadoCocinero() {
 
     $("#contenedorPedidosActuales").html("")
     for (var i = 0; i < api.estadoCocinero.length; i++) {
+        if(api.estadoCocinero[i].id==cualEstoyInformandoQEstaListo) continue;
         $("#contenedorPedidosActuales").append(armarPedidoActual(api.estadoCocinero[i]))
+    }
+    if(api.estadoCocinero.length==0){
+        $("#contenedorPedidosActuales").html("<p> No hay pedidos pendientes </p>");
     }
     app.ocultarLoading();
 }
@@ -369,14 +373,11 @@ function armarProdPedidoActual(prod) {
 
 
 function pedidoListo(id) {
-    esperandoAjax=1;
+    cualEstoyInformandoQEstaListo=id;
     app.mostrarLoading();
     console.log("el pedido " + id + " esta listo")
     $(".unPedido."+id).remove() //esto es de mentirita
-    api.cocineroInformaQuePedidoEstaListo(id,()=>{
-        esperandoAjax=0;
-         actualizarEstadoCocinero()
-    });
+    api.cocineroInformaQuePedidoEstaListo(id,  actualizarEstadoCocinero);
 
 }
 
