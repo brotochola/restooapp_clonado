@@ -66,8 +66,11 @@ header{
             </div>
             <div class="col-3"> <img id="fotoDelEmple"></div>
 
-            <div class="col-8 titulo-cabezera-cocinero">
+            <div class="col-6 titulo-cabezera-cocinero">
                 <strong>Pedidos</strong>
+            </div>
+            <div class="col-2">
+            <i class="fas fa-plus boton_mas" id="agregarProductoCocinero" onclick="cocineroAgregaProducto()"></i>
             </div>
         </div>  
     </div>
@@ -269,8 +272,9 @@ const tiempoDelay = 5000;
 
 $(document).ready(function() {
     api.cargarEstadoCocinero(cbCargarEstado)
-
+    
 });
+
 
 
 
@@ -298,7 +302,7 @@ function actualizarEstadoCocinero() {
         $("#contenedorPedidosActuales").append(armarPedidoActual(api.estadoCocinero[i]))
     }
     if(api.estadoCocinero.length==0){
-        $("#contenedorPedidosActuales").html("<p> No hay pedidos pendientes </p>");
+        $("#contenedorPedidosActuales").html("<br><br><br><p class='text-center' style='width:100vw'> No hay pedidos pendientes </p>");
     }
     app.ocultarLoading();
 }
@@ -417,6 +421,16 @@ function armarPedidoActual(pedido) {
 
 function botonVolver(){
     mostrarModalConfirmacion("¿Confirma que desea desloguearse?", "si", "no", usuario.logout, ()=>{})
+
+}
+
+function cocineroAgregaProducto(){
+   
+   // app.traerHTML("partes/agregarVerProducto.html", true)
+   mostrarAgregarVerProducto();
+   $("#rolCocina").val(usuario.data.id_rol)
+    $("#rolCocina")[0].disabled=true;
+    
 
 }
 </script>

@@ -93,9 +93,13 @@
 
 
     function mostrarAgregarVerProducto(id) {
-
-        producto = Productos.traerProductoPorId(id);
-        idProductoActual = id;
+        if(id==null || id==undefined) {
+            producto=-1
+        }else{
+            producto = Productos.traerProductoPorId(id);
+             idProductoActual = id;
+        }
+  
 
         if (producto == -1) {
             $("#idProducto").html("")
@@ -181,9 +185,9 @@
         if (datosValidados == true) {
 
             api.agregarProducto(producto, () => {
-
+                mostrarModalConfirmacion("El producto se ha cargado correctamente","ok", null);
                 ocultarAgregarVerProducto();
-                Productos.armarTablaProductos($("#listaDeProductos"))
+               if(usuario.data.id_rol==1 || usuario.data.id_rol==7) Productos.armarTablaProductos($("#listaDeProductos"))
             })
         }
 
