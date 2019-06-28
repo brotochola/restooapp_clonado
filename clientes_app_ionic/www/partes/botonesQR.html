@@ -65,10 +65,10 @@
         $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
     });
 
-    /* function cargarNombreEnNavQR(){
-        $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
+    function hacerReserva(){
+        app.traerHTML("partes/nuevaReserva.html", false, true, "hacerReserva", false, "", null);
     }
- */
+
     function solicitarMesa() {
         //QR para PUERTA (reserva)
 
@@ -176,7 +176,6 @@
         $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
         $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
     }
-
 
     function botonVolver() {
         let msj = "";
