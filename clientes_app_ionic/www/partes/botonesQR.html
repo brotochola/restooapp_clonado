@@ -65,10 +65,10 @@
         $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
     });
 
-    /* function cargarNombreEnNavQR(){
-        $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
+    function hacerReserva(){
+        app.traerHTML("partes/nuevaReserva.html", false, true, "hacerReserva", false, "", null);
     }
- */
+
     function solicitarMesa() {
         //QR para PUERTA (reserva)
 
@@ -101,10 +101,11 @@
 
             datos = {
                 id_cliente: cliente.data.id_cliente,
-                id_mesa: 1,
+                id_mesa: -5, //como bandera para indicar que no
                 comensales: 2,
                 fecha: "HOY"
             };
+
 
             console.log(datos);
 
@@ -136,6 +137,19 @@
         alert(JSON.stringify(e));
     }
 
+    function ForzarQR_Mesa(mesa){
+        objJSON = {
+            tipo: "mesa",
+            id: mesa
+        }
+
+        var QRfake = {
+            text: JSON.stringify(objJSON)
+        };
+
+        cbEscanearQRMesa(QRfake);
+    }
+
     function cbEscanearQRMesa(data) {
         let a = data.text.replaceAll("”", '"').replaceAll("“", '"');
         obj = JSON.parse(a);
@@ -162,7 +176,6 @@
         $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
         $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
     }
-
 
     function botonVolver() {
         let msj = "";

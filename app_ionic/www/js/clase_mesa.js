@@ -10,10 +10,10 @@ var dragItem;
 
 class Mesa {
 
-	static estadoMesas = ["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
 	static urlPNGsMesas="images/mesas/";
+	static coloresMesas=["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste","rojo"];
 
-	
+
 
 	static armarGraficoMesas($div,cbOnClick) {
 		

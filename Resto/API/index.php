@@ -1,4 +1,7 @@
 <?php
+
+
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 //error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);  
@@ -278,9 +281,15 @@ $app->group('/mesa', function () {
 
     $this->post('/alta', \mesaApi::class . ':CargarMesa');
 
+    $this->post('/pedirCuenta', \mesaApi::class . ':pedirCuenta');
+
+    $this->post('/cerrar', \mesaApi::class . ':cerrarMesa');
+    
+    $this->post('/indicarQueLaMesaEstaLibre', \mesaApi::class . ':indicarQueLaMesaEstaLibre');
+    
     $this->post('/consulta', \mesaApi::class . ':TraerMesa');
 
-    $this->post('/estado', \ClienteVisitaApi::class . ':ModificarEstadoMesa_');
+    $this->post('/estado', \mesaApi::class . ':ModificarEstadoMesa_');
 
     $this->get('/listado', \mesaApi::class . ':TraerMesas');
 
@@ -308,6 +317,9 @@ $app->group('/cliente-visita', function () {
 //localhost/resto/API/crearToken/?id_empleado=2&nombre_completo=Juan Gritz&id_rol=2&clave=1234
 
 
+$app->post('/prueba', \pedido::class . ':cambiarEstadoProductoDePedidoAPI');
+
+
 ///CORS FÜR ALLES
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
@@ -318,3 +330,5 @@ $app->add(function ($req, $res, $next) {
 });
 
 $app->run();
+
+?>

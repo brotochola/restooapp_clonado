@@ -1,3 +1,12 @@
+<style>
+    img#fotoProd {
+        margin-top: 0px;
+        width: 24vw;
+        height: 24vw;
+        object-fit: cover;
+        border-radius: 15%;
+    }
+</style>
 <div class="fondo-modal" id="agregarVerProducto">
     <div class="contenedor-modal">
         <div class="cuerpo-modal modal-select-producto">
@@ -47,7 +56,20 @@
                 </div>
             </div>
             <hr>
+            <div class="container-fluid">
+                <div class="row">
 
+                    <div class="col-6">
+                <button onclick='sacarFotoProductoNuevo()' class="boton-modal centro"
+                id="">Foto</button>
+            </div>
+            <div class="col-6">
+                <img  id="fotoProd">
+            </div>
+
+            </div>
+               </div>
+<hr>
             <div class="container-fluid">
                 <div>
                     <h5>DESCRIPCION</h5>
@@ -79,8 +101,10 @@
 
 <script>
 
-    idProductoActual = -1;
 
+    var fotoProdBase64=null;
+    idProductoActual = -1;
+    var producto;
     datosValidados = true;
 
     //$("#contSelectCatProducto").html(array2Select(sectoresCocinas, "rolEmpleado"))
@@ -92,10 +116,39 @@
     }
 
 
-    function mostrarAgregarVerProducto(id) {
+    function sacarFotoProductoNuevo(){
+        try {
+            navigator.camera.getPicture(fotoProdOK, fotoProdMal, {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                targetWidth: 512,
+                targetHeight: 910
+            });
+        } catch (e) {
+            alert(e)
+        }
+    }
+    
+    function fotoProdOK(imageData) {
 
-        producto = Productos.traerProductoPorId(id);
-        idProductoActual = id;
+    fotoProdBase64 = "data:image/jpeg;base64," + imageData;
+    setTimeout(()=>{$("img#fotoProd")[0].src = fotoProdBase64},500);
+    console.log("En cargar foto: " + fotoProdBase64);
+    mostrarModalConfirmacion("La foto se cargó correctamente", "OK", null);
+    }
+
+    function fotoProdMal(message) {
+        mostrarModalConfirmacion("Error!<br>" +message, "ok", null);
+    }
+
+    function mostrarAgregarVerProducto(id) {
+        if(id==null || id==undefined) {
+            producto=-1
+        }else{
+            producto = Productos.traerProductoPorId(id);
+             idProductoActual = id;
+        }
+  
 
         if (producto == -1) {
             $("#idProducto").html("")
@@ -156,6 +209,13 @@
             datosValidados = false;
             return;
         }
+        if(fotoProdBase64==null){
+            mostrarModalConfirmacion("El producto no tiene foto", "ok", null, null, null)
+            datosValidados = false;
+            return;
+        }
+        producto.foto=fotoProdBase64;
+
         datosValidados = true;
         return producto;
     }
@@ -181,9 +241,9 @@
         if (datosValidados == true) {
 
             api.agregarProducto(producto, () => {
-
+                mostrarModalConfirmacion("El producto se ha cargado correctamente","ok", null);
                 ocultarAgregarVerProducto();
-                Productos.armarTablaProductos($("#listaDeProductos"))
+               if(usuario.data.id_rol==1 || usuario.data.id_rol==7) Productos.armarTablaProductos($("#listaDeProductos"))
             })
         }
 

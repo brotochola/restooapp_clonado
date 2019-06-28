@@ -11,7 +11,7 @@ class API {
         //    else this.urlServer ="../../Resto/API/";
      
      
-          this.urlServer = "http://pixeloide.com/restoApp/API/"
+         this.urlServer = "http://pixeloide.com/restoApp/API/"
 
 
       
@@ -40,6 +40,63 @@ class API {
             data: data, 
             success: (e) => {
                 console.log(e)        
+            }, error: e => console.log(e)
+        })//ajax
+    }
+
+    indicarQSeLiberoUnaMesa(id_mesa, cb){
+        $.ajax({
+            type:"post",
+            url: this.urlServer + "mesa/indicarQueLaMesaEstaLibre",
+          /*  headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },*/
+            data: {
+                "id_mesa": idMesa
+            },
+            success: (e) => {
+                console.log(e)         
+
+                if (cb instanceof Function) cb();
+            }, error: e => console.log(e)
+        })
+    }
+
+
+
+
+        cerrarMesa(id_mesa, cb){
+            $.ajax({
+                type:"post",
+                url: this.urlServer + "mesa/cerrar",
+              /*  headers: {
+                    token: localStorage[usuarioLogueado_ls]
+                },*/
+                data: {
+                    "id_mesa": idMesa
+                },
+                success: (e) => {
+                    console.log(e)         
+    
+                    if (cb instanceof Function) cb();
+                }, error: e => console.log(e)
+            })
+        }
+
+    pedirCuentaMesa(id_mesa, cb){
+        $.ajax({
+
+            url: this.urlServer + "mesa/pedirCuenta",
+            type: "post", //esto es solo porq estoy no usando un backend de verdad
+            dataType: "json",
+            data: {id_mesa:id_mesa},
+         /*   headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },*/
+            success: (e) => {
+                console.log(e)         
+
+                if (cb instanceof Function) cb();
             }, error: e => console.log(e)
         })//ajax
     }
@@ -77,7 +134,7 @@ class API {
             pedidoParaMandar.productos.push(ped.productos[i].id_producto)
             pedidoParaMandar.cantidades.push(ped.productos[i].cantidad)
         }
-
+        app.mostrarLoading();
         $.ajax({
             url: this.urlServer + "mozo/agregarPedido",
             type: "post",
@@ -87,12 +144,15 @@ class API {
             },
             data: pedidoParaMandar,
             success: function (e) {
-
+                app.ocultarLoading();
                 console.log(e)
 
                 if (cb instanceof Function) cb(e);
 
-            }, error: e => console.log(e)
+            }, error: e => {  
+                app.ocultarLoading();
+                console.log(e)
+            }
         })
     }
 

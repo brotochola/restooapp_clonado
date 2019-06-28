@@ -151,8 +151,8 @@ span.idMesa {
 }
 
 #listadoDePedidosMesa{
-        height: 27%;
-    overflow-y: scroll;
+        height: 100%;
+        overflow-y: scroll;
 }
 
 .horaEnListaDePedidos{
@@ -201,5 +201,5 @@ padding-bottom: 25%;
 }
 
 div#verEstadoMesaAdmin {
-    z-index: 9;
+    z-index: 999;
 }

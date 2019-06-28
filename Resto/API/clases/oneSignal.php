@@ -33,8 +33,8 @@
          $consulta =$objetoAccesoDato->RetornarConsulta($sql);
          $consulta->execute();
          $rta = $consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");
-      
-         return $rta[0]->player_id;
+        if(isset($rta[0]->player_id)) return $rta[0]->player_id;
+         else return -1;
 
     }
     public static function mandarPushARolDeUsuario($id_rol, $texto){  

@@ -66,8 +66,11 @@ header{
             </div>
             <div class="col-3"> <img id="fotoDelEmple"></div>
 
-            <div class="col-8 titulo-cabezera-cocinero">
+            <div class="col-6 titulo-cabezera-cocinero">
                 <strong>Pedidos</strong>
+            </div>
+            <div class="col-2">
+            <i class="fas fa-plus boton_mas" id="agregarProductoCocinero" onclick="cocineroAgregaProducto()"></i>
             </div>
         </div>  
     </div>
@@ -116,166 +119,38 @@ header{
             </div>
         </div>
         
-        
-        <div class="row list-pedidos-pendientes">
             
-             <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">CocaCola - <strong>$30</strong></div>
-                </div>
-                 <hr>
-            </div>
-            
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">Bife - <strong>$200</strong></div>
-                </div>
-                <hr>
-            </div>
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">Papas - <strong>$70</strong></div>
-                </div>
-            </div>
-            
-        </div>
-        
-        <div class="row listaPedidosPendientes">
-            <div class="col-5">
-                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
-                <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
-            </div>
-            <div class="col-5">
-                <img src="media/Img/mesa.png" class="mesa-pendiente">
-                <span class="n-mesa-p">MESA #<strong>10</strong></span>
-            </div>
-            <div class="col-2 check-verde-pedidos">
-                <img src="media/Img/check-verde.png">
-            </div>
-            
-        </div>
+ </div> <!--contenedorPedidosActuales-->
 
-        <div class="row list-pedidos-pendientes">
-            
-             <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">CocaCola - <strong>$30</strong></div>
-                </div>
-                 <hr>
-            </div>
-            
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">Bife - <strong>$200</strong></div>
-                </div>
-                <hr>
-            </div>
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">Papas - <strong>$70</strong></div>
-                </div>
-            </div>
-            
-        </div>
-          <div class="row listaPedidosPendientes">
-            <div class="col-5">
-                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
-                <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
-            </div>
-            <div class="col-5">
-                <img src="media/Img/mesa.png" class="mesa-pendiente">
-                <span class="n-mesa-p">MESA #<strong>8</strong></span>
-            </div>
-            <div class="col-2 check-verde-pedidos">
-                <img src="media/Img/check-verde.png">
-            </div>
-            
-        </div>
-        <div class="row list-pedidos-pendientes">
-            
-             <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">CocaCola - <strong>$30</strong></div>
-                </div>
-                 <hr>
-            </div>
-            
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">Bife - <strong>$200</strong></div>
-                </div>
-                <hr>
-            </div>
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="numero-de-pedido-cocinero">#3</span>
-                    </div> 
-                    <div class="col-10 text-left">Papas - <strong>$70</strong></div>
-                </div>
-            </div>
-            
-        </div>
-          <div class="row listaPedidosPendientes">
-            <div class="col-5">
-                <img src="media/Img/pedido-black.png" class="pedido-pendiente">
-                <span class="n-pedido-p">PEDIDO #<strong>24</strong></span>
-            </div>
-            <div class="col-5">
-                <img src="media/Img/mesa.png" class="mesa-pendiente">
-                <span class="n-mesa-p">MESA #<strong>8</strong></span>
-            </div>
-            <div class="col-2 check-verde-pedidos">
-                <img src="media/Img/check-verde.png">
-            </div>
-            
-        </div>
-    </div>
+
+
+    
+
   
  
     
 
     <script>
+
+     var cualEstoyInformandoQEstaListo=-1;
+
     console.log("cocinero.js")
 
 const tiempoDelay = 5000;
 
 $(document).ready(function() {
     api.cargarEstadoCocinero(cbCargarEstado)
-
+    
 });
+
 
 
 
 function cbCargarEstado(){
     app.ocultarLoading();
-    actualizarEstadoCocinero();
+   actualizarEstadoCocinero();
     if(usuario.tokenValido() && usuario.dataUsuario().id_rol>2){ 
-        console.log("ok token y rol");
+        
        setTimeout(()=>{
            
            api.cargarEstadoCocinero(cbCargarEstado)
@@ -291,7 +166,11 @@ function actualizarEstadoCocinero() {
 
     $("#contenedorPedidosActuales").html("")
     for (var i = 0; i < api.estadoCocinero.length; i++) {
+        if(api.estadoCocinero[i].id==cualEstoyInformandoQEstaListo) continue;
         $("#contenedorPedidosActuales").append(armarPedidoActual(api.estadoCocinero[i]))
+    }
+    if(api.estadoCocinero.length==0){
+        $("#contenedorPedidosActuales").html("<br><br><br><p class='text-center' style='width:100vw'> No hay pedidos pendientes </p>");
     }
     app.ocultarLoading();
 }
@@ -366,10 +245,11 @@ function armarProdPedidoActual(prod) {
 
 
 function pedidoListo(id) {
+    cualEstoyInformandoQEstaListo=id;
     app.mostrarLoading();
     console.log("el pedido " + id + " esta listo")
     $(".unPedido."+id).remove() //esto es de mentirita
-    api.cocineroInformaQuePedidoEstaListo(id, actualizarEstadoCocinero);
+    api.cocineroInformaQuePedidoEstaListo(id,  actualizarEstadoCocinero);
 
 }
 
@@ -378,6 +258,7 @@ function armarPedidoActual(pedido) {
 
    // console.log(pedido)
     if(!pedido.hasOwnProperty("productos")) return;
+    if(pedido.productos.length==0) return;
     var html = '  <!-- un pedido -->'
     html += '            <div class="unPedido '+pedido.id+'">'
     html += '                  <div class="row listaPedidosPendientes">'
@@ -409,6 +290,16 @@ function armarPedidoActual(pedido) {
 
 function botonVolver(){
     mostrarModalConfirmacion("¿Confirma que desea desloguearse?", "si", "no", usuario.logout, ()=>{})
+
+}
+
+function cocineroAgregaProducto(){
+   
+   // app.traerHTML("partes/agregarVerProducto.html", true)
+   mostrarAgregarVerProducto();
+   $("#rolCocina").val(usuario.data.id_rol)
+    $("#rolCocina")[0].disabled=true;
+    
 
 }
 </script>

@@ -16,14 +16,37 @@ class productoApi extends producto
         $miProducto->descripcion = $ArrayDeParametros['descripcion']; 
         $miProducto->id_cocina = $ArrayDeParametros['id_cocina']; 
         $miProducto->precio = $ArrayDeParametros['precio']; 
-        //$miProducto->imagen = $ArrayDeParametros['imagen']; 
+        $miProducto->imagen="";
 
+
+      
+        
    
         $var = producto::TraerUno($miProducto->nombre_producto);             
-        
+        //VEMOS SI YA HAY ALGO CON ESE NOMBRE
         if($var == null)
         {               
-            $miProducto->Insertar();
+            $id= $miProducto->Insertar();
+
+
+              //GUARDO LA FOTO EN EL DISCO
+            $carpeta="img/productos/";
+            if(!is_dir($carpeta)) mkdir($carpeta);
+            $urlFotoProd=$carpeta."-foto_producto-".$id."-".date('Y-m-d--H.i.s').".png";
+            
+            $img = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '',  $ArrayDeParametros['foto']));
+
+            file_put_contents($urlFotoProd, $img);
+            $miProducto->imagen = $urlFotoProd; 
+
+            //ACTUALIZO LA URL, Q AL PRINCIPO LA PONGO EN '', Y HASTA NO TNER EL ID NO LA GUARDO
+            $sql="	UPDATE productos SET  imagen = '$urlFotoProd' WHERE id_producto = $id";
+            $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 	
+            $consulta =$objetoAccesoDato->RetornarConsulta($sql);
+            $consulta->execute();			
+            $rta=$consulta->fetchAll(PDO::FETCH_CLASS, "stdClass");
+
+
             $Productos=producto::TraerTodos();        
             return $response->withJson($Productos, 200);  
         }

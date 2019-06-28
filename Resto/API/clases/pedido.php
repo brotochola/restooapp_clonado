@@ -42,7 +42,7 @@ class pedido
                 $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
                 $sql="UPDATE `pedidos` SET `estado_pedido` = '$estado' WHERE `pedidos`.`id` = ".$id;
 
-             // echo $sql;die();
+         
 
 
                 $consulta =$objetoAccesoDato->RetornarConsulta($sql);
@@ -53,6 +53,53 @@ class pedido
 
                 
                 return $consulta->fetchAll();
+
+
+             }/*
+            public static function cambiarEstadoProductoDePedidoAPI($request, $response){
+                $vector = $request->getParsedBody(); 
+                $id_pedido=$vector["id_pedido"];
+                $arr_ids_prods=json_decode($vector["arr_ids_prods"]);
+                self::cambiarEstadoProductoDePedido($id_pedido,$arr_ids_prods);
+            }*/
+
+            public static function cambiarEstadoProductoDePedido($id_pedido, $arr_ids_prods){
+                $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+                $sql="update pedidos_detalles set listo=1 where id=$id_pedido and(";
+                for($i=0;$i<count($arr_ids_prods);$i++){
+                    $sql.="id_producto=".$arr_ids_prods[$i];
+                    if($i<count($arr_ids_prods)-1) $sql.=" or ";
+                }
+                $sql.=")";
+                $consulta =$objetoAccesoDato->RetornarConsulta($sql);
+                $consulta->execute();
+
+                //VEO SI TODOS LOS PRODUCTOS DE ESTE PEDIDO ESTAN LISTOS
+                $consulta =$objetoAccesoDato->RetornarConsulta(  "SELECT listo FROM `pedidos_detalles`  where id=".$id_pedido);
+                $consulta->execute();
+                $arr1= $consulta->fetchAll(PDO::FETCH_CLASS,"stdClass"); 
+                $todos=1;
+                for($i=0;$i<count($arr1);$i++){
+                  if($arr1[$i]->listo!=1) {
+                      $todos=0;
+                      break;
+                  }
+                }
+                $pedido=[];
+                if($todos==1){
+                    //TODOS LSO PRODUCTOS DE ESTE PEDIDO ESTAN LISTOS.
+                    //ASI Q LE CAMBIO EL ESTADO AL PEDIDO Y A LA MESA
+                    $pedido= self::cambiarEstadoPedido( $id_pedido,3);      
+                    mesa::ModificarEstadoDeLaMesa($pedido[0]["id_mesa"],3);
+                }else{
+                    //AL MENOS UN PRODUCTO ESTA LISTO, PQ ESTA FUNCION SE TRATA DE ESO
+                    $pedido= self::cambiarEstadoPedido( $id_pedido,7);      
+                    mesa::ModificarEstadoDeLaMesa($pedido[0]["id_mesa"],7);
+                }
+                
+
+                
+                return  $pedido[0];
 
 
             }
@@ -399,7 +446,8 @@ class pedido
         public static function TraerTodosLosPedidosPendientes()
         {             
           //  $consulta = "SELECT * FROM `comanda_detalles` INNER JOIN `productos` ON comanda_detalles.id_producto = productos.id_producto WHERE `id_cocina` = '$pSector' AND comanda_detalles.estado_pedido=1";
-          $consulta="SELECT * FROM pedidos where estado_pedido=1";
+          //27.6.19 AGREGO DIF ESTADOS DE PEDIDOS, PQ EL COCINERO TIENE Q PODER VERLOS
+          $consulta="SELECT * FROM pedidos where estado_pedido=1 or estado_pedido=2 or estado_pedido=7";
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
 

@@ -2,13 +2,12 @@ console.log("constantes.js")
 
 const minSillasPorMesa=2;
 const maxSillasPorMesa=6;
-const estadosPedidos = [null, "Pendiente", "En Preparación", "Listo", "Servido", "Cancelado"]
-const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada"];
+const estadosPedidos = ["-", "Pendiente", "En Preparación", "Listo", "Servido", "Cancelado","-","listo/en preparación"]
+const estadosMesas = ["Libre", "Ocupada sin Pedido", "Esperando Pedido", "Pedido Listo", "Comiendo", "Esperando Cuenta", "Pagada","pedido listo/faltan cosas"];
 const rolesEmpleados = ["-", "Socix","Camarerx", "Bartender", "Cervecerx", "Cocinerx",  "Pastelerx", "Admin"];
 
 const sectoresCocinas = ["-", "Bar", "Cervecería", "Cocina",  "Pastelería"];
 
-const coloresMesas=["verdeClaro", "amarillo", "naranja", "rojo", "amarillo", "violeta", "celeste"];
 
 
 

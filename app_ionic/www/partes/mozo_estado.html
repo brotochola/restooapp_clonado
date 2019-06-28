@@ -253,8 +253,10 @@
 
         for (var i = 0; i < api.estadoMozo.mesas.length; i++) {
             try {
-                $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.estadoMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
-            } catch (e) { }
+                $(".mesa." + api.estadoMozo.mesas[i].id_mesa + " img.mesaImg")[0].src = Mesa.urlPNGsMesas + api.estadoMozo.mesas[i].sillas + "/" + Mesa.coloresMesas[api.estadoMozo.mesas[i].estado_mesa] + ".png";
+            } catch (e) { 
+                
+            }
         }
 
         compararEstadoAnteriorYActual()

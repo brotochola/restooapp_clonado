@@ -26,8 +26,8 @@ public function CargarUnPedido($request, $response,$args){
         
      
 
-        $productos = json_decode($vector['productos']);
-        $cantidades = json_decode($vector['cantidades']);    
+        $productos = $vector['productos'];
+        $cantidades = $vector['cantidades'];    
   
 
         if(count($productos) != count($cantidades))
@@ -65,12 +65,15 @@ public function CargarUnPedido($request, $response,$args){
                                 $p=producto::TraerUno($productos[$j]);
                                 array_push($ids_roles_q_este_pedido_involucra,$p[0]->id_cocina);
                            }
-                           $ids_roles_q_este_pedido_involucra=array_unique($ids_roles_q_este_pedido_involucra);
+                           $ids_roles_q_este_pedido_involucra=array_values($ids_roles_q_este_pedido_involucra);
 
-                         //  var_dump($ids_roles_q_este_pedido_involucra);die();
+                       // var_dump($ids_roles_q_este_pedido_involucra);die();
                            //MANDO NOTIFICACIONES POR SECTOR
                            for($j=0;$j<count($ids_roles_q_este_pedido_involucra);$j++){
-                            oneSignal::mandarPushARolDeUsuario($ids_roles_q_este_pedido_involucra[$j],"Nuevo pedido! ".$vPedido->id);
+                             //  echo $ids_roles_q_este_pedido_involucra[$j]."--";
+                            try{
+                              oneSignal::mandarPushARolDeUsuario($ids_roles_q_este_pedido_involucra[$j],"Nuevo pedido! ".$vPedido->id);
+                            }catch(Exception $e){}
                            }
                             
 
@@ -150,34 +153,54 @@ public static function estadoCocinero($request, $response){
 
     //AGARRO EL ROL DEL EMPLEADO PARA VER Q PRODUCTOS DE CADA PEDIDO LE CORRESPONDEN
 
-
+    
     $pedidosPendientes=pedido::TraerTodosLosPedidosPendientes();
+  
+
 
     for($i=0;$i<count($pedidosPendientes);$i++){
         //ARRPRODS SON LOS IDS DE PRODUCTOS CON LA CANTIDAD
+        
+
+
+/*
+      //AGARRO LOS PRODUCTOS DEL PEDIDO Q CORRESPONDEN CON MI ROL
+      $sql_arr_prods="SELECT productos.id_producto from pedidos_detalles, productos where productos.id_cocina=".$rol." and pedidos_detalles.id_producto=productos.id_producto and pedidos_detalles.id=".$id_pedido;
+      //echo $sql_arr_prods; die();
+      $consulta =$objetoAccesoDato->RetornarConsulta($sql_arr_prods);
+      $consulta->execute();	
+      $arr1= $consulta->fetchAll(PDO::FETCH_CLASS,"stdClass"); 
+      $arr=[];
+      for($i=0;$i<count($arr1);$i++){
+          array_push($arr,$arr1[$i]->id_producto);
+      }
+*/
+        //PRODUCTOS Q TIENE EL PEDIDO EN
         $arrProds=pedido::TraerPedidosProductosPorPedido( $pedidosPendientes[$i]["id"]);
         $pedidosPendientes[$i]["productos"]=[];
         
+      
+
 
         for($j=0;$j<count( $arrProds);$j++){          
             //PROD ES EL PRODUCTO DE LA TABLA PRODUCTOS 
             $prod=producto::TraerUno($arrProds[$j]["id_producto"])[0];
             $cant= $arrProds[$j]["cantidad"];
-            if($prod->id_cocina==$rol){               
+            
+         
+            if($prod->id_cocina==$rol && $arrProds[$j]["listo"]==0){               
                 $arrProds[$j]=$prod;               
                 $arrProds[$j]->cantidad=$cant;
+                //VOY LLENANDO DE PRODUCTOS EL PEDIDO EN CUESTION
                 array_push( $pedidosPendientes[$i]["productos"],$arrProds[$j]);
 
                
-            }
+           }
         }
-        //DESPUES DE PROCSAR LOS PRODUCTOS DE CADA PEDIDO, SE FIJA SI LE QUEDO UNO
-        if(count($pedidosPendientes[$i]["productos"])==0){
-            array_splice($pedidosPendientes,$i,1);
-        }
+  
 
       
-    }
+    } //for pedidos
   
 
    return  $response->getBody()->write(json_encode($pedidosPendientes));
@@ -204,6 +227,7 @@ public static function TraerMiPedido($pId) {
             if(count($elProducto)>0){
                 $elProducto=$elProducto[0];
                 $elProducto->cantidad=$idsproductos[$x]["cantidad"];
+                $elProducto->listo=$idsproductos[$x]["listo"];
                 //return $elProducto;
                  array_push($arrProductos,$elProducto );
             }
@@ -689,15 +713,25 @@ public static function TraerMayorTiempo($Pedidos){
        $consulta =$objetoAccesoDato->RetornarConsulta("select nombre_rol from rol where id_rol='$rol'");
        $consulta->execute();	
        $rolObj= $consulta->fetchAll(PDO::FETCH_CLASS,"stdClass"); 
-       $nombre_rol=$rolObj[0]->nombre_rol;
-    
+       $nombre_rol=$rolObj[0]->nombre_rol; //ESRTO ES PARA MANDAR NOTIFICACIONES PUSH CON NOMBRE DEL SECTOR DE COCINA
+        $id_pedido=$vector["id_pedido"];
 
+       //AGARRO LOS PRODUCTOS DEL PEDIDO Q CORRESPONDEN CON MI ROL
+        $sql_arr_prods="SELECT productos.id_producto from pedidos_detalles, productos where productos.id_cocina=".$rol." and pedidos_detalles.id_producto=productos.id_producto and pedidos_detalles.id=".$id_pedido;
+        //echo $sql_arr_prods; die();
+        $consulta =$objetoAccesoDato->RetornarConsulta($sql_arr_prods);
+        $consulta->execute();	
+        $arr1= $consulta->fetchAll(PDO::FETCH_CLASS,"stdClass"); 
+        $arr=[];
+        for($i=0;$i<count($arr1);$i++){
+            array_push($arr,$arr1[$i]->id_producto);
+        }
+        //LOS PONGO EN 1 y devuelve el pedido entero
+        $pedido= pedido::cambiarEstadoProductoDePedido( $id_pedido,$arr);      
 
-       $pedido= pedido::cambiarEstadoPedido( $vector["id_pedido"],3);      
-       mesa::ModificarEstadoDeLaMesa($pedido[0]["id_mesa"],3);
 
         //PUEDE Q EL MOZO SEA -1 SI EL CLIENTE SE ESTA AUTOGESTIONANDO LA MESA
-       $id_cliente_visita=$pedido[0]["id_cliente_visita"];
+       $id_cliente_visita=$pedido["id_cliente_visita"];
        $cli=ClienteVisita::TraerUnClienteVisita($id_cliente_visita);
         $id_mozo=$cli->mozo;
     

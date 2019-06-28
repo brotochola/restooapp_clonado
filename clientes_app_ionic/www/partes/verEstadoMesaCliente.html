@@ -141,6 +141,9 @@
     function pedirCuenta() {
 
         mostrarModalConfirmacion("¿Seguro que quiere pedir la cuenta mesa?", "Si", "No", function () {
+
+            //prompt para propina
+
             $.ajax({
                 url: api.urlServer + "mesa/estado",
                 type: "post",
