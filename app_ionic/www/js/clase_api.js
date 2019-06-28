@@ -44,6 +44,63 @@ class API {
         })//ajax
     }
 
+    indicarQSeLiberoUnaMesa(id_mesa, cb){
+        $.ajax({
+            type:"post",
+            url: this.urlServer + "mesa/indicarQueLaMesaEstaLibre",
+          /*  headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },*/
+            data: {
+                "id_mesa": idMesa
+            },
+            success: (e) => {
+                console.log(e)         
+
+                if (cb instanceof Function) cb();
+            }, error: e => console.log(e)
+        })
+    }
+
+
+
+
+        cerrarMesa(id_mesa, cb){
+            $.ajax({
+                type:"post",
+                url: this.urlServer + "mesa/cerrar",
+              /*  headers: {
+                    token: localStorage[usuarioLogueado_ls]
+                },*/
+                data: {
+                    "id_mesa": idMesa
+                },
+                success: (e) => {
+                    console.log(e)         
+    
+                    if (cb instanceof Function) cb();
+                }, error: e => console.log(e)
+            })
+        }
+
+    pedirCuentaMesa(id_mesa){
+        $.ajax({
+
+            url: this.urlServer + "mesa/pedirCuenta",
+            type: "post", //esto es solo porq estoy no usando un backend de verdad
+            dataType: "json",
+            data: {id_mesa:id_mesa},
+         /*   headers: {
+                token: localStorage[usuarioLogueado_ls]
+            },*/
+            success: (e) => {
+                console.log(e)         
+
+                if (cb instanceof Function) cb();
+            }, error: e => console.log(e)
+        })//ajax
+    }
+
     habilitarMesa(data, cb) {
 
         $.ajax({

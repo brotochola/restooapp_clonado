@@ -18,7 +18,7 @@ class App {
 
     quePasaDespuesDeLogin() {
         if (usuario.dataUsuario().id_rol == 1) {
-           this.audios[0].play();
+          try{ this.audios[0].play();}catch(e){console.error(e)}
             this.traerHTML("partes/admin_estado.html", false, true, "admin_estado", false)
             this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true, "fija", () => {
                 setTimeout(() => {
@@ -178,6 +178,15 @@ class App {
 
     ocultarFooterMozo() {
         this.$footerMozo.hide();
+    }
+
+    sacarTodoMenosUnaParteID(parte){
+        for(let i=app.partes.length-1;i>-1;i--){
+            if(app.partes[i].id!=parte){
+                 app.partes[i].$el.remove()
+                 app.partes.splice(i,1);
+            }
+        }
     }
 
     traerHTML(url, append, forzarNoCache, id, traerloOculto, clase, cb) {

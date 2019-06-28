@@ -125,8 +125,50 @@ class mesaApi extends mesa
         $newResponse = $response->withJson($Mesas, 200);
         return $newResponse;
     }
+    public static function cerrarMesa($request, $response){
+        $id_mesa =$request->getParsedBody()["id_mesa"];
+        $rta= mesa::CambiarEstadoMesa($id_mesa, 6);
+         $newResponse = $response->withJson($rta, 200);
+         return $newResponse;
+    }
+
+    public static function indicarQueLaMesaEstaLibre($request, $response){
+        $id_mesa =$request->getParsedBody()["id_mesa"];
+        $rta= mesa::CambiarEstadoMesa($id_mesa, 0);
+         $newResponse = $response->withJson($rta, 200);
+         return $newResponse;
+    }
 
 
+    public static function pedirCuenta($request, $response){
+        $id_mesa =$request->getParsedBody()["id_mesa"];
+       $rta= mesa::CambiarEstadoMesa($id_mesa, 5);
+        $newResponse = $response->withJson($rta, 200);
+        return $newResponse;
+    }
+    public function ModificarEstadoMesa_($request, $response, $args)
+    {
+        $newResponse = $response;
+
+        $ArrayDeParametros = $request->getParsedBody();
+
+        $rta["estado"] = "ERROR";
+
+
+        $id_mesa = $ArrayDeParametros['id_mesa'];
+        $estado_mesa = $ArrayDeParametros['estado_mesa'];
+
+        $rta["params"] = $ArrayDeParametros;
+
+        if (mesa::CambiarEstadoMesa($id_mesa, $estado_mesa) > 0) {
+            $rta["mensaje"] = "Estado de la mesa modificado";
+            $rta["estado"] = "OK";
+        } else {
+            $rta["mensaje"] = "No se modificó el estado de la mesa";
+        }
+
+        return $newResponse = $newResponse->withJson($rta, 200);
+    }
     public static function estadoAdmin($request, $response)
     {
         $rta = new stdClass();

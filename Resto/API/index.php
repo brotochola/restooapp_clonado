@@ -281,9 +281,15 @@ $app->group('/mesa', function () {
 
     $this->post('/alta', \mesaApi::class . ':CargarMesa');
 
+    $this->post('/pedirCuenta', \mesaApi::class . ':pedirCuenta');
+
+    $this->post('/cerrar', \mesaApi::class . ':cerrarMesa');
+    
+    $this->post('/indicarQueLaMesaEstaLibre', \mesaApi::class . ':indicarQueLaMesaEstaLibre');
+    
     $this->post('/consulta', \mesaApi::class . ':TraerMesa');
 
-    $this->post('/estado', \ClienteVisitaApi::class . ':ModificarEstadoMesa_');
+    $this->post('/estado', \mesaApi::class . ':ModificarEstadoMesa_');
 
     $this->get('/listado', \mesaApi::class . ':TraerMesas');
 

@@ -198,29 +198,7 @@ class ClienteVisitaApi extends ClienteVisita
         return $newResponse = $newResponse->withJson($rta, 200);
     }
 
-    public function ModificarEstadoMesa_($request, $response, $args)
-    {
-        $newResponse = $response;
-
-        $ArrayDeParametros = $request->getParsedBody();
-
-        $rta["estado"] = "ERROR";
-
-
-        $id_mesa = $ArrayDeParametros['id_mesa'];
-        $estado_mesa = $ArrayDeParametros['estado_mesa'];
-
-        $rta["params"] = $ArrayDeParametros;
-
-        if (ClienteVisita::CambiarEstadoMesa($id_mesa, $estado_mesa) > 0) {
-            $rta["mensaje"] = "Estado de la mesa modificado";
-            $rta["estado"] = "OK";
-        } else {
-            $rta["mensaje"] = "No se modificó el estado de la mesa";
-        }
-
-        return $newResponse = $newResponse->withJson($rta, 200);
-    }
+   
 
     public static function comprobar_key($tag, $unArray, $required)
     {

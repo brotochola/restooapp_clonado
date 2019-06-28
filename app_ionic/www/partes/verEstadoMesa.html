@@ -23,8 +23,7 @@
                         </div>
                         <div class="col-6 pp-n-right">
                             <div class="info"> <img src="media/Img/checar-gris.png">
-                                Llegada: <strong
-                                    id="horaLlegadaMesa">xx</strong> </div>
+                                Llegada: <strong id="horaLlegadaMesa">xx</strong> </div>
                         </div>
                         <div class="col-6 pp-n-left">
                             <div class="info"><img src="media/Img/mozo.png"><span id="mozoAsignado"> -</span></div>
@@ -40,8 +39,9 @@
                         </div>
                         <div class="col-8 pp-none text-lista">LISTA DE PEDIDOS </div>
                         <div class="col-2">
-                                <i class="fas fa-plus boton_mas" id="botonAgregarPedidoAMesaMozo" onclick="agregarPedidoAEstaMesa()"></i>
-                            </div>
+                            <i class="fas fa-plus boton_mas" id="botonAgregarPedidoAMesaMozo"
+                                onclick="agregarPedidoAEstaMesa()"></i>
+                        </div>
 
                     </div>
                     <div class="row contenedor-lista-pedidos">
@@ -72,6 +72,30 @@
                         </div>
                         <div class="col-1"></div>
                     </div>
+
+
+                    
+
+                    <div class="row" id="botonIndicarQSeLibero">
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <button class="boton-modal " onclick="seLiberoLaMesa()">Se liberó la mesa</button>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+
+
+
+                    <div class="row" id="pedirCuentaDiv">
+                        <div class="col-1"></div>
+                        <div class="col-10">
+                            <button class="boton-modal cancelar" onclick="pedirCuenta()">Pedir Cuenta</button>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+
+
+
                     <div class="row" id="botonEstadisticas">
                         <div class="col-1"></div>
                         <div class="col-10">
@@ -101,40 +125,27 @@
         app.esconderUnaParte("partes/verEstadoMesa.html")
     }
 
-    function agregarPedidoAEstaMesa(){
-       // app.traerHTML("partes/nuevoPedidoAgregarProductos.html",true,true);
-       mostrarModalAgregarProductos(idMesa);
+    function agregarPedidoAEstaMesa() {
+        // app.traerHTML("partes/nuevoPedidoAgregarProductos.html",true,true);
+        mostrarModalAgregarProductos(idMesa);
     }
 
     function cerrarMesa() {
         mostrarModalConfirmacion("Seguro que quiere cerrar la facturación de este mesa?", "Si", "No", function () {
-            $.ajax({
-                url: caminoBackend + "admin/mesas/cerrar/id",
-                headers: {
-                    token: localStorage[usuarioLogueado_ls]
-                },
-                data: {
-                    "id": idMesa
-                },
-                success: function (e) {
-                    //aca habria q evaluar segun lo q viene del server
-                    //una vez cerrada la mesa
-                    console.log(e)
-                    ocultarModalConfirmacion();
-                    ocultarEstadoMesa()
-
-                }
-            })
+            api.cerrarMesa(mesaActiva.id_mesa, cbCerrarMesa);
         }//cb si
         )//mostrar moal confirmacion
     }//cerrar mesa
 
+    function cbCerrarMesa() {
+
+    }
 
     function cbMostrarEstadoMesa(mesa) {
 
-        app.ocultarLoading();
 
-        
+
+
 
         console.log(mesa)
         mesaActiva = mesa;
@@ -154,38 +165,53 @@
         $("#idMesa").html("#" + mesa.id_mesa)
         if (checkStr(mesa.cliente.nombre_completo)) {
             //SI LA MESA TIENE UN CLIENTE ES QUE TIENE DATA Y TODO
-            if (usuario.dataUsuario().id_rol != 1) {
-            //no es admin
-                $("#botonCerrarMesa, #botonEstadisticas").hide();
-                $("#botonAgregarPedidoAMesaMozo").show();
+            $("#botonCerrarMesa").hide();
+            $("#pedirCuentaDiv").hide();
+            $("#botonEstadisticas").hide();
+            $("#botonAgregarPedidoAMesaMozo").hide();
+            if (usuario.dataUsuario().id_rol == 1 || usuario.dataUsuario().id_rol == 7) {
+                //admin
+                $("#botonEstadisticas").show();
+                 if (mesa.estado_mesa > 0 && mesa.estado_mesa < 5) $("#botonCerrarMesa").show()
+
+            } else if (usuario.dataUsuario().id_rol == 2) {
+                //mozo
+                if (mesa.estado_mesa > 0 && mesa.estado_mesa < 5) $("#pedirCuentaDiv").show();
+                if (mesa.estado_mesa == 5) $("#botonCerrarMesa").show();
+                if (mesa.estado_mesa != 6) $("#botonAgregarPedidoAMesaMozo").show();
+                if (mesa.estado_mesa == 6) $("#botonIndicarQSeLibero").show();
+
             } else {
-                $("#botonCerrarMesa, #botonEstadisticas").show();
-                $("#botonAgregarPedidoAMesaMozo").hide();
+                //los demas
+
+
+
             }
             ////
             $("#nombreCliente").html(mesa.cliente.nombre_completo)
-            try{  $("#cantVisitas").html(mesa.cliente.cant_visitas)}catch(e){}
-          try{  $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>")}catch(e){}
-           try{ $("#mozoAsignado").html(mesa.mozo.nombre_completo)}catch(e){}
+            try { $("#cantVisitas").html(mesa.cliente.cant_visitas) } catch (e) { }
+            try { $("#cantComensales").html("<b> " + mesa.clienteVisita.comensales + "</b>") } catch (e) { }
+            try { $("#mozoAsignado").html(mesa.mozo.nombre_completo) } catch (e) { }
             $("#total").html("$" + mesa.total_mesa)
-       
+
             $("#horaLlegadaMesa").html(hora(mesa.clienteVisita.date_created));
         } else {
             $("#botonCerrarMesa").hide();
             $("#nombreCliente").html("")
             $("#cantVisitas").html("")
-           try{ $("#cantComensales").html("")}catch(e){}
+            try { $("#cantComensales").html("") } catch (e) { }
             $("#mozoAsignado").html("")
             $("#total").html("")
             $("#horaLlegadaMesa").html("");
         }
 
+        setTimeout(() => { app.ocultarLoading(); }, 500);
 
     }
 
     function mostrarEstadoMesaAdmin(id) {
         // console.log(id)
-    
+
         app.mostrarLoading()
 
         idMesa = id;
@@ -221,5 +247,22 @@
         html += '</li>'
         return html;
 
+    }
+    function seLiberoLaMesa(){
+        api.indicarQSeLiberoUnaMesa(mesaActiva.id_mesa, cbMesaLibre);
+
+    }
+    function pedirCuenta() {
+        api.pedirCuentaMesa(mesaActiva.id_mesa, cbPedirCuenta);
+    }
+
+    function cbMesaLibre(){
+        console.log("callback liberar mesa");
+        ocultarEstadoMesa()
+
+    }
+    function cbPedirCuenta() {
+        console.log("callback pedir cuenta");
+        ocultarEstadoMesa()
     }
 </script>

@@ -201,5 +201,5 @@ padding-bottom: 25%;
 }
 
 div#verEstadoMesaAdmin {
-    z-index: 9;
+    z-index: 999;
 }
