@@ -17,6 +17,14 @@
     padding: 0px;
 }
 
+.cantProds{
+    font-weight:bold;
+    font-size:18px;
+    margin-left:3px;
+    margin-right:3px;
+ 
+}
+
 #loading{
     z-index: 9999999999999;
     display: block;
@@ -763,8 +771,15 @@ padding-bottom:100px;
     padding: 0;
     list-style: none;
     width: 100%;
+ 
     height: auto;
     max-height: 80vh;
+}
+
+
+.botonesAgregarBorrarProducto {
+    padding-right: 0px;
+    right: -10px;
 }
 
 .contenedor-listados-pedidos ul li{
