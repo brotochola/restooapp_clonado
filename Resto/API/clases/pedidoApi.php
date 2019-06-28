@@ -227,6 +227,7 @@ public static function TraerMiPedido($pId) {
             if(count($elProducto)>0){
                 $elProducto=$elProducto[0];
                 $elProducto->cantidad=$idsproductos[$x]["cantidad"];
+                $elProducto->listo=$idsproductos[$x]["listo"];
                 //return $elProducto;
                  array_push($arrProductos,$elProducto );
             }
