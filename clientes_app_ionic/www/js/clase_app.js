@@ -33,7 +33,8 @@ class App {
         this.traerHTML("partes/modalConfirmacion.html", true, true, "modalConfirm", false);
         this.traerHTML("partes/perfilesDePrueba.html", true, true, "modalPerfilesDePrueba", true);
         this.traerHTML("partes/nuevoCliente.html", true, true, "modalNuevoCliente", true);
-        this.traerHTML("partes/nuevoAnonimo.html", true, true, "modalNuevoCliente", true);
+        this.traerHTML("partes/nuevoAnonimo.html", true, true, "modalNuevoClienteAnonimo", true);
+        this.traerHTML("partes/nuevaReserva.html", true, true, "modalNuevaReserva", true);
         this.traerHTML("partes/nuevoPedidoAgregarProductos.html", true, true, "nuevoPedidoAgregarProductos", true);
 
         this.traerHTML("partes/verAgregarPedido.html", true, true, "modalVerPedido", true)
