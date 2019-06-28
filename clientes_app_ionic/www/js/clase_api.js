@@ -2,8 +2,8 @@ console.log("clase_api.js")
 
 class API {
     constructor() {
-        if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
-        else this.urlServer = "../../Resto/API/";
+        // if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
+        // else this.urlServer = "../../Resto/API/";
 
         this.urlServer="http://pixeloide.com/restoApp/API/"
 

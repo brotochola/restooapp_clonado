@@ -23,3 +23,11 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore lallave.keystor
 #Ejecutar
 cordova run android
 cordova run browser
+
+
+#Encuesta empleados
+-limpieza
+-orden
+-stock
+-residuos
+-puntualidad

@@ -68,7 +68,7 @@
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <!--  <button class="boton-modal " onclick="ocultarEstadoMesa()">OK</button> -->
+                        <button class="boton-modal cancelar" onclick="ScannearPropina()">Dar propina</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -134,11 +134,12 @@
             mostrarModalAgregarProductos(idMesa);
         } else {
             mostrarModalConfirmacion("Usted ya pagó la cuenta", "OK", null, null, null);
-        
+
         }
     }
 
     function pedirCuenta() {
+
         mostrarModalConfirmacion("¿Seguro que quiere pedir la cuenta mesa?", "Si", "No", function () {
             $.ajax({
                 url: api.urlServer + "mesa/estado",
@@ -162,6 +163,61 @@
         }//cb si
         )//mostrar moal confirmacion
     }//cerrar mesa
+
+
+    function ScannearPropina() {
+
+        try {
+            cordova.plugins.barcodeScanner.scan(callBackQRPropina, QRmalScannearPropina, {
+                prompt: "escaneá el qr de la mesa", // Android
+                resultDisplayDuration: 1500,
+                orientation: "portrait"
+            });
+        } catch (e) {
+            alert(e);
+        }
+
+    }
+
+
+    function callBackQRPropina(data) {
+
+        obj = JSON.parse(data.text);
+        var mensaje = "Propina agregada a la cuenta!!";
+
+
+        if (obj.tipo == "propina") {
+            var propina = obj.id;
+
+            switch (propina) {
+                case 1:
+                    mensaje = "Agregó un 20% de propina a la cuenta!!";
+                    break;
+                case 2:
+                    mensaje = "Agregó un 15% de propina a la cuenta!!";
+                    break;
+                case 3:
+                    mensaje = "Agregó un 10% de propina a la cuenta!!";
+                    break;
+                case 4:
+                    mensaje = "Agregó un 5% de propina a la cuenta!!";
+                    break;
+                case 5:
+                    mensaje = "Su opinión será tenida en cuenta!!";
+                    break;
+                default:
+                    mensaje = "Propina agregada a la cuenta!!";
+                    break;
+            }
+            mostrarModalConfirmacion(mensaje, "OK", null, null, null);
+        }
+    }
+
+
+    function QRmalScannearPropina(error) {
+        alert("Error: " + error)
+    }
+
 
 
     function cbMostrarEstadoMesa(mesa) {
