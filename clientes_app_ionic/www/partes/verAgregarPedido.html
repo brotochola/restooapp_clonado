@@ -1,3 +1,9 @@
+<style>
+        li.prodListo {
+            background: #50e089;
+        }
+        </style>
+        
 <div class="fondo-modal" id="verPedidoMozo" >
     <div class="contenedor-modal">
         <div class="cuerpo-modal">
@@ -105,7 +111,8 @@ function mostrarVerPedido(){
 
 function armarProducto(producto) {
     html = ""
-    html += '<li>'
+    if(producto.listo==1) html+="<li class='prodListo'>";
+    else html += '<li>'
     html += '<div class="container">'
     html += '<div class="row">'
     html += '<div class="col-2 text-center"><span class="numero-pedido">#' + producto.id_producto + '</span></div>'
