@@ -155,7 +155,7 @@ public static function estadoCocinero($request, $response){
 
     
     $pedidosPendientes=pedido::TraerTodosLosPedidosPendientes();
-
+  
 
 
     for($i=0;$i<count($pedidosPendientes);$i++){
@@ -175,30 +175,29 @@ public static function estadoCocinero($request, $response){
           array_push($arr,$arr1[$i]->id_producto);
       }
 */
-
+        //PRODUCTOS Q TIENE EL PEDIDO EN
         $arrProds=pedido::TraerPedidosProductosPorPedido( $pedidosPendientes[$i]["id"]);
         $pedidosPendientes[$i]["productos"]=[];
         
+      
+
 
         for($j=0;$j<count( $arrProds);$j++){          
             //PROD ES EL PRODUCTO DE LA TABLA PRODUCTOS 
             $prod=producto::TraerUno($arrProds[$j]["id_producto"])[0];
             $cant= $arrProds[$j]["cantidad"];
-            if( $arrProds[$j]["listo"]==1) continue; //si este producto de este pedido ya esta listo, este producto no lo pasa
-            if($prod->id_cocina==$rol){               
+            
+         
+            if($prod->id_cocina==$rol && $arrProds[$j]["listo"]==0){               
                 $arrProds[$j]=$prod;               
                 $arrProds[$j]->cantidad=$cant;
+                //VOY LLENANDO DE PRODUCTOS EL PEDIDO EN CUESTION
                 array_push( $pedidosPendientes[$i]["productos"],$arrProds[$j]);
 
                
-            }
+           }
         }
-        //DPS DE BORRAR LOS PRODUTOS LISTOS O DE OTRO ROL DE CADA PEDIDO
-        //SE FIJA SI LE QUEDA ALGUN PROD NO LISTO Y DE MI ROL A CADA PEDIDO
-        //Y SINO BORRA EL PEDIDO DE LO Q VA A VER EL COCINERO/BARTENER
-        if(count($pedidosPendientes[$i]["productos"])==0){
-            array_splice($pedidosPendientes,$i,1);
-        }
+  
 
       
     } //for pedidos

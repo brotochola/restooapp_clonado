@@ -150,7 +150,7 @@ function cbCargarEstado(){
     app.ocultarLoading();
    actualizarEstadoCocinero();
     if(usuario.tokenValido() && usuario.dataUsuario().id_rol>2){ 
-        console.log("ok token y rol");
+        
        setTimeout(()=>{
            
            api.cargarEstadoCocinero(cbCargarEstado)
@@ -258,6 +258,7 @@ function armarPedidoActual(pedido) {
 
    // console.log(pedido)
     if(!pedido.hasOwnProperty("productos")) return;
+    if(pedido.productos.length==0) return;
     var html = '  <!-- un pedido -->'
     html += '            <div class="unPedido '+pedido.id+'">'
     html += '                  <div class="row listaPedidosPendientes">'

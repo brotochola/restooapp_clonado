@@ -56,7 +56,7 @@ var notificationOpenedCallback = function (jsonData) {
 
 function funcDeviceReady() {
     console.log("device ready!")
-
+    
     // Enable to debug issues.
     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 

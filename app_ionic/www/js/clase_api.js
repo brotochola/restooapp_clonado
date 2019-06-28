@@ -83,7 +83,7 @@ class API {
             })
         }
 
-    pedirCuentaMesa(id_mesa){
+    pedirCuentaMesa(id_mesa, cb){
         $.ajax({
 
             url: this.urlServer + "mesa/pedirCuenta",
