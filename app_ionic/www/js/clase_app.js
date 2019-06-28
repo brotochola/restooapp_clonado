@@ -9,11 +9,16 @@ class App {
         this.$negroIndex = $("#negroIndex");
         this.$loading = $("#loading");
         this.$videoSplash = $("video#videoSplash");
+
+        this.audios=[ new Audio("audios/1.mp3"), new Audio("audios/2.mp3"), new Audio("audios/3.mp3"), new Audio("audios/4.mp3"), new Audio("audios/5.mp3")];
+        this.audioLogout=new Audio("audios/gong.mp3");
+
     }
 
 
     quePasaDespuesDeLogin() {
         if (usuario.dataUsuario().id_rol == 1) {
+           this.audios[0].play();
             this.traerHTML("partes/admin_estado.html", false, true, "admin_estado", false)
             this.traerHTML("partes/footerAdmin.html", true, true, "footerAdmin", true, "fija", () => {
                 setTimeout(() => {
@@ -24,6 +29,7 @@ class App {
             })
           
         } else if (usuario.dataUsuario().id_rol == 2) {
+            this.audios[1].play();
             this.traerHTML("partes/mozo_estado.html", false, true, "mozo_estado", false,null,()=>{
                 setTimeout(() => {  $("#fotoDelEmple")[0].src=api.urlServer+usuario.dataUsuario().foto;},500);
             })
@@ -31,11 +37,15 @@ class App {
          //PERDON DARO, TE SACO EL FOOTER DEL MOZO PQ PUSE EL ICONO DE QR EN LA BARRA DE ARRIBA
         }else if(usuario.dataUsuario().id_rol==5 || usuario.dataUsuario().id_rol==3 || usuario.dataUsuario().id_rol==4 || usuario.dataUsuario().id_rol==6){      
             //COCINERO
+            if(usuario.dataUsuario().id_rol==5) this.audios[2].play();
+            else this.audios[3].play();
+
             this.traerHTML("partes/cocinero_estado.html", false, true, "cocinero_estado", false,null, ()=>{
                 setTimeout(() => {  $("#fotoDelEmple")[0].src=api.urlServer+usuario.dataUsuario().foto;},500);
             })
         }else if(usuario.dataUsuario().id_rol==8){      
             //METRE
+            this.audios[4].play();
             this.traerHTML("partes/metre_estado.html", false, true, "metre_estado", false)
             this.traerHTML("partes/footer_metre.html", true, true, "footerMetre", false, "fija")
             this.traerHTML("partes/header_metre.html", true, true, "headerMetre", false, "fija")

@@ -60,6 +60,8 @@ class Usuario {
       //  app.ocultarFooterComercio()
       //  app.esconderFooter();
 
+        app.audioLogout.play();
+
     }
     dataUsuario() {
         // console.log(parseJwt(this.token))
