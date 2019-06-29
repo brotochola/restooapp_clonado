@@ -29,30 +29,23 @@
 
                 <div class="row">
                     <div class="col-6 inf-add">
-                        <div class="info"><img src="media/Img/Grado.png"> Mesa</div>
+                        <div class="info"><img src="media/Img/calendario-gris.png"> Hora</div>
                     </div>
-                    <div class="col-6 select-add">
-                        <div class="info" id="contenedorSelectMesa">
-                            <!--     var mesaesEmpleados=[null, "Bartender", "Cervecerx", "Cocinerx", "Camarerx", "Admin", "Candybar"];-->
-                            <!--  <select id="mesa">
-                                <option value="0">-</option>
-                                <option value="1">Socio</option>
-                                <option value="2">Camarerx</option>
-                                <option value="3">Bartender</option>
-                                <option value="4">Cervecerx</option>
-                                <option value="5">Cocinerx</option>
-                                <option value="6">Candybar</option>                                
-                            </select>-->
+                    <div class="col-6 select-add-fecha">
+                        <div class="row">
+                            <div class="col-12 info">
+                                <input type="time" id="hora">
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-6">
-                        <button class="boton-modal" id="botonAgregarEmpleado">Guardar</button>
+                        <button class="boton-modal" onclick='pedirReserva()' id="botonHacerReserva">Reservar</button>
                     </div>
                     <div class="col-6">
-                        <button onclick='sacarModalVerEmpleado()' class="boton-modal cancelar">Cancelar</button>
+                        <button class="boton-modal cancelar" onclick='sacarModalReserva()'>Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -64,8 +57,11 @@
     //$("#contenedorSelectMesa").html(array2Select(mesasLibres, "mesa"));
 
     function cbAgregarReserva(e) {
-        sacarModalVerEmpleado();
-        armarTablaEmpleados();
+        sacarModalReserva();
+    }
+
+    function sacarModalReserva() {
+        app.esconderUnaParte(null, "modalNuevaReserva");
     }
 
     function pedirReserva() {
@@ -75,7 +71,15 @@
 
         if (datosValidados == true) {
 
-            api.generarReserva(cbAgregarReserva, reserva);
+            datos = {
+                id_cliente: cliente.data.id_cliente,
+                id_mesa: -5, //por defecto sin mesa, el metre le asigna una mesa libre random
+                comensales: reserva.comensales,
+                fecha: reserva.fecha+" "+reserva.hora
+            };
+
+            console.log(datos);
+            api.reservaAhoraCliente(datos, cbAgregarReserva);
 
         }
     }
@@ -85,8 +89,8 @@
         reserva = {};
 
         reserva.comensales = $("#comensales").val();
-        reserva.id_mesa = $("#mesa").val();
-        reserva.fecha_nac = $("#fecha").val();
+        reserva.hora = $("#hora").val();
+        reserva.fecha = $("#fecha").val();
 
         if (!validarInput($("#comensales").val())) {
             mostrarModalConfirmacion("Ingresar la cantidad comensales", "OK", null, null, null)
@@ -94,8 +98,8 @@
             return;
         }
 
-        if (!validarSelect($("#mesa").val())) {
-            mostrarModalConfirmacion("Elegir una mesa", "OK", null, null, null)
+        if (!validarInput($("#hora").val())) {
+            mostrarModalConfirmacion("Ingresar la hora para cuando quiere la reserva", "OK", null, null, null)
             datosValidados = false;
             return;
         }
