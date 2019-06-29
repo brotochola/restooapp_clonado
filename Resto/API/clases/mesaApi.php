@@ -89,6 +89,7 @@ class mesaApi extends mesa
             $cliente = new cliente();
             $cliente->nombre_completo = $nombre;
             $cliente->dni = $dni;
+            $cliente->habilitado=1;
             $cliente->foto = $foto;
             $cliente->email = $email;
             $vIdCliente = $cliente->insertar();
