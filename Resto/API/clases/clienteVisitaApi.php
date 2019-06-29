@@ -60,7 +60,7 @@ class ClienteVisitaApi extends ClienteVisita
 
         $arrayDeParametros = $request->getParsedBody();
 
-        var_dump($arrayDeParametros);
+       // var_dump($arrayDeParametros);
 
         $una_cliente_visita->id_cliente = $arrayDeParametros["id_cliente"];
         $una_cliente_visita->id_mesa = $arrayDeParametros["id_mesa"];

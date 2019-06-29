@@ -114,20 +114,9 @@ class reservaApi extends reserva
         $vHora = new DateTime();
         $laHora = date_format($vHora, "Y/m/d H:i:s");
 
-        //aca hay q traer un mozo random..              
-        $todosLosEmpleados=empleado::TraerTodoLosEmpleados();
-       
-        $mozos=[];
-        for($i=0;$i<count($todosLosEmpleados);$i++){
-            $em=$todosLosEmpleados[$i];
-          
-            if($em["id_rol"]==2){
-                //mozo
-                array_push($mozos,$em);
-            }
-        }
-        $mozoRandom=$mozos[array_rand($mozos)]["id_empleado"];
+ 
 
+        empleado::traerMozoRandom();
         
 
         $id_cliente_visita = mesa::CargarClienteVisita($id_mesa_random, $id_cliente, $laHora, $comensales, $mozoRandom);

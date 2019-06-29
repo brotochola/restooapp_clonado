@@ -145,11 +145,11 @@
     }
 
     function pedirCuenta() {
-
-        mostrarModalConfirmacion("¿Seguro que quiere pedir la cuenta mesa?", "Si", "No", function () {
-
+        
+        mostrarModalConfirmacion("¿Seguro que quiere pedir la cuenta mesa?", "Si", "No",  ()=> {
+            $("#botonPedirCuenta").hide();
             //prompt para propina
-
+            app.mostrarLoading();
             $.ajax({
                 url: api.urlServer + "mesa/pedirCuenta",
                 type: "post",
@@ -160,22 +160,23 @@
                 data: {
                     "id_mesa": idMesa
                 },
-                success: function (e) {
+                success:  (e) =>{
+                    app.ocultarLoading();
                     //aca habria q evaluar segun lo q viene del server
                     //una vez cerrada la mesa
 
-                    //alert(JSON.stringify(e));
+                   
 
                     MesaActual.id_mesa = e.id_mesa;
                     MesaActual.total_mesa = e.total_mesa;
 
                     console.log(e);
-                    mostrarModalConfirmacion("Por favor escannear el qr para indicar su satisfacción", "Si", "No", ScannearPropina, null);
-                }
-            })
+                    mostrarModalConfirmacion("Por favor escannear el qr para indicar su satisfacción", "Si", "No", ()=>{alert(4); ScannearPropina()}, null);
+                }, error:e=>{console.log(e); app.ocultarLoading();  }
+            }) //ajax
         }//cb si
         )//mostrar moal confirmacion
-    }//cerrar mesa
+    }//pedir cuenta mesa
 
 
     function ScannearPropina() {
@@ -234,7 +235,7 @@
                 };
 
                 api.cargarFacturacion(datos, function () {
-                    mostrarModalConfirmacion("Su pago ya fue facturado!!", "ok", null, null, null)
+                    mostrarModalConfirmacion("Su pago ya fue facturado!!", "ok")
                 });
 
             }, () => {

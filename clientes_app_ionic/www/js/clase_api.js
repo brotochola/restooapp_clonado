@@ -149,7 +149,7 @@ class API {
     }
 
     traerEstadoMesaCliente(id, cb) {
-        alert("Entra en traerEstadoMesaCliente");
+     //   alert("Entra en traerEstadoMesaCliente");
 
         $.ajax({
             url: this.urlServer + "cliente-visita/traer-por-id-cliente/" + id,
