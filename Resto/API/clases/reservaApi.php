@@ -78,21 +78,68 @@ class reservaApi extends reserva
 
         $ArrayDeParametros = $request->getParsedBody();
         
-        $rta["estado"] = "ERROR";
+     
 
         $id_reserva = $ArrayDeParametros["id_reserva"];
-        $reserva = reserva::TraerUno($id_reserva);
+        $reserva = reserva::TraerUno($id_reserva)[0];
 
         $comensales = $reserva->comensales;
         $id_cliente = $reserva->id_cliente;
         
-        //A lo que me devuelve
+      
+      
 
-        //TraerIDsMesasLibresConXComensales
-        //Listado de IDs de mesas
 
-        //TraerCantidadDeReservasPara1HrConXComensales
-        //Cantidad de reservas para 1Hr
+        $mesasLibres=reserva::TraerIDsMesasLibresConXComensales($comensales);
+    
+
+        $cantReservas=reserva::TraerCantidadDeReservasPara1HrConXComensales($comensales);
+      
+        $arrCortado=array_splice($mesasLibres,-$cantReservas[0]->cantidad);
+
+        if(count($arrCortado)==0){
+            //NO HAY MESAS DISPONIBLES
+            $rta=new stdClass();
+            $rta->mensaje="No hay mesas disponibles. O están ocupadas, o tienen reservas dentro de la próxima hora";
+            return $response->withJson($rta, 200);  
+
+        }
+
+
+        $id_mesa_random=$arrCortado[array_rand($arrCortado)]->id_mesa;
+       
+
+        //asignar cliente vista
+        //cambiar mesa de estado
+        $vHora = new DateTime();
+        $laHora = date_format($vHora, "Y/m/d H:i:s");
+
+        //aca hay q traer un mozo random..              
+        $todosLosEmpleados=empleado::TraerTodoLosEmpleados();
+       
+        $mozos=[];
+        for($i=0;$i<count($todosLosEmpleados);$i++){
+            $em=$todosLosEmpleados[$i];
+          
+            if($em["id_rol"]==2){
+                //mozo
+                array_push($mozos,$em);
+            }
+        }
+        $mozoRandom=$mozos[array_rand($mozos)]["id_empleado"];
+
+        
+
+        $id_cliente_visita = mesa::CargarClienteVisita($id_mesa_random, $id_cliente, $laHora, $comensales, $mozoRandom);
+
+        mesa::ModificarEstadoDeLaMesa($id_mesa_random, 1);    
+
+        reserva::Confirmar($id_reserva);
+
+            
+        return $response->withJson(reserva::TraerTodosDeHoy(), 200);  
+
+
 
 
     }
