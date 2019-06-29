@@ -130,6 +130,14 @@ class mesaApi extends mesa
     {
         $id_mesa = $request->getParsedBody()["id_mesa"];
         $rta = mesa::CambiarEstadoMesa($id_mesa, 6);
+
+        $sql="UPDATE `cliente_visita` SET `cerrado` = '1' WHERE id_mesa = ".$id_mesa;
+        $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
+        $consulta = $objetoAccesoDato->RetornarConsulta($sql);
+        $consulta->execute();
+        
+
+
         $newResponse = $response->withJson($rta, 200);
         return $newResponse;
     }

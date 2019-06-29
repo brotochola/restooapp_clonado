@@ -98,7 +98,12 @@
         refreshId = setInterval(function () {
             if (api.datosClienteVisita) {
                 //clearInterval(refreshId);
-                mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa);
+                if(api.datosClienteVisita.clienteVisita.cerrado==0){
+                    mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa);
+                }else{
+                    clearInterval(refreshId);
+                    app.traerHTML("partes/botonesQR.html", false);
+                }
             }
         }, 7000);
     });
@@ -171,7 +176,7 @@
                     MesaActual.total_mesa = e.total_mesa;
 
                     console.log(e);
-                    mostrarModalConfirmacion("Por favor escannear el qr para indicar su satisfacción", "Si", "No", ()=>{alert(4); ScannearPropina()}, null);
+                    mostrarModalConfirmacion("Por favor escannear el qr para indicar su satisfacción", "Si", "No",  ScannearPropina, null);
                 }, error:e=>{console.log(e); app.ocultarLoading();  }
             }) //ajax
         }//cb si
@@ -325,8 +330,8 @@
         let horaPedidoAgregado = hora(pedido.fecha_alta)
 
         html += '<div style="display: inline-block" class="col-2 hora-listado horaEnListaDePedidos">' + horaPedidoAgregado + ' hs</div>'
-        if (mesaActiva.estado_mesa == 5) {
-            html += '<div style="display: inline-block" class="col-4 estado-pedido"><span style="font-weight:bold"> PAGADO </span></div>';
+        if (mesaActiva.estado_mesa >= 5) {
+            html += '<div style="display: inline-block" class="col-4 estado-pedido"><span style="font-weight:bold"> Esperando la cuenta </span></div>';
         } else {
             html += '<div style="display: inline-block" class="col-4 estado-pedido"><span style="font-weight:bold">' + estadosPedidos[pedido.estado_pedido].toUpperCase() + '</span></div>';
         }

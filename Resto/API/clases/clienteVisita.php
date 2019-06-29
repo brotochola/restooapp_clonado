@@ -130,7 +130,7 @@ class ClienteVisita
     {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
         
-        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM `cliente_visita` WHERE `id_mesa` IN (SELECT `id_mesa` FROM `mesas` WHERE `estado_mesa` != 6) AND `id_cliente` = :id_cliente ORDER BY`date_created` DESC LIMIT 1");
+        $consulta = $objetoAccesoDato->RetornarConsulta("SELECT * FROM `cliente_visita` WHERE `id_mesa` IN (SELECT `id_mesa` FROM `mesas` WHERE `estado_mesa` != 6) AND cerrado=0 AND `id_cliente` = :id_cliente ORDER BY`date_created` DESC LIMIT 1");
         $consulta->bindValue(':id_cliente', $id_cliente, PDO::PARAM_INT);
         $consulta->execute();
         $ClienteVisitaBuscado = $consulta->fetchObject('ClienteVisita');
