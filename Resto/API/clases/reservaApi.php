@@ -73,6 +73,30 @@ class reservaApi extends reserva
         return $newResponse;
     }    
    
+    public function metreAsignaMesaAReserva($request, $response, $args){
+        $newResponse = $response;
+
+        $ArrayDeParametros = $request->getParsedBody();
+        
+        $rta["estado"] = "ERROR";
+
+        $id_reserva = $ArrayDeParametros["id_reserva"];
+        $reserva = reserva::TraerUno($id_reserva);
+
+        $comensales = $reserva->comensales;
+        $id_cliente = $reserva->id_cliente;
+        
+        //A lo que me devuelve
+
+        //TraerIDsMesasLibresConXComensales
+        //Listado de IDs de mesas
+
+        //TraerCantidadDeReservasPara1HrConXComensales
+        //Cantidad de reservas para 1Hr
+
+
+    }
+
     // public function BorrarCliente($request, $response, $args) 
     // {
     //     $vCliente = new cliente();

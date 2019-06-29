@@ -61,6 +61,19 @@ class reserva
             return $consulta->execute();    
         }
 
+        public static function TraerIDsMesasLibresConXComensales($comensales)
+        {             
+            $consulta = 'SELECT `id_mesa` FROM `mesas` WHERE `estado_mesa` = 0 AND `sillas` BETWEEN '.$comensales.' AND '.$comensales+1;
+
+            return AccesoDatos::ConsultaClase($consulta,"stdClass");
+        }
+
+        public static function TraerCantidadDeReservasPara1HrConXComensales($comensales)
+        {             
+            $consulta = 'SELECT * FROM `reservas` WHERE `fecha` < DATE_ADD(now(), INTERVAL 1 HOUR) AND fecha > DATE_SUB(now(), INTERVAL 20 MINUTE) AND `confirmada` = 0 AND comensales BETWEEN '.$comensales.' AND '.$comensales+1;
+
+            return AccesoDatos::ConsultaClase($consulta,"stdClass");
+        }
 
         // public function BorrarUno()
         // {
