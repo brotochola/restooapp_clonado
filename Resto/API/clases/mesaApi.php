@@ -44,7 +44,7 @@ class mesaApi extends mesa
             return $response;
         } else {
             //LA MESA ESTA LIBRE
-            $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, 2, -1);
+            $id_cliente_visita = mesa::CargarClienteVisita($vIdMesa, $vIdCliente, $laHora, 2, empleado::traerMozoRandom());
             mesa::ModificarEstadoDeLaMesa($vIdMesa, 1);
 
 

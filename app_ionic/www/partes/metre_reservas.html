@@ -57,6 +57,10 @@ function armarReservas(a){
         $("#reservas_lista").append(armarUnaReserva(a[i]));
     }
 
+    if(a.length==0){
+        $("#reservas_lista").html("<p class='text-center' style='width:100%'>No hay reservas pendientes</p>");
+    }
+
     setTimeout(traerReservas,5000);
 }
 

@@ -66,6 +66,22 @@ class empleado
             return AccesoDatos::ConsultaDatosAsociados($consulta);
         }
 
+        public static function traerMozoRandom(){
+                   //aca hay q traer un mozo random..              
+        $todosLosEmpleados=empleado::TraerTodoLosEmpleados();
+       
+        $mozos=[];
+        for($i=0;$i<count($todosLosEmpleados);$i++){
+            $em=$todosLosEmpleados[$i];
+          
+            if($em["id_rol"]==2){
+                //mozo
+                array_push($mozos,$em);
+            }
+        }
+         return $mozos[array_rand($mozos)]["id_empleado"];
+        }
+
         public static function TraerUsuario($pUsuario,$pClave)
         {    
             $consulta = "SELECT * FROM `empleados` WHERE  `usuario` = '$pUsuario' AND `clave`='$pClave'";            
