@@ -19,7 +19,8 @@
                 <div class="row" id="botonSolicitarMesa">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="solicitarMesa()">QR Entrada al local</button>
+                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="solicitarMesa()">QR
+                            Entrada al local</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -27,7 +28,8 @@
                 <div class="row" id="botonIngresoMesa">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="ingresarEnMesa()">QR Mesa</button>
+                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="ingresarEnMesa()">QR
+                            Mesa</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -35,7 +37,8 @@
                 <div class="row" id="botonHacerReserva">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="hacerReserva()">Hacer una reserva</button>
+                        <button class="boton-modal" style="height: 20vh; font-size: 25px;"
+                            onclick="hacerReserva()">Hacer una reserva</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -43,7 +46,8 @@
                 <div class="row" id="botonPedirDelivery">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal" style="height: 20vh; font-size: 25px;" onclick="pedirDelivery()">Delivery!</button>
+                        <button class="boton-modal" style="height: 20vh; font-size: 25px;"
+                            onclick="pedirDelivery()">Delivery!</button>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -66,8 +70,12 @@
         //SetInterval para ver si tiene un cliente visita
     });
 
-    function hacerReserva(){
+    function hacerReserva() {
         app.traerHTML("partes/nuevaReserva.html", true, false, "hacerReserva", false, "", null);
+    }
+
+    function pedirDelivery() {
+        mostrarModalConfirmacion("Próximamente!!", "OK", null, null, null)
     }
 
     function solicitarMesa() {
@@ -90,6 +98,19 @@
         return target.replace(new RegExp(search, 'g'), replacement);
     };
 
+    
+    function ForzarQR_MesaYA() {
+        objJSON = {
+            tipo: "entrada"
+        }
+
+        var QRfake2 = {
+            text: JSON.stringify(objJSON)
+        };
+
+        cbSolicitarMesa(QRfake2);
+    }
+
     function cbSolicitarMesa(data) {
         //esto es para pedir una mesa YA!
 
@@ -98,20 +119,8 @@
 
         obj = JSON.parse(a);
         if (obj.tipo == "entrada") {
-            //promt para comensales
-
-            datos = {
-                id_cliente: cliente.data.id_cliente,
-                id_mesa: -5, //por defecto sin mesa, el metre le asigna una mesa libre random
-                comensales: 2,
-                fecha: "HOY"
-            };
-
-            console.log(datos);
-
-            api.reservaAhoraCliente(datos, () => {
-                mostrarModalConfirmacion("Se cargó su solicitud para una mesa, alguien le llamará", "OK", null, null, null);
-            });
+            
+            app.traerHTML("partes/nuevaReservaYA.html", true, false, "hacerReservaYA", false, "", null);
         } else {
             console.log("Error en QR");
         }
@@ -137,7 +146,7 @@
         alert(JSON.stringify(e));
     }
 
-    function ForzarQR_Mesa(mesa){
+    function ForzarQR_Mesa(mesa) {
         objJSON = {
             tipo: "mesa",
             id: mesa
