@@ -60,3 +60,6 @@
 4 - Fecha de inicio de la tarea: 15/06/2019
 5 - Fecha de finalización de tarea:25/06/2019
 6 - Branch: - 
+
+
+![alt text](https://snag.gy/BsAbkv.jpg)
