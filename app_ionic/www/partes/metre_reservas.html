@@ -1,4 +1,10 @@
 <style>
+
+.botonMetreMesa{
+margin-right:15px;
+margin-bottom:15px;
+}
+
 #reservas_lista *{
 font-family: 'Dosis', 'Open Sans'
 }
@@ -56,6 +62,14 @@ function armarReservas(a){
 
 
 
+function asignarMesaAEstaReserva(id){
+    api.metreAsignaMesaAReserva(id,cbMetreReserva);
+}
+
+function cbMetreReserva(){
+    console.log(" cb cb metre reserva!");
+}
+
 function armarUnaReserva(a){
 /*
 comensales: 0
@@ -72,6 +86,7 @@ str+="<p>Nombre:<b> "+a.nombre_completo+"</b></p>";
 str+="<p>Cantidad de Comensales:<b> "+a.comensales+"</b></p>";
 str+="<p>Hora de Reserva: <b>"+a.fecha_alta+"</b></p>";
 str+="<p>Para cuándo: <b>"+a.fecha+"</b></p>";
+str+='<div class="text-right"><button class="boton-modal "  class="botonMetreMesa" onclick="asignarMesaAEstaReserva('+a.id+')">Asignar Mesa</button></div>'
 str+="</li>";
 
 return str;

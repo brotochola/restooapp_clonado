@@ -61,7 +61,7 @@
         $player_id=self::idEmpleado2playerId($id_usuario);
 
 		$icon="";
-        $player_id="4d0dc654-a722-4dc9-a9c6-471c71c2d2a6";
+       // $player_id="4d0dc654-a722-4dc9-a9c6-471c71c2d2a6";
 
 		$content = array(
 			"en" => $texto

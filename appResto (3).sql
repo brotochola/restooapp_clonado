@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-06-2019 a las 00:07:24
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 7.3.1
+-- Host: localhost
+-- Generation Time: Jun 28, 2019 at 09:04 PM
+-- Server version: 5.7.26-0ubuntu0.16.04.1
+-- PHP Version: 7.1.29-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `appresto`
+-- Database: `appResto`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Table structure for table `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -40,7 +40,7 @@ CREATE TABLE `clientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `clientes`
+-- Dumping data for table `clientes`
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nombre_completo`, `dni`, `email`, `foto`, `habilitado`, `date_created`, `last_modified`) VALUES
@@ -85,12 +85,21 @@ INSERT INTO `clientes` (`id_cliente`, `nombre_completo`, `dni`, `email`, `foto`,
 (62, 'Daniel', '37185071', 'gurpreet@abc.gob.ar', '', 1, '2019-06-22 15:26:17', '2019-06-22 15:26:40'),
 (63, 'asdasd', '244', 'sdasdadadasd@asdsad.com', '', 0, '2019-06-27 20:12:47', '2019-06-27 20:12:47'),
 (64, 'dfsf', '44', 'fsfsfd@das.com', '', 0, '2019-06-27 20:29:45', '2019-06-27 20:29:45'),
-(65, 'a', '33332', 'adsasdas@asd.com', '', 0, '2019-06-27 21:35:22', '2019-06-27 21:35:22');
+(65, 'a', '33332', 'adsasdas@asd.com', '', 0, '2019-06-27 21:35:22', '2019-06-27 21:35:22'),
+(66, 'Julian', '', '', '', 1, '2019-06-28 07:19:28', '2019-06-28 07:19:28'),
+(67, 'aaaaa', '44444', 'asdasd@dasd.com', '', 0, '2019-06-28 16:06:19', '2019-06-28 16:06:19'),
+(68, 'juanito pinto', '2394746', 'asdasd@ads.com', '', 0, '2019-06-28 22:21:57', '2019-06-28 22:21:57'),
+(69, 'daro pruebas', '12345', 'daro@prueba.com', '', 1, '2019-06-28 22:45:05', '2019-06-28 23:50:35'),
+(70, 'Fulano', '', '', '', 1, '2019-06-28 23:10:25', '2019-06-28 23:10:25'),
+(71, 'Daro', '', '', '', 1, '2019-06-29 00:35:46', '2019-06-29 00:35:46'),
+(72, 'guachin 1', '', '', '', 1, '2019-06-29 00:44:37', '2019-06-29 00:44:37'),
+(73, 'Felipe', '', '', '', 1, '2019-06-29 00:45:57', '2019-06-29 00:45:57'),
+(74, 'ggg', '', '', '', 1, '2019-06-29 00:59:18', '2019-06-29 00:59:18');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cliente_visita`
+-- Table structure for table `cliente_visita`
 --
 
 CREATE TABLE `cliente_visita` (
@@ -106,18 +115,24 @@ CREATE TABLE `cliente_visita` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `cliente_visita`
+-- Dumping data for table `cliente_visita`
 --
 
 INSERT INTO `cliente_visita` (`id_cliente_visita`, `id_cliente`, `id_mesa`, `fecha`, `comensales`, `mozo`, `date_created`, `last_modified`, `cerrado`) VALUES
 (49, 63, 2, '2019-06-27', 3, 4, '2019-06-27 20:12:47', '2019-06-27 20:12:47', 0),
 (50, 64, 1, '2019-06-27', 1, 4, '2019-06-27 20:29:45', '2019-06-27 20:29:45', 0),
-(51, 65, 3, '2019-06-27', 4, 4, '2019-06-27 21:35:22', '2019-06-27 21:35:22', 0);
+(51, 65, 3, '2019-06-27', 4, 4, '2019-06-27 21:35:22', '2019-06-27 21:35:22', 0),
+(52, 67, 5, '2019-06-28', 1, 4, '2019-06-28 16:06:19', '2019-06-28 16:06:19', 0),
+(53, 68, 2, '2019-06-28', 3, 4, '2019-06-28 22:21:57', '2019-06-28 22:21:57', 0),
+(54, 69, 2, '2019-06-28', 1, 4, '2019-06-28 22:45:05', '2019-06-28 22:45:05', 0),
+(55, 71, 6, '2019-06-28', 2, -1, '2019-06-29 00:36:43', '2019-06-29 00:36:43', 0),
+(56, 72, 10, '2019-06-28', 2, -1, '2019-06-29 00:45:51', '2019-06-29 00:45:51', 0),
+(57, 73, 9, '2019-06-28', 2, -1, '2019-06-29 00:46:17', '2019-06-29 00:46:17', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empleados`
+-- Table structure for table `empleados`
 --
 
 CREATE TABLE `empleados` (
@@ -137,7 +152,7 @@ CREATE TABLE `empleados` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `empleados`
+-- Dumping data for table `empleados`
 --
 
 INSERT INTO `empleados` (`id_empleado`, `usuario`, `email`, `nombre_completo`, `fecha_nac`, `dni`, `id_rol`, `fecha_ingreso`, `fecha_egreso`, `sueldo`, `clave`, `habilitado`, `foto`) VALUES
@@ -162,7 +177,7 @@ INSERT INTO `empleados` (`id_empleado`, `usuario`, `email`, `nombre_completo`, `
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empleados_onesignal`
+-- Table structure for table `empleados_onesignal`
 --
 
 CREATE TABLE `empleados_onesignal` (
@@ -173,7 +188,7 @@ CREATE TABLE `empleados_onesignal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `empleados_onesignal`
+-- Dumping data for table `empleados_onesignal`
 --
 
 INSERT INTO `empleados_onesignal` (`id_empleado`, `player_id`, `push_token`, `date_created`) VALUES
@@ -182,12 +197,16 @@ INSERT INTO `empleados_onesignal` (`id_empleado`, `player_id`, `push_token`, `da
 (16, '4d0dc654-a722-4dc9-a9c6-471c71c2d2a6', '', '2019-06-24 18:07:17'),
 (16, '4d0dc654-a722-4dc9-a9c6-471c71c2d2a6', '', '2019-06-24 18:07:59'),
 (4, '4d0dc654-a722-4dc9-a9c6-471c71c2d2a6', '', '2019-06-24 18:16:49'),
-(4, '4d0dc654-a722-4dc9-a9c6-471c71c2d2a6', '', '2019-06-24 18:34:20');
+(4, '4d0dc654-a722-4dc9-a9c6-471c71c2d2a6', '', '2019-06-24 18:34:20'),
+(4, '4d0dc654-a722-4dc9-a9c6-471c71c2d2a6', '', '2019-06-28 16:46:52'),
+(3, '4d0dc654-a722-4dc9-a9c6-471c71c2d2a6', '', '2019-06-28 16:47:14'),
+(3, '4d0dc654-a722-4dc9-a9c6-471c71c2d2a6', '', '2019-06-28 17:04:28'),
+(18, 'd59fb17f-0b6c-42b1-b9d2-9d41530f72b7', '', '2019-06-28 22:29:17');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empleados_relevo`
+-- Table structure for table `empleados_relevo`
 --
 
 CREATE TABLE `empleados_relevo` (
@@ -204,7 +223,7 @@ CREATE TABLE `empleados_relevo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `empleados_relevo`
+-- Dumping data for table `empleados_relevo`
 --
 
 INSERT INTO `empleados_relevo` (`id`, `id_empleado`, `id_sector`, `fecha`, `limpieza`, `orden`, `stock`, `residuos`, `puntualidad`, `foto`) VALUES
@@ -214,7 +233,7 @@ INSERT INTO `empleados_relevo` (`id`, `id_empleado`, `id_sector`, `fecha`, `limp
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `encuestas`
+-- Table structure for table `encuestas`
 --
 
 CREATE TABLE `encuestas` (
@@ -230,7 +249,7 @@ CREATE TABLE `encuestas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estado_mesa`
+-- Table structure for table `estado_mesa`
 --
 
 CREATE TABLE `estado_mesa` (
@@ -239,7 +258,7 @@ CREATE TABLE `estado_mesa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `estado_mesa`
+-- Dumping data for table `estado_mesa`
 --
 
 INSERT INTO `estado_mesa` (`id_estadomesa`, `nombre_estado`) VALUES
@@ -255,7 +274,7 @@ INSERT INTO `estado_mesa` (`id_estadomesa`, `nombre_estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estado_pedidos`
+-- Table structure for table `estado_pedidos`
 --
 
 CREATE TABLE `estado_pedidos` (
@@ -264,7 +283,7 @@ CREATE TABLE `estado_pedidos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `estado_pedidos`
+-- Dumping data for table `estado_pedidos`
 --
 
 INSERT INTO `estado_pedidos` (`id_estado_pedido`, `nombre_estado`) VALUES
@@ -278,7 +297,31 @@ INSERT INTO `estado_pedidos` (`id_estado_pedido`, `nombre_estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `logueos`
+-- Table structure for table `facturacion`
+--
+
+CREATE TABLE `facturacion` (
+  `id` int(11) NOT NULL,
+  `cuenta` decimal(30,2) NOT NULL,
+  `id_mesa` int(11) NOT NULL,
+  `porcentaje_propina` int(11) NOT NULL,
+  `id_mozo` int(11) DEFAULT NULL,
+  `satisfaccion` int(11) NOT NULL,
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `facturacion`
+--
+
+INSERT INTO `facturacion` (`id`, `cuenta`, `id_mesa`, `porcentaje_propina`, `id_mozo`, `satisfaccion`, `date_created`, `last_modified`) VALUES
+(1, '43420.32', 5, 15, 4, 5, '2019-06-29 00:11:18', '2019-06-29 00:11:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logueos`
 --
 
 CREATE TABLE `logueos` (
@@ -291,7 +334,7 @@ CREATE TABLE `logueos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `mesas`
+-- Table structure for table `mesas`
 --
 
 CREATE TABLE `mesas` (
@@ -303,20 +346,20 @@ CREATE TABLE `mesas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `mesas`
+-- Dumping data for table `mesas`
 --
 
 INSERT INTO `mesas` (`id_mesa`, `sillas`, `estado_mesa`, `zona`, `habilitada`) VALUES
 (1, 4, 3, 1, 1),
-(2, 3, 3, 1, 1),
+(2, 3, 5, 1, 1),
 (3, 4, 3, 1, 1),
 (4, 4, 0, 1, 1),
-(5, 4, 0, 1, 1),
-(6, 3, 0, 1, 1),
+(5, 4, 7, 1, 1),
+(6, 3, 5, 1, 1),
 (7, 3, 0, 2, 1),
 (8, 5, 0, 2, 1),
-(9, 6, 0, 2, 1),
-(10, 3, 0, 2, 1),
+(9, 6, 1, 2, 1),
+(10, 3, 1, 2, 1),
 (11, 3, 0, 2, 1),
 (12, 3, 0, 2, 1),
 (13, 2, 0, 1, 1),
@@ -328,7 +371,7 @@ INSERT INTO `mesas` (`id_mesa`, `sillas`, `estado_mesa`, `zona`, `habilitada`) V
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pedidos`
+-- Table structure for table `pedidos`
 --
 
 CREATE TABLE `pedidos` (
@@ -342,7 +385,7 @@ CREATE TABLE `pedidos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `pedidos`
+-- Dumping data for table `pedidos`
 --
 
 INSERT INTO `pedidos` (`id`, `id_mesa`, `id_cliente_visita`, `fecha_alta`, `estado_pedido`, `hora_estimada`, `hora_listo`) VALUES
@@ -364,12 +407,16 @@ INSERT INTO `pedidos` (`id`, `id_mesa`, `id_cliente_visita`, `fecha_alta`, `esta
 (100, 1, 50, '2019-06-27 18:27:00', 3, '2019-06-27 18:28:00', '2019-06-27 18:27:00'),
 (101, 1, 50, '2019-06-27 18:27:18', 3, '2019-06-27 18:27:18', '2019-06-27 18:27:18'),
 (102, 3, 51, '2019-06-27 18:35:33', 3, '2019-06-27 18:35:33', '2019-06-27 18:35:33'),
-(103, 3, 51, '2019-06-27 18:57:55', 7, '2019-06-27 18:58:55', '2019-06-27 18:57:55');
+(103, 3, 51, '2019-06-27 18:57:55', 7, '2019-06-27 18:58:55', '2019-06-27 18:57:55'),
+(104, 5, 52, '2019-06-28 13:06:29', 7, '2019-06-28 13:07:29', '2019-06-28 13:06:30'),
+(105, 2, 53, '2019-06-28 19:22:22', 3, '2019-06-28 19:23:22', '2019-06-28 19:22:22'),
+(106, 2, 54, '2019-06-28 19:45:33', 3, '2019-06-28 19:45:33', '2019-06-28 19:45:33'),
+(107, 2, 54, '2019-06-28 19:45:42', 7, '2019-06-28 19:46:42', '2019-06-28 19:45:42');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pedidos_borrados`
+-- Table structure for table `pedidos_borrados`
 --
 
 CREATE TABLE `pedidos_borrados` (
@@ -381,7 +428,7 @@ CREATE TABLE `pedidos_borrados` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pedidos_detalles`
+-- Table structure for table `pedidos_detalles`
 --
 
 CREATE TABLE `pedidos_detalles` (
@@ -394,7 +441,7 @@ CREATE TABLE `pedidos_detalles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `pedidos_detalles`
+-- Dumping data for table `pedidos_detalles`
 --
 
 INSERT INTO `pedidos_detalles` (`id`, `id_producto`, `cantidad`, `date_created`, `last_modified`, `listo`) VALUES
@@ -514,12 +561,22 @@ INSERT INTO `pedidos_detalles` (`id`, `id_producto`, `cantidad`, `date_created`,
 (102, 3, 5, '2019-06-27 21:35:33', '2019-06-27 21:35:40', 1),
 (102, 2, 1, '2019-06-27 21:35:33', '2019-06-27 22:02:27', 1),
 (103, 27, 1, '2019-06-27 21:57:55', '2019-06-27 22:02:24', 1),
-(103, 26, 3, '2019-06-27 21:57:55', '2019-06-27 21:57:55', 0);
+(103, 26, 3, '2019-06-27 21:57:55', '2019-06-27 21:57:55', 0),
+(104, 26, 1, '2019-06-28 16:06:30', '2019-06-28 22:35:45', 1),
+(104, 12, 1, '2019-06-28 16:06:30', '2019-06-28 16:06:30', 0),
+(105, 1, 2, '2019-06-28 22:22:22', '2019-06-28 23:04:32', 1),
+(105, 40, 3, '2019-06-28 22:22:22', '2019-06-28 23:25:39', 1),
+(105, 39, 1, '2019-06-28 22:22:22', '2019-06-28 23:25:39', 1),
+(106, 1, 1, '2019-06-28 22:45:33', '2019-06-28 23:06:29', 1),
+(106, 4, 1, '2019-06-28 22:45:33', '2019-06-28 23:03:27', 1),
+(107, 3, 1, '2019-06-28 22:45:42', '2019-06-28 22:45:42', 0),
+(107, 39, 1, '2019-06-28 22:45:42', '2019-06-28 23:08:55', 1),
+(107, 38, 1, '2019-06-28 22:45:42', '2019-06-28 22:45:42', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Table structure for table `productos`
 --
 
 CREATE TABLE `productos` (
@@ -536,7 +593,7 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `productos`
+-- Dumping data for table `productos`
 --
 
 INSERT INTO `productos` (`id_producto`, `nombre_producto`, `descripcion`, `id_cocina`, `precio`, `habilitado`, `minutos_preparacion`, `imagen`, `date_created`, `last_modified`) VALUES
@@ -554,13 +611,24 @@ INSERT INTO `productos` (`id_producto`, `nombre_producto`, `descripcion`, `id_co
 (12, 'Paloma', 'Cocktail hecho con tequila y gaseosa de pomelo', 3, '150', 1, 0, '', '2019-05-27 01:16:34', '2019-06-24 18:18:12'),
 (13, 'Papas Fritas', 'Papas llenas de aceite', 5, '90', 1, 1, '', '2019-06-20 21:34:42', '2019-06-24 18:18:12'),
 (25, 'Nachos2', 'Con queso', 5, '240', 1, 1, '', '2019-06-22 14:21:31', '2019-06-22 14:21:44'),
-(26, 'sanguchitos', 'de mortadela', 3, '80', 1, 1, NULL, '2019-06-27 21:56:34', '2019-06-27 21:56:34'),
-(27, 'pizza napo', 'napoooo', 5, '220', 1, 1, NULL, '2019-06-27 21:57:39', '2019-06-27 21:57:39');
+(26, 'sanguchitos', 'de mortadela', 5, '80', 1, 1, NULL, '2019-06-27 21:56:34', '2019-06-27 22:09:29'),
+(27, 'pizza napo', 'napoooo', 5, '220', 1, 1, NULL, '2019-06-27 21:57:39', '2019-06-27 21:57:39'),
+(30, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:09:15', '2019-06-28 17:09:15'),
+(31, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:13:58', '2019-06-28 17:13:58'),
+(32, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:14:17', '2019-06-28 17:14:17'),
+(33, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:14:17', '2019-06-28 17:14:17'),
+(34, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:14:17', '2019-06-28 17:14:17'),
+(35, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:14:18', '2019-06-28 17:14:18'),
+(36, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:14:18', '2019-06-28 17:14:18'),
+(37, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:14:18', '2019-06-28 17:14:18'),
+(38, 'Pancho', 'Jdjddjjddjd ', 5, '345', 1, 1, '', '2019-06-28 17:14:19', '2019-06-28 17:14:19'),
+(39, 'cerveza ipa', NULL, 4, '120', 1, 1, '', '2019-06-28 17:17:44', '2019-06-28 23:38:21'),
+(40, 'cerveza randal', NULL, 4, '135', 1, 1, 'img/productos/-foto_producto-40-2019-06-28--14.18.20.png', '2019-06-28 17:18:20', '2019-06-28 23:38:25');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reservas`
+-- Table structure for table `reservas`
 --
 
 CREATE TABLE `reservas` (
@@ -574,7 +642,7 @@ CREATE TABLE `reservas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `reservas`
+-- Dumping data for table `reservas`
 --
 
 INSERT INTO `reservas` (`id`, `id_cliente`, `id_mesa`, `fecha`, `fecha_alta`, `confirmada`, `comensales`) VALUES
@@ -588,7 +656,7 @@ INSERT INTO `reservas` (`id`, `id_cliente`, `id_mesa`, `fecha`, `fecha_alta`, `c
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rol`
+-- Table structure for table `rol`
 --
 
 CREATE TABLE `rol` (
@@ -597,7 +665,7 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `rol`
+-- Dumping data for table `rol`
 --
 
 INSERT INTO `rol` (`id_rol`, `nombre_rol`) VALUES
@@ -611,144 +679,156 @@ INSERT INTO `rol` (`id_rol`, `nombre_rol`) VALUES
 (8, 'metre');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `clientes`
+-- Indexes for table `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
--- Indices de la tabla `cliente_visita`
+-- Indexes for table `cliente_visita`
 --
 ALTER TABLE `cliente_visita`
   ADD PRIMARY KEY (`id_cliente_visita`);
 
 --
--- Indices de la tabla `empleados`
+-- Indexes for table `empleados`
 --
 ALTER TABLE `empleados`
   ADD PRIMARY KEY (`id_empleado`),
   ADD KEY `fk_id_roll` (`id_rol`);
 
 --
--- Indices de la tabla `empleados_relevo`
+-- Indexes for table `empleados_relevo`
 --
 ALTER TABLE `empleados_relevo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `encuestas`
+-- Indexes for table `encuestas`
 --
 ALTER TABLE `encuestas`
   ADD PRIMARY KEY (`id_encuesta`);
 
 --
--- Indices de la tabla `estado_mesa`
+-- Indexes for table `estado_mesa`
 --
 ALTER TABLE `estado_mesa`
   ADD PRIMARY KEY (`id_estadomesa`);
 
 --
--- Indices de la tabla `estado_pedidos`
+-- Indexes for table `estado_pedidos`
 --
 ALTER TABLE `estado_pedidos`
   ADD PRIMARY KEY (`id_estado_pedido`);
 
 --
--- Indices de la tabla `logueos`
+-- Indexes for table `facturacion`
+--
+ALTER TABLE `facturacion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logueos`
 --
 ALTER TABLE `logueos`
   ADD PRIMARY KEY (`numero`),
   ADD KEY `id_empleado` (`id_empleado`);
 
 --
--- Indices de la tabla `mesas`
+-- Indexes for table `mesas`
 --
 ALTER TABLE `mesas`
   ADD PRIMARY KEY (`id_mesa`);
 
 --
--- Indices de la tabla `pedidos`
+-- Indexes for table `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `productos`
+-- Indexes for table `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id_producto`),
   ADD KEY `id_cocina` (`id_cocina`);
 
 --
--- Indices de la tabla `reservas`
+-- Indexes for table `reservas`
 --
 ALTER TABLE `reservas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `rol`
+-- Indexes for table `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`id_rol`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `clientes`
+-- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
--- AUTO_INCREMENT de la tabla `cliente_visita`
+-- AUTO_INCREMENT for table `cliente_visita`
 --
 ALTER TABLE `cliente_visita`
-  MODIFY `id_cliente_visita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id_cliente_visita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
--- AUTO_INCREMENT de la tabla `empleados_relevo`
+-- AUTO_INCREMENT for table `empleados_relevo`
 --
 ALTER TABLE `empleados_relevo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `encuestas`
+-- AUTO_INCREMENT for table `encuestas`
 --
 ALTER TABLE `encuestas`
   MODIFY `id_encuesta` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `logueos`
+-- AUTO_INCREMENT for table `facturacion`
+--
+ALTER TABLE `facturacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `logueos`
 --
 ALTER TABLE `logueos`
   MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `mesas`
+-- AUTO_INCREMENT for table `mesas`
 --
 ALTER TABLE `mesas`
   MODIFY `id_mesa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT de la tabla `pedidos`
+-- AUTO_INCREMENT for table `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
--- AUTO_INCREMENT de la tabla `productos`
+-- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT de la tabla `reservas`
+-- AUTO_INCREMENT for table `reservas`
 --
 ALTER TABLE `reservas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;

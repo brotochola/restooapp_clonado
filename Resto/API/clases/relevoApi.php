@@ -14,14 +14,15 @@ class relevoApi extends relevo
         $ArrayDeParametros = $request->getParsedBody();
 
         $miRelevo->id_empleado = $ArrayDeParametros['id_empleado'];
-        $miRelevo->id_sector = $ArrayDeParametros['id_sector'];
-        $miRelevo->fecha = $ArrayDeParametros['fecha'];
+        //$miRelevo->id_sector = $ArrayDeParametros['id_sector'];
+        
         $miRelevo->limpieza = $ArrayDeParametros['limpieza'];
         $miRelevo->orden = $ArrayDeParametros['orden'];
         $miRelevo->stock = $ArrayDeParametros['stock'];
         $miRelevo->residuos = $ArrayDeParametros['residuos'];
         $miRelevo->puntualidad = $ArrayDeParametros['puntualidad'];
-        $miRelevo->foto = $ArrayDeParametros['foto'];
+      
+     
 
         
 

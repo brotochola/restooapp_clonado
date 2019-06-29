@@ -89,6 +89,7 @@ class mesaApi extends mesa
             $cliente = new cliente();
             $cliente->nombre_completo = $nombre;
             $cliente->dni = $dni;
+            $cliente->habilitado=1;
             $cliente->foto = $foto;
             $cliente->email = $email;
             $vIdCliente = $cliente->insertar();
@@ -148,6 +149,8 @@ class mesaApi extends mesa
         mesa::CambiarEstadoMesa($id_mesa, 5);
 
         $rta = self::id2MesaCompleta($id_mesa);
+        $id_mozo=$rta->mozo->id_empleado;
+        oneSignal::mandarPushAUsuario( $id_mozo,"La Mesa ".$rta->id_mesa." pidió la cuenta. Son ".$rta->total_mesa);
 
         $newResponse = $response->withJson($rta, 200);
         return $newResponse;
@@ -228,7 +231,13 @@ class mesaApi extends mesa
 
             $respuestaArray->pedidos = $pedidos;
             $respuestaArray->clienteVisita = $cliente_visita[0];
-            $respuestaArray->mozo = empleado::TraerUnoId($cliente_visita[0]["mozo"])[0];
+            $id_mozo=$cliente_visita[0]["mozo"];
+            if($id_mozo>-1){
+                $respuestaArray->mozo = empleado::TraerUnoId($cliente_visita[0]["mozo"])[0];
+
+            }else{
+                $respuestaArray->mozo=-1;
+            }
             $respuestaArray->total_mesa = 0;
 
 

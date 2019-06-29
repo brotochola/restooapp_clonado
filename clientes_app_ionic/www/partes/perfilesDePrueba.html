@@ -49,7 +49,7 @@
     let callbackPruebaPerfil = function (r) {
         console.log(r);
         if (r.itsOK == false) {
-            mostrarModalConfirmacion(r.mensaje, "ok", null, null, null)
+            mostrarModalConfirmacion(r.mensaje, "OK", null, null, null)
         } else {
             cliente.meterleToken(r.token)
             app.quePasaDespuesDeLogin()
