@@ -1,0 +1,183 @@
+<style>
+
+
+    img#fotoRelevo {
+        margin-top: 18px;
+        width: 24vw;
+        height: 24vw;
+        object-fit: cover;
+        border-radius: 17%;
+    }
+
+
+
+#formuRelevo *{
+text-align:center
+}
+
+</style><!--
+
+interfaz relevo:
+
+
+{
+id
+id_empleado
+fecha
+limpieza
+orden
+stock
+residuos
+puntualidad
+}
+
+-->
+
+
+<div class="fondo-modal" id="formuRelevo">
+    <p>Cómo encontró su lugar de trabajo al llegar?</p>
+        <div class="contenedor-modal">
+            <div class="cuerpo-modal ">
+                <div class="container">
+                        <b>Limpieza:<br></b>
+                    <div class="row">
+                        <div class="col-12">
+                                
+                            <div class="info">
+                                <input id="limpieza" type="range" >
+                            </div>
+                        </div>
+                    </div> <b>Orden:<br></b>
+                    <div class="row">
+                           
+                        <div class="col-12">
+                            <div class="info">
+                                    <input id="orden" type="range" >
+                            </div>
+                        </div>                  
+                    </div>    <b>Stock:<br></b>
+                    <div class="row">
+                        
+                            <div class="col-12">
+                                <div class="info">
+                                        <input id="stock" type="range" >
+                                </div>
+                            </div>                  
+                        </div>
+                        <b>Residuos:<br></b>
+                        <div class="row">
+                         
+                                <div class="col-12">
+                                    <div class="info">
+                                            <input id="residuos" type="range" min="0" max="100" step="1">
+                                    </div>
+                                </div>                  
+                            </div>
+                            <b>Puntualidad:<br></b>
+                            <div class="row">
+                               
+                                    <div class="col-6">
+                                        
+                                            Perfecto <input type="radio" name="puntualidad" value="100" checked> 
+                                    </div><div class="col-6">
+                                            Todo bien  <input type="radio" name="puntualidad" value="66">
+                                            </div><div class="col-6">
+                                                    Bastante mal <input type="radio" name="puntualidad" value="33"> 
+                                            </div><div class="col-6">
+                                                    Cualca   <input type="radio" name="puntualidad" value="0"> 
+                                            </div>
+
+                                    </div>                  
+                                </div>
+                                <div class="row">
+                                <div class="col-6">
+                                        <button onclick='sacarFotoRelevo()' class="boton-modal centro"
+                                        id="botonFotoEmpleado">Foto</button>
+                                </div>
+                                <div class="col-6">
+                                    <img id="fotoRelevo" width="50" height="50">
+                                </div>
+
+
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-12 text-center">
+                                                <button class="boton-modal cancelar" onclick="clickGuardarRelevamiento()"
+                                                id="botonBorrarEmpleado">Enviar</button>
+                                            </div>
+
+                                </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+                
+          
+
+    <script>
+    var fotoRelevo=null;
+    let dataAMandar={}
+
+    function clickGuardarRelevamiento(){
+
+        dataAMandar.puntualidad=$("input[name='puntualidad']:checked").val();
+        dataAMandar.residuos=$("#residuos").val();
+        dataAMandar.limpieza=$("#limpieza").val();
+        dataAMandar.orden=$("#orden").val();
+        dataAMandar.stock=$("#stock").val();
+        dataAMandar.id_empleado=usuario.data.id_empleado;
+        
+
+        if(fotoRelevo==null){
+            mostrarModalConfirmacion("No sacó foto. Guardar igual?", "si", "no", () => {
+                console.log("si");  
+                api.guardarRelevo(dataAMandar,cbGuardarRelevo);  
+            })
+        }else{
+            api.guardarRelevo(dataAMandar,cbGuardarRelevo);  
+        }
+
+      
+      
+
+    }
+
+  function  cbGuardarRelevo(){
+        app.esconderUnaParte("partes/formu_relevos.html");
+
+    }
+    
+
+    function sacarFotoRelevo(){
+
+
+        try {
+            navigator.camera.getPicture(fotoRelevoOk, fotoRelevoMal, {
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                targetWidth: 512,
+                targetHeight: 910
+            });
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+
+function fotoRelevoOk(imageData) {
+
+    fotoRelevo = "data:image/jpeg;base64," + imageData;
+    dataAMandar.foto=fotoRelevo;
+    setTimeout(()=>{$("img#fotoEmple")[0].src = fotoRelevo},500);
+    console.log("En cargar foto: " + fotoRelevo);
+}
+
+function fotoRelevoMal(message) {
+    alert("error al sacar la foto: "+ message);
+}
+    </script>

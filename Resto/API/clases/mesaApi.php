@@ -89,6 +89,7 @@ class mesaApi extends mesa
             $cliente = new cliente();
             $cliente->nombre_completo = $nombre;
             $cliente->dni = $dni;
+            $cliente->habilitado=1;
             $cliente->foto = $foto;
             $cliente->email = $email;
             $vIdCliente = $cliente->insertar();
@@ -228,7 +229,13 @@ class mesaApi extends mesa
 
             $respuestaArray->pedidos = $pedidos;
             $respuestaArray->clienteVisita = $cliente_visita[0];
-            $respuestaArray->mozo = empleado::TraerUnoId($cliente_visita[0]["mozo"])[0];
+            $id_mozo=$cliente_visita[0]["mozo"];
+            if($id_mozo>-1){
+                $respuestaArray->mozo = empleado::TraerUnoId($cliente_visita[0]["mozo"])[0];
+
+            }else{
+                $respuestaArray->mozo=-1;
+            }
             $respuestaArray->total_mesa = 0;
 
 

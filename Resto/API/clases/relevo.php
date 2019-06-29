@@ -22,8 +22,8 @@ class relevo
     public function Insertar()
     {
         $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-        $sql = "INSERT into empleados_relevo(id_empleado, id_sector, fecha, limpieza, orden, stock, residuos, puntualidad, foto)
-        values('$this->id_empleado','$this->id_sector','$this->fecha','$this->limpieza','$this->orden','$this->stock','$this->residuos','$this->puntualidad','$this->foto')";
+        $sql = "INSERT into empleados_relevo(id_empleado,   limpieza, orden, stock, residuos, puntualidad, foto)
+        values('$this->id_empleado','$this->limpieza','$this->orden','$this->stock','$this->residuos','$this->puntualidad','$this->foto')";
 
         $consulta = $objetoAccesoDato->RetornarConsulta($sql);
         $consulta->execute();

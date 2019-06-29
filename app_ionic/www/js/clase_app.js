@@ -43,6 +43,10 @@ class App {
             this.traerHTML("partes/cocinero_estado.html", false, true, "cocinero_estado", false,null, ()=>{
                 setTimeout(() => {  $("#fotoDelEmple")[0].src=api.urlServer+usuario.dataUsuario().foto;},500);
             })
+
+            //SI ES COCINERO/CERVECERO/ETC TE PREGUNTA COMO ENCONTRASTE LAS COSAS
+            this.traerHTML("partes/formu_relevos.html", true, false, "relevos",false,"",()=>{});
+     
         }else if(usuario.dataUsuario().id_rol==8){      
             //METRE
             this.audios[4].play();
