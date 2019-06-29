@@ -138,6 +138,10 @@ function id_prod2i(id,array){
   return -1;
 }
 
+function validarInput(input){
+  return !input == "";
+}
+
 ///////////////COSAS DEL QR:
 // Para verificar disponibilidad de una mesa.
 // Para relacionar al cliente con una mesa.
