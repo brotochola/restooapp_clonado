@@ -1,4 +1,4 @@
-<div class="fondo-modal" id="agregarVerEmpleado">
+<div class="fondo-modal" id="agregarReserva">
     <div class="contenedor-modal">
         <div class="cuerpo-modal agregarVerEmpleado">
             <div class="container">
@@ -78,7 +78,8 @@
                 fecha: reserva.fecha+" "+reserva.hora
             };
 
-            console.log(datos);
+            console.log("DATOS que se envian: ", datos);
+            
             api.reservaAhoraCliente(datos, cbAgregarReserva);
 
         }

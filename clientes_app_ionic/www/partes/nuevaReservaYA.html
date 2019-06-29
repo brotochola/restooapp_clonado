@@ -1,0 +1,82 @@
+<div class="fondo-modal" id="agregarReservaYA">
+    <div class="contenedor-modal">
+        <div class="cuerpo-modal agregarVerEmpleado">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-6 inf-add">
+                        <div class="info"> Comensales</div>
+                    </div>
+                    <div class="col-6 select-add">
+                        <div class="info">
+                            <input type="number" id="comensalesYA">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <button class="boton-modal" onclick='pedirReserva_()' id="botonHacerReservaYA">Pedir mesa</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="boton-modal cancelar" onclick='sacarModalReserva_()'>Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    //$("#contenedorSelectMesa").html(array2Select(mesasLibres, "mesa"));
+
+    function cbAgregarReserva_(e) {
+        sacarModalReserva_();
+    }
+
+    function sacarModalReserva_() {
+        app.esconderUnaParte(null, "modalNuevaReservaYA");
+    }
+
+    function pedirReserva_() {
+
+        reserva = {};
+        reserva = TraerDatosDelFormulario_();
+
+        if (datosValidados == true) {
+
+            datos = {
+                id_cliente: cliente.data.id_cliente,
+                id_mesa: -5, //por defecto sin mesa, el metre le asigna una mesa libre random
+                comensales: reserva.comensales,
+                fecha: "HOY"
+            };
+
+            console.log("DATOS que se envian: ", datos);
+
+            api.reservaAhoraCliente(datos, () => {
+                mostrarModalConfirmacion("Se cargó su solicitud para una mesa, alguien le llamará", "OK", null, null, null);
+                sacarModalReserva_();
+                //Habría que anular el botón QR mesa
+            });
+
+        }
+    }
+
+    function TraerDatosDelFormulario_() {
+
+        reserva = {};
+
+        reserva.comensales = $("#comensalesYA").val();
+
+        if (!validarInput($("#comensalesYA").val())) {
+            mostrarModalConfirmacion("Ingresar la cantidad comensales", "OK", null, null, null)
+            datosValidados = false;
+            return;
+        }
+
+        datosValidados = true;
+        return reserva;
+    }
+
+</script>
