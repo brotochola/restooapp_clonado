@@ -1,0 +1,29 @@
+<script>
+
+    function empezarTrivia() {
+        mostrarModalConfirmacion("Cuál es el Día Nacional del Budín de Pan?", "26 de Julio", "No existe", perdiste, () => {
+            //rta correcta:
+            setTimeout(() => {
+                mostrarModalConfirmacion("Cuál es el día en que comemos ñoquis?", "Los 29", "Es este restorán todos los días", perdiste, () => {
+                    setTimeout(() => {
+                        mostrarModalConfirmacion("Cuál es el día del asado? :O", "11 de octubre", "4 de julio", () => {
+                            ganasteJuego();
+                        }, perdiste);
+                    }, 500);
+                })
+            }, 500);
+        });
+
+    }
+
+
+    function perdiste() {
+        alert("perdiste")
+    }
+    function ganasteJuego() {
+        alert("ganaste")
+    }
+
+    empezarTrivia()
+
+</script>
