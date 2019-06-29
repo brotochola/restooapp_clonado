@@ -136,6 +136,20 @@ class API {
             });
         }
 
+        metreAsignaMesaAReserva(id,cb){
+            $.ajax({
+                url:api.urlServer+"reservas/metreAsignaMesaAReserva",
+                data:{id_reserva:id},
+                type:"post",
+                success:(e)=>{
+                    console.log(e);
+                    if (cb instanceof Function) cb(e);
+                },
+                error:(e)=>console.log(e)
+
+            });
+        }
+
     mozoMandaPedido(ped, cb) {
         let pedidoParaMandar = {}
         pedidoParaMandar.id_mesa = mesaActiva.id_mesa;

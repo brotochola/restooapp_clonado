@@ -94,6 +94,8 @@ $app->group('/mesas', function () {
 
 $app->group('/reservas', function () {
 
+    $this->post('/metreAsignaMesaAReserva', \reservaApi::class . ':metreAsignaMesaAReserva');
+
     $this->post('/agregar', \reservaApi::class . ':CargarReserva');
 
     $this->post('/confirmar/{id}', \reservaApi::class . ':ConfirmarReserva');
