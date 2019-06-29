@@ -91,6 +91,6 @@
         </host>
     </universal-links>
     <plugin name="cordova-plugin-barcodescanner" spec="^0.7.4" />
-    <engine name="android" spec="^8.0.0" />
     <engine name="browser" spec="^6.0.0" />
+    <engine name="android" spec="^7.1.4" />
 </widget>

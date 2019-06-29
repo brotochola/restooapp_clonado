@@ -68,7 +68,7 @@
                 <div class="row">
                     <div class="col-1"></div>
                     <div class="col-10">
-                        <button class="boton-modal cancelar" onclick="ScannearPropina()">Dar propina</button>
+                        <!-- <button class="boton-modal cancelar" onclick="ScannearPropina()">Dar propina</button> -->
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -145,22 +145,23 @@
             //prompt para propina
 
             $.ajax({
-                url: api.urlServer + "mesa/estado",
+                url: api.urlServer + "mesa/pedirCuenta",
                 type: "post",
                 dataType: "json",
                 headers: {
                     token: localStorage[clienteLogueado_ls]
                 },
                 data: {
-                    "id_mesa": idMesa,
-                    "estado_mesa": 5
+                    "id_mesa": idMesa
                 },
                 success: function (e) {
                     //aca habria q evaluar segun lo q viene del server
                     //una vez cerrada la mesa
+
+                    alert(JSON.stringify(e));
+
                     console.log(e);
-                    ocultarModalConfirmacion();
-                    //ocultarEstadoMesa();
+                    mostrarModalConfirmacion("Por favor escannear el qr para indicar su satisfacción", "Si", "No", ScannearPropina, null);
                 }
             })
         }//cb si
@@ -186,33 +187,35 @@
     function callBackQRPropina(data) {
 
         obj = JSON.parse(data.text);
-        var mensaje = "Propina agregada a la cuenta!!";
-
+        var mensaje = "Desea agregarle un ";
+        var finalMensaje = " % de propina a la cuenta?";
+        var prop = ""
 
         if (obj.tipo == "propina") {
             var propina = obj.id;
 
             switch (propina) {
                 case 1:
-                    mensaje = "Agregó un 20% de propina a la cuenta!!";
+                    prop = " 20";
                     break;
                 case 2:
-                    mensaje = "Agregó un 15% de propina a la cuenta!!";
+                    prop = " 15";
                     break;
                 case 3:
-                    mensaje = "Agregó un 10% de propina a la cuenta!!";
+                    prop = " 10";
                     break;
                 case 4:
-                    mensaje = "Agregó un 5% de propina a la cuenta!!";
+                    prop = " 5";
                     break;
                 case 5:
-                    mensaje = "Su opinión será tenida en cuenta!!";
+                    prop = " 0";
                     break;
                 default:
-                    mensaje = "Propina agregada a la cuenta!!";
+                    prop = " 0";
                     break;
             }
-            mostrarModalConfirmacion(mensaje, "OK", null, null, null);
+            mostrarModalConfirmacion(mensaje + prop + finalMensaje, "Sí", "No", null, null);
+            //cargar en api de facturación!!
         }
     }
 

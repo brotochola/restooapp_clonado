@@ -125,27 +125,34 @@ class mesaApi extends mesa
         $newResponse = $response->withJson($Mesas, 200);
         return $newResponse;
     }
-    public static function cerrarMesa($request, $response){
-        $id_mesa =$request->getParsedBody()["id_mesa"];
-        $rta= mesa::CambiarEstadoMesa($id_mesa, 6);
-         $newResponse = $response->withJson($rta, 200);
-         return $newResponse;
-    }
-
-    public static function indicarQueLaMesaEstaLibre($request, $response){
-        $id_mesa =$request->getParsedBody()["id_mesa"];
-        $rta= mesa::CambiarEstadoMesa($id_mesa, 0);
-         $newResponse = $response->withJson($rta, 200);
-         return $newResponse;
-    }
-
-
-    public static function pedirCuenta($request, $response){
-        $id_mesa =$request->getParsedBody()["id_mesa"];
-       $rta= mesa::CambiarEstadoMesa($id_mesa, 5);
+    public static function cerrarMesa($request, $response)
+    {
+        $id_mesa = $request->getParsedBody()["id_mesa"];
+        $rta = mesa::CambiarEstadoMesa($id_mesa, 6);
         $newResponse = $response->withJson($rta, 200);
         return $newResponse;
     }
+
+    public static function indicarQueLaMesaEstaLibre($request, $response)
+    {
+        $id_mesa = $request->getParsedBody()["id_mesa"];
+        $rta = mesa::CambiarEstadoMesa($id_mesa, 0);
+        $newResponse = $response->withJson($rta, 200);
+        return $newResponse;
+    }
+
+
+    public static function pedirCuenta($request, $response)
+    {
+        $id_mesa = $request->getParsedBody()["id_mesa"];
+        mesa::CambiarEstadoMesa($id_mesa, 5);
+
+        $rta = self::id2MesaCompleta($id_mesa);
+
+        $newResponse = $response->withJson($rta, 200);
+        return $newResponse;
+    }
+
     public function ModificarEstadoMesa_($request, $response, $args)
     {
         $newResponse = $response;
