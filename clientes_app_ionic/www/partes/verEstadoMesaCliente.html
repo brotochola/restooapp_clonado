@@ -118,6 +118,12 @@
     var idMesa = -1;
     var mesa = {};
 
+    var MesaActual = {
+        id_mesa: "",
+        total_mesa: 0,
+        id_mozo: -1
+    }
+
     function agregarIDMesa() {
         if (api.datosClienteVisita != null) {
             idMesa = api.datosClienteVisita.id_mesa;
@@ -158,7 +164,10 @@
                     //aca habria q evaluar segun lo q viene del server
                     //una vez cerrada la mesa
 
-                    alert(JSON.stringify(e));
+                    //alert(JSON.stringify(e));
+
+                    MesaActual.id_mesa = e.id_mesa;
+                    MesaActual.total_mesa = e.total_mesa;
 
                     console.log(e);
                     mostrarModalConfirmacion("Por favor escannear el qr para indicar su satisfacción", "Si", "No", ScannearPropina, null);
@@ -196,26 +205,43 @@
 
             switch (propina) {
                 case 1:
-                    prop = " 20";
+                    prop = "20";
                     break;
                 case 2:
-                    prop = " 15";
+                    prop = "15";
                     break;
                 case 3:
-                    prop = " 10";
+                    prop = "10";
                     break;
                 case 4:
-                    prop = " 5";
+                    prop = "5";
                     break;
                 case 5:
-                    prop = " 0";
+                    prop = "0";
                     break;
                 default:
-                    prop = " 0";
+                    prop = "0";
                     break;
             }
-            mostrarModalConfirmacion(mensaje + prop + finalMensaje, "Sí", "No", null, null);
-            //cargar en api de facturación!!
+            mostrarModalConfirmacion(mensaje + prop + finalMensaje, "Sí", "No", function () {
+
+                datos = {
+                    id_mesa: MesaActual.id_mesa,
+                    total_mesa: MesaActual.total_mesa,
+                    porcentaje_propina: prop,
+                    id_mozo: MesaActual.id_mozo,
+                    satisfaccion: prop
+                };
+
+                api.cargarFacturacion(datos, function () {
+                    mostrarModalConfirmacion("Su pago ya fue facturado!!", "ok", null, null, null)
+                });
+
+            }, () => {
+
+                console.log("No se pudo entrar");
+
+            });
         }
     }
 

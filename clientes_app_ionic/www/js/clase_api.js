@@ -126,8 +126,30 @@ class API {
         }); //ajax
     }
 
+    cargarFacturacion(datos, cb) {
+        console.log("Entro a clase api");
+        console.log(datos)
+
+        $.ajax({
+            url: this.urlServer + "facturacion/cargar",
+            type: "post",
+            dataType: "json",
+            headers: {
+                token: localStorage[clienteLogueado_ls]
+            },
+            data: datos,
+            success: (e) => {
+                console.log(e);
+                
+                if (cb instanceof Function) cb(e);
+            }, error: (e) => {
+                console.log(e)
+            }
+        }); //ajax
+    }
+
     traerEstadoMesaCliente(id, cb) {
-        console.log("Entra en traerEstadoMesaCliente");
+        alert("Entra en traerEstadoMesaCliente");
 
         $.ajax({
             url: this.urlServer + "cliente-visita/traer-por-id-cliente/" + id,
