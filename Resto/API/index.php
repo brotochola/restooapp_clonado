@@ -25,6 +25,10 @@ require_once './clases/reserva.php';
 require_once './clases/reservaApi.php';
 require_once './clases/clienteVisitaApi.php';
 
+require_once './clases/facturacion.php';
+require_once './clases/facturacionApi.php';
+
+
 
 require_once './clases/relevo.php';
 require_once './clases/relevoApi.php';
@@ -131,21 +135,7 @@ $app->group('/pedido', function () {
 
     $this->post('/ClientesComiendo',\pedidoApi::class . ':InformarClientesComiendo'); 
 
-    //    $this->get('/listadoPendientesSector',\pedidoApi::class . ':TraerTodosLosPendientesSector');
-
-    //   $this->get('/tomarPedido',\pedidoApi::class . ':TomarUnPedido'); 
-
-    //  $this->get('/finalizarPedido',\pedidoApi::class . ':FinalizarUnPedido'); 
-
-    //   $this->delete('/borrar',\pedidoApi::class . ':BorrarUnPedido');
-
-    //    $this->get('/pedidoComanda',\pedidoApi::class . ':TraerPedidosComanda'); 
-
-    //   $this->get('/pedidosDeUnaComanda',\pedidoApi::class . ':TraerPedidosDeComanda');
-
-    //    $this->get('/agregar',\pedidoApi::class . ':AgregarPedidoAComanda'); 
-
-    //   $this->get('/modificarCantidad',\pedidoApi::class . ':ModificaCantidad');        
+      
 });
 
 
@@ -197,20 +187,6 @@ $app->group('/informes', function () {
 
     $this->post('/pedidos/borrados', \informesApi::class . ':TraerPedidosEliminados');
 
-    /*  $this->post('/mesas/uso/mayor',\comandaApi::class . ':MesaMayorOcupacion');
-     
-    $this->post('/mesas/uso/menor',\comandaApi::class . ':MesaMenorOcupacion');
-    
-    $this->post('/mesas/facturacion/mayor',\comandaApi::class . ':MesaMayorFacturacion');
-
-    $this->post('/mesas/facturacion/menor',\comandaApi::class . ':MesaMenorFacturacion');
-
-    $this->post('/mesas/facturacion/mejor',\comandaApi::class . ':MesaFacturacionMasAlta');
-
-    $this->post('/mesas/facturacion/peor',\comandaApi::class . ':MesaFacturacionMasBaja');
-
-    $this->post('/mesas/facturacion/fecha',\comandaApi::class . ':MesaFacturacionFecha');
-*/
     $this->post('/pedidos/demorados', \pedidoApi::class . ':PedidosDemorados');
 
     $this->post('/encuestas/mejor', \informesApi::class . ':MejorNota');
@@ -235,6 +211,16 @@ $app->group('/producto', function () {
 
     $this->delete('/borra', \productoApi::class . ':BorrarProducto');
 }); //->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+
+
+$app->group('/facturacion', function () {
+
+    $this->post('/cargar', \facturacionApi::class . ':CargarFacturacion');
+
+    $this->post('/listado', \facturacionApi::class . ':TraerFacturaciones');
+    
+});
+
 
 
 $app->group('/empleados/relevo', function () {
