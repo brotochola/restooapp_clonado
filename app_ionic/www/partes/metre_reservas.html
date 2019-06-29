@@ -66,7 +66,10 @@ function asignarMesaAEstaReserva(id){
     api.metreAsignaMesaAReserva(id,cbMetreReserva);
 }
 
-function cbMetreReserva(){
+function cbMetreReserva(e){
+    if(checkStr(e.mensaje)){
+        mostrarModalConfirmacion(e.mensaje,"ok");
+    }
     console.log(" cb cb metre reserva!");
 }
 
