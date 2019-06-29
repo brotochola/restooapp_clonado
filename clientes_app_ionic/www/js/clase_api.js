@@ -5,7 +5,7 @@ class API {
          if (window.hasOwnProperty("cordova")) this.urlServer = "http://pixeloide.com/restoApp/API/";
          else this.urlServer = "../../Resto/API/";
 
-      //  this.urlServer="http://pixeloide.com/restoApp/API/"
+        this.urlServer="http://pixeloide.com/restoApp/API/"
 
         //ESTOS DATOS VIENEN DEL SERVER Y QUEDAN TODOS ACA:
         this.empleados = null;

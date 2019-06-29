@@ -95,16 +95,8 @@
 
         $("#nombreCliente").html(cliente.dataCliente().nombre_completo);
 
-        refreshId = setInterval(function () {
-            if (api.datosClienteVisita) {
-                //clearInterval(refreshId);
-                if(api.datosClienteVisita.clienteVisita.cerrado==0){
-                    mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa);
-                }else{
-                    clearInterval(refreshId);
-                    app.traerHTML("partes/botonesQR.html", false);
-                }
-            }
+        refreshId = setInterval(()=>{
+            api.traerUnaMesa(api.datosClienteVisita.id_mesa, cbMostrarEstadoMesa);
         }, 7000);
     });
 
@@ -262,6 +254,13 @@
 
         app.ocultarLoading();
 
+        if(mesa.clienteVisita.cerrado==1){
+               app.traerHTML("partes/botonesQR.html", false);
+               clearInterval(refreshId);
+                   
+       }
+
+
         console.log(mesa)
         mesaActiva = mesa;
         $("#listadoDePedidosMesa").html("")
@@ -358,7 +357,7 @@
                 'id_mesa': id_mesa
             },
             success: (e) => {
-                // mostrarEstadoMesaAdmin(api.datosClienteVisita.id_mesa) 
+              
                 api.traerUnaMesa(api.datosClienteVisita.id_mesa, cbMostrarEstadoMesa);
                 // cbMostrarEstadoMesa(e);
             },
