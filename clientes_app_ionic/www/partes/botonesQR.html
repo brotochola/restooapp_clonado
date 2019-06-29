@@ -61,8 +61,10 @@
         docReady = 1;
 
         //Parche para nombre en QR
-        //setInterval(() => { cargarNombreEnNavQR(); }, 500);
         $("#nombreClienteBotonQR").html(cliente.dataCliente().nombre_completo);
+
+
+    
     });
 
     function hacerReserva(){
@@ -90,7 +92,7 @@
     };
 
     function cbSolicitarMesa(data) {
-        //hacer reserva!
+        //esto es para pedir una mesa YA!
 
         let a = data.text.replaceAll("”", '"').replaceAll("“", '"');
         // alert(a)
@@ -101,7 +103,7 @@
 
             datos = {
                 id_cliente: cliente.data.id_cliente,
-                id_mesa: -5, //como bandera para indicar que no
+                id_mesa: -5, //por defecto sin mesa, el metre le asigna una mesa libre random
                 comensales: 2,
                 fecha: "HOY"
             };
@@ -110,7 +112,7 @@
             console.log(datos);
 
             api.reservaAhoraCliente(datos, () => {
-                mostrarModalConfirmacion("Se cargó la reserva, alguien le llamará", "ok", null, null, null)
+                mostrarModalConfirmacion("Se cargó su solicitud para una mesa, alguien le llamará", "OK", null, null, null);
             });
         } else {
             console.log("Error en QR");
@@ -157,9 +159,9 @@
         if (obj.tipo == "mesa") {
             api.clienteSeSientaEnUnaMesaYEscaneaElQRDeLaMesa(obj.id, cliente.data.id_cliente, (e) => {
                 if (!e.hasOwnProperty("id_mesa")) {
-                    mostrarModalConfirmacion(e.mensaje, "ok", null, null, null);
+                    mostrarModalConfirmacion(e.mensaje, "OK", null, null, null);
                 } else {
-                    //mostrarModalConfirmacion("se registró correctamente en la mesa " + e.id_mesa, "ok", null, null, null);
+                    //mostrarModalConfirmacion("se registró correctamente en la mesa " + e.id_mesa, "OK", null, null, null);
                     app.traerHTML("partes/verEstadoMesaCliente.html", false, true, "verMiMesa", false, "", null);
                     setTimeout(() => {
                         popularDatosMesa();
